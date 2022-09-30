@@ -1,9 +1,9 @@
 # Timelog
 
-* PROJECT NAME
-* YOUR NAME
-* STUDENT_ID
-* SUPERVISOR NAME
+* A Seamful Game based on GPS Shadows
+* Robbert Sinclair
+* 2432710S
+* Mathew Chalmers
 
 ## Guidance
 
@@ -14,13 +14,11 @@
 
 ## Week 1
 
-### 19 Oct 2019
+### 29 Sept 2022
 
-* *4 hours* Read the project guidance notes
-* *0.5 hour* Created GitLab repository and cloned the cookiecutter for the projects
-* *1 hour* Modified dissertation template, compiled  
+* *2 hours* Did research on the APIs that I could use to get GPS coordinates 
 
-## 20 Oct 2019
+## 30 Oct 2022
 
-* *1 hour* meeting with supervisor
-* *2 hours* writing initial version of test harness
+* *0.5 hours* meeting with supervisor
+* *2 hours* Did some further research on GPS APIs. Looked into what kind of app to make
