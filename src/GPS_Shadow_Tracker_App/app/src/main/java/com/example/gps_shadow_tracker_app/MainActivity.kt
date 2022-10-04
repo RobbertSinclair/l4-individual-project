@@ -1,14 +1,20 @@
 package com.example.gps_shadow_tracker_app
 
+import android.Manifest
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
     private var timer: Timer = Timer();
     private lateinit var latValueLabel : TextView;
     private lateinit var longValueLabel : TextView;
+    //private lateinit var permissionLabel : TextView;
     private var counter = 0;
 
 
@@ -17,20 +23,45 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         latValueLabel = findViewById(R.id.latValueLabel);
         longValueLabel = findViewById(R.id.longValueLabel);
+        //permissionLabel = findViewById(R.id.permissionLabel)!!;
         latValueLabel.text = counter.toString();
         longValueLabel.text = counter.toString();
+        //permissionLabel.text = "PERMISSIONS PENDING";
+        getLocation();
 
         timer.scheduleAtFixedRate(object: TimerTask() {
             override fun run() {
                 runOnUiThread() {
-                    incrementLabels();
+                    getLocation();
                 }
             } },0, 1000);
 
 
     }
 
-    fun incrementLabels() {
+    fun getLocation() {
+        /*when {
+            ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED -> {
+                permissionLabel.text = "PERMISSION GRANTED";
+            }
+            else -> {
+                permissionLabel.text = "PERMISSION DENIED";
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_BACKGROUND_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION
+                    ),
+                    1
+                )
+            }
+
+        }*/
+
         counter++;
         this.latValueLabel.text = counter.toString();
         this.longValueLabel.text = counter.toString();

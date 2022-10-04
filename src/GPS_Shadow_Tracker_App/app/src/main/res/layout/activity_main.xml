@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
@@ -55,5 +56,15 @@
         app:layout_constraintStart_toStartOf="@+id/latLabel"
         app:layout_constraintTop_toTopOf="@+id/latLabel"
         tools:text="0" />
+
+    <TextView
+        android:id="@+id/permissionLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        app:layout_constraintTop_toTopOf="@+id/longValueLabel"
+        tools:layout_editor_absoluteX="118dp"
+        tools:text="GRANTED" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
