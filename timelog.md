@@ -18,7 +18,16 @@
 
 * *2 hours* Did research on the APIs that I could use to get GPS coordinates 
 
-## 30 Oct 2022
+## 30 Sept 2022
 
 * *0.5 hours* meeting with supervisor
 * *2 hours* Did some further research on GPS APIs. Looked into what kind of app to make
+
+## 2 Oct 2022
+* *2 hours* installed Android Studio on both my laptop and the desktop
+
+## 3 Oct 2022
+* *2 hours* Created a basic counting application
+
+## 4 Oct 2022
+* *2 hours* Did some work on permissions
