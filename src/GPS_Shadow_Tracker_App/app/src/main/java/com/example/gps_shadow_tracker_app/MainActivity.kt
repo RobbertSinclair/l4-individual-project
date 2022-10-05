@@ -2,12 +2,14 @@ package com.example.gps_shadow_tracker_app
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.google.android.gms.location.FusedLocationProviderClient
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -16,15 +18,19 @@ class MainActivity : AppCompatActivity() {
     private lateinit var longValueLabel : TextView;
     //private lateinit var permissionLabel : TextView;
     private var counter = 0;
+    private var locationPermission : Boolean? = false;
+    private lateinit var fusedLocationClient: FusedLocationProviderClient;
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_main)
         latValueLabel = findViewById(R.id.latValueLabel);
+        locationPermission = getLocationPermission();
+        fusedLocationClient = FusedLocationProviderClient(this);
         longValueLabel = findViewById(R.id.longValueLabel);
-        //permissionLabel = findViewById(R.id.permissionLabel)!!;
-        latValueLabel.text = counter.toString();
         longValueLabel.text = counter.toString();
         //permissionLabel.text = "PERMISSIONS PENDING";
         getLocation();
@@ -39,32 +45,38 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun getLocation() {
-        /*when {
-            ContextCompat.checkSelfPermission(
+    fun getLocationPermission() : Boolean {
+
+        if (ContextCompat.checkSelfPermission(
                 this,
                 Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED -> {
-                permissionLabel.text = "PERMISSION GRANTED";
-            }
-            else -> {
-                permissionLabel.text = "PERMISSION DENIED";
-                ActivityCompat.requestPermissions(
+        ) == PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(
                     this,
-                    arrayOf(
-                        Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_BACKGROUND_LOCATION,
-                        Manifest.permission.ACCESS_COARSE_LOCATION
-                    ),
-                    1
-                )
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                ) == PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.ACCESS_BACKGROUND_LOCATION
+                ) == PackageManager.PERMISSION_GRANTED){
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    fun getLocation() {
+
+        fusedLocationClient.lastLocation
+            .addOnSuccessListener { location: Location? ->
+                if (location != null) {
+                    this.latValueLabel.text = location.latitude.toString();
+                    this.longValueLabel.text = location.longitude.toString();
+                }
+
+
             }
-
-        }*/
-
-        counter++;
-        this.latValueLabel.text = counter.toString();
-        this.longValueLabel.text = counter.toString();
-
+            
     }
 }
