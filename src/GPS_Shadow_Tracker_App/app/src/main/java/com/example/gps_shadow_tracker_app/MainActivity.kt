@@ -10,6 +10,9 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationRequest.PRIORITY_HIGH_ACCURACY
+import com.google.android.gms.tasks.CancellationToken
+import com.google.android.gms.tasks.CancellationTokenSource
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -68,7 +71,8 @@ class MainActivity : AppCompatActivity() {
 
     fun getLocation() {
 
-        fusedLocationClient.lastLocation
+        val cancelTokenSource : CancellationTokenSource = CancellationTokenSource()
+        fusedLocationClient.getCurrentLocation(PRIORITY_HIGH_ACCURACY, cancelTokenSource.token)
             .addOnSuccessListener { location: Location? ->
                 if (location != null) {
                     this.latValueLabel.text = location.latitude.toString();
@@ -77,6 +81,6 @@ class MainActivity : AppCompatActivity() {
 
 
             }
-            
+
     }
 }
