@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var latValueLabel : TextView;
     private lateinit var longValueLabel : TextView;
     //private lateinit var permissionLabel : TextView;
+    private lateinit var accuracyValueLabel : TextView;
     private var counter = 0;
     private var locationPermission : Boolean? = false;
     private lateinit var fusedLocationClient: FusedLocationProviderClient;
@@ -35,6 +36,8 @@ class MainActivity : AppCompatActivity() {
         fusedLocationClient = FusedLocationProviderClient(this);
         longValueLabel = findViewById(R.id.longValueLabel);
         longValueLabel.text = counter.toString();
+        accuracyValueLabel = findViewById(R.id.accuracyLabelValue);
+        accuracyValueLabel.text = "0";
         //permissionLabel.text = "PERMISSIONS PENDING";
         getLocation();
 
@@ -77,6 +80,7 @@ class MainActivity : AppCompatActivity() {
                 if (location != null) {
                     this.latValueLabel.text = location.latitude.toString();
                     this.longValueLabel.text = location.longitude.toString();
+                    this.accuracyValueLabel.text = location.accuracy.toString();
                 }
 
 

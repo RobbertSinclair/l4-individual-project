@@ -58,13 +58,22 @@
         tools:text="0" />
 
     <TextView
-        android:id="@+id/permissionLabel"
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:text="Accuracy"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintStart_toStartOf="@+id/latLabel2"
+        app:layout_constraintTop_toTopOf="@+id/accuracyLabelValue" />
+
+    <TextView
+        android:id="@+id/accuracyLabelValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintEnd_toEndOf="@+id/longValueLabel"
         app:layout_constraintTop_toTopOf="@+id/longValueLabel"
-        tools:layout_editor_absoluteX="118dp"
-        tools:text="GRANTED" />
+        tools:text="0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
