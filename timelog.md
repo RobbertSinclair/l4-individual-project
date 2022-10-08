@@ -39,3 +39,8 @@
 
 * *1 hour* Added an accuracy label
 * *1 hour* Did a general walk around Glasgow to look at GPS accuracy in Kelvingrove Park
+
+## 8 Oct 2022
+
+* *4 hours* Created a web app for tracking GPS trackers
+* *2 hours* Set up the Kotlin app for sending data to the web app
