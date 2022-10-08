@@ -31,3 +31,11 @@
 
 ## 4 Oct 2022
 * *2 hours* Did some work on permissions
+
+## 5 Oct 2022
+* *0.5 hours* Supervisor Meeting
+
+## 7 Oct 2022
+
+* *1 hour* Added an accuracy label
+* *1 hour* Did a general walk around Glasgow to look at GPS accuracy in Kelvingrove Park

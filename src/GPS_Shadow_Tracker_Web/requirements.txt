@@ -1,0 +1,34 @@
+autograd @ git+https://github.com/HIPS/autograd@01eacff7a4f12e6f7aebde7c4cb4c1c2633f217d
+certifi @ file:///C:/b/abs_4f5wo627a3/croots/recipe/certifi_1663615677642/work/certifi
+chardet==4.0.0
+colorama==0.4.4
+Django==2.2.17
+django-cors-headers==3.7.0
+django-filter==2.4.0
+django-registration-redux==2.2
+django-rest-framework==0.1.0
+djangorestframework==3.12.4
+docx2pdf==0.1.8
+docxcompose==1.3.5
+docxtpl==0.16.4
+future==0.18.2
+idna==2.10
+Jinja2==3.1.2
+lxml==4.9.1
+Markdown==3.3.4
+MarkupSafe==2.1.1
+numpy==1.23.3
+Pillow==8.1.0
+PyPDF2==2.10.9
+pypiwin32==223
+python-docx==0.8.11
+pytz==2020.5
+pywin32==304
+requests==2.25.1
+six==1.15.0
+sqlparse==0.4.1
+tqdm==4.64.1
+typing-extensions==4.3.0
+urllib3==1.26.3
+wincertstore==0.2
+wrapt==1.12.1
