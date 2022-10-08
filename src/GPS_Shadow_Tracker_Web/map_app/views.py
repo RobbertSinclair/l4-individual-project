@@ -4,6 +4,7 @@ from django.forms.models import model_to_dict
 from map_app.models import GpsLocation
 import json
 from datetime import datetime
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 
@@ -16,7 +17,7 @@ def get_locations_dict(locations):
     return {"locations": location_list}
 
 def main_view(request):
-    return HttpResponse("MAP APP")
+    return render(request, "index.html")
 
 def all_locations(request):
     locations = GpsLocation.objects.all()
@@ -29,3 +30,16 @@ def locations_in_time(request, start_time, end_time):
     locations = GpsLocation.objects.filter(time__range=(start, end))
     response_dict = get_locations_dict(locations)
     return JsonResponse(response_dict)
+
+@csrf_exempt
+def submit_location(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            new_location = GpsLocation.objects.create(latitude=data["latitude"], longitude=data["longitude"], accuracy=data["accuracy"])
+            new_location.save()
+            return JsonResponse({"message": "success"})
+        except:
+            return JsonResponse({"message": "error something went wrong"})
+    else:
+        return HttpResponse("This must be a POST Request")
