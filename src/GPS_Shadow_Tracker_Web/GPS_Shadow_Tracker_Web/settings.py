@@ -30,7 +30,7 @@ with open(os.path.join(BASE_DIR, "secret.key")) as f:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1", "https://gpsshadows.pythonanywhere.com/"]
+ALLOWED_HOSTS = ["127.0.0.1", "gpsshadows.pythonanywhere.com"]
 
 
 # Application definition
