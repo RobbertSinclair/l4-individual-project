@@ -36,9 +36,13 @@ def submit_location(request):
     if request.method == "POST":
         try:
             data = json.loads(request.body)
-            new_location = GpsLocation.objects.create(latitude=data["latitude"], longitude=data["longitude"], accuracy=data["accuracy"])
-            new_location.save()
-            return JsonResponse({"message": "success"})
+            current_locations = GpsLocation.objects.filter(latitude=data["latitude"], longitude=data["longitude"], accuracy=data["accuracy"])
+            if len(current_locations) == 0:
+                new_location = GpsLocation.objects.create(latitude=data["latitude"], longitude=data["longitude"], accuracy=data["accuracy"])
+                new_location.save()
+                return JsonResponse({"message": "success"})
+            else:
+                return JsonResponse({"message": "There is already a record for this location"})
         except:
             return JsonResponse({"message": "error something went wrong"})
     else:
