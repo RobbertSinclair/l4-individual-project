@@ -21,7 +21,6 @@ PyPDF2==2.10.9
 pypiwin32==223
 python-docx==0.8.11
 pytz==2020.5
-pywin32==304
 requests==2.25.1
 six==1.15.0
 sqlparse==0.4.1
