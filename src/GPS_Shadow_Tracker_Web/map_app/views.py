@@ -5,6 +5,7 @@ from map_app.models import GpsLocation
 import json
 from datetime import datetime
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -16,14 +17,17 @@ def get_locations_dict(locations):
         location_list.append(location_dict)
     return {"locations": location_list}
 
+@login_required(login_url="/admin/login")
 def main_view(request):
     return render(request, "index.html")
 
+@login_required(login_url="/admin/login")
 def all_locations(request):
     locations = GpsLocation.objects.all()
     response_dict = get_locations_dict(locations)
     return JsonResponse(response_dict)
 
+@login_required(login_url="/admin/login")
 def locations_in_time(request, start_time, end_time):
     start = datetime.strptime(start_time, '%H:%M').time()
     end = datetime.strptime(end_time, '%H:%M').time()
