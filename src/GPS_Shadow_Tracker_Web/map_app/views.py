@@ -31,7 +31,8 @@ def all_locations(request):
 def locations_in_time(request, start_time, end_time):
     start = datetime.strptime(start_time, '%H:%M').time()
     end = datetime.strptime(end_time, '%H:%M').time()
-    locations = GpsLocation.objects.filter(time__range=(start, end))
+    locations = GpsLocation.objects.filter(time__gte=start, time__lte=end)
+    
     response_dict = get_locations_dict(locations)
     return JsonResponse(response_dict)
 
