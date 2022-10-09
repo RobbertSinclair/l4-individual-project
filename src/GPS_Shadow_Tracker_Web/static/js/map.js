@@ -51,10 +51,11 @@ function getLocations(url) {
             }).addTo(markerLayer);
             circle.bindPopup(`Accuracy: ${location.accuracy}<br>Time: ${location.time}`);
             console.log(`Added a circle at ${location.latitude} ${location.longitude}`);
-            mean.innerText = Number(body.stats.mean).toFixed(3);
-            min.innerText = Number(body.stats.min).toFixed(3);
-            max.innerText = Number(body.stats.max).toFixed(3);
+            
         })
+        mean.innerText = Number(body.stats.mean).toFixed(3);
+        min.innerText = Number(body.stats.min).toFixed(3);
+        max.innerText = Number(body.stats.max).toFixed(3);
         map.addLayer(markerLayer);
     });
 }
