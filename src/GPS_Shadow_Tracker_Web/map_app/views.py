@@ -1,13 +1,27 @@
-from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
-from django.forms.models import model_to_dict
-from map_app.models import GpsLocation
-import json
 from datetime import datetime
-from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
+from django.forms.models import model_to_dict
+from django.http import HttpResponse, JsonResponse
+from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
+import json
+from map_app.models import GpsLocation
+import numpy as np
+import pandas as pd
+
 
 # Create your views here.
+
+
+def get_stats(json_data):
+    pandas_data = pd.json_normalize(json_data["locations"])
+    accuracy_array = pandas_data["accuracy"]
+    mean = np.mean(accuracy_array)
+    print(mean)
+    max_accuracy = np.max(accuracy_array)
+    min_accuracy = np.min(accuracy_array)
+    return {"mean": mean, "min": min_accuracy, "max": max_accuracy }
+
 
 def get_locations_dict(locations):
     location_list = []
@@ -15,7 +29,9 @@ def get_locations_dict(locations):
         location_dict = model_to_dict(location)
         location_dict["time"] = location_dict["time"].strftime("%H:%M:%S")
         location_list.append(location_dict)
-    return {"locations": location_list}
+    response_dict = {"locations": location_list}
+    response_dict["stats"] = get_stats(response_dict)
+    return response_dict
 
 @login_required(login_url="/admin/login")
 def main_view(request):
@@ -25,6 +41,7 @@ def main_view(request):
 def all_locations(request):
     locations = GpsLocation.objects.all()
     response_dict = get_locations_dict(locations)
+    get_stats(response_dict)
     return JsonResponse(response_dict)
 
 @login_required(login_url="/admin/login")

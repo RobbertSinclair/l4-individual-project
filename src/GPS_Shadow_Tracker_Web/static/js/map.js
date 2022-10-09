@@ -1,5 +1,8 @@
 const map = L.map("map").setView([55.8724, -4.29], 14);
 const timeSelect = document.getElementById("timeSelect");
+const mean = document.getElementById("mean");
+const min = document.getElementById("min");
+const max = document.getElementById("max");
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attritution: `&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>`
@@ -46,8 +49,11 @@ function getLocations(url) {
                 fillOpacity: 0.5,
                 radius: location.accuracy
             }).addTo(markerLayer);
-            circle.bindPopup(`Accuracy: ${location.accuracy}<br>Time: ${location.time}`)
-            console.log(`Added a circle at ${location.latitude} ${location.longitude}`)
+            circle.bindPopup(`Accuracy: ${location.accuracy}<br>Time: ${location.time}`);
+            console.log(`Added a circle at ${location.latitude} ${location.longitude}`);
+            mean.innerText = body.stats.mean;
+            min.innerText = body.stats.min;
+            max.innerText = body.stats.max;
         })
         map.addLayer(markerLayer);
     });

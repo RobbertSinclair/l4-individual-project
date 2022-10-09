@@ -1,3 +1,16 @@
+body {
+    font-family: 'Arial';
+}
+
+
 #map {
-    height: 80vh;
+    height:80vh;
+}
+
+#stats {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20vw;
 }
