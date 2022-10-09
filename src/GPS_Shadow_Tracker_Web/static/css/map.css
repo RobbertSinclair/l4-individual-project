@@ -1,7 +1,14 @@
 body {
-    font-family: 'Arial';
+    font-family: 'Trebuchet MS', sans-serif;
 }
 
+#title {
+    text-align: center;
+}
+
+#timeForm {
+    padding: 10px;
+}
 
 #map {
     height:80vh;
