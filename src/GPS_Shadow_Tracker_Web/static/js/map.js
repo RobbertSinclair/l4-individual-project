@@ -45,7 +45,7 @@ function getLocations(url) {
         locations.forEach(location => {
             let circle = L.circle([location.latitude, location.longitude], {
                 color: calculateColour(location.accuracy, body.stats.mean),
-                fillColor: calculateColour(location.accuracy),
+                fillColor: calculateColour(location.accuracy, body.stats.mean),
                 fillOpacity: 0.5,
                 radius: location.accuracy / 5
             }).addTo(markerLayer);
