@@ -47,7 +47,7 @@ function getLocations(url) {
                 color: calculateColour(location.accuracy),
                 fillColor: calculateColour(location.accuracy),
                 fillOpacity: 0.5,
-                radius: location.accuracy
+                radius: location.accuracy / 5
             }).addTo(markerLayer);
             circle.bindPopup(`Accuracy: ${location.accuracy}<br>Time: ${location.time}`);
             console.log(`Added a circle at ${location.latitude} ${location.longitude}`);
