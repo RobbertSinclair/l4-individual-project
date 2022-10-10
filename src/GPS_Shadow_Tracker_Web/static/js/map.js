@@ -22,12 +22,12 @@ timeSelect.addEventListener("submit", (e) => {
     getLocations(filterUrl);
 })
 
-function calculateColour(accuracy) {
-    if (accuracy < 20) {
-        return "blue";
-    } else if (accuracy >= 20 && accuracy < 40) {
+function calculateColour(accuracy, mean) {
+    if (accuracy < mean) {
         return "green";
-    } else if (accuracy >=40 && accuracy < 60) {
+    } else if (accuracy >= mean && accuracy < mean * 2) {
+        return "green";
+    } else if (accuracy >= (mean * 2) && accuracy < (mean * 3)) {
         return "orange";
     } else {
         return "red";
@@ -44,7 +44,7 @@ function getLocations(url) {
         const locations = body.locations;
         locations.forEach(location => {
             let circle = L.circle([location.latitude, location.longitude], {
-                color: calculateColour(location.accuracy),
+                color: calculateColour(location.accuracy, body.stats.mean),
                 fillColor: calculateColour(location.accuracy),
                 fillOpacity: 0.5,
                 radius: location.accuracy / 5
