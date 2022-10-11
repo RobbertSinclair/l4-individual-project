@@ -44,3 +44,7 @@
 
 * *4 hours* Created a web app for tracking GPS trackers
 * *2 hours* Set up the Kotlin app for sending data to the web app
+
+## 11 Oct 2022
+
+* *1 hour* Had a meeting with my supervisor
