@@ -48,3 +48,17 @@
 ## 11 Oct 2022
 
 * *1 hour* Had a meeting with my supervisor
+
+## 14 Oct 2022
+
+* *2 hours* Made a walk to log the Botanic Gardens and Kelvin Way
+* *3 hours* Found sources on GPS
+
+## 16 Oct 2022
+* *4 hours* Found Sources and came up with ideas for games
+
+## 17 Oct 2022
+* *3 hours* Made a start to the background write up on GPS
+
+## 18 Oct 2022
+* *1 hour* Supervisor Meeting
