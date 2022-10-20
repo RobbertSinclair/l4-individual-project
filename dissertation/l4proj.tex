@@ -161,12 +161,24 @@ In this chapter I will go over some of the foundational concepts required to und
 The Global Positioning System also known as GPS is one of the worlds most famous GNSS systems. It allows people to determine their
 location from anywhere around the world at any time. GPS has three main phases, the space phase, the control phase and the user phase.
 In the space phase, the earth is split up into 24 "slots" which should be filled up by an operational satellite \citep{spsStandard}. Therefore
-the GPS constellation is made up of at least 24 satellites. In an ideal situation a user should have access to at least 4 of the satellites
-at any one time \citep{Rabbany2006}. The satellites send down radio signals in which GPS receivers can get through an antenna.
+the GPS constellation is made up of at least 24 opterational satellites. In an ideal situation a user should have access to at least 4 of the satellites
+at any one time \citep{Rabbany2006}. 
+
+Each GPS satellite consistently sends down radio signals down to the Earth's surface. As of 2020 there are three main frequencies
+these are L1 which emits at 1575.42 MHz, L2 which emits radio waves at 1227.6 MHz and L5 with 1176.45 MHz \citep{spsStandard}. Meaning that a certain radious of the surface is covered
+by this. A GPS receiver will pick up this data and can use the satellite to calculate the distance from each satellite. Once a 
+satellite distance is calculated we can create a radius of equidistant points. We can then add the signals from several other
+satellites to find the intersection points. We usually need 3 to 4 satellites to be able to pinpoint the GPS receiver on the map. \citep{Rabbany2006}
+
+
 
 %TODO - Add a source and paragraph about how GPS is calculated
 
 \section{What causes Inaccuracies in GPS Systems}
+In this project we will be looking at making a game based on GPS shadows which are areas where the GPS signal is not as accurate. In this section I will look
+at the various factors that could effect our accuracy.
+
+
 
 \section{Guidance}
 \begin{itemize}    
