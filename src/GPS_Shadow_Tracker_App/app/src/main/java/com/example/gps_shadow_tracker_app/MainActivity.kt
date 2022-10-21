@@ -3,9 +3,11 @@ package com.example.gps_shadow_tracker_app
 import android.Manifest
 import android.content.pm.PackageManager
 import android.location.Location
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.android.volley.Request
@@ -29,13 +31,17 @@ class MainActivity : AppCompatActivity() {
     private var locationPermission : Boolean? = false;
     private lateinit var fusedLocationClient: FusedLocationProviderClient;
     private val locationUrl = "https://gpsshadows.pythonanywhere.com/submit_location";
+    private lateinit var restClient: RestClient;
+    private lateinit var gpsLocation: GPSLocation;
 
 
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_main);
+        restClient = RestClient(this);
         latValueLabel = findViewById(R.id.latValueLabel);
         locationPermission = getLocationPermission();
         fusedLocationClient = FusedLocationProviderClient(this);
@@ -43,6 +49,8 @@ class MainActivity : AppCompatActivity() {
         longValueLabel.text = counter.toString();
         accuracyValueLabel = findViewById(R.id.accuracyLabelValue);
         accuracyValueLabel.text = "0";
+        gpsLocation = GPSLocation(this);
+
         //permissionLabel.text = "PERMISSIONS PENDING";
         getLocation();
 
@@ -79,6 +87,14 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    fun responseSuccess(theString: String): Unit {
+        Log.i("Response", theString);
+    }
+
+    fun errorMessage() : Unit {
+        Log.i("Response", "Error Message");
+    }
+
     fun getLocation() {
 
         val cancelTokenSource : CancellationTokenSource = CancellationTokenSource()
@@ -110,16 +126,8 @@ class MainActivity : AppCompatActivity() {
                         locationParams["longitude"] = location.longitude.toString();
                         locationParams["accuracy"] = location.accuracy.toString();
                         val jsonObject = JSONObject(locationParams as Map<*, *>?);
-                        val queue = Volley.newRequestQueue(this);
-                        val stringRequest = JsonObjectRequest(Request.Method.POST, locationUrl, jsonObject,
-                        Response.Listener { response ->
-                            Log.i("Location", response.toString());
-                        }, Response.ErrorListener {
-                            Log.i("Location", "Error");
-                            }
-                            );
 
-                        queue.add(stringRequest);
+                        this.restClient.post(locationUrl, jsonObject);
 
 
 

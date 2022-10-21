@@ -165,8 +165,8 @@ the GPS constellation is made up of at least 24 opterational satellites. In an i
 at any one time \citep{Rabbany2006}. 
 
 Each GPS satellite consistently sends down radio signals down to the Earth's surface. As of 2020 there are three main frequencies
-these are L1 which emits at 1575.42 MHz, L2 which emits radio waves at 1227.6 MHz and L5 with 1176.45 MHz \citep{spsStandard}. Meaning that a certain radious of the surface is covered
-by this. A GPS receiver will pick up this data and can use the satellite to calculate the distance from each satellite. Once a 
+these are L1 which emits at 1575.42 MHz, L2 which emits radio waves at 1227.6 MHz and L5 with 1176.45 MHz \citep{spsStandard}. This project
+will most likely be using L2 and L1 as L5 is used mainly for aviation safety \citep{Xu2016} A GPS receiver will pick up this data and can use the satellite to calculate the distance from each satellite. Once a 
 satellite distance is calculated we can create a radius of equidistant points. We can then add the signals from several other
 satellites to find the intersection points. We usually need 3 to 4 satellites to be able to pinpoint the GPS receiver on the map. \citep{Rabbany2006}
 
@@ -177,6 +177,10 @@ satellites to find the intersection points. We usually need 3 to 4 satellites to
 \section{What causes Inaccuracies in GPS Systems}
 In this project we will be looking at making a game based on GPS shadows which are areas where the GPS signal is not as accurate. In this section I will look
 at the various factors that could effect our accuracy.
+
+\subsection{GPS Clock Errors}
+The first form of GPS error is a clock error.
+
 
 
 
