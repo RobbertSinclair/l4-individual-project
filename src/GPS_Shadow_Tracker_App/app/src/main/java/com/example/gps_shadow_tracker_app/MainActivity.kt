@@ -1,143 +1,23 @@
 package com.example.gps_shadow_tracker_app
 
-import android.Manifest
-import android.content.pm.PackageManager
-import android.location.Location
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import com.android.volley.Request
-import com.android.volley.Response
-import com.android.volley.toolbox.JsonObjectRequest
-import com.android.volley.toolbox.Volley
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationRequest.PRIORITY_HIGH_ACCURACY
-import com.google.android.gms.tasks.CancellationTokenSource
-import org.json.JSONObject
-import java.util.*
-
+import com.example.gps_shadow_tracker_app.gps.GPSService
+import com.example.gps_shadow_tracker_app.ui.LocationTextViews
 
 class MainActivity : AppCompatActivity() {
-    private var timer: Timer = Timer();
-    private lateinit var latValueLabel : TextView;
-    private lateinit var longValueLabel : TextView;
-    //private lateinit var permissionLabel : TextView;
-    private lateinit var accuracyValueLabel : TextView;
-    private var counter = 0;
-    private var locationPermission : Boolean? = false;
-    private lateinit var fusedLocationClient: FusedLocationProviderClient;
-    private val locationUrl = "https://gpsshadows.pythonanywhere.com/submit_location";
-    private lateinit var restClient: RestClient;
-    private lateinit var gpsLocation: GPSLocation;
-
-
+    private lateinit var locationText: LocationTextViews;
+    private lateinit var gpsService: GPSService;
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContentView(R.layout.activity_main);
-        restClient = RestClient(this);
-        latValueLabel = findViewById(R.id.latValueLabel);
-        locationPermission = getLocationPermission();
-        fusedLocationClient = FusedLocationProviderClient(this);
-        longValueLabel = findViewById(R.id.longValueLabel);
-        longValueLabel.text = counter.toString();
-        accuracyValueLabel = findViewById(R.id.accuracyLabelValue);
-        accuracyValueLabel.text = "0";
-        gpsLocation = GPSLocation(this);
-
-        //permissionLabel.text = "PERMISSIONS PENDING";
-        getLocation();
-
-        timer.scheduleAtFixedRate(object: TimerTask() {
-            override fun run() {
-                runOnUiThread() {
-                    getLocation();
-                }
-            } },0, 2000);
-
-
-
+        locationText = LocationTextViews(this);
+        gpsService = GPSService(this, locationText);
     }
 
-    fun getLocationPermission() : Boolean {
-
-        if (ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
-        ) == PackageManager.PERMISSION_GRANTED &&
-                ContextCompat.checkSelfPermission(
-                    this,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-                ) == PackageManager.PERMISSION_GRANTED &&
-                ContextCompat.checkSelfPermission(
-                    this,
-                    Manifest.permission.ACCESS_BACKGROUND_LOCATION
-                ) == PackageManager.PERMISSION_GRANTED){
-            return true;
-
-        } else {
-            return false;
-        }
-
-    }
-
-    fun responseSuccess(theString: String): Unit {
-        Log.i("Response", theString);
-    }
-
-    fun errorMessage() : Unit {
-        Log.i("Response", "Error Message");
-    }
-
-    fun getLocation() {
-
-        val cancelTokenSource : CancellationTokenSource = CancellationTokenSource()
-
-        if (ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED &&
-            ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED &&
-            ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_BACKGROUND_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED &&
-                ContextCompat.checkSelfPermission(
-                    this,
-                    Manifest.permission.INTERNET
-                ) == PackageManager.PERMISSION_GRANTED){
-            fusedLocationClient.getCurrentLocation(PRIORITY_HIGH_ACCURACY, cancelTokenSource.token)
-                .addOnSuccessListener { location: Location? ->
-                    if (location != null) {
-                        this.latValueLabel.text = location.latitude.toString();
-                        this.longValueLabel.text = location.longitude.toString();
-                        this.accuracyValueLabel.text = location.accuracy.toString();
-                        var locationParams = HashMap<String, String>();
-                        locationParams["latitude"] = location.latitude.toString();
-                        locationParams["longitude"] = location.longitude.toString();
-                        locationParams["accuracy"] = location.accuracy.toString();
-                        val jsonObject = JSONObject(locationParams as Map<*, *>?);
-
-                        this.restClient.post(locationUrl, jsonObject);
-
-
-
-                    }
-
-
-
-                }
-        }
-
-
-    }
 }

@@ -1,7 +1,6 @@
-package com.example.gps_shadow_tracker_app
+package com.example.gps_shadow_tracker_app.rest
 
 import android.content.Context
-import android.util.Log
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.JsonObjectRequest
@@ -13,17 +12,19 @@ import org.json.JSONObject
 class RestClient {
 
     private val queue: RequestQueue;
+    private val restInterface: RestInterface;
 
-    constructor(context: Context) {
+    constructor(context: Context, restInterface: RestInterface) {
         this.queue = Volley.newRequestQueue(context);
+        this.restInterface = restInterface;
     }
 
-    fun get(url: String, onSuccess: (String) -> Unit, onError: () -> Unit) {
+    fun get(url: String) {
         val request = JsonObjectRequest(Request.Method.GET, url, null,
             { response ->
-                onSuccess(response.toString());
+                restInterface.onGetSuccess(response.toString());
             }, {
-                onError();
+                restInterface.onGetFailure();
             }
         );
 
@@ -34,11 +35,12 @@ class RestClient {
     fun post(url: String, body: JSONObject) {
         val request = JsonObjectRequest(Request.Method.POST, url, body,
             { response ->
-                Log.i("HTTP Response", "SUCCESS")
+                restInterface.onPostSuccess(response.toString());
             }, {
-                Log.i("HTTP Response", "Error");
+                restInterface.onPostFailure();
             }
         );
+
         this.queue.add(request);
 
     }

@@ -76,4 +76,24 @@
         app:layout_constraintTop_toTopOf="@+id/longValueLabel"
         tools:text="0" />
 
+    <TextView
+        android:id="@+id/satelliteLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:text="Satellites"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintStart_toStartOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/satellitesNum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintStart_toStartOf="@+id/accuracyLabelValue"
+        app:layout_constraintTop_toBottomOf="@+id/accuracyLabelValue"
+        tools:text="0" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
