@@ -62,3 +62,16 @@
 
 ## 18 Oct 2022
 * *1 hour* Supervisor Meeting
+
+## 20 Oct 2022
+* *2 hours* did some further background research into GPS and wrote a bit more on the background
+
+## 21 Oct 2022
+* *6 hours* Tried to set up React Native and made a decision to stick with Kotlin
+
+## 22 Oct 2022
+* *4 hours* Refactored the Kotlin code and changed the location tracking to include pure GPS navigation
+* *2 hours* Repeated the logging exercise with pure GPS
+
+## 23 Oct 2022
+* *1 hour* Did some logging in a forested area to see whether it had an effect on GPS signals
