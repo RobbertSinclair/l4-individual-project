@@ -22,7 +22,7 @@ class RestClient {
     fun get(url: String) {
         val request = JsonObjectRequest(Request.Method.GET, url, null,
             { response ->
-                restInterface.onGetSuccess(response.toString());
+                restInterface.onGetSuccess(response);
             }, {
                 restInterface.onGetFailure();
             }
@@ -35,7 +35,7 @@ class RestClient {
     fun post(url: String, body: JSONObject) {
         val request = JsonObjectRequest(Request.Method.POST, url, body,
             { response ->
-                restInterface.onPostSuccess(response.toString());
+                restInterface.onPostSuccess(response);
             }, {
                 restInterface.onPostFailure();
             }

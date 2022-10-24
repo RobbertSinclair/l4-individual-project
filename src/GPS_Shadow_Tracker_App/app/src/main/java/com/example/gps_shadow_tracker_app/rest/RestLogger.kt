@@ -9,16 +9,16 @@ class RestLogger: RestInterface {
         Log.i("GET REQUEST", "FAILURE");
     }
 
-    override fun onGetSuccess(response: String) {
-        Log.i("GET REQUEST", response);
+    override fun onGetSuccess(response: JSONObject) {
+        Log.i("GET REQUEST", response.toString());
     }
 
     override fun onPostFailure() {
         Log.i("POST REQUEST", "FAILURE");
     }
 
-    override fun onPostSuccess(response: String) {
-        Log.i("POST REQUEST", response);
+    override fun onPostSuccess(response: JSONObject) {
+        Log.i("POST REQUEST", response.toString());
     }
 
 }
