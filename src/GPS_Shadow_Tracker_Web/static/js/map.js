@@ -23,9 +23,9 @@ timeSelect.addEventListener("submit", (e) => {
 })
 
 function calculateColour(accuracy, mean) {
-    if (accuracy < mean) {
+    if (accuracy <= mean) {
         return "blue";
-    } else if (accuracy >= mean && accuracy < mean * 2) {
+    } else if (accuracy > mean && accuracy < mean * 2) {
         return "green";
     } else if (accuracy >= (mean * 2) && accuracy < (mean * 3)) {
         return "orange";
