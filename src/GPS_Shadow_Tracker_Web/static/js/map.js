@@ -44,8 +44,8 @@ function getLocations(url) {
         const locations = body.locations;
         locations.forEach(location => {
             let circle = L.circle([location.latitude, location.longitude], {
-                color: calculateColour(location.accuracy, body.stats.mean),
-                fillColor: calculateColour(location.accuracy, body.stats.mean),
+                color: calculateColour(location.accuracy, body.stats.median),
+                fillColor: calculateColour(location.accuracy, body.stats.median),
                 fillOpacity: 0.5,
                 radius: location.accuracy / 5
             }).addTo(markerLayer);
@@ -53,7 +53,7 @@ function getLocations(url) {
             console.log(`Added a circle at ${location.latitude} ${location.longitude}`);
             
         })
-        mean.innerText = `${Number(body.stats.mean).toFixed(3)} meters`;
+        mean.innerText = `${Number(body.stats.median).toFixed(3)} meters`;
         min.innerText = `${Number(body.stats.min).toFixed(3)} meters`;
         max.innerText = `${Number(body.stats.max).toFixed(3)} meters`;
         map.addLayer(markerLayer);

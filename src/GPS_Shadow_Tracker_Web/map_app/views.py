@@ -17,15 +17,15 @@ def get_stats(json_data):
     pandas_data = pd.json_normalize(json_data["locations"])
     try:
         accuracy_array = pandas_data["accuracy"]
-        mean = np.mean(accuracy_array)
-        print(mean)
+        median = np.median(accuracy_array)
+        print(median)
         max_accuracy = np.max(accuracy_array)
         min_accuracy = np.min(accuracy_array)
     except:
-        mean = 0
+        median = 0
         min_accuracy = 0
         max_accuracy = 0
-    return {"mean": mean, "min": min_accuracy, "max": max_accuracy }
+    return {"median": median, "min": min_accuracy, "max": max_accuracy }
 
 
 def get_locations_dict(locations):
