@@ -6,7 +6,7 @@ import android.location.Location
 import android.widget.TextView
 import com.example.gps_shadow_tracker_app.R
 
-class LocationTextViews {
+class UILocationTextViews : UILocationWidget {
     private val latLabel: TextView;
     private val longLabel: TextView;
     private val accuracyLabel: TextView;
@@ -25,7 +25,7 @@ class LocationTextViews {
         accuracyLabel.text = "0";
     }
 
-    fun updateLocationLabels(location: Location) {
+    override fun updateLocation(location: Location) {
         latLabel.text = location.latitude.toString();
         longLabel.text = location.longitude.toString();
         accuracyLabel.text = location.accuracy.toString();

@@ -5,23 +5,21 @@ import android.content.Context
 import android.location.Location
 import android.location.LocationListener
 import android.util.Log
-import android.widget.TextView
 import com.example.gps_shadow_tracker_app.Constants
-import com.example.gps_shadow_tracker_app.R
 import com.example.gps_shadow_tracker_app.rest.RestClient
 import com.example.gps_shadow_tracker_app.rest.RestLogger
-import com.example.gps_shadow_tracker_app.ui.LocationTextViews
+import com.example.gps_shadow_tracker_app.ui.UILocationWidget
 import org.json.JSONObject
 
 class GPSListener: LocationListener {
 
     private val activity: Activity;
     private val restClient: RestClient;
-    private val locationText: LocationTextViews;
+    private val locationWidgets: List<UILocationWidget>;
 
-    constructor(context: Context, locationText: LocationTextViews) {
+    constructor(context: Context, locationWidgets: List<UILocationWidget>) {
         activity = context as Activity;
-        this.locationText = locationText
+        this.locationWidgets = locationWidgets
         restClient = RestClient(context, RestLogger());
     }
 
@@ -36,7 +34,9 @@ class GPSListener: LocationListener {
     override fun onLocationChanged(location: Location) {
         Log.i("Location Changed", location.toString());
         Log.i("Location Accuracy", location.accuracy.toString());
-        locationText.updateLocationLabels(location);
+        for (widget in locationWidgets) {
+            widget.updateLocation(location);
+        }
         val locationJSON: JSONObject = createLocationObject(location);
         restClient.post(Constants.LOCATION_SUBMIT_URL, locationJSON);
     }

@@ -58,6 +58,11 @@ def locations_in_time(request, start_time, end_time):
     response_dict = get_locations_dict(locations)
     return JsonResponse(response_dict)
 
+def gps_shadows(request):
+    locations = GpsLocation.objects.filter(accuracy__gte=3.8)
+    response_dict = get_locations_dict(locations)
+    return JsonResponse(response_dict)
+
 @csrf_exempt
 def submit_location(request):
     if request.method == "POST":

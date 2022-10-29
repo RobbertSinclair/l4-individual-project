@@ -8,7 +8,7 @@ import android.os.Build
 import android.os.Handler
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
-import com.example.gps_shadow_tracker_app.ui.LocationTextViews
+import com.example.gps_shadow_tracker_app.ui.UILocationWidget
 
 class GPSService {
 
@@ -18,11 +18,11 @@ class GPSService {
     private val context: Context;
 
     @RequiresApi(Build.VERSION_CODES.N)
-    constructor(context: Context, locationTextViews: LocationTextViews) {
+    constructor(context: Context, uiWidgets: List<UILocationWidget>) {
         this.context = context;
         NMEA = "";
         locationManager = this.context.getSystemService(Context.LOCATION_SERVICE) as LocationManager;
-        gpsListener = GPSListener(context, locationTextViews);
+        gpsListener = GPSListener(context, uiWidgets);
         if (permissionGranted()) {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0F, gpsListener);
             locationManager.addNmeaListener(GPSNmeaReader(), Handler());
