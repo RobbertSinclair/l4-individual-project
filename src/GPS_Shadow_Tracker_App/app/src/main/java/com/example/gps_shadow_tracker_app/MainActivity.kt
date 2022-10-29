@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main);
         val mapFragment = supportFragmentManager.findFragmentById(R.id.gpsMap) as SupportMapFragment;
         locationText = UILocationTextViews(this);
-        locationMap = UIMapView(mapFragment);
+        locationMap = UIMapView(this, mapFragment);
         val widgetList = mutableListOf(locationText, locationMap);
         gpsService = GPSService(this, widgetList);
     }
