@@ -1,7 +1,8 @@
 package com.example.gps_shadow_tracker_app.rest
 
 import android.util.Log
-import com.example.gps_shadow_tracker_app.rest.RestInterface
+import org.json.JSONObject;
+
 
 class RestLogger: RestInterface {
 
