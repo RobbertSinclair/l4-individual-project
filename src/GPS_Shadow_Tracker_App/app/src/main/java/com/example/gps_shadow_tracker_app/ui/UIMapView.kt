@@ -1,11 +1,13 @@
 package com.example.gps_shadow_tracker_app.ui
 
 import android.content.Context
+import android.graphics.Color
 import android.location.Location
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
@@ -52,6 +54,15 @@ class UIMapView : OnMapReadyCallback, UILocationWidget {
             );
 
             this.coords = newCoords;
+            if (location.accuracy >= 3.8) {
+                this.map.addCircle(
+                    CircleOptions()
+                        .center(this.coords)
+                        .radius(location.accuracy.toDouble())
+                        .strokeColor(Color.RED)
+                        .fillColor(Color.RED)
+                )
+            }
             if (!changedLocation) {
                 this.map.moveCamera(CameraUpdateFactory.newLatLng(this.coords));
                 changedLocation = true;
