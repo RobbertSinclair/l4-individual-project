@@ -34,11 +34,8 @@ class UIMapView : OnMapReadyCallback, UILocationWidget {
     override fun onMapReady(googleMap: GoogleMap) {
         this.map = googleMap;
         this.gpsShadows = UIGpsShadows(context, map);
-        this.marker = this.map.addMarker(
-            MarkerOptions()
-                .position(LatLng(0.0, 0.0))
-                .title("Current Location")
-        );
+        this.coords = LatLng(0.0, 0.0);
+        addLocationMarker();
         this.map.moveCamera(CameraUpdateFactory.zoomTo(15.0F));
         this.gpsShadows.getGpsShadows();
     }
@@ -46,28 +43,35 @@ class UIMapView : OnMapReadyCallback, UILocationWidget {
     override fun updateLocation(location: Location) {
         val newCoords = LatLng(location.latitude, location.longitude);
         if (!newCoords.equals(this.coords)) {
-            this.marker?.remove();
-            this.marker = this.map.addMarker(
-                MarkerOptions()
-                    .position(newCoords)
-                    .title("Current Location")
-            );
-
             this.coords = newCoords;
+            this.marker?.remove();
+            addLocationMarker();
             if (location.accuracy >= 3.8) {
-                this.map.addCircle(
-                    CircleOptions()
-                        .center(this.coords)
-                        .radius(location.accuracy.toDouble())
-                        .strokeColor(Color.RED)
-                        .fillColor(Color.RED)
-                )
+                addGPSShadowToMap(location);
             }
             if (!changedLocation) {
                 this.map.moveCamera(CameraUpdateFactory.newLatLng(this.coords));
                 changedLocation = true;
             }
         }
+    }
+
+    private fun addGPSShadowToMap(location: Location) {
+        this.map.addCircle(
+            CircleOptions()
+                .center(this.coords)
+                .radius(location.accuracy.toDouble())
+                .strokeColor(Color.RED)
+                .fillColor(Color.RED)
+        )
+    }
+
+    private fun addLocationMarker() {
+        this.marker = this.map.addMarker(
+            MarkerOptions()
+                .position(this.coords)
+                .title("Current Location")
+        );
 
     }
 
