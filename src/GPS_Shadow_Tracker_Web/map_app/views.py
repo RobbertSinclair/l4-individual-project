@@ -38,18 +38,18 @@ def get_locations_dict(locations):
     response_dict["stats"] = get_stats(response_dict)
     return response_dict
 
-@login_required(login_url="/admin/login")
+#@login_required(login_url="/admin/login")
 def main_view(request):
     return render(request, "index.html")
 
-@login_required(login_url="/admin/login")
+#@login_required(login_url="/admin/login")
 def all_locations(request):
     locations = GpsLocation.objects.all()
     response_dict = get_locations_dict(locations)
     get_stats(response_dict)
     return JsonResponse(response_dict)
 
-@login_required(login_url="/admin/login")
+#@login_required(login_url="/admin/login")
 def locations_in_time(request, start_time, end_time):
     start = datetime.strptime(start_time, '%H:%M').time()
     end = datetime.strptime(end_time, '%H:%M').time()
