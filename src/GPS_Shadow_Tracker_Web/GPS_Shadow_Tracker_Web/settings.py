@@ -29,7 +29,7 @@ SECRET_KEY = os.environ["GPS_SECRET_KEY"]
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1", "gpsshadows.pythonanywhere.com"]
+ALLOWED_HOSTS = ["127.0.0.1", "gpsshadows.pythonanywhere.com", "l4-individual-project-production.up.railway.app"]
 
 
 # Application definition
