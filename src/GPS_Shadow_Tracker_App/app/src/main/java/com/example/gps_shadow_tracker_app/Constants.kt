@@ -3,7 +3,7 @@ package com.example.gps_shadow_tracker_app
 class Constants {
 
     companion object {
-        val LOCATION_BASE_URL = "https://gpsshadows.pythonanywhere.com"
+        val LOCATION_BASE_URL = "https://l4-individual-project-production.up.railway.app"
 
         val LOCATION_SUBMIT_URL = LOCATION_BASE_URL + "/submit_location";
 

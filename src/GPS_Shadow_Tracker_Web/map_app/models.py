@@ -14,4 +14,3 @@ class GpsLocation(models.Model):
         super(GpsLocation, self).save(*args, kwargs)
         
 
-# Create your models here.
