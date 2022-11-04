@@ -18,7 +18,6 @@ def get_stats(json_data):
     try:
         accuracy_array = pandas_data["accuracy"]
         median = np.median(accuracy_array)
-        print(median)
         max_accuracy = np.max(accuracy_array)
         min_accuracy = np.min(accuracy_array)
     except:
