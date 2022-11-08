@@ -1,0 +1,1 @@
+web: python manage.py migrate && gunicorn GPS_Shadow_Tracker_Web.asgi
