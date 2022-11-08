@@ -35,6 +35,7 @@ ALLOWED_HOSTS = ["127.0.0.1", "gpsshadows.pythonanywhere.com", "l4-individual-pr
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -73,7 +74,17 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'GPS_Shadow_Tracker_Web.wsgi.application'
+
+ASGI_APPLICATION = 'GPS_Shadow_Tracker_Web.asgi.application'
+REDIS_URL = f"redis://{os.environ['REDIS_USER']}:{os.environ['REDIS_PASSWORD']}@{os.environ['REDIS_HOST']}:{os.environ['REDIS_PORT']}"
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [REDIS_URL]
+        }
+    }  
+}
 
 
 # Database
