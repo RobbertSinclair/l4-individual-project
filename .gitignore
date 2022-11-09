@@ -1,3 +1,5 @@
 node_modules
 *.key
 db.sqlite3
+__pycache__
+*.pyc
