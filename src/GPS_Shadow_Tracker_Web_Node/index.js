@@ -42,7 +42,7 @@ app.get("/all_locations", async (req, res) => {
     res.setHeader("Content-Type", "application/json");
     res.writeHead(200);
     const data = await gpsMongo.getAllGPSPoints();
-    res.end(JSON.stringify({"locations": data, "stats": {"median": 0, "min": 0, "max": 0}}));
+    res.end(JSON.stringify(data));
     console.log(`GET /all_locations 200`);
 })
 
@@ -64,7 +64,7 @@ app.get("/gps_shadows", async(req, res) => {
     const data = await gpsMongo.getGPSShadows();
     res.setHeader("Content-Type", "application/json");
     res.writeHead(200);
-    res.end(JSON.stringify({"locations": data, "stats": {"median": 0, "min": 0, "max": 0}}));
+    res.end(JSON.stringify(data));
 })
 
 wss.on("connection", (ws) => {
@@ -79,6 +79,6 @@ wss.on("connection", (ws) => {
 
 })
 
-server.listen(PORT, () => {
+server.listen(8000, () => {
     console.log(`Listening on *:${PORT}`);
 })

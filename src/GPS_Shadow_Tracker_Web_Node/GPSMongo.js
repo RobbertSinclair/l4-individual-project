@@ -4,8 +4,12 @@ const moment = require("moment");
 class GPSMongo {
 
     constructor(url) {
+        this.median = 0;
         this.mongoClient = new MongoClient(url);
         this.connect();
+        this.collection = this.mongoClient.db("gpsGame").collection("gpsShadows");
+        
+        this.calculateMedian()
         console.log("GPSMongo instnace created");
     }
 
@@ -39,10 +43,17 @@ class GPSMongo {
         })
     }
 
+    async calculateMedian() {
+        const median = await this.collection.find({}).sort({"accuracy": 1}).skip(await this.collection.countDocuments() / 2).limit(1).toArray();
+        console.log(median[0].accuracy);
+        this.median = median[0].accuracy;
+    }
+
     async getGPSShadows() {
-        const data = await this.mongoClient.db("gpsGame").collection("gpsShadows").find({accuracy: {$gt: 3.8}}).toArray();
+        const data = await this.mongoClient.db("gpsGame").collection("gpsShadows").find({accuracy: {$gt: 3.8}});
+        const dataArray = await data.toArray();
         if (data) {
-            return this.formatLocations(data);
+            return { locations: this.formatLocations(dataArray), stats: {"median": this.median} };
         } else {
             return null;
         }
@@ -57,9 +68,10 @@ class GPSMongo {
 
     
     async getAllGPSPoints() {
-        const data = await this.mongoClient.db("gpsGame").collection("gpsShadows").find({}).toArray();
+        const data = await this.collection.find({});
+        const dataArray = await data.toArray();
         if (data) {
-            return this.formatLocations(data);  
+            return { locations: this.formatLocations(dataArray), stats: {"median": this.median} };  
         } else {
             return null;
         }
