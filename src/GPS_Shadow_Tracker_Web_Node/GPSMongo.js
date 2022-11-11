@@ -50,7 +50,7 @@ class GPSMongo {
     }
 
     async getGPSShadows() {
-        const data = await this.mongoClient.db("gpsGame").collection("gpsShadows").find({accuracy: {$gt: 3.8}});
+        const data = await this.mongoClient.db("gpsGame").collection("gpsShadows").find({accuracy: {$gt: 6}});
         const dataArray = await data.toArray();
         if (data) {
             return { locations: this.formatLocations(dataArray), stats: {"median": this.median} };
