@@ -60,6 +60,13 @@ app.post("/submit_location", async (req, res) => {
     res.end(JSON.stringify({"message": "success"}));
 })
 
+app.get("/gps_shadows", async(req, res) => {
+    const data = await gpsMongo.getGPSShadows();
+    res.setHeader("Content-Type", "application/json");
+    res.writeHead(200);
+    res.end(JSON.stringify({"locations": data, "stats": {"median": 0, "min": 0, "max": 0}}));
+})
+
 wss.on("connection", (ws) => {
     console.log("NEW CONNECTION");
     ws.send("WELCOME");

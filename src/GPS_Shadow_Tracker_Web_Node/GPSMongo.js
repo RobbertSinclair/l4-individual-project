@@ -39,6 +39,15 @@ class GPSMongo {
         })
     }
 
+    async getGPSShadows() {
+        const data = await this.mongoClient.db("gpsGame").collection("gpsShadows").find({accuracy: {$gt: 3.8}}).toArray();
+        if (data) {
+            return this.formatLocations(data);
+        } else {
+            return null;
+        }
+    }
+
     async createSingleGPSShadow(data) {
         const newGPSSpot = this.createGPSSpotDocument(data);
 
