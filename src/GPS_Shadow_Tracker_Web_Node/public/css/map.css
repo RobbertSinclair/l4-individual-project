@@ -1,0 +1,42 @@
+body {
+    font-family: 'Trebuchet MS', sans-serif;
+}
+
+#title {
+    text-align: center;
+}
+
+#timeForm {
+    padding: 10px;
+}
+
+#map {
+    height:80vh;
+}
+
+#stats {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20vw;
+}
+
+@media screen and (max-width: 800px) {
+    #stats {
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+        padding: 10px;
+    }
+
+    #map {
+        height: 45vh;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    #map {
+        height: 65vh;
+    }
+}
