@@ -1,0 +1,27 @@
+
+P
+ app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
+@
+app/build.gradle,f\4\f4a01d6a4fcb971362ec00a83903fd3902f52164
+t
+Dapp/src/main/java/com/example/gps_shadow_tracker_app/MainActivity.kt,6\b\6b00c9a6c587d20cb344590aa6f94c2b405ab65a
+q
+Aapp/src/main/java/com/example/gps_shadow_tracker_app/Constants.kt,f\7\f7b777e358f4548a481bb8a1349b99691cb24bb7
+w
+Gapp/src/main/java/com/example/gps_shadow_tracker_app/rest/RestClient.kt,d\2\d244568029244f2231cdab27771c5b12499daddd
+w
+Gapp/src/main/java/com/example/gps_shadow_tracker_app/rest/RestLogger.kt,f\d\fd961aeab230c449f795af257f84a1c07916c15b
+w
+Gapp/src/main/java/com/example/gps_shadow_tracker_app/gps/GPSListener.kt,d\e\de3e43f2f98263fdf7e2b408c86a135e38f7ec3b
+y
+Iapp/src/main/java/com/example/gps_shadow_tracker_app/gps/GPSNmeaReader.kt,0\9\0976ce958b8cd2a64c318d349e96cb4aeb9db7fe
+v
+Fapp/src/main/java/com/example/gps_shadow_tracker_app/gps/GPSService.kt,9\f\9fe3c94355a3ab848326c8704b79ff52a125af1b
+{
+Kapp/src/main/java/com/example/gps_shadow_tracker_app/ui/UILocationWidget.kt,8\3\836368a77888177f8274c2e1d62c29551801e21c
+t
+Dapp/src/main/java/com/example/gps_shadow_tracker_app/ui/UIMapView.kt,8\3\8393d47fa145e147f113cbc73ce0c06d1742d455
+~
+Napp/src/main/java/com/example/gps_shadow_tracker_app/ui/UILocationTextViews.kt,6\b\6bb290c119631e4660bc45ebc4a44088d0bc970f
+w
+Gapp/src/main/java/com/example/gps_shadow_tracker_app/ui/UIGpsShadows.kt,8\2\82676264a6ba31345dc0982c3bb15a9b9cadd919
