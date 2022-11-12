@@ -25,9 +25,9 @@ class GPSMongo {
         return {
             location: {
                 type: "Point",
-                coordinates: [data.longitude, data.latitude]
+                coordinates: [Number(data.longitude), Number(data.latitude)]
             },
-            accuracy: data.accuracy,
+            accuracy: Number(data.accuracy),
             time: moment().format("HH:mm:ss")
         }
     }
