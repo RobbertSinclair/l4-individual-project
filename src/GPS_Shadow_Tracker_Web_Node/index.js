@@ -54,10 +54,15 @@ app.get("/locations_time/:start/:end", (req, res) => {
 })
 
 app.post("/submit_location", async (req, res) => {
-    gpsMongo.createSingleGPSShadow(req.body);
+    const result = await gpsMongo.createSingleGPSShadow(req.body);
+    console.log(result);
     res.setHeader("Content-Type", "application/json");
     res.writeHead(200);
-    res.end(JSON.stringify({"message": "success"}));
+    if (result) {
+        res.end(JSON.stringify({"message": "success"}));
+    } else {
+        res.end(JSON.stringify({"message": "Location already submitted"}));
+    }
 })
 
 app.get("/gps_shadows", async(req, res) => {
@@ -86,6 +91,6 @@ wss.on("connection", (ws) => {
 
 })
 
-server.listen(PORT, () => {
+server.listen(8080, () => {
     console.log(`Listening on *:${PORT}`);
 })

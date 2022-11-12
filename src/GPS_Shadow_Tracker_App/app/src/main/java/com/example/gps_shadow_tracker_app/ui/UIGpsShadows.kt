@@ -29,6 +29,7 @@ class UIGpsShadows: RestInterface {
         var locationObject: JSONObject = JSONObject();
         locationObject.put("latitude", this.location.latitude);
         locationObject.put("longitude", this.location.longitude);
+        Log.i("GPS_SHADOWS", locationObject.toString());
         this.restClient.post(Constants.LOCATION_SHADOWS_DISTANCE_URL, locationObject);
     }
 
