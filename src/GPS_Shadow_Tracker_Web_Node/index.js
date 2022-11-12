@@ -55,7 +55,6 @@ app.get("/locations_time/:start/:end", (req, res) => {
 
 app.post("/submit_location", async (req, res) => {
     const result = await gpsMongo.createSingleGPSShadow(req.body);
-    console.log(result);
     res.setHeader("Content-Type", "application/json");
     res.writeHead(200);
     if (result) {

@@ -79,18 +79,13 @@ class GPSMongo {
 
     async createSingleGPSShadow(data) {
         const newGPSSpot = this.createGPSSpotDocument(data);
-
         const result = await this.mongoClient.db("gpsGame").collection("gpsShadows").find({location: {$eq: newGPSSpot.location}, accuracy: {$eq: newGPSSpot.accuracy}}).toArray();
-        console.log(result.length);
         if (result.length == 0) {
             await this.mongoClient.db("gpsGame").collection("gpsShadows").insertOne(newGPSSpot);
             return true;
         } else {
             return false;
         }
-
-        
-
     }
 
     
