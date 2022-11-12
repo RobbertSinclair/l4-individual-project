@@ -2,6 +2,7 @@ package com.example.gps_shadow_tracker_app.ui
 
 import android.content.Context
 import android.graphics.Color
+import android.location.Location
 import android.util.Log
 import com.example.gps_shadow_tracker_app.Constants
 import com.example.gps_shadow_tracker_app.rest.RestClient
@@ -16,17 +17,30 @@ class UIGpsShadows: RestInterface {
 
     private val map : GoogleMap;
     private val restClient : RestClient;
+    private var location: Location;
 
-    constructor(context : Context, map : GoogleMap) {
+    constructor(context : Context, map : GoogleMap, location: Location) {
         this.map = map;
         this.restClient = RestClient(context, this);
+        this.location = location;
     }
 
     fun getGpsShadows() {
-        this.restClient.get(Constants.LOCATION_SHADOWS_URL);
+        var locationObject: JSONObject = JSONObject();
+        locationObject.put("latitude", this.location.latitude);
+        locationObject.put("longitude", this.location.longitude);
+        this.restClient.post(Constants.LOCATION_SHADOWS_DISTANCE_URL, locationObject);
     }
 
-    override fun onGetSuccess(response: JSONObject) {
+    fun checkLocationFurtherThan50m(other: Location) {
+        var distance = this.location.distanceTo(other);
+        if (distance > 50) {
+            location = other;
+        }
+        this.getGpsShadows();
+    }
+
+    override fun onPostSuccess(response: JSONObject) {
         val locationDicts : JSONArray = response.get("locations") as JSONArray;
         for (i in 0 until locationDicts.length()) {
             val location = locationDicts.getJSONObject(i);
@@ -51,7 +65,7 @@ class UIGpsShadows: RestInterface {
 
 
 
-    override fun onPostSuccess(response: JSONObject) {
+    override fun onGetSuccess(response: JSONObject) {
         TODO("Not yet implemented")
     }
 

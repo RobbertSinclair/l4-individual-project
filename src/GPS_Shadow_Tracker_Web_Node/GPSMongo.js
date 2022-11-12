@@ -23,9 +23,9 @@ class GPSMongo {
 
     createGPSSpotDocument(data) {
         return {
-            coordinates: {
+            location: {
                 type: "Point",
-                coordinates: [data.latitude, data.longitude]
+                coordinates: [data.longitude, data.latitude]
             },
             accuracy: data.accuracy,
             time: moment().format("HH:mm:ss")
@@ -35,12 +35,30 @@ class GPSMongo {
     formatLocations(data) {
         return data.map(item => {
             return {
-                latitude: item.coordinates.coordinates[0],
-                longitude: item.coordinates.coordinates[1],
+                latitude: item.location.coordinates[1],
+                longitude: item.location.coordinates[0],
                 accuracy: item.accuracy,
                 time: item.time
             }
         })
+    }
+
+    async getNearbyGpsShadows(location, distance) {
+        const query = {
+            location: {
+                $near: {
+                    $geometry: {
+                        type: "Point",
+                        coordinates: [location.longitude, location.latitude]
+                    },
+                    $maxDistance: distance
+                },
+            },
+            accuracy: {$gt: 6}
+        }
+
+        const result = await this.collection.find(query).toArray();
+        return {locations: this.formatLocations(result), stats: {"median": this.median}};
     }
 
     async calculateMedian() {

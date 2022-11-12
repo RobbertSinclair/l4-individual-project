@@ -3,6 +3,7 @@ package com.example.gps_shadow_tracker_app.ui
 import android.content.Context
 import android.graphics.Color
 import android.location.Location
+import android.location.LocationManager
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -33,7 +34,7 @@ class UIMapView : OnMapReadyCallback, UILocationWidget {
 
     override fun onMapReady(googleMap: GoogleMap) {
         this.map = googleMap;
-        this.gpsShadows = UIGpsShadows(context, map);
+        this.gpsShadows = UIGpsShadows(context, map, Location(LocationManager.GPS_PROVIDER));
         this.coords = LatLng(0.0, 0.0);
         addLocationMarker();
         this.map.moveCamera(CameraUpdateFactory.zoomTo(15.0F));
@@ -43,10 +44,11 @@ class UIMapView : OnMapReadyCallback, UILocationWidget {
     override fun updateLocation(location: Location) {
         val newCoords = LatLng(location.latitude, location.longitude);
         if (!newCoords.equals(this.coords)) {
+            this.gpsShadows.getGpsShadows();
             this.coords = newCoords;
             this.marker?.remove();
             addLocationMarker();
-            if (location.accuracy >= 3.8) {
+            if (location.accuracy >= 6) {
                 addGPSShadowToMap(location);
             }
             if (!changedLocation) {

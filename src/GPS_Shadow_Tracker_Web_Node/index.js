@@ -67,6 +67,13 @@ app.get("/gps_shadows", async(req, res) => {
     res.end(JSON.stringify(data));
 })
 
+app.post("/gps_shadows_nearby/:distance", async(req, res) => {
+    const result = await gpsMongo.getNearbyGpsShadows(req.body, Number(req.params.distance));
+    res.setHeader("Content-Type", "application/json");
+    res.writeHead(200);
+    res.end(JSON.stringify(result));
+})
+
 wss.on("connection", (ws) => {
     console.log("NEW CONNECTION");
     ws.send("WELCOME");
