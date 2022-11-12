@@ -49,7 +49,7 @@ class GPSMongo {
                 $near: {
                     $geometry: {
                         type: "Point",
-                        coordinates: [location.longitude, location.latitude]
+                        coordinates: [Number(location.longitude), Number(location.latitude)]
                     },
                     $maxDistance: distance
                 },
