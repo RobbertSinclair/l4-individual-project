@@ -75,3 +75,27 @@
 
 ## 23 Oct 2022
 * *1 hour* Did some logging in a forested area to see whether it had an effect on GPS signals
+
+## 25 Oct 2022
+* *1 hour* Supervisor meeting
+
+## 28 Oct 2022
+* *4 hours* Got a Google Maps location on the Smartphone App
+
+## 1 Nov 2022
+* *1 hour* Supervisor meeting
+
+## 4 Nov 2022
+* *4 hours* Migrated the web server from PythonAnywhere to Railway
+
+## 5 Nov 2022
+* *4 hours* Got Websockets working with Django
+
+## 8 Nov 2022
+* *1 hour* Supervisor meeting
+
+## 11 Nov 2022
+* *5 hours* Made the migration to Node.js and MongoDB
+
+## 12 Nov 2022
+* *2 hours* Got GeoSpatial queries working with the MongoDB database
