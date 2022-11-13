@@ -99,3 +99,7 @@
 
 ## 12 Nov 2022
 * *2 hours* Got GeoSpatial queries working with the MongoDB database
+
+## 13 Nov 2022
+* *1.5 hours* Found a library for WebSockets and implemented it into the app
+* *1 hour* Did a walk to test the Geospatial queries from the MongoDB database
