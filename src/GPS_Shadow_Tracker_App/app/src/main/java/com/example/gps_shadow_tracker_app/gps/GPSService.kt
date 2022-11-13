@@ -25,7 +25,7 @@ class GPSService {
         gpsListener = GPSListener(context, uiWidgets);
         if (permissionGranted()) {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0F, gpsListener);
-            locationManager.addNmeaListener(GPSNmeaReader(), Handler());
+            //locationManager.addNmeaListener(GPSNmeaReader(), Handler());
         }
 
     }

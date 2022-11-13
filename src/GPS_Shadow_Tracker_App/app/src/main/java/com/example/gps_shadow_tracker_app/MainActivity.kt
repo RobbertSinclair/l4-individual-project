@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.gps_shadow_tracker_app.gps.GPSService
+import com.example.gps_shadow_tracker_app.rest.websocket.LocationWebSocket
 import com.example.gps_shadow_tracker_app.ui.UILocationTextViews
 import com.example.gps_shadow_tracker_app.ui.UIMapView
 import com.google.android.gms.maps.GoogleMap
@@ -25,6 +26,7 @@ class MainActivity : AppCompatActivity() {
         val mapFragment = supportFragmentManager.findFragmentById(R.id.gpsMap) as SupportMapFragment;
         locationText = UILocationTextViews(this);
         locationMap = UIMapView(this, mapFragment);
+        val locationWebSocket = LocationWebSocket();
         val widgetList = mutableListOf(locationText, locationMap);
         gpsService = GPSService(this, widgetList);
     }

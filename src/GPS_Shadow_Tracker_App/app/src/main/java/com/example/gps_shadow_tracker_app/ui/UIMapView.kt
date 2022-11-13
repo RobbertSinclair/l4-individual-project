@@ -43,9 +43,8 @@ class UIMapView : OnMapReadyCallback, UILocationWidget {
 
     override fun updateLocation(location: Location) {
         val newCoords = LatLng(location.latitude, location.longitude);
-        this.gpsShadows.checkLocationFurtherThanDistance(location);
         if (!newCoords.equals(this.coords)) {
-            this.gpsShadows.getGpsShadows();
+            this.gpsShadows.checkLocationFurtherThanDistance(location);
             this.coords = newCoords;
             this.marker?.remove();
             addLocationMarker();
@@ -58,6 +57,8 @@ class UIMapView : OnMapReadyCallback, UILocationWidget {
             }
         }
     }
+
+
 
     private fun addGPSShadowToMap(location: Location) {
         this.map.addCircle(

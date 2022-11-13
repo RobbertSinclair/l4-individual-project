@@ -11,7 +11,9 @@ class Constants {
 
         val LOCATION_SHADOWS_DISTANCE_URL = LOCATION_BASE_URL + "/gps_shadows_nearby/200";
 
-        val DISTANCE_THRESHOLD = 100F;
+        val DISTANCE_THRESHOLD = 50F
+
+        val WEBSOCKET_URL = "wss://l4-individual-project-production.up.railway.app"
 
     }
 

@@ -18,15 +18,17 @@ class UIGpsShadows: RestInterface {
     private val map : GoogleMap;
     private val restClient : RestClient;
     private var location: Location;
+    private var counter: Int;
 
     constructor(context : Context, map : GoogleMap, location: Location) {
         this.map = map;
         this.restClient = RestClient(context, this);
         this.location = location;
+        this.counter = 0;
     }
 
     fun getGpsShadows() {
-        var locationObject: JSONObject = JSONObject();
+        var locationObject = JSONObject();
         locationObject.put("latitude", this.location.latitude);
         locationObject.put("longitude", this.location.longitude);
         Log.i("GPS_SHADOWS", locationObject.toString());
@@ -34,11 +36,12 @@ class UIGpsShadows: RestInterface {
     }
 
     fun checkLocationFurtherThanDistance(other: Location) {
-        var distance = this.location.distanceTo(other);
-        if (distance > Constants.DISTANCE_THRESHOLD) {
+        Log.i("DISTANCE", counter.toString());
+        if (counter % Constants.DISTANCE_THRESHOLD == 0F) {
             location = other;
+            this.getGpsShadows();
         }
-        this.getGpsShadows();
+        this.counter++;
     }
 
     override fun onPostSuccess(response: JSONObject) {
@@ -49,7 +52,7 @@ class UIGpsShadows: RestInterface {
             val accuracy = location.getDouble("accuracy");
             this.map.addCircle(CircleOptions()
                 .center(coords)
-                .radius(accuracy)
+                .radius(accuracy / 4)
                 .strokeColor(Color.RED)
                 .fillColor(Color.RED)
             );
@@ -64,14 +67,8 @@ class UIGpsShadows: RestInterface {
         TODO("Not yet implemented")
     }
 
-
-
     override fun onGetSuccess(response: JSONObject) {
         TODO("Not yet implemented")
     }
-
-
-
-
 
 }
