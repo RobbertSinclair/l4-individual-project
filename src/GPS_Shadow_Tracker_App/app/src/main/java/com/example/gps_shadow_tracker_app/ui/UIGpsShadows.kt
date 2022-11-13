@@ -33,9 +33,9 @@ class UIGpsShadows: RestInterface {
         this.restClient.post(Constants.LOCATION_SHADOWS_DISTANCE_URL, locationObject);
     }
 
-    fun checkLocationFurtherThan50m(other: Location) {
+    fun checkLocationFurtherThanDistance(other: Location) {
         var distance = this.location.distanceTo(other);
-        if (distance > 50) {
+        if (distance > Constants.DISTANCE_THRESHOLD) {
             location = other;
         }
         this.getGpsShadows();

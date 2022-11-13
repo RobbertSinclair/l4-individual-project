@@ -9,7 +9,9 @@ class Constants {
 
         val LOCATION_SHADOWS_URL = LOCATION_BASE_URL + "/gps_shadows";
 
-        val LOCATION_SHADOWS_DISTANCE_URL = LOCATION_BASE_URL + "/gps_shadows_nearby/100";
+        val LOCATION_SHADOWS_DISTANCE_URL = LOCATION_BASE_URL + "/gps_shadows_nearby/200";
+
+        val DISTANCE_THRESHOLD = 100F;
 
     }
 

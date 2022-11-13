@@ -43,6 +43,7 @@ class UIMapView : OnMapReadyCallback, UILocationWidget {
 
     override fun updateLocation(location: Location) {
         val newCoords = LatLng(location.latitude, location.longitude);
+        this.gpsShadows.checkLocationFurtherThanDistance(location);
         if (!newCoords.equals(this.coords)) {
             this.gpsShadows.getGpsShadows();
             this.coords = newCoords;
