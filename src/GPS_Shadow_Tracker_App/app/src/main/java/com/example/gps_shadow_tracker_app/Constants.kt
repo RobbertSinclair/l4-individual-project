@@ -15,7 +15,7 @@ class Constants {
 
         val WEBSOCKET_URL = "wss://l4-individual-project-production.up.railway.app"
 
-        val SHADOW_CIRCLE_RADIUS = 20;
+        val SHADOW_CIRCLE_RADIUS: Double = 20.0;
 
     }
 
