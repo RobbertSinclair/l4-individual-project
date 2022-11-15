@@ -52,7 +52,7 @@ class UIGpsShadows: RestInterface {
             val accuracy = location.getDouble("accuracy");
             this.map.addCircle(CircleOptions()
                 .center(coords)
-                .radius(accuracy / 4)
+                .radius(Constants.SHADOW_CIRCLE_RADIUS)
                 .strokeColor(Color.RED)
                 .fillColor(Color.RED)
             );

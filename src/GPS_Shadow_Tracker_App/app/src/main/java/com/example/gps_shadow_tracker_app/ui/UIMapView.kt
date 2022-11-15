@@ -64,7 +64,7 @@ class UIMapView : OnMapReadyCallback, UILocationWidget {
         this.map.addCircle(
             CircleOptions()
                 .center(this.coords)
-                .radius(location.accuracy.toDouble())
+                .radius(Constants.SHADOW_CIRCLE_RADIUS)
                 .strokeColor(Color.RED)
                 .fillColor(Color.RED)
         )
