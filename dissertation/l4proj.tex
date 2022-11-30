@@ -203,7 +203,33 @@ The first form of GPS error is a clock error.
 In this section I go over the main process that I used to come up with a design for the game
 
 \section{Creating an app to get GPS locations}
-Since I didn't have much knowledge of mobile app development. I gathered that the best place to start was to make an app that gets a location. I started by doing some research into creating an Android app using Kotlin. The main aim of this app was to get me the latitude and longitude coordinates every second and most importantly, give me the accuracy for the GPS locations. In order to get this up and running quickly. I made use of the FusedLocationProvider API \citep{fused}.
+Since I didn't have much knowledge of mobile app development. I gathered that the best place to start was to make an app that gets a location. 
+I started by doing some research into creating an Android app using Kotlin. The main aim of this app was to get me the latitude and longitude coordinates every second and most importantly, give me the accuracy for the GPS locations. 
+In order to get this up and running quickly, I tested two main GeoLocation APIs, the FusedLocationProvider API and the LocationManger which can be found in the Android Documentation.
+
+\subsection{FusedLocationProvider API}
+The first API I tried was the FusedLocationProvider API as this was the first one that I found. The FusedLocationProvider API combines both GPS and WiFi geolocation
+techniques to try and create an optimal location \citep{fused}. This API allowed me to create a basic location app quickly so that I could start finding GPS locations
+within my local area. As figure \ref{fig:fusedhist} shows, the location data that I gathered was skewed towards values with an accuracy of less than 50. While a lot of
+points were under the 20 meters area. However as you can see, there was a decent amount of values above 50 meters meaning that the API picked up a lot of shadows.
+This API would have been a good one to use for my game as I would have had a lot of shadow areas for a player to hide. However the main flaw was that
+it was giving me a combination of both Wifi and GPS coordinates. Thies meant that I was more likely to find shadows in areas with low WiFi. This would
+explain why I had a lot of shadow areas when I walked around Kelvingrove Park, an area which I thought would have a very accurate signal due to the lack of buildings.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.6\linewidth]{images/fused_histogram.pdf}    
+
+    \caption{Histogram showing the ranges of accuracy (in meters) of location points picked up by the mobile application}
+
+    % use the notation fig:name to cross reference a figure
+    \label{fig:fusedhist} 
+\end{figure}
+
+
+
+
+\subsection{LocationManger API}
 
 What is the problem that you want to solve, and how did you arrive at it?
 \section{Guidance}
