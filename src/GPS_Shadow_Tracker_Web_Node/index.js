@@ -81,7 +81,7 @@ app.post("/gps_shadows_nearby/:distance", async(req, res) => {
 wss.on("connection", (ws) => {
     console.log("NEW CONNECTION");
     ws.send("WELCOME");
-    console.log(ws.client);
+    console.log(ws);
     
     
     ws.on("message", (message) => {
@@ -89,8 +89,11 @@ wss.on("connection", (ws) => {
         if (message == "Ping") {
             ws.send("Pong");
         } else {
-            const jsonObject = JSON.parse(message.toString());
-            console.log(jsonObject);
+            wss.clients.forEach((client) => {
+                if (client !== ws && client.readyState === WebSocket.OPEN) {
+                    client.send(message);
+                }
+            })
         }
         ws.send(`MESSAGE RECEIVED: ${message}`);
     });
