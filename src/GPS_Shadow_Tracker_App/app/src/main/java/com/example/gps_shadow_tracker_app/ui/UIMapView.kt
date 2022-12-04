@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Color
 import android.location.Location
 import android.location.LocationManager
+import com.example.gps_shadow_tracker_app.Constants
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback

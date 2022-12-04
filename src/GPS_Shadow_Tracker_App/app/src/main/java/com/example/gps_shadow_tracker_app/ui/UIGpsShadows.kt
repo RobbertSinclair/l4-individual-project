@@ -60,11 +60,11 @@ class UIGpsShadows: RestInterface {
     }
 
     override fun onGetFailure() {
-        Log.i("ERROR", "The Get Request Failed")
+        Log.i("ERROR", "The Get Request Failed");
     }
 
     override fun onPostFailure() {
-        TODO("Not yet implemented")
+        Log.i("ERROR", "The Post Request Failed");
     }
 
     override fun onGetSuccess(response: JSONObject) {

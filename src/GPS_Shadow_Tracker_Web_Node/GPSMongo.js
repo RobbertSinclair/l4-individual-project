@@ -10,7 +10,7 @@ class GPSMongo {
         this.collection = this.mongoClient.db("gpsGame").collection("gpsShadows");
         
         this.calculateMedian()
-        console.log("GPSMongo instnace created");
+        console.log("GPSMongo instance created");
     }
 
     async connect() {
