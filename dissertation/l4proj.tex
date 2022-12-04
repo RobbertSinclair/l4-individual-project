@@ -227,7 +227,16 @@ explain why I had a lot of shadow areas when I walked around Kelvingrove Park, a
 \end{figure}
 
 \subsection{LocationManger API}
-Since the FusedLocationProvider wasn't appropriate for the project, I needed to find an API that would give me location data based purely on GPS
+Since the FusedLocationProvider wasn't appropriate for the project, I needed to find an API that would give me location data based purely on GPS. One of the libraries that I found
+from the Android Developers Website was the "LocationManger" API. The LocationManager API gives me more control over what kind of Geolocation I was getting on my phone. Therefore
+I was able to ensure that my geolocation was based on a full GNSS navigation system. \citep{locationManager} The other main advantage to this library is that with the use of the "requestLocationUpdates" method and
+the "LocationListener" interface, I can easily control what my app does when it receives a new location.
+
+While there are some advantages to using the LocationManager API, it does come with some disadvantages as well. For one thing, there are significantly less shadow areas when using
+pure GNSS coordinates. The only real areas where there are major shadows are within buildins, under bridges or in enclosed areas. This is because on my phone, it can track up to 
+15 satellites when getting my location. In comparison to figure \ref{fig:fusedhist}, figure \ref{fig:mongohist} shows that there is one big peak in the overall accuracy of all the spots.
+When walking around with my app I noticed that for most of the time, my accuracy was 3.795 meters of accuracy. However while this may be a disadvantage the main advantage for creating a
+game is that compared to the Fused Location API.
 
 \begin{figure}
     \centering
