@@ -235,8 +235,9 @@ the "LocationListener" interface, I can easily control what my app does when it 
 While there are some advantages to using the LocationManager API, it does come with some disadvantages as well. For one thing, there are significantly less shadow areas when using
 pure GNSS coordinates. The only real areas where there are major shadows are within buildins, under bridges or in enclosed areas. This is because on my phone, it can track up to 
 15 satellites when getting my location. In comparison to figure \ref{fig:fusedhist}, figure \ref{fig:mongohist} shows that there is one big peak in the overall accuracy of all the spots.
-When walking around with my app I noticed that for most of the time, my accuracy was 3.795 meters of accuracy. However while this may be a disadvantage the main advantage for creating a
-game is that compared to the Fused Location API.
+When walking around with my app I noticed that for most of the time, my accuracy was 3.795 meters of accuracy. However while at first glance this may be a disadvantage the main advantage for creating a
+game is that compared to the Fused Location API. It is better overall for an overall game design because the areas where shadows can be found will be more consistent than the ones
+found in the Fused Location API. Therefore the game can be used to teach people where GPS can decrease in quality.
 
 \begin{figure}
     \centering
