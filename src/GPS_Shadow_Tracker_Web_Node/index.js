@@ -84,14 +84,14 @@ wss.on("connection", (ws) => {
     console.log(ws);
     
     
-    ws.on("message", (message) => {
+    ws.on("message", (message, isBinary) => {
         console.log(message.toString());
         if (message == "Ping") {
             ws.send("Pong");
         } else {
             wss.clients.forEach((client) => {
                 if (client !== ws && client.readyState === WebSocket.OPEN) {
-                    client.send(message);
+                    client.send(message, {binary: isBinary});
                 }
             })
         }
