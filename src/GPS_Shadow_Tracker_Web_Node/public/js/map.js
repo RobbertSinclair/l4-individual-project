@@ -9,6 +9,19 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 let markerLayer = L.featureGroup();
+let locationLayer = L.featureGroup();
+
+const endpoint = `wss://${window.location.host}`;
+const socket = new WebSocket(endpoint);
+
+socket.onopen = (e) => {
+    console.log("SERVER CONNECTION RECEIVED");
+}
+
+socket.onmessage = (e) => {
+    console.log(e.data);
+    getPhoneLocation(e.data);
+}
 
 
 timeSelect.addEventListener("submit", (e) => {
@@ -58,6 +71,19 @@ function getLocations(url) {
         max.innerText = `${Number(body.stats.max).toFixed(3)} meters`;
         map.addLayer(markerLayer);
     });
+}
+
+function getPhoneLocation(data) {
+    data = JSON.parse(data);
+    map.removeLayer(locationLayer);
+    const phoneLocation = L.circle([data.latitude, data.longitude], {
+        color: "turquoise",
+        fillColor: "turquoise",
+        fillOpacity: 0.5,
+        radius: 10
+    }).addTo(locationLayer);
+    map.addLayer(locationLayer);
+
 }
 
 getLocations("/all_locations");
