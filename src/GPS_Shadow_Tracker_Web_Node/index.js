@@ -84,7 +84,7 @@ wss.on("connection", (ws) => {
     
     
     ws.on("message", (message) => {
-        console.log(message);
+        console.log(message.toString());
         if (message == "Ping") {
             ws.send("Pong");
         }
