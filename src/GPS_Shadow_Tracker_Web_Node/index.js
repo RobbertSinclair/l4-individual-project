@@ -87,9 +87,16 @@ wss.on("connection", (ws) => {
         console.log(message.toString());
         if (message == "Ping") {
             ws.send("Pong");
+        } else {
+            const jsonObject = JSON.parse(message.toString());
+            console.log(jsonObject);
         }
         ws.send(`MESSAGE RECEIVED: ${message}`);
     });
+
+    ws.on("close", (ws) => {
+        console.log("Connection Closed");
+    })
 
 })
 
