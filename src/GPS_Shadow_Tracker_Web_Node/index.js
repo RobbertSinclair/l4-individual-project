@@ -81,6 +81,7 @@ app.post("/gps_shadows_nearby/:distance", async(req, res) => {
 wss.on("connection", (ws) => {
     console.log("NEW CONNECTION");
     ws.send("WELCOME");
+    console.log(ws.client);
     
     
     ws.on("message", (message) => {

@@ -7,8 +7,8 @@ class GPSMongo {
         this.median = 0;
         this.mongoClient = new MongoClient(url);
         this.connect();
-        this.collection = this.mongoClient.db("gpsGame").collection("gpsShadows");
-        
+        this.shadowCollection = this.mongoClient.db("gpsGame").collection("gpsShadows");
+        this.userCollection = this.mongoClient.db("gpsGame").collection("users");        
         this.calculateMedian()
         console.log("GPSMongo instance created");
     }
@@ -57,12 +57,12 @@ class GPSMongo {
             accuracy: {$gt: 6}
         }
 
-        const result = await this.collection.find(query).toArray();
+        const result = await this.shadowCollection.find(query).toArray();
         return {locations: this.formatLocations(result), stats: {"median": this.median}};
     }
 
     async calculateMedian() {
-        const median = await this.collection.find({}).sort({"accuracy": 1}).skip(await this.collection.countDocuments() / 2).limit(1).toArray();
+        const median = await this.shadowCollection.find({}).sort({"accuracy": 1}).skip(await this.shadowCollection.countDocuments() / 2).limit(1).toArray();
         console.log(median[0].accuracy);
         this.median = median[0].accuracy;
     }
@@ -90,7 +90,7 @@ class GPSMongo {
 
     
     async getAllGPSPoints() {
-        const data = await this.collection.find({});
+        const data = await this.shadowCollection.find({});
         const dataArray = await data.toArray();
         if (data) {
             return { locations: this.formatLocations(dataArray), stats: {"median": this.median} };  
@@ -99,6 +99,15 @@ class GPSMongo {
         }
         
 
+    }
+
+    async onWebSocketConnection(id) {
+        const newUser = { "user": id};
+        await this.userCollection.insertOne(newUser); 
+    }
+
+    async onWebSocketDisconnect(id) {
+        await this.userCollection.deleteOne({ "user": id});
     }
 
 }
