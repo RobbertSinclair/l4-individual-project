@@ -7,5 +7,5 @@ socket.onopen = (e) => {
 }
 
 socket.onmessage = (e) => {
-    console.log(`Message from the server: ${e.data}`);
+    console.log(e.data);
 }
