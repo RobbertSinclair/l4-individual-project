@@ -40,7 +40,7 @@ class LocationWebSocket : WebSocketListener {
     override fun onOpen(webSocket: WebSocket, response: Response) {
         super.onOpen(webSocket, response);
         Log.i("WEBSOCKET_CREATED", "Response: " + response.toString());
-        webSocket.send("Ping");
+
     }
 
     override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {
@@ -50,13 +50,13 @@ class LocationWebSocket : WebSocketListener {
 
     override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
         super.onFailure(webSocket, t, response);
-        Log.i("WEBSOCKET_FAILED", "Response " + response.toString());
+        Log.i("WEBSOCKET_FAILED", "Response " + t.toString());
     }
 
     override fun onMessage(webSocket: WebSocket, text: String) {
         super.onMessage(webSocket, text);
-
         var location : JSONObject = JSONObject(text);
+        Log.i("WEBSOCKET_LOCATION", location.toString())
         mapView.updatePlayer2Location(location);
         Log.i("PLAYER_2_LOCATION", "Success on this side");
 
