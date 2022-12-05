@@ -18,7 +18,7 @@ class UIMapView : OnMapReadyCallback, UILocationWidget {
 
     private lateinit var map: GoogleMap;
     private lateinit var gpsShadows : UIGpsShadows;
-    private var marker: Marker?;
+    private var playerMarker: Marker?;
     private val context : Context;
     private var coords: LatLng;
     private var changedLocation: Boolean;
@@ -28,7 +28,7 @@ class UIMapView : OnMapReadyCallback, UILocationWidget {
         this.context = context;
         mapFragment.getMapAsync(this);
         this.coords = LatLng(0.0, 0.0);
-        this.marker = null;
+        this.playerMarker = null;
         changedLocation = false;
 
     }
@@ -47,9 +47,9 @@ class UIMapView : OnMapReadyCallback, UILocationWidget {
         if (!newCoords.equals(this.coords)) {
             this.gpsShadows.checkLocationFurtherThanDistance(location);
             this.coords = newCoords;
-            this.marker?.remove();
+            this.playerMarker?.remove();
             addLocationMarker();
-            if (location.accuracy >= 6) {
+            if (location.accuracy >= Constants.SHADOW_THRESHOLD) {
                 addGPSShadowToMap(location);
             }
             if (!changedLocation) {
@@ -72,7 +72,7 @@ class UIMapView : OnMapReadyCallback, UILocationWidget {
     }
 
     private fun addLocationMarker() {
-        this.marker = this.map.addMarker(
+        this.playerMarker = this.map.addMarker(
             MarkerOptions()
                 .position(this.coords)
                 .title("Current Location")

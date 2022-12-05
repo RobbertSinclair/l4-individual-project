@@ -95,7 +95,6 @@ wss.on("connection", (ws) => {
                 }
             })
         }
-        ws.send(`MESSAGE RECEIVED: ${message}`);
     });
 
     ws.on("close", (ws) => {

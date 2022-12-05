@@ -30,4 +30,5 @@ class MainActivity : AppCompatActivity() {
         gpsService = GPSService(this, widgetList);
     }
 
+
 }

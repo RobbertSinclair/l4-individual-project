@@ -63,7 +63,6 @@ function getLocations(url) {
                 radius: location.accuracy / 5
             }).addTo(markerLayer);
             circle.bindPopup(`Accuracy: ${location.accuracy} meters<br>Time: ${location.time}`);
-            console.log(`Added a circle at ${location.latitude} ${location.longitude}`);
             
         })
         mean.innerText = `${Number(body.stats.median).toFixed(3)} meters`;
@@ -73,13 +72,5 @@ function getLocations(url) {
     });
 }
 
-function getPhoneLocation(data) {
-    data = JSON.parse(data);
-    map.removeLayer(locationLayer);
-    locationLayer.clearLayers();
-    const phoneLocation = L.marker([data.latitude, data.longitude]).addTo(locationLayer);
-    map.addLayer(locationLayer);
-
-}
 
 getLocations("/all_locations");

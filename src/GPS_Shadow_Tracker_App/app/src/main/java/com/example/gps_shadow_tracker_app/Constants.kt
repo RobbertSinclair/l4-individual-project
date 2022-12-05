@@ -17,6 +17,8 @@ class Constants {
 
         val SHADOW_CIRCLE_RADIUS: Double = 20.0;
 
+        val SHADOW_THRESHOLD: Double = 6.0;
+
     }
 
 }
