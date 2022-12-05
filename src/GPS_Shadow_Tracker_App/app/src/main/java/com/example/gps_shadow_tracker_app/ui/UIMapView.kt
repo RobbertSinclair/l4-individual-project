@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Color
 import android.location.Location
 import android.location.LocationManager
+import android.util.Log
 import com.example.gps_shadow_tracker_app.Constants
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -13,12 +14,14 @@ import com.google.android.gms.maps.model.CircleOptions
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import org.json.JSONObject
 
 class UIMapView : OnMapReadyCallback, UILocationWidget {
 
     private lateinit var map: GoogleMap;
     private lateinit var gpsShadows : UIGpsShadows;
-    private var playerMarker: Marker?;
+    private var player1Marker: Marker?;
+    private var player2Marker: Marker?;
     private val context : Context;
     private var coords: LatLng;
     private var changedLocation: Boolean;
@@ -28,7 +31,8 @@ class UIMapView : OnMapReadyCallback, UILocationWidget {
         this.context = context;
         mapFragment.getMapAsync(this);
         this.coords = LatLng(0.0, 0.0);
-        this.playerMarker = null;
+        this.player1Marker = null;
+        this.player2Marker = null;
         changedLocation = false;
 
     }
@@ -47,7 +51,7 @@ class UIMapView : OnMapReadyCallback, UILocationWidget {
         if (!newCoords.equals(this.coords)) {
             this.gpsShadows.checkLocationFurtherThanDistance(location);
             this.coords = newCoords;
-            this.playerMarker?.remove();
+            this.player1Marker?.remove();
             addLocationMarker();
             if (location.accuracy >= Constants.SHADOW_THRESHOLD) {
                 addGPSShadowToMap(location);
@@ -59,7 +63,18 @@ class UIMapView : OnMapReadyCallback, UILocationWidget {
         }
     }
 
-
+    fun updatePlayer2Location(locationObject : JSONObject) {
+        var currentLocation = LatLng(
+            locationObject.getDouble("latitude"),
+            locationObject.getDouble("longitude")
+        );
+        val shadow = locationObject.getBoolean("inShadow");
+        Log.i("SHADOW VALUE", shadow.toString())
+        this.player2Marker?.remove();
+        if (!shadow) {
+            addPlayer2LocationMarker(currentLocation);
+        }
+    }
 
     private fun addGPSShadowToMap(location: Location) {
         this.map.addCircle(
@@ -72,12 +87,21 @@ class UIMapView : OnMapReadyCallback, UILocationWidget {
     }
 
     private fun addLocationMarker() {
-        this.playerMarker = this.map.addMarker(
+        this.player1Marker = this.map.addMarker(
             MarkerOptions()
                 .position(this.coords)
                 .title("Current Location")
         );
 
+    }
+
+    private fun addPlayer2LocationMarker(newLocation: LatLng) {
+        this.player2Marker = this.map.addMarker(
+            MarkerOptions()
+                .position(newLocation)
+                .title("Player 2 Location")
+        )
+        Log.i("PLAYER 2", "Marker Placed")
     }
 
 

@@ -81,20 +81,15 @@ app.post("/gps_shadows_nearby/:distance", async(req, res) => {
 wss.on("connection", (ws) => {
     console.log("NEW CONNECTION");
     ws.send("WELCOME");
-    console.log(ws);
     
     
     ws.on("message", (message, isBinary) => {
         console.log(message.toString());
-        if (message == "Ping") {
-            ws.send("Pong");
-        } else {
-            wss.clients.forEach((client) => {
-                if (client !== ws && client.readyState === WebSocket.OPEN) {
-                    client.send(message, {binary: isBinary});
-                }
-            })
-        }
+        wss.clients.forEach((client) => {
+            if (client !== ws && client.readyState === WebSocket.OPEN) {
+                client.send(message, {binary: isBinary});
+            }
+        })
     });
 
     ws.on("close", (ws) => {

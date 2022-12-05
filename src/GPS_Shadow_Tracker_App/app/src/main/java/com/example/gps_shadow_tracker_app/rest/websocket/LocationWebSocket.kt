@@ -3,20 +3,24 @@ package com.example.gps_shadow_tracker_app.rest.websocket
 import android.location.Location
 import android.util.Log
 import com.example.gps_shadow_tracker_app.Constants
+import com.example.gps_shadow_tracker_app.ui.UIMapView
 import okhttp3.*
 import org.json.JSONObject
+import java.lang.Exception
 
 class LocationWebSocket : WebSocketListener {
 
     private val client: OkHttpClient;
     private val request: Request;
     private val webSocket: WebSocket;
+    private val mapView: UIMapView;
 
-    constructor() : super() {
+    constructor(mapView : UIMapView) : super() {
         this.client = OkHttpClient();
         this.request = Request.Builder().url(Constants.WEBSOCKET_URL).build();
         this.webSocket = this.client.newWebSocket(request, this);
         this.client.dispatcher.executorService.shutdown();
+        this.mapView = mapView;
     }
 
     fun sendLocation(location : Location) {
@@ -51,6 +55,11 @@ class LocationWebSocket : WebSocketListener {
 
     override fun onMessage(webSocket: WebSocket, text: String) {
         super.onMessage(webSocket, text);
+
+        var location : JSONObject = JSONObject(text);
+        mapView.updatePlayer2Location(location);
+        Log.i("PLAYER_2_LOCATION", "Success on this side");
+
         Log.i("WEBSOCKET_MESSAGE", "TEXT: " + text);
     }
 

@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var locationText: UILocationTextViews;
     private lateinit var gpsService: GPSService;
     private lateinit var locationMap: UIMapView;
+    private lateinit var webSocket: LocationWebSocket;
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,8 +27,9 @@ class MainActivity : AppCompatActivity() {
         val mapFragment = supportFragmentManager.findFragmentById(R.id.gpsMap) as SupportMapFragment;
         locationText = UILocationTextViews(this);
         locationMap = UIMapView(this, mapFragment);
+        webSocket = LocationWebSocket(locationMap);
         val widgetList = mutableListOf(locationText, locationMap);
-        gpsService = GPSService(this, widgetList);
+        gpsService = GPSService(this, widgetList, webSocket);
     }
 
 

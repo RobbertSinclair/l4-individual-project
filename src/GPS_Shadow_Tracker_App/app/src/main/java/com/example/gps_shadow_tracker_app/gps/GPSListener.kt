@@ -19,11 +19,11 @@ class GPSListener: LocationListener {
     private val locationWidgets: List<UILocationWidget>;
     private val webSocket : LocationWebSocket;
 
-    constructor(context: Context, locationWidgets: List<UILocationWidget>) {
-        activity = context as Activity;
+    constructor(context: Context, locationWidgets: List<UILocationWidget>, webSocket : LocationWebSocket) {
+        this.activity = context as Activity;
         this.locationWidgets = locationWidgets
-        restClient = RestClient(context, RestLogger());
-        this.webSocket = LocationWebSocket();
+        this.restClient = RestClient(context, RestLogger());
+        this.webSocket = webSocket;
     }
 
     fun createLocationObject(location: Location) : JSONObject {
