@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         val mapFragment = supportFragmentManager.findFragmentById(R.id.gpsMap) as SupportMapFragment;
         locationText = UILocationTextViews(this);
         locationMap = UIMapView(this, mapFragment);
-        webSocket = LocationWebSocket(locationMap);
+        webSocket = LocationWebSocket(this, locationMap);
         val widgetList = mutableListOf(locationText, locationMap);
         gpsService = GPSService(this, widgetList, webSocket);
     }

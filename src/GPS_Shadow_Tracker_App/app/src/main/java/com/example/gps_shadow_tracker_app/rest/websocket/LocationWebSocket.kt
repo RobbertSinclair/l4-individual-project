@@ -1,5 +1,7 @@
 package com.example.gps_shadow_tracker_app.rest.websocket
 
+import android.app.Activity
+import android.content.Context
 import android.location.Location
 import android.util.Log
 import com.example.gps_shadow_tracker_app.Constants
@@ -14,8 +16,10 @@ class LocationWebSocket : WebSocketListener {
     private val request: Request;
     private val webSocket: WebSocket;
     private val mapView: UIMapView;
+    private val activity: Activity;
 
-    constructor(mapView : UIMapView) : super() {
+    constructor(context: Context, mapView : UIMapView) : super() {
+        this.activity = context as Activity;
         this.client = OkHttpClient();
         this.request = Request.Builder().url(Constants.WEBSOCKET_URL).build();
         this.webSocket = this.client.newWebSocket(request, this);
@@ -57,7 +61,10 @@ class LocationWebSocket : WebSocketListener {
         super.onMessage(webSocket, text);
         var location : JSONObject = JSONObject(text);
         Log.i("WEBSOCKET_LOCATION", location.toString())
-        mapView.updatePlayer2Location(location);
+        activity.runOnUiThread({
+            mapView.updatePlayer2Location(location);
+        })
+
         Log.i("PLAYER_2_LOCATION", "Success on this side");
 
         Log.i("WEBSOCKET_MESSAGE", "TEXT: " + text);
