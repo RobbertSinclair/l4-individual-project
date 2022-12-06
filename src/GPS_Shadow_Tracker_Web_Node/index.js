@@ -11,11 +11,13 @@ const TEMPLATE_DIR = `${ROOT_NAME}/templates`;
 const { MongoClient } = require("mongodb");
 const url = `mongodb://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_HOST}:${process.env.MONGO_PORT}`;
 const { GPSMongo } = require("./GPSMongo.js");
+const { WebSocketOperations } = require("./WebSocketOperations");
 
 const gpsMongo = new GPSMongo(url);
 const app = express();
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server: server });
+const operationClient = new WebSocketOperations(wss, gpsMongo);
 app.use("/static", express.static("public"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -78,21 +80,18 @@ app.post("/gps_shadows_nearby/:distance", async(req, res) => {
     res.end(JSON.stringify(result));
 })
 
-wss.on("connection", (ws) => {
+wss.on("connection", (sender) => {
     console.log("NEW CONNECTION");
+    operationClient.getId(sender);
     
-    
-    ws.on("message", (message, isBinary) => {
+    sender.on("message", (message, isBinary) => {
         console.log(message.toString());
-        wss.clients.forEach((client) => {
-            if (client !== ws && client.readyState === WebSocket.OPEN) {
-                client.send(message, {binary: isBinary});
-            }
-        })
+        operationClient.broadcastExceptSender(sender, message, isBinary);
+        operationClient.broadcastAll(message, isBinary)
     });
 
-    ws.on("close", (ws) => {
-        console.log("Connection Closed");
+    sender.on("close", () => {
+        operationClient.playerDisconnected(sender);
     })
 
 })

@@ -8,7 +8,7 @@ class GPSMongo {
         this.mongoClient = new MongoClient(url);
         this.connect();
         this.shadowCollection = this.mongoClient.db("gpsGame").collection("gpsShadows");
-        this.userCollection = this.mongoClient.db("gpsGame").collection("users");        
+        this.userCollection = this.mongoClient.db("gpsGame").collection("players");        
         this.calculateMedian()
         console.log("GPSMongo instance created");
     }
@@ -27,8 +27,7 @@ class GPSMongo {
                 type: "Point",
                 coordinates: [Number(data.longitude), Number(data.latitude)]
             },
-            accuracy: Number(data.accuracy),
-            time: moment().format("HH:mm:ss")
+            accuracy: Number(data.accuracy)
         }
     }
 
@@ -101,13 +100,19 @@ class GPSMongo {
 
     }
 
-    async onWebSocketConnection(id) {
-        const newUser = { "user": id};
-        await this.userCollection.insertOne(newUser); 
+    async createPlayer(sender) {
+        const newUser = {"chaser": false};
+        const data = await this.userCollection.insertOne(newUser);
+        return data.insertedId;
     }
 
-    async onWebSocketDisconnect(id) {
-        await this.userCollection.deleteOne({ "user": id});
+    async swapChaserState(sender) {
+        const sample = await this.userCollection.aggregate([{ $sample: {size: 1}}]);
+        console.log(sample);
+    }
+
+    async removePlayer(sender) {
+        await this.userCollection.deleteOne({ "_id": sender.id});
     }
 
 }

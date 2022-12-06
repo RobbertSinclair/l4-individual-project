@@ -1,0 +1,20 @@
+CONNECT
+{
+    "type": "CONNECT",
+    "message": INSERT_MESSAGE_HERE (String)
+}
+
+LOCATION
+{
+    "type": "LOCATION",
+    "latitude": LATITUDE_HERE (Float),
+    "longitude": LONGITUDE_HERE (Float),
+    "accuracy": ACCURACY_HERE (Float),
+    "inShadow": TRUE/FALSE (boolean)
+}
+
+DISCONNECT
+{
+    "type": "DISCONNECT",
+    "message": INSERT_MESSAGE_HERE (String)
+}
