@@ -4,15 +4,12 @@ import android.os.Build
 import android.os.Bundle
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import com.example.gps_shadow_tracker_app.game.PlayerTypes
 import com.example.gps_shadow_tracker_app.gps.GPSService
 import com.example.gps_shadow_tracker_app.rest.websocket.LocationWebSocket
 import com.example.gps_shadow_tracker_app.ui.UILocationTextViews
 import com.example.gps_shadow_tracker_app.ui.UIMapView
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
 
 class MainActivity : AppCompatActivity() {
     private lateinit var locationText: UILocationTextViews;
@@ -30,6 +27,7 @@ class MainActivity : AppCompatActivity() {
         webSocket = LocationWebSocket(this, locationMap);
         val widgetList = mutableListOf(locationText, locationMap);
         gpsService = GPSService(this, widgetList, webSocket);
+        var gameState = PlayerTypes.CHASER;
     }
 
 

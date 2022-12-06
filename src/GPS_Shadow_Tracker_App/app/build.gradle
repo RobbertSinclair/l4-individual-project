@@ -39,6 +39,8 @@ dependencies {
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'com.google.android.material:compose-theme-adapter:1.1.16'
+    implementation 'com.google.accompanist:accompanist-appcompat-theme:0.25.1'
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.fragment:fragment-ktx:1.5.4'
