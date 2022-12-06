@@ -82,12 +82,11 @@ app.post("/gps_shadows_nearby/:distance", async(req, res) => {
 
 wss.on("connection", (sender) => {
     console.log("NEW CONNECTION");
-    operationClient.getId(sender);
+    operationClient.getId({}, sender);
     
     sender.on("message", (message, isBinary) => {
         console.log(message.toString());
-        operationClient.broadcastExceptSender(sender, message, isBinary);
-        operationClient.broadcastAll(message, isBinary)
+        operationClient.handleReceivedMessage(message, sender)
     });
 
     sender.on("close", () => {

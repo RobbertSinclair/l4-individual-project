@@ -4,18 +4,28 @@ const WebSocket = require("ws");
 
 class WebSocketOperations {
 
+    constructor(wss, mongoClient) {
+        this.server = wss;
+        this.mongoClient = mongoClient;
+    }
+    
     types = {
-        "LOCATION": this.getLocation,
+        "LOCATION": this.getUserLocation,
         "CONNECT": this.getId
     }
 
-    constructor(wss, mongoClient) {
-        this.server = wss;
-        this.mongoClient = mongoClient
-        
+    handleReceivedMessage(message, sender) {
+        console.log("Received message");
+        console.log(this.mongoClient);
+        const data = JSON.parse(message);
+        if (data.type === "LOCATION") {
+            this.getUserLocation(message, sender);
+        }
     }
 
-    async getId(sender) {
+    async getId(data, sender) {
+        console.log("GET ID");
+        console.log(this.mongoClient);
         const id = await this.mongoClient.createPlayer();
         const connectMessageObject = {
             "type": "CONNECT_MESSAGE",
@@ -32,6 +42,8 @@ class WebSocketOperations {
     }
 
     async playerDisconnected(sender) {
+        console.log("PLAYER_DISCONNECTED");
+        console.log(this.mongoClient);
         await this.mongoClient.removePlayer(sender);
         const messageObject = {
             "type": "DISCONNECT",
@@ -39,6 +51,15 @@ class WebSocketOperations {
         }
         const messageString = JSON.stringify(messageObject);
         this.broadcastAll(messageString);
+    }
+
+    async getUserLocation(message, sender) {
+        console.log("GET USER LOCATION");
+        console.log(this.mongoClient)
+        if (message.accuracy >= SHADOW_THRESHOLD) {
+            await this.mongoClient.createSingleGPSShadow(message);
+        }
+        this.broadcastExceptSender(sender, message)
     }
 
     broadcastAll(message, isBinary) {
