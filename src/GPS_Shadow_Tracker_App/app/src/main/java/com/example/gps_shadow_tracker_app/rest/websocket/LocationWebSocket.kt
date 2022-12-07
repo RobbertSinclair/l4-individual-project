@@ -27,14 +27,12 @@ class LocationWebSocket : WebSocketListener {
         this.mapView = mapView;
     }
 
-    fun sendLocation(location : Location) {
-        var locationObject = JSONObject();
+    fun sendLocation(locationObject : JSONObject) {
+        val accuracy : Float = locationObject.get("accuracy") as Float;
         locationObject.put("type", "LOCATION");
-        locationObject.put("latitude", location.latitude);
-        locationObject.put("longitude", location.longitude);
-        locationObject.put("accuracy", location.accuracy);
-        locationObject.put("inShadow", location.accuracy >= Constants.SHADOW_THRESHOLD);
+        locationObject.put("inShadow", accuracy >= Constants.SHADOW_THRESHOLD);
         val locationString = locationObject.toString();
+        Log.i("LOCATION_STRING", locationString);
         this.webSocket.send(locationString);
     }
 
@@ -60,12 +58,13 @@ class LocationWebSocket : WebSocketListener {
     override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
         super.onFailure(webSocket, t, response);
         Log.i("WEBSOCKET_FAILED", "Response " + t.toString());
+        throw t;
     }
 
     override fun onMessage(webSocket: WebSocket, text: String) {
         super.onMessage(webSocket, text);
         var location : JSONObject = JSONObject(text);
-        if (location.get("message").equals("LOCATION")) {
+        if (location.get("type").equals("LOCATION")) {
             activity.runOnUiThread({
                 mapView.updatePlayer2Location(location);
             })

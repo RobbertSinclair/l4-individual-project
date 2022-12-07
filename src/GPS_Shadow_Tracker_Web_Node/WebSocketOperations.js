@@ -38,8 +38,6 @@ class WebSocketOperations {
     }
 
     async playerDisconnected(sender) {
-        console.log("PLAYER_DISCONNECTED");
-        console.log(this.mongoClient);
         await this.mongoClient.removePlayer(sender);
         const messageObject = {
             "type": "DISCONNECT",
@@ -54,7 +52,7 @@ class WebSocketOperations {
         if (message.accuracy >= SHADOW_THRESHOLD) {
             await this.mongoClient.createSingleGPSShadow(message);
         }
-        this.broadcastExceptSender(sender, message)
+        this.broadcastExceptSender(sender, JSON.stringify(message))
     }
 
     broadcastAll(message, isBinary) {

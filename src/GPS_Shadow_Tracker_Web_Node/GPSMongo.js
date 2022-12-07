@@ -87,7 +87,6 @@ class GPSMongo {
         }
     }
 
-    
     async getAllGPSPoints() {
         const data = await this.shadowCollection.find({});
         const dataArray = await data.toArray();
@@ -96,8 +95,6 @@ class GPSMongo {
         } else {
             return null;
         }
-        
-
     }
 
     async createPlayer(sender) {
