@@ -85,7 +85,6 @@ wss.on("connection", (sender) => {
     operationClient.getId({}, sender);
     
     sender.on("message", (message, isBinary) => {
-        console.log(message.toString());
         operationClient.handleReceivedMessage(message, sender)
     });
 

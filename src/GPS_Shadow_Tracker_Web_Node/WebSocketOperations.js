@@ -15,17 +15,13 @@ class WebSocketOperations {
     }
 
     handleReceivedMessage(message, sender) {
-        console.log("Received message");
-        console.log(this.mongoClient);
         const data = JSON.parse(message);
         if (data.type === "LOCATION") {
-            this.getUserLocation(message, sender);
+            this.getUserLocation(data, sender);
         }
     }
 
     async getId(data, sender) {
-        console.log("GET ID");
-        console.log(this.mongoClient);
         const id = await this.mongoClient.createPlayer();
         const connectMessageObject = {
             "type": "CONNECT_MESSAGE",
@@ -54,8 +50,7 @@ class WebSocketOperations {
     }
 
     async getUserLocation(message, sender) {
-        console.log("GET USER LOCATION");
-        console.log(this.mongoClient)
+        console.log(message.accuracy);
         if (message.accuracy >= SHADOW_THRESHOLD) {
             await this.mongoClient.createSingleGPSShadow(message);
         }
