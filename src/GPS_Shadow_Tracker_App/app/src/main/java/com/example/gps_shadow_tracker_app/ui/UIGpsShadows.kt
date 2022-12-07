@@ -37,7 +37,7 @@ class UIGpsShadows: RestInterface {
 
     fun checkLocationFurtherThanDistance(other: Location) {
         Log.i("DISTANCE", counter.toString());
-        if (counter % Constants.DISTANCE_THRESHOLD == 0F) {
+        if (Constants.IS_RUNNER && counter % Constants.DISTANCE_THRESHOLD == 0F) {
             location = other;
             this.getGpsShadows();
         }

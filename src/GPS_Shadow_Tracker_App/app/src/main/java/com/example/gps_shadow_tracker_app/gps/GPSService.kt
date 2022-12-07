@@ -8,6 +8,7 @@ import android.os.Build
 import android.os.Handler
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import com.example.gps_shadow_tracker_app.Constants
 import com.example.gps_shadow_tracker_app.rest.websocket.LocationWebSocket
 import com.example.gps_shadow_tracker_app.ui.UILocationWidget
 
@@ -25,7 +26,7 @@ class GPSService {
         locationManager = this.context.getSystemService(Context.LOCATION_SERVICE) as LocationManager;
         gpsListener = GPSListener(context, uiWidgets, webSocket);
         if (permissionGranted()) {
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0F, gpsListener);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, Constants.LOCATION_DELAY, 0F, gpsListener);
             //locationManager.addNmeaListener(GPSNmeaReader(), Handler());
         }
 

@@ -19,6 +19,10 @@ class Constants {
 
         val SHADOW_THRESHOLD: Double = 30.0;
 
+        val LOCATION_DELAY: Long = 2000;
+
+        val IS_RUNNER : Boolean = false;
+
     }
 
 }

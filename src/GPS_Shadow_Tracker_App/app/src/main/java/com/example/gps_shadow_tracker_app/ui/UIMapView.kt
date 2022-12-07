@@ -43,7 +43,9 @@ class UIMapView : OnMapReadyCallback, UILocationWidget {
         this.coords = LatLng(0.0, 0.0);
         addLocationMarker();
         this.map.moveCamera(CameraUpdateFactory.zoomTo(15.0F));
-        this.gpsShadows.getGpsShadows();
+        if (Constants.IS_RUNNER) {
+            this.gpsShadows.getGpsShadows();
+        }
     }
 
     override fun updateLocation(location: Location) {
@@ -53,7 +55,7 @@ class UIMapView : OnMapReadyCallback, UILocationWidget {
             this.coords = newCoords;
             this.player1Marker?.remove();
             addLocationMarker();
-            if (location.accuracy >= Constants.SHADOW_THRESHOLD) {
+            if (Constants.IS_RUNNER && location.accuracy >= Constants.SHADOW_THRESHOLD) {
                 addGPSShadowToMap(location);
             }
             if (!changedLocation) {
