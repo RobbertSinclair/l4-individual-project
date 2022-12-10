@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.*
+import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,7 +21,12 @@ import com.example.gps_shadow_tracker_app.rest.websocket.LocationWebSocket
 import com.example.gps_shadow_tracker_app.ui.UILocationTextViews
 import com.example.gps_shadow_tracker_app.ui.UIMapView
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.CameraPosition
+import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.GoogleMap
+import com.google.maps.android.compose.Marker
+import com.google.maps.android.compose.MarkerState
+import com.google.maps.android.compose.rememberCameraPositionState
 
 class MainActivity : AppCompatActivity() {
     private lateinit var gpsService: GPSService;
@@ -33,6 +39,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MaterialTheme {
+                mapView()
                 accuracyAndPlayerMode(5.0, true)
 
             }
@@ -61,7 +68,10 @@ fun chaserOrRunner(chaser: Boolean) {
 
 @Composable
 fun bigText(text: String) {
-    Text(text, fontSize=25.sp)
+    Card() {
+        Text(text, modifier= Modifier.padding(horizontal=4.dp, vertical=4.dp), fontSize=25.sp)
+    }
+
 }
 
 @Composable
@@ -83,6 +93,25 @@ fun accuracyAndPlayerMode(accuracy: Double, chaser: Boolean) {
     Spacer(modifier=Modifier.height(8.dp))
 
 
+
+}
+
+@Composable
+fun mapView() {
+    val singapore = LatLng(1.35, 103.87)
+    val singaporeState = MarkerState(position = singapore)
+    val cameraPositionState = rememberCameraPositionState {
+        position = CameraPosition.fromLatLngZoom(singapore, 10f)
+    }
+    GoogleMap(
+        modifier = Modifier.fillMaxSize(),
+        cameraPositionState = cameraPositionState
+    ) {
+        Marker(
+            state = singaporeState,
+            title = "Marker in Singapore"
+        )
+    }
 }
 
 

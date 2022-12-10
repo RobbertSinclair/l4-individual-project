@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.location.Location
 import android.widget.TextView
+import androidx.compose.runtime.Composable
 import com.example.gps_shadow_tracker_app.R
 
 class UILocationTextViews : UILocationWidget {
