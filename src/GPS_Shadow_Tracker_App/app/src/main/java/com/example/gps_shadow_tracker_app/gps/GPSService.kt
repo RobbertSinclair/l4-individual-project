@@ -26,7 +26,7 @@ class GPSService {
         locationManager = this.context.getSystemService(Context.LOCATION_SERVICE) as LocationManager;
         gpsListener = GPSListener(context, uiWidgets, webSocket);
         if (permissionGranted()) {
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, Constants.LOCATION_DELAY, 0F, gpsListener);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, Constants.LOCATION_DELAY, Constants.MIN_DISTANCE, gpsListener);
             //locationManager.addNmeaListener(GPSNmeaReader(), Handler());
         }
 

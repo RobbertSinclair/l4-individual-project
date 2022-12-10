@@ -23,6 +23,8 @@ class Constants {
 
         val IS_RUNNER : Boolean = false;
 
+        val MIN_DISTANCE: Float = 1F;
+
     }
 
 }
