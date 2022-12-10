@@ -6,6 +6,8 @@ import android.location.Location
 import android.location.LocationManager
 import android.util.Log
 import com.example.gps_shadow_tracker_app.Constants
+import com.example.gps_shadow_tracker_app.game.Player
+import com.example.gps_shadow_tracker_app.game.PlayerTypes
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -25,16 +27,17 @@ class UIMapView : OnMapReadyCallback, UILocationWidget {
     private val context : Context;
     private var coords: LatLng;
     private var changedLocation: Boolean;
+    private var player: Player;
 
 
-    constructor(context : Context, mapFragment: SupportMapFragment) {
+    constructor(context : Context, mapFragment: SupportMapFragment, player: Player) {
         this.context = context;
         mapFragment.getMapAsync(this);
         this.coords = LatLng(0.0, 0.0);
         this.player1Marker = null;
         this.player2Marker = null;
         changedLocation = false;
-
+        this.player = player;
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -55,7 +58,7 @@ class UIMapView : OnMapReadyCallback, UILocationWidget {
             this.coords = newCoords;
             this.player1Marker?.remove();
             addLocationMarker();
-            if (Constants.IS_RUNNER && location.accuracy >= Constants.SHADOW_THRESHOLD) {
+            if (player.getPlayerType() == PlayerTypes.CHASER && location.accuracy >= Constants.SHADOW_THRESHOLD) {
                 addGPSShadowToMap(location);
             }
             if (!changedLocation) {

@@ -2,13 +2,12 @@ package com.example.gps_shadow_tracker_app.rest.websocket
 
 import android.app.Activity
 import android.content.Context
-import android.location.Location
 import android.util.Log
 import com.example.gps_shadow_tracker_app.Constants
+import com.example.gps_shadow_tracker_app.game.Player
 import com.example.gps_shadow_tracker_app.ui.UIMapView
 import okhttp3.*
 import org.json.JSONObject
-import java.lang.Exception
 
 class LocationWebSocket : WebSocketListener {
 
@@ -17,14 +16,16 @@ class LocationWebSocket : WebSocketListener {
     private val webSocket: WebSocket;
     private val mapView: UIMapView;
     private val activity: Activity;
+    private val player: Player;
 
-    constructor(context: Context, mapView : UIMapView) : super() {
+    constructor(context: Context, mapView : UIMapView, player: Player) : super() {
         this.activity = context as Activity;
         this.client = OkHttpClient();
         this.request = Request.Builder().url(Constants.WEBSOCKET_URL).build();
         this.webSocket = this.client.newWebSocket(request, this);
         this.client.dispatcher.executorService.shutdown();
         this.mapView = mapView;
+        this.player = player;
     }
 
     fun sendLocation(locationObject : JSONObject) {
@@ -63,16 +64,21 @@ class LocationWebSocket : WebSocketListener {
 
     override fun onMessage(webSocket: WebSocket, text: String) {
         super.onMessage(webSocket, text);
-        var location : JSONObject = JSONObject(text);
-        if (location.get("type").equals("LOCATION")) {
+        var message = JSONObject(text);
+        Log.i("WEBSOCKET_MESSAGE", "TEXT: " + text);
+        if (message.get("type").equals("LOCATION")) {
             activity.runOnUiThread({
-                mapView.updatePlayer2Location(location);
+                mapView.updatePlayer2Location(message);
             })
+        }
+        if (message.get("type").equals("CONNECT")) {
+            player.setPlayerType(message.getBoolean("chaser"));
+            player.setPlayerId(message.getString("id"));
         }
 
         Log.i("PLAYER_2_LOCATION", "Success on this side");
 
-        Log.i("WEBSOCKET_MESSAGE", "TEXT: " + text);
+
     }
 
 }

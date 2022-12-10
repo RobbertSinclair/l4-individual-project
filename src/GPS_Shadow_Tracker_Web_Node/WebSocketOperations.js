@@ -22,18 +22,19 @@ class WebSocketOperations {
     }
 
     async getId(data, sender) {
-        const id = await this.mongoClient.createPlayer();
+        const playerData = await this.mongoClient.createPlayer();
         const connectMessageObject = {
             "type": "CONNECT_MESSAGE",
-            "message": `Player ${id.toString()} has joined`
+            "message": `Player ${data.toString()} has joined`
         }
         const connectMessageString = JSON.stringify(connectMessageObject) 
         this.broadcastExceptSender(sender, connectMessageString);
         const connectIdObject = {
             "type": "CONNECT",
-            "id": id.toString()
+            "id": playerData.id.toString(),
+            "chaser": playerData.chaser
         }
-        sender.id = id;
+        sender.id = playerData.id;
         sender.send(JSON.stringify(connectIdObject));
     }
 

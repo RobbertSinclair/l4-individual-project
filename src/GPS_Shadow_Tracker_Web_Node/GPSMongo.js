@@ -100,7 +100,7 @@ class GPSMongo {
     async createPlayer(sender) {
         const newUser = {"chaser": false};
         const data = await this.userCollection.insertOne(newUser);
-        return data.insertedId;
+        return {"id": data.insertedId, "chaser": newUser.chaser};
     }
 
     async swapChaserState(sender) {
