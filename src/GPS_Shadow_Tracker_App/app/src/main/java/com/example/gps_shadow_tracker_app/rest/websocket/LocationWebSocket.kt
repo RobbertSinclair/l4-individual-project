@@ -67,9 +67,9 @@ class LocationWebSocket : WebSocketListener {
         var message = JSONObject(text);
         Log.i("WEBSOCKET_MESSAGE", "TEXT: " + text);
         if (message.get("type").equals("LOCATION")) {
-            activity.runOnUiThread({
+            /*activity.runOnUiThread({
                 mapView.updatePlayer2Location(message);
-            })
+            })*/
         }
         if (message.get("type").equals("CONNECT")) {
             player.setPlayerType(message.getBoolean("chaser"));

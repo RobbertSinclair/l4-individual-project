@@ -9,23 +9,35 @@ import androidx.compose.material3.MaterialTheme
 import com.example.gps_shadow_tracker_app.game.Player
 import com.example.gps_shadow_tracker_app.gps.GPSService
 import com.example.gps_shadow_tracker_app.rest.websocket.LocationWebSocket
+import com.example.gps_shadow_tracker_app.ui.UILocationTextViews
 import com.example.gps_shadow_tracker_app.ui.UIMapView
 import com.example.gps_shadow_tracker_app.ui.accuracyAndPlayerMode
-import com.example.gps_shadow_tracker_app.ui.mapView
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var gpsService: GPSService;
     private lateinit var locationMap: UIMapView;
     private lateinit var webSocket: LocationWebSocket;
-    private lateinit var player: Player;
+    private lateinit var mainPlayer: Player;
+    private lateinit var otherPlayers: MutableList<Player>
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        this.mainPlayer = Player()
+        mainPlayer.setPlayerType(false);
+        val textView = UILocationTextViews();
+        val mapUI = UIMapView(this, mainPlayer);
+        val widgetList = mutableListOf(textView, mapUI);
+        gpsService = GPSService(this, widgetList);
+
+        val timer = Timer()
+
+
         setContent {
             MaterialTheme {
-                mapView()
-                accuracyAndPlayerMode(5.0, true)
+                mapUI.mapView()
+                accuracyAndPlayerMode(textView, mainPlayer)
 
             }
         }

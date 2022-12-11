@@ -1,47 +1,37 @@
 package com.example.gps_shadow_tracker_app.ui
 
-import android.app.Activity
-import android.content.Context
 import android.location.Location
-import android.widget.TextView
-import androidx.compose.runtime.Composable
-import com.example.gps_shadow_tracker_app.R
+import android.util.Log
+import androidx.compose.runtime.*
+import java.util.*
+
 
 class UILocationTextViews : UILocationWidget {
-    private val latLabel: TextView?;
-    private val longLabel: TextView?;
-    private val accuracyLabel: TextView?;
+    private var accuracyValue: String;
+    private var accuracyState: MutableState<String>
 
-    constructor(context: Context) {
-        val activity = context as Activity;
-        latLabel = null;
-        longLabel = null;
-        accuracyLabel = null;
-        initValues();
-    }
-
-    fun initValues() {
-        latLabel?.text = "0";
-        longLabel?.text = "0";
-        accuracyLabel?.text = "0";
+    constructor() {
+        accuracyValue = "0.0";
+        this.accuracyState = mutableStateOf(accuracyValue)
     }
 
     override fun updateLocation(location: Location) {
-        latLabel?.text = location.latitude.toString();
-        longLabel?.text = location.longitude.toString();
-        accuracyLabel?.text = location.accuracy.toString();
+        accuracyValue = String.format("%.1f", location.accuracy);
+        accuracyState.value = accuracyValue;
+        Log.i("LOCATION UPDATED", accuracyValue)
     }
 
-    fun setLatitudeLabel(latitude: String) {
-        latLabel?.text = latitude;
+    fun getAccuracy() : String {
+        Log.i("GET ACCURACY CALLED", "Value $this.accuracyValue");
+        return this.accuracyValue;
     }
 
-    fun setLongitudeLabel(longitude: String) {
-        longLabel?.text = longitude;
+    @Composable
+    fun accuracyLabel() {
+        val accuracy = this.accuracyState;
+        bigText("Error: ${accuracy.value} meters");
     }
 
-    fun setAccuracyLabel(accuracy: String) {
-        accuracyLabel?.text = accuracy;
-    }
 
 }
+

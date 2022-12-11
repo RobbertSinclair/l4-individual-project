@@ -1,13 +1,20 @@
 package com.example.gps_shadow_tracker_app.game
 
+import android.location.Location
+
 class Player {
 
     private var type: PlayerTypes?;
     private var id : String?;
+    private var location: Location?;
+    private var inShadow: Boolean;
 
     constructor() {
         this.type = null;
         this.id = null;
+        this.location = null;
+        this.inShadow = false;
+
     }
 
     fun getPlayerType() : PlayerTypes? {
@@ -24,6 +31,10 @@ class Player {
 
     fun setPlayerId(id : String) {
         this.id = id;
+    }
+
+    fun setLocation(location: Location) {
+        this.location = location;
     }
 
     fun getPlayerId() : String? {

@@ -20,11 +20,12 @@ class GPSService {
     private val context: Context;
 
     @RequiresApi(Build.VERSION_CODES.N)
-    constructor(context: Context, uiWidgets: List<UILocationWidget>, webSocket: LocationWebSocket) {
+    constructor(context: Context, uiWidgets: List<UILocationWidget>) {
         this.context = context;
         NMEA = "";
         locationManager = this.context.getSystemService(Context.LOCATION_SERVICE) as LocationManager;
-        gpsListener = GPSListener(context, uiWidgets, webSocket);
+        //gpsListener = GPSListener(context, uiWidgets, webSocket);
+        gpsListener = GPSListener(context, uiWidgets);
         if (permissionGranted()) {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, Constants.LOCATION_DELAY, Constants.MIN_DISTANCE, gpsListener);
             //locationManager.addNmeaListener(GPSNmeaReader(), Handler());
