@@ -5,6 +5,8 @@ import android.content.Context
 import android.location.Location
 import android.util.Log
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import com.example.gps_shadow_tracker_app.Constants
 import com.example.gps_shadow_tracker_app.game.Player
@@ -28,7 +30,7 @@ class UIGpsShadows: RestInterface {
         this.restClient = RestClient(context, this);
         this.location = location;
         this.counter = 0;
-        this.shadows = mutableListOf();
+        this.shadows = mutableStateListOf();
         this.player = player;
     }
 
@@ -53,19 +55,13 @@ class UIGpsShadows: RestInterface {
 
     override fun onPostSuccess(response: JSONObject) {
         val locationDicts : JSONArray = response.get("locations") as JSONArray;
+        val newShadows = mutableStateListOf<LatLng>();
         for (i in 0 until locationDicts.length()) {
             val location = locationDicts.getJSONObject(i);
             val coords = LatLng(location.getDouble("latitude"), location.getDouble("longitude"));
-            //val accuracy = location.getDouble("accuracy");
-            /*this.map.addCircle(CircleOptions()
-                .center(coords)
-                .radius(Constants.SHADOW_CIRCLE_RADIUS)
-                .strokeColor(Color.RED)
-                .fillColor(Color.RED)
-            );*/
-            this.shadows.add(coords)
-            Log.i("SHADOW_ADDED", coords.toString())
+            newShadows.add(coords)
         }
+        this.shadows.addAll(newShadows);
     }
 
     override fun onGetFailure() {
@@ -82,7 +78,8 @@ class UIGpsShadows: RestInterface {
 
     @Composable
     fun GpsShadows() {
-        this.shadows.forEach {
+        val shadows = remember { this.shadows }
+        shadows.forEach {
             shadow(it)
         }
     }
@@ -92,7 +89,7 @@ class UIGpsShadows: RestInterface {
         Circle(
             center = coords,
             fillColor = Color.Red,
-            strokeColor = Color.Black,
+            strokeColor = Color.Red,
             radius = Constants.SHADOW_CIRCLE_RADIUS
         )
     }

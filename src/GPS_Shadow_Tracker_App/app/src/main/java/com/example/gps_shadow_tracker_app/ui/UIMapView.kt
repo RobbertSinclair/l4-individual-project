@@ -32,7 +32,6 @@ class UIMapView : UILocationWidget {
     private val playerMarkerState: MarkerState;
     private var player: Player;
 
-
     constructor(context : Context, player: Player) {
         this.context = context;
         //mapFragment.getMapAsync(this);
@@ -106,14 +105,6 @@ class UIMapView : UILocationWidget {
         )
     }*/
 
-    /*private fun addLocationMarker() {
-        this.player1Marker = this.map.addMarker(
-            MarkerOptions()
-                .position(this.coords)
-                .title("Current Location")
-        );
-
-    }*/
 
     /*private fun addPlayer2LocationMarker(newLocation: LatLng) {
         this.player2Marker = this.map.addMarker(
@@ -136,6 +127,8 @@ class UIMapView : UILocationWidget {
             playerMarker()
             if (player.getPlayerType() == PlayerTypes.RUNNER) {
                 gpsShadows.GpsShadows()
+            } else {
+                otherPlayers()
             }
         }
     }
@@ -146,6 +139,11 @@ class UIMapView : UILocationWidget {
             state = playerMarkerState,
             title = "Your Location"
         )
+    }
+
+    @Composable
+    fun otherPlayers() {
+
     }
 
 
