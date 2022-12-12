@@ -34,22 +34,34 @@ succeeded{]}}
 
 \subsection{Progress}\label{progress}
 
-\emph{{[}Briefly state your progress so far, as a bulleted list{]}}
-
 \begin{itemize}
     \tightlist
 \item Decided on a Technology Stack. Android Phone app on the frontend with a Node.js server and MongoDB database. 
 \item Created a Logging app which created a dataset of GPS Shadows around the Glasgow University Campus
+\item Compared two different Geolocation APIs and made a decision on the LocationManager API in the android library
 \item Came up with some small designs of game ideas
-\item Started to make 
+\item Started to make a minimum viable product for the game
+\item Deployed a Web Server on Railway.app
+
 \end{itemize}
 
 \subsection{Problems and risks}\label{problems-and-risks}
 
 \subsubsection{Problems}\label{problems}
 
-\emph{{[}What problems have you had so far, that have held up the
-project?{]}}
+One of the big problems so far was finding out how to get pure GPS locations. For example the first API that I used, the FusedLocationClient
+API, was not suitable because it sourced it's locations from both WiFi and GPS. It was only until I found out about NMEA strings, that I managed
+to utilise the LocationManager API to get full GPS spots.
+
+\par
+Another problem was that I didn't have as many GPS shadows when I made the switch to the LocationManager API. When I had used the FusedLocationClient
+I would have a lot of variation in the amount of shadows. It was especially apparent when walking around Kelvingrove Park. Therefore I had to alter
+my design of what kind of places you can hide in to places with a lot of public buildings
+\par
+During my initial deployment of the project. I used a Django Application on a PythonAnywhere server. However since PythonAnywhere did not support
+WebSockets which would have been crucial when developing a game. I then moved the Django server onto a server on the railway.app platform. However
+since Django needs a special type of server to run I decided to switch to Node.js so that I can get WebSockets to work and to get access to MongoDB
+which allows for easy GeoSpatial Queries.
 
 \subsubsection{Risks}\label{risks}
 
