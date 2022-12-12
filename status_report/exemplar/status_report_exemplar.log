@@ -1,0 +1,120 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.6) (preloaded format=pdflatex 2021.9.27)  12 DEC 2022 16:54
+entering extended mode
+**./status_report_exemplar.tex
+(status_report_exemplar.tex
+LaTeX2e <2021-06-01>
+L3 programming layer <2021-06-01>
+(C:\Users\Robbert Sinclair\AppData\Local\Programs\MiKTeX\tex/latex/base\article
+.cls
+Document Class: article 2021/02/12 v1.4n Standard LaTeX document class
+
+(C:\Users\Robbert Sinclair\AppData\Local\Programs\MiKTeX\tex/latex/base\size11.
+clo
+File: size11.clo 2021/02/12 v1.4n Standard LaTeX file (size option)
+)
+\c@part=\count182
+\c@section=\count183
+\c@subsection=\count184
+\c@subsubsection=\count185
+\c@paragraph=\count186
+\c@subparagraph=\count187
+\c@figure=\count188
+\c@table=\count189
+\abovecaptionskip=\skip47
+\belowcaptionskip=\skip48
+\bibindent=\dimen138
+)
+(C:\Users\Robbert Sinclair\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\times
+.sty
+Package: times 2020/03/25 PSNFSS-v9.3 (SPQR) 
+)
+(C:\Users\Robbert Sinclair\AppData\Local\Programs\MiKTeX\tex/latex/preprint\ful
+lpage.sty
+Package: fullpage 1999/02/23 1.1 (PWD)
+\FP@margin=\skip49
+)
+LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 9
+.
+
+(C:\Users\Robbert Sinclair\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ot1pt
+m.fd
+File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
+)
+(C:\Users\Robbert Sinclair\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3
+backend-pdftex.def
+File: l3backend-pdftex.def 2021-05-07 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count190
+\l__pdf_internal_box=\box50
+)
+No file status_report_exemplar.aux.
+\openout1 = `status_report_exemplar.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 10.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 10.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 10.
+! Undefined control sequence.
+l.39     \tightlist
+                   
+? 
+LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 4
+0.
+
+(C:\Users\Robbert Sinclair\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ts1pt
+m.fd
+File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
+)
+! Undefined control sequence.
+l.59     \tightlist
+                   
+? 
+[1
+
+{C:/Users/Robbert Sinclair/AppData/Local/MiKTeX/pdftex/config/pdftex.map}]
+! Undefined control sequence.
+l.72 \tightlist
+               
+? 
+! Undefined control sequence.
+l.86     \tightlist
+                   
+? 
+[2] [3] (status_report_exemplar.aux)
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 527 strings out of 478864
+ 9979 string characters out of 2843410
+ 309222 words of memory out of 3000000
+ 18505 multiletter control sequences out of 15000+600000
+ 416920 words of font info for 51 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 32i,6n,41p,183b,191s stack positions out of 5000i,500n,10000p,200000b,80000s
+{C:/Users/Robbert Sinclair/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base
+/8r.enc}<C:/Users/Robbert Sinclair/AppData/Local/Programs/MiKTeX/fonts/type1/ur
+w/times/utmb8a.pfb><C:/Users/Robbert Sinclair/AppData/Local/Programs/MiKTeX/fon
+ts/type1/urw/times/utmr8a.pfb>
+Output written on status_report_exemplar.pdf (3 pages, 37857 bytes).
+PDF statistics:
+ 23 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 500000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+
