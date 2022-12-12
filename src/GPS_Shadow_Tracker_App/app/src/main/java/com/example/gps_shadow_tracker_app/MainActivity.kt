@@ -7,6 +7,7 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material3.MaterialTheme
 import com.example.gps_shadow_tracker_app.game.Player
+import com.example.gps_shadow_tracker_app.game.PlayerTypes
 import com.example.gps_shadow_tracker_app.gps.GPSService
 import com.example.gps_shadow_tracker_app.rest.websocket.LocationWebSocket
 import com.example.gps_shadow_tracker_app.ui.UILocationTextViews
@@ -25,30 +26,24 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         this.mainPlayer = Player()
-        mainPlayer.setPlayerType(false);
+        mainPlayer.setPlayerType(PlayerTypes.CHASER);
         val textView = UILocationTextViews();
-        val mapUI = UIMapView(this, mainPlayer);
-        val widgetList = mutableListOf(textView, mapUI);
-        gpsService = GPSService(this, widgetList);
+        locationMap = UIMapView(this, mainPlayer);
+        webSocket = LocationWebSocket(this, locationMap, mainPlayer);
+        val widgetList = mutableListOf(textView, locationMap);
+        gpsService = GPSService(this, widgetList, webSocket);
 
         val timer = Timer()
 
 
         setContent {
             MaterialTheme {
-                mapUI.mapView()
+                locationMap.mapView()
                 accuracyAndPlayerMode(textView, mainPlayer)
 
             }
         }
-        /*setContentView(R.layout.activity_main);
 
-        val mapFragment = supportFragmentManager.findFragmentById(R.id.gpsMap) as SupportMapFragment;
-        this.player = Player();
-        locationMap = UIMapView(this, mapFragment, player);
-        webSocket = LocationWebSocket(this, locationMap, player);
-        val widgetList = mutableListOf(locationMap);
-        gpsService = GPSService(this, widgetList, webSocket);*/
     }
 
 

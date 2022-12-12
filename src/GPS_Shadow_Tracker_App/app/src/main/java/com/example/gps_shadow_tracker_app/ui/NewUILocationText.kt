@@ -41,5 +41,4 @@ class NewUILocationText: Fragment() {
         _binding = null
     }
 
-
 }

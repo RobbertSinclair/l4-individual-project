@@ -10,7 +10,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.gps_shadow_tracker_app.game.Player
-import com.example.gps_shadow_tracker_app.game.chaserOrRunner
+
 
 @Composable
 fun bigText(text: String) {
@@ -28,7 +28,7 @@ fun accuracyAndPlayerMode(textView: UILocationTextViews, player: Player) {
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         textView.accuracyLabel()
-        chaserOrRunner(player)
+        player.chaserOrRunner()
     }
     Spacer(modifier = Modifier.height(8.dp))
 }

@@ -2,7 +2,9 @@ package com.example.gps_shadow_tracker_app.rest.websocket
 
 import android.app.Activity
 import android.content.Context
+import android.location.Location
 import android.util.Log
+import androidx.compose.runtime.Composable
 import com.example.gps_shadow_tracker_app.Constants
 import com.example.gps_shadow_tracker_app.game.Player
 import com.example.gps_shadow_tracker_app.ui.UIMapView
@@ -67,18 +69,13 @@ class LocationWebSocket : WebSocketListener {
         var message = JSONObject(text);
         Log.i("WEBSOCKET_MESSAGE", "TEXT: " + text);
         if (message.get("type").equals("LOCATION")) {
-            /*activity.runOnUiThread({
-                mapView.updatePlayer2Location(message);
-            })*/
+            mapView.updatePlayer2Location(message);
         }
         if (message.get("type").equals("CONNECT")) {
             player.setPlayerType(message.getBoolean("chaser"));
             player.setPlayerId(message.getString("id"));
+
         }
-
         Log.i("PLAYER_2_LOCATION", "Success on this side");
-
-
     }
-
 }

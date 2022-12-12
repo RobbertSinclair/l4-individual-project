@@ -16,12 +16,12 @@ class GPSListener: LocationListener {
 
     private val activity: Activity;
     private val locationWidgets: List<UILocationWidget>;
-    //private val webSocket : LocationWebSocket;
+    private val webSocket : LocationWebSocket;
 
-    constructor(context: Context, locationWidgets: List<UILocationWidget>) {
+    constructor(context: Context, locationWidgets: List<UILocationWidget>, webSocket: LocationWebSocket) {
         this.activity = context as Activity;
         this.locationWidgets = locationWidgets
-        //this.webSocket = webSocket;
+        this.webSocket = webSocket;
     }
 
     fun createLocationObject(location: Location) : JSONObject {
@@ -38,7 +38,7 @@ class GPSListener: LocationListener {
         for (widget in locationWidgets) {
             widget.updateLocation(location);
         }
-        //val locationJSON: JSONObject = createLocationObject(location);
-        //webSocket.sendLocation(locationJSON);
+        val locationJSON: JSONObject = createLocationObject(location);
+        webSocket.sendLocation(locationJSON);
     }
 }
