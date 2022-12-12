@@ -18,7 +18,7 @@ class GPSListener: LocationListener {
     private val locationWidgets: List<UILocationWidget>;
     private val webSocket : LocationWebSocket;
 
-    constructor(context: Context, locationWidgets: List<UILocationWidget>, webSocket : LocationWebSocket) {
+    constructor(context: Context, locationWidgets: List<UILocationWidget>, webSocket: LocationWebSocket) {
         this.activity = context as Activity;
         this.locationWidgets = locationWidgets
         this.webSocket = webSocket;
