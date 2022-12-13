@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.6) (preloaded format=pdflatex 2021.9.27)  13 DEC 2022 11:38
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.6) (preloaded format=pdflatex 2021.9.27)  13 DEC 2022 12:17
 entering extended mode
 **./status_report.tex
 (status_report.tex
@@ -86,37 +86,60 @@ File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 l.71     \tightlist
                    
 ? 
+! Undefined control sequence.
+l.83     \tightlist
+                   
+? 
 
-! LaTeX Error: \begin{itemize} on input line 70 ended by \end{document}.
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.98 \end{document}
-                   
-? 
-[2] (status_report.aux) )
-(\end occurred inside a group at level 1)
+l.99 \item T
+            his project does not involve human subjects or data. No approval...
 
-### semi simple group (level 1) entered at line 70 (\begingroup)
-### bottom level 
+? 
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.100 \item I
+              have verified that the ethics checklist will apply to any eval...
+
+? 
+
+! LaTeX Error: Lonely \item--perhaps a missing list environment.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.101 \item I
+              have sought ethical guidance from the School's ethics convener...
+
+? 
+[2] [3] (status_report.aux) ) 
 Here is how much of TeX's memory you used:
  533 strings out of 478864
  10065 string characters out of 2843410
- 308216 words of memory out of 3000000
+ 309216 words of memory out of 3000000
  18507 multiletter control sequences out of 15000+600000
  418604 words of font info for 53 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 32i,6n,41p,270b,197s stack positions out of 5000i,500n,10000p,200000b,80000s
-{C:/Users/Robbert Sinclair/AppData/Local/Programs/MiKTeX/fonts/
-enc/dvips/base/8r.enc}<C:/Users/Robbert Sinclair/AppData/Local/Programs/MiKTeX/
-fonts/type1/urw/times/utmb8a.pfb><C:/Users/Robbert Sinclair/AppData/Local/Progr
-ams/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/Robbert Sinclair/AppData/
-Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
-Output written on status_report.pdf (2 pages, 50283 bytes).
+ 32i,6n,41p,270b,191s stack positions out of 5000i,500n,10000p,200000b,80000s
+{C:/Users/Robbert Sinclair/AppData/Local/Programs/
+MiKTeX/fonts/enc/dvips/base/8r.enc}<C:/Users/Robbert Sinclair/AppData/Local/Pro
+grams/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/Robbert Sinclair/AppDat
+a/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/Robbert Sinc
+lair/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
+Output written on status_report.pdf (3 pages, 52100 bytes).
 PDF statistics:
- 25 PDF objects out of 1000 (max. 8388607)
+ 28 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
