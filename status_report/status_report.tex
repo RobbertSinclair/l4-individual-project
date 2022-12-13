@@ -3,7 +3,7 @@
 \usepackage{times}
     \usepackage{fullpage}
     
-    \title{ A seamful game based on GPS Shadows }
+    \title{ A Seamful Game based on GPS Shadows }
     \author{ Robbert Malcolm Sinclair - 2432710S }
 
     \begin{document}
@@ -52,7 +52,6 @@ succeeded{]}}
 One of the big problems so far was finding out how to get pure GPS locations. For example the first API that I used, the FusedLocationClient
 API, was not suitable because it sourced it's locations from both WiFi and GPS. It was only until I found out about NMEA strings, that I managed
 to utilise the LocationManager API to get full GPS spots.
-
 \par
 Another problem was that I didn't have as many GPS shadows when I made the switch to the LocationManager API. When I had used the FusedLocationClient
 I would have a lot of variation in the amount of shadows. It was especially apparent when walking around Kelvingrove Park. Therefore I had to alter
@@ -68,10 +67,27 @@ which allows for easy GeoSpatial Queries.
 \emph{{[}What problems do you foresee in the future and how will you
 mitigate them?{]}}
 
+\begin{itemize}
+    \tightlist
+    \item I don't have a safeguard if a phone loses internet connection. \textbf{Mitigation:} I will do some research into techniques that will keep player data if it crashes
+    \item I'm unsure of the ethical requirements of my evaluation \textbf{Mitigation:} I will read through the checklist when planning my evaluation
+    \item I need to be aware about the computational constraints of a smartphone \textbf{Mitigation:} I will have a look at what computations can be done on my web server rather than on my phone to help lighten the load.
+\end{itemize}
+
 \subsection{Plan}\label{plan}
 
 \emph{{[}Time plan, in roughly weekly to monthly blocks, up until
 submission week{]}}
+
+\begin{itemize}
+    \tightlist
+    \item \textbf{Christmas Holidays} Finish a bare minimum minimum viable product tag game. Prepare Evaluation for the game
+    \item \textbf{Weeks 1-2} Aim to have a first evaluation on the minimum game around this time
+    \item \textbf{Weeks 3-6} Code up improvements to the game as discussed in the evaluation
+    \item \textbf{Weeks 6-7} Evaluation of the final game
+    \item \textbf{Weeks 8-11} Write Up 
+\end{itemize}
+
 
     
 \subsection{Ethics and data}\label{ethics}
