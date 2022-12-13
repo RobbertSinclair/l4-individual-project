@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.6) (preloaded format=pdflatex 2021.9.27)  13 DEC 2022 12:17
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.6) (preloaded format=pdflatex 2021.9.27)  13 DEC 2022 12:31
 entering extended mode
 **./status_report.tex
 (status_report.tex
@@ -70,11 +70,11 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <6> on input line 10.
 
 ! Undefined control sequence.
-l.38     \tightlist
+l.42     \tightlist
                    
 ? 
-LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 3
-9.
+LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 4
+3.
 
 (C:\Users\Robbert Sinclair\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ts1pt
 m.fd
@@ -83,11 +83,11 @@ File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 
 {C:/Users/Robbert Sinclair/AppData/Local/MiKTeX/pdftex/config/pdftex.map}]
 ! Undefined control sequence.
-l.71     \tightlist
+l.75     \tightlist
                    
 ? 
 ! Undefined control sequence.
-l.83     \tightlist
+l.84     \tightlist
                    
 ? 
 
@@ -97,10 +97,11 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.99 \item T
-            his project does not involve human subjects or data. No approval...
+l.100 \item T
+             his project does not involve human subjects or data. No approva...
 
 ? 
+[2]
 
 ! LaTeX Error: Lonely \item--perhaps a missing list environment.
 
@@ -108,7 +109,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.100 \item I
+l.101 \item I
               have verified that the ethics checklist will apply to any eval...
 
 ? 
@@ -119,11 +120,15 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.101 \item I
+l.102 \item I
               have sought ethical guidance from the School's ethics convener...
 
 ? 
-[2] [3] (status_report.aux) ) 
+[3] (status_report.aux)
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ ) 
 Here is how much of TeX's memory you used:
  533 strings out of 478864
  10065 string characters out of 2843410
@@ -132,12 +137,12 @@ Here is how much of TeX's memory you used:
  418604 words of font info for 53 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  32i,6n,41p,270b,191s stack positions out of 5000i,500n,10000p,200000b,80000s
-{C:/Users/Robbert Sinclair/AppData/Local/Programs/
-MiKTeX/fonts/enc/dvips/base/8r.enc}<C:/Users/Robbert Sinclair/AppData/Local/Pro
-grams/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/Robbert Sinclair/AppDat
-a/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/Robbert Sinc
-lair/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
-Output written on status_report.pdf (3 pages, 52100 bytes).
+{C:/Users/Robbert Sinclair/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base
+/8r.enc}<C:/Users/Robbert Sinclair/AppData/Local/Programs/MiKTeX/fonts/type1/ur
+w/times/utmb8a.pfb><C:/Users/Robbert Sinclair/AppData/Local/Programs/MiKTeX/fon
+ts/type1/urw/times/utmr8a.pfb><C:/Users/Robbert Sinclair/AppData/Local/Programs
+/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
+Output written on status_report.pdf (3 pages, 52168 bytes).
 PDF statistics:
  28 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
