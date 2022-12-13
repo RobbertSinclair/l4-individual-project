@@ -158,7 +158,7 @@ In this chapter I will go over some of the foundational concepts required to und
 
 \section{Introduction to the Global Positioning System (GPS)}
 
-The Global Positioning System also known as GPS is one of the worlds most famous GNSS systems. It allows people to determine their
+The Global Positioning System also known as GPS is one of the worlds most famous Global Navigation Satellite Systems (GNSS). It allows people to determine their
 location from anywhere around the world at any time. GPS has three main phases, the space phase, the control phase and the user phase.
 In the space phase, the earth is split up into 24 "slots" which should be filled up by an operational satellite \citep{spsStandard}. Therefore
 the GPS constellation is made up of at least 24 opterational satellites. In an ideal situation a user should have access to at least 4 of the satellites
@@ -166,7 +166,7 @@ at any one time \citep{Rabbany2006}.
 
 Each GPS satellite consistently sends down radio signals down to the Earth's surface. As of 2020 there are three main frequencies
 these are L1 which emits at 1575.42 MHz, L2 which emits radio waves at 1227.6 MHz and L5 with 1176.45 MHz \citep{spsStandard}. This project
-will most likely be using L2 and L1 as L5 is used mainly for aviation safety \citep{Xu2016} A GPS receiver will pick up this data and can use the satellite to calculate the distance from each satellite. Once a 
+will most likely be using L2 and L1 as L5 is used mainly for aviation safety \citep{Xu2016} A GPS receiver will pick up this data and can use the clock signals to calculate the distance from each satellite. Once a 
 satellite distance is calculated we can create a radius of equidistant points. We can then add the signals from several other
 satellites to find the intersection points. We usually need 3 to 4 satellites to be able to pinpoint the GPS receiver on the map. \citep{Rabbany2006}
 
@@ -180,6 +180,13 @@ at the various factors that could effect our accuracy.
 
 \subsection{GPS Clock Errors}
 The first form of GPS error is a clock error.
+
+\subsection{GPS Signal Reception}
+GPS signals are in the form of radio waves which can be blocked by obstacles on the way to a GPS sensor. When signals hit a specific obstable
+the signals decrese in quality during a process known as attenuation \citep{Indoors2010}. Some examples of such obstacles include
+building walls, soil and water. \citep{Kleusberg1990}. Eventually the GNSS receiver will receive more noise
+than the original signal which leads to an inaccurate signal. A good signal is received when the receiver has a good signal from at least 4
+satellites. Therefore in urban areas with high rise buildings, one or more satellites could be obstructed. 
 
 
 
