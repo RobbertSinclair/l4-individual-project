@@ -19,13 +19,17 @@ class WebSocketOperations {
         if (data.type === "LOCATION") {
             this.getUserLocation(data, sender);
         }
+        if (data.type === "PLAYER_CAUGHT") {
+            this.handlePlayerCaught(data, sender);   
+        }
     }
 
     async getId(data, sender) {
         const playerData = await this.mongoClient.createPlayer();
         const connectMessageObject = {
             "type": "CONNECT_MESSAGE",
-            "message": `Player ${data.toString()} has joined`
+            "message": `Player ${playerData.id.toString()} has joined`,
+            "player": playerData.id.toString()
         }
         const connectMessageString = JSON.stringify(connectMessageObject) 
         this.broadcastExceptSender(sender, connectMessageString);
@@ -34,7 +38,7 @@ class WebSocketOperations {
             "id": playerData.id.toString(),
             "chaser": playerData.chaser
         }
-        sender.id = playerData.id;
+        sender.id = playerData.id.toString();
         sender.send(JSON.stringify(connectIdObject));
     }
 
@@ -46,6 +50,7 @@ class WebSocketOperations {
         }
         const messageString = JSON.stringify(messageObject);
         this.broadcastAll(messageString);
+        await this.mongoClient.updateChaserState();
     }
 
     async getUserLocation(message, sender) {
@@ -70,6 +75,60 @@ class WebSocketOperations {
                 client.send(message, {binary: isBinary});
             }
         })
+    }
+
+    async handlePlayerCaught(message, sender) {
+        console.log("PLAYER_CAUGHT");
+        console.log(message.caught_id);
+        await this.mongoClient.handleCaughtPlayer(sender, message.caught_id);
+        this.server.clients.forEach((client) => {
+            console.log(client.id);
+            if (client.id === message.caught_id && client.readyState === WebSocket.OPEN) {
+                const data = JSON.stringify({
+                    "type": "NEW_TYPE",
+                    "message": "You have been caught\nYou are now the chaser",
+                    "chaser": true
+                });
+                client.send(data);
+            } else if (client === sender && client.readyState === WebSocket.OPEN) {
+                const data = JSON.stringify({
+                    "type": "NEW_TYPE",
+                    "message": "You are now a runner",
+                    "chaser": false
+                });
+                client.send(data);
+            } else if (client.readyState === WebSocket.OPEN) {
+                const data = JSON.stringify({
+                    "type": "NEW_CHASER",
+                    "message": `Player ${message.caught_id} is now the chaser`
+                });
+                client.send(data);
+            }
+        })
+    }
+
+    async getNewChaserState() {
+        const result = await this.mongoClient.selectRandomPlayerAsChaser();
+        const id = result._id.toString();
+        console.log(id);
+        this.server.clients.forEach((client) => {
+            if (client.id === id && client.readyState === WebSocket.OPEN) {
+                const data = JSON.stringify({
+                    "type": "NEW_TYPE",
+                    "message": "You are the chaser",
+                    "chaser": true
+                });
+                client.send(data);
+            } else if (client.readyState === WebSocket.OPEN){
+                const data = JSON.stringify(({
+                    "type": "NEW_TYPE",
+                    "message": "You are a runner",
+                    "chaser": false
+                }));
+                client.send(data);
+            }
+        })
+        return;
     }
 
 }

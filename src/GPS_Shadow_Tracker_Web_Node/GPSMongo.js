@@ -103,9 +103,27 @@ class GPSMongo {
         return {"id": data.insertedId, "chaser": newUser.chaser};
     }
 
-    async swapChaserState(sender) {
-        const sample = await this.userCollection.aggregate([{ $sample: {size: 1}}]);
-        console.log(sample);
+    async selectRandomPlayerAsChaser() {
+        try {
+            const otherChasers = await this.userCollection.updateOne({chaser: true}, [{$set: {chaser: false}}])
+            const sample = await this.userCollection.aggregate([{ $sample: {size: 1}}]).toArray();
+            const newChaser = sample[0];
+            const results = await this.userCollection.updateOne(newChaser, [{ $set: {chaser: true}}]);
+            return await this.userCollection.findOne({_id: newChaser._id});
+        } catch (err) {
+            console.log(err.message);
+            return {"type": "ERROR"}
+        }
+        
+    }
+
+    async handleCaughtPlayer(sender, caughtId) {
+        try {
+            await this.userCollection.updateOne({_id: sender.id}, [{$set: {chaser: false}}])
+            await this.userCollection.updateOne({_id: caughtId}, [{$set: {chaser: true}}])
+        } catch (err) {
+            console.log(err.message);
+        }
     }
 
     async removePlayer(sender) {

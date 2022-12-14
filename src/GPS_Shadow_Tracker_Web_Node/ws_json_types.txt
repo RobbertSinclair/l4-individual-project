@@ -18,3 +18,10 @@ DISCONNECT
     "type": "DISCONNECT",
     "message": INSERT_MESSAGE_HERE (String)
 }
+
+CAUGHT
+{
+    "type": "PLAYER_CAUGHT",
+    "id": "PLAYER_ID_HERE",
+    "caught_id": "PLAYER_ID_HERE"
+}
