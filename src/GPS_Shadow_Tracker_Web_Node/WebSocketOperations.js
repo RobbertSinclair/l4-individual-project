@@ -50,7 +50,7 @@ class WebSocketOperations {
         }
         const messageString = JSON.stringify(messageObject);
         this.broadcastAll(messageString);
-        await this.mongoClient.updateChaserState();
+        await this.mongoClient.selectRandomPlayerAsChaser();
     }
 
     async getUserLocation(message, sender) {
