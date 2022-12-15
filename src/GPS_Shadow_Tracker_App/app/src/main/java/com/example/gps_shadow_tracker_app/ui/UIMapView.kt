@@ -7,6 +7,9 @@ import android.location.LocationManager
 import android.util.Log
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import com.example.gps_shadow_tracker_app.Constants
 import com.example.gps_shadow_tracker_app.game.Player
@@ -82,15 +85,18 @@ class UIMapView : UILocationWidget {
     fun mapView() {
         val location = this.coords
         val locationState = MarkerState(position = location)
+        val playerState = remember { mutableStateOf(player) }
 
         GoogleMap(
             modifier = Modifier.fillMaxSize(),
             cameraPositionState = cameraPosition
         ) {
             playerMarker()
-            if (player.getPlayerType() == PlayerTypes.RUNNER) {
+            if (playerState.value.getPlayerType() == PlayerTypes.RUNNER) {
+                Log.i("GPS_SHADOW_VIEW", "GPS Shadow View Showing")
                 gpsShadows.GpsShadows()
             } else {
+                Log.i("OTHER_PLAYERS_VIEW", "Other Players View Showing")
                 otherPlayers()
             }
         }

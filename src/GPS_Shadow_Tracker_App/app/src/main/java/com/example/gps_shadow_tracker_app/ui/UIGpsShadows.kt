@@ -60,6 +60,7 @@ class UIGpsShadows: RestInterface {
             val location = locationDicts.getJSONObject(i);
             val coords = LatLng(location.getDouble("latitude"), location.getDouble("longitude"));
             newShadows.add(coords)
+            Log.i("NEW_SHADOW", coords.toString())
         }
         this.shadows.addAll(newShadows);
     }
