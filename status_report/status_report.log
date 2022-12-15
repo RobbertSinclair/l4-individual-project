@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.6) (preloaded format=pdflatex 2021.9.27)  15 DEC 2022 11:27
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.6) (preloaded format=pdflatex 2021.9.27)  15 DEC 2022 11:32
 entering extended mode
 **./status_report.tex
 (status_report.tex
@@ -70,48 +70,47 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <6> on input line 10.
 
 ! Undefined control sequence.
-l.42     \tightlist
+l.34     \tightlist
                    
 ? 
-LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 4
-3.
+LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 3
+5.
 
 (C:\Users\Robbert Sinclair\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ts1pt
 m.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 )
 ! Undefined control sequence.
-l.56     \tightlist
+l.48     \tightlist
                    
 ? 
 [1
 
 {C:/Users/Robbert Sinclair/AppData/Local/MiKTeX/pdftex/config/pdftex.map}]
 ! Undefined control sequence.
-l.72     \tightlist
+l.64     \tightlist
                    
 ? 
 ! Undefined control sequence.
-l.80     \tightlist
+l.72     \tightlist
                    
 ? 
 [2] (status_report.aux) ) 
 Here is how much of TeX's memory you used:
- 533 strings out of 478864
- 10065 string characters out of 2843410
+ 530 strings out of 478864
+ 10033 string characters out of 2843410
  308216 words of memory out of 3000000
- 18507 multiletter control sequences out of 15000+600000
- 418604 words of font info for 53 fonts, out of 8000000 for 9000
+ 18506 multiletter control sequences out of 15000+600000
+ 416920 words of font info for 51 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  32i,6n,41p,270b,191s stack positions out of 5000i,500n,10000p,200000b,80000s
 {C:/Users/Robbert Sinclair/AppData/Local/Programs/MiKT
 eX/fonts/enc/dvips/base/8r.enc}<C:/Users/Robbert Sinclair/AppData/Local/Program
 s/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/Robbert Sinclair/AppData/Lo
-cal/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/Robbert Sinclair
-/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
-Output written on status_report.pdf (2 pages, 48709 bytes).
+cal/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb>
+Output written on status_report.pdf (2 pages, 36952 bytes).
 PDF statistics:
- 25 PDF objects out of 1000 (max. 8388607)
+ 20 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

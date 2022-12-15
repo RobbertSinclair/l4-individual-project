@@ -25,6 +25,8 @@ class Constants {
 
         val MIN_DISTANCE: Float = 0F;
 
+        val NOTIFICATION_TIME: Long = 1000;
+
     }
 
 }

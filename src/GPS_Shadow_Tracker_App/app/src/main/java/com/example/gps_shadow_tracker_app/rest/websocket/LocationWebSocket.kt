@@ -4,10 +4,23 @@ import android.app.Activity
 import android.content.Context
 import android.location.Location
 import android.util.Log
-import androidx.compose.runtime.Composable
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.example.gps_shadow_tracker_app.Constants
 import com.example.gps_shadow_tracker_app.game.Player
 import com.example.gps_shadow_tracker_app.ui.UIMapView
+import com.example.gps_shadow_tracker_app.ui.bigText
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import okhttp3.*
 import org.json.JSONObject
 
@@ -19,6 +32,8 @@ class LocationWebSocket : WebSocketListener {
     private val mapView: UIMapView;
     private val activity: Activity;
     private val player: Player;
+    private var notificationShow: MutableState<Boolean>;
+    private var textState: MutableState<String>;
 
     constructor(context: Context, mapView : UIMapView, player: Player) : super() {
         this.activity = context as Activity;
@@ -28,6 +43,8 @@ class LocationWebSocket : WebSocketListener {
         this.client.dispatcher.executorService.shutdown();
         this.mapView = mapView;
         this.player = player;
+        this.notificationShow = mutableStateOf(false);
+        this.textState = mutableStateOf("");
     }
 
     fun sendLocation(locationObject : JSONObject) {
@@ -67,6 +84,7 @@ class LocationWebSocket : WebSocketListener {
     override fun onMessage(webSocket: WebSocket, text: String) {
         super.onMessage(webSocket, text);
         var message = JSONObject(text);
+        notificationService(message);
         Log.i("WEBSOCKET_MESSAGE", "TEXT: " + text);
         if (message.get("type").equals("LOCATION")) {
             mapView.updatePlayer2Location(message);
@@ -76,6 +94,49 @@ class LocationWebSocket : WebSocketListener {
             player.setPlayerId(message.getString("id"));
 
         }
+        if (message.get("type").equals("NEW_TYPE")) {
+            player.setPlayerType(message.getBoolean("chaser"))
+        }
         Log.i("PLAYER_2_LOCATION", "Success on this side");
     }
+
+    fun notificationService(locationObject: JSONObject) = runBlocking {
+        displayTextNotification(locationObject);
+    }
+
+    suspend fun displayTextNotification(locationObject: JSONObject) = coroutineScope {
+        launch {
+            switchOnNotification(locationObject)
+            delay(Constants.NOTIFICATION_TIME);
+            switchOffNotification();
+        }
+    }
+
+    private fun switchOnNotification(locationObject: JSONObject) {
+        if (locationObject.has("message")) {
+            this.textState.value = locationObject.getString("message");
+            this.notificationShow.value = true;
+        }
+    }
+
+    private fun switchOffNotification() {
+        this.notificationShow.value = false;
+    }
+
+    @Composable
+    fun notificationCenter() {
+        var showing = remember { this.notificationShow };
+        var text = remember { this.textState }
+        if (showing.value) {
+            Column(modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 16.dp),
+                horizontalAlignment= Alignment.CenterHorizontally) {
+                bigText(text = text.value);
+            }
+        }
+
+    }
+
+
 }

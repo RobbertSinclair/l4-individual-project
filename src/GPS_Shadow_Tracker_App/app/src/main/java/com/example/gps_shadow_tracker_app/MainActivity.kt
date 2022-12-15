@@ -5,6 +5,8 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
 import com.example.gps_shadow_tracker_app.game.Player
 import com.example.gps_shadow_tracker_app.game.PlayerTypes
@@ -39,7 +41,11 @@ class MainActivity : AppCompatActivity() {
         setContent {
             MaterialTheme {
                 locationMap.mapView()
-                accuracyAndPlayerMode(textView, mainPlayer)
+                Column() {
+                    accuracyAndPlayerMode(textView, mainPlayer)
+                    webSocket.notificationCenter()
+                }
+
 
             }
         }

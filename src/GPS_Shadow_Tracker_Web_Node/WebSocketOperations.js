@@ -38,7 +38,7 @@ class WebSocketOperations {
             "id": playerData.id.toString(),
             "chaser": playerData.chaser
         }
-        sender.id = playerData.id.toString();
+        sender.id = playerData.id;
         sender.send(JSON.stringify(connectIdObject));
     }
 
@@ -46,7 +46,7 @@ class WebSocketOperations {
         await this.mongoClient.removePlayer(sender);
         const messageObject = {
             "type": "DISCONNECT",
-            "message": `Player ${sender.id} has left the game`
+            "message": `Player ${sender.id.toString()} has left the game`
         }
         const messageString = JSON.stringify(messageObject);
         this.broadcastAll(messageString);
@@ -83,7 +83,7 @@ class WebSocketOperations {
         await this.mongoClient.handleCaughtPlayer(sender, message.caught_id);
         this.server.clients.forEach((client) => {
             console.log(client.id);
-            if (client.id === message.caught_id && client.readyState === WebSocket.OPEN) {
+            if (client.id.toString() === message.caught_id && client.readyState === WebSocket.OPEN) {
                 const data = JSON.stringify({
                     "type": "NEW_TYPE",
                     "message": "You have been caught\nYou are now the chaser",
@@ -112,7 +112,7 @@ class WebSocketOperations {
         const id = result._id.toString();
         console.log(id);
         this.server.clients.forEach((client) => {
-            if (client.id === id && client.readyState === WebSocket.OPEN) {
+            if (client.id.toString() === id && client.readyState === WebSocket.OPEN) {
                 const data = JSON.stringify({
                     "type": "NEW_TYPE",
                     "message": "You are the chaser",
