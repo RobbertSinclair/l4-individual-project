@@ -52,19 +52,18 @@ Once you know where there are GPS Shadows it should hopefully inform them of a g
 \subsection{Problems and risks}\label{problems-and-risks}
 
 \subsubsection{Problems}\label{problems}
+\begin{itemize}
+    \tightlist
+    \item I struggled to find an API to get pure GPS locations instead of a mixture of WiFi and GPS. \textbf{Solution:} I found out about NMEA
+    strings during my Research which led me to the LocationManager API which let me use pure GPS Locations.
 
-One of the big problems so far was finding out how to get pure GPS locations. For example the first API that I used, the FusedLocationClient
-API, was not suitable because it sourced it's locations from both WiFi and GPS. It was only until I found out about NMEA strings, that I managed
-to utilise the LocationManager API to get full GPS spots.
-\par
-Another problem was that I didn't have as many GPS shadows when I made the switch to the LocationManager API. When I had used the FusedLocationClient
-I would have a lot of variation in the amount of shadows. It was especially apparent when walking around Kelvingrove Park. Therefore I had to alter
-my design of what kind of places you can hide in to places with a lot of public buildings
-\par
-During my initial deployment of the project. I used a Django Application on a PythonAnywhere server. However since PythonAnywhere did not support
-WebSockets which would have been crucial when developing a game. I then moved the Django server onto a server on the railway.app platform. However
-since Django needs a special type of server to run I decided to switch to Node.js so that I can get WebSockets to work and to get access to MongoDB
-which allows for easy GeoSpatial Queries.
+    \item I didn't have as many GPS shadows when I made the switch to pure GPS Coordinates. \textbf{Solution: } I had to rethink
+    how players would be able to find shadow e.g. under bridges and inside buildings.
+
+    \item I had problems with deployment as my initial server didn't support WebSockets. I also used Django which was very difficult to deploy
+    when you wanted to use WebSockets. \textbf{Solution:} I made the migration to Node.js and MongoDB which allowed me to deploy a WebSocket easily
+    and I have better access to GeoSpatial queries.
+\end{itemize}
 
 \subsubsection{Risks}\label{risks}
 
@@ -72,7 +71,6 @@ which allows for easy GeoSpatial Queries.
 \begin{itemize}
     \tightlist
     \item I don't have a safeguard if a phone loses internet connection. \textbf{Mitigation:} I will do some research into techniques that will keep player data if it crashes
-    \item I'm unsure of the ethical requirements of my evaluation \textbf{Mitigation:} I will read through the checklist when planning my evaluation
     \item I need to be aware about the computational constraints of a smartphone \textbf{Mitigation:} I will have a look at what computations can be done on my web server rather than on my phone to help lighten the load.
 \end{itemize}
 
@@ -90,19 +88,12 @@ which allows for easy GeoSpatial Queries.
 
     
 \subsection{Ethics and data}\label{ethics}
-\emph{Specify what ethical approval you need to do your evaluation and how you are approaching it. This is mandatory. 
-Specify what data you expect to collect in your evaluation. Explain how this data will help you evaluate your project.
-}
 
-Options for ethics:
-\item This project does not involve human subjects or data. No approval required.
-\item I have verified that the ethics checklist will apply to any evaluation I need to do. I will sign and complete the checklist.
-\item I have sought ethical guidance from the School's ethics convener and I will:
-\begin{itemize}
-    \item Proceed under specific instructions from the Ethics convener (e.g. modified checklist).
-    \item Apply for College Ethics Board approval.
-    \item Other procedure (give details)
-\end{itemize}    
+I have verified that the ethics checklist will apply to any evaluation I need to do. I will sign and complete the checklist. I won't be collecting any personal
+data. I will be collecting location data and general opinions on how enjoyable the game was to play. The main reason why I will be logging locations is so that
+I can analyze any strategies used in order to try and win the game. The opinions on the game will help me determine whether I played a good game and to inform
+future design iterations. The evaluations will be carried out using the participants own mobile phone.
+   
 
 
 \end{document}
