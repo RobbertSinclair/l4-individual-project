@@ -8,7 +8,7 @@ import android.util.Log
 import com.example.gps_shadow_tracker_app.Constants
 import com.example.gps_shadow_tracker_app.rest.RestClient
 import com.example.gps_shadow_tracker_app.rest.RestLogger
-import com.example.gps_shadow_tracker_app.rest.websocket.LocationWebSocket
+import com.example.gps_shadow_tracker_app.websocket.LocationWebSocket
 import com.example.gps_shadow_tracker_app.ui.UILocationWidget
 import org.json.JSONObject
 

@@ -1,4 +1,4 @@
-package com.example.gps_shadow_tracker_app.rest.websocket
+package com.example.gps_shadow_tracker_app.websocket
 
 import android.app.Activity
 import android.content.Context
@@ -86,17 +86,7 @@ class LocationWebSocket : WebSocketListener {
         var message = JSONObject(text);
         notificationService(message);
         Log.i("WEBSOCKET_MESSAGE", "TEXT: " + text);
-        if (message.get("type").equals("LOCATION")) {
-            mapView.updatePlayer2Location(message);
-        }
-        if (message.get("type").equals("CONNECT")) {
-            player.setPlayerType(message.getBoolean("chaser"));
-            player.setPlayerId(message.getString("id"));
-
-        }
-        if (message.get("type").equals("NEW_TYPE")) {
-            player.setPlayerType(message.getBoolean("chaser"))
-        }
+        WebSocketActions.valueOf(message.getString("type")).implementAction(player, message, mapView);
         Log.i("PLAYER_2_LOCATION", "Success on this side");
     }
 
