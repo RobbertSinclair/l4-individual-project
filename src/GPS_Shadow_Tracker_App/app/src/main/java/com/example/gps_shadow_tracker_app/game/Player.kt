@@ -27,6 +27,11 @@ open class Player {
         this.inShadow = false;
     }
 
+    fun getPlayerDistance(other: Player): Float {
+        val otherPlayerLocation = other.getLocation();
+        return location.distanceTo(otherPlayerLocation);
+    }
+
     fun getPlayerType() : PlayerTypes? {
         return this.type;
     }
@@ -55,7 +60,7 @@ open class Player {
         this.location = location;
     }
 
-    fun getLocation(): Location? {
+    fun getLocation(): Location {
         return this.location;
     }
 
