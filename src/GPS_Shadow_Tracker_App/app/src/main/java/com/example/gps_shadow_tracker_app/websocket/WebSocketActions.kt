@@ -8,7 +8,7 @@ import org.json.JSONObject
 enum class WebSocketActions {
 
     LOCATION {
-        override fun setUpOperation(player: Player, mapView: UIMapView) = LocationOperation(player, mapView);
+        override fun setUpOperation(player: Player, mapView: UIMapView) = LocationOperation(player, mapView, null);
     },
     CAUGHT {
         override fun setUpOperation(player: Player, mapView: UIMapView) = CaughtOperation(player);

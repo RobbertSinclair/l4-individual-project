@@ -8,12 +8,15 @@ class LocationOperation:
     WebSocketOperation {
 
     private val mapView: UIMapView;
+    private val otherPlayer: Player?;
 
-    constructor(player: Player, mapView: UIMapView) : super(player) {
+    constructor(player: Player, mapView: UIMapView, otherPlayer: Player?) : super(player) {
         this.mapView = mapView;
+        this.otherPlayer = otherPlayer;
     };
 
     override fun execute(jsonObject: JSONObject) {
+
         mapView.updatePlayer2Location(jsonObject);
     }
 
