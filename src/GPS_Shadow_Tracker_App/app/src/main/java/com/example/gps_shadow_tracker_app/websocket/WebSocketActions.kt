@@ -10,6 +10,9 @@ enum class WebSocketActions {
     LOCATION {
         override fun setUpOperation(player: Player, mapView: UIMapView) = LocationOperation(player, mapView);
     },
+    CAUGHT {
+        override fun setUpOperation(player: Player, mapView: UIMapView) = CaughtOperation(player);
+    },
     CONNECT {
         override fun setUpOperation(player: Player, mapView: UIMapView) = ConnectOperation(player);
     },

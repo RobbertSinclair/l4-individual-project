@@ -86,7 +86,11 @@ class LocationWebSocket : WebSocketListener {
         var message = JSONObject(text);
         notificationService(message);
         Log.i("WEBSOCKET_MESSAGE", "TEXT: " + text);
-        WebSocketActions.valueOf(message.getString("type")).implementAction(player, message, mapView);
+        try {
+            WebSocketActions.valueOf(message.getString("type")).implementAction(player, message, mapView);
+        } catch (e: Exception) {
+            Log.i("INVALID MESSAGE", "There isn't a valid type of action here")
+        }
         Log.i("PLAYER_2_LOCATION", "Success on this side");
     }
 
