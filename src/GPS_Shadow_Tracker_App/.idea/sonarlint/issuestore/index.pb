@@ -3,10 +3,6 @@ w
 Gapp/src/main/java/com/example/gps_shadow_tracker_app/rest/RestLogger.kt,f\d\fd961aeab230c449f795af257f84a1c07916c15b
 z
 Japp/src/main/java/com/example/gps_shadow_tracker_app/rest/RestInterface.kt,1\e\1e1222cdf627f0483e422ad22f75426b68f74bdb
-v
-Fapp/src/main/java/com/example/gps_shadow_tracker_app/gps/GPSService.kt,9\f\9fe3c94355a3ab848326c8704b79ff52a125af1b
-w
-Gapp/src/main/java/com/example/gps_shadow_tracker_app/gps/GPSListener.kt,d\e\de3e43f2f98263fdf7e2b408c86a135e38f7ec3b
 q
 Aapp/src/main/java/com/example/gps_shadow_tracker_app/Constants.kt,f\7\f7b777e358f4548a481bb8a1349b99691cb24bb7
 w

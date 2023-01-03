@@ -32,10 +32,11 @@ class LocationWebSocket : WebSocketListener {
     private val mapView: UIMapView;
     private val activity: Activity;
     private val player: Player;
+    private val otherPlayers: MutableMap<String, Player>
     private var notificationShow: MutableState<Boolean>;
     private var textState: MutableState<String>;
 
-    constructor(context: Context, mapView : UIMapView, player: Player) : super() {
+    constructor(context: Context, mapView : UIMapView, player: Player, otherPlayers: MutableMap<String, Player>) : super() {
         this.activity = context as Activity;
         this.client = OkHttpClient();
         this.request = Request.Builder().url(Constants.WEBSOCKET_URL).build();
@@ -43,6 +44,7 @@ class LocationWebSocket : WebSocketListener {
         this.client.dispatcher.executorService.shutdown();
         this.mapView = mapView;
         this.player = player;
+        this.otherPlayers = otherPlayers;
         this.notificationShow = mutableStateOf(false);
         this.textState = mutableStateOf("");
     }
@@ -87,7 +89,7 @@ class LocationWebSocket : WebSocketListener {
         notificationService(message);
         Log.i("WEBSOCKET_MESSAGE", "TEXT: " + text);
         try {
-            WebSocketActions.valueOf(message.getString("type")).implementAction(player, message, mapView);
+            WebSocketActions.valueOf(message.getString("type")).implementAction(player, message, mapView, otherPlayers);
         } catch (e: Exception) {
             Log.i("INVALID MESSAGE", "There isn't a valid type of action here")
         }
