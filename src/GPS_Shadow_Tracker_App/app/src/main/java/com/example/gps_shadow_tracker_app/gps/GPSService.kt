@@ -1,12 +1,15 @@
 package com.example.gps_shadow_tracker_app.gps
 
 import android.Manifest
+import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
 import android.location.LocationManager
 import android.os.Build
 import android.os.Handler
+import android.util.Log
 import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat.requestPermissions
 import androidx.core.content.ContextCompat
 import com.example.gps_shadow_tracker_app.Constants
 import com.example.gps_shadow_tracker_app.websocket.LocationWebSocket
@@ -25,26 +28,34 @@ class GPSService {
         NMEA = "";
         locationManager = this.context.getSystemService(Context.LOCATION_SERVICE) as LocationManager;
         gpsListener = GPSListener(context, uiWidgets, webSocket);
-        if (permissionGranted()) {
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, Constants.LOCATION_DELAY, Constants.MIN_DISTANCE, gpsListener);
-            //locationManager.addNmeaListener(GPSNmeaReader(), Handler());
-        }
+        var permission = permissionGranted();
+        startLocations();
+    }
 
+
+    fun startLocations() {
+        var permission = permissionGranted()
+        if (permission) {
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, Constants.LOCATION_DELAY, Constants.MIN_DISTANCE, gpsListener);
+        } else {
+            Log.i("PERMISSION DENIED", "You must get location permission")
+            requestPermissions(this.context as Activity, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ), 1)
+            startLocations()
+
+        }
     }
 
     fun permissionGranted(): Boolean {
         return ContextCompat.checkSelfPermission(
-                context,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED &&
-            ContextCompat.checkSelfPermission(
-                context,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED &&
-            ContextCompat.checkSelfPermission(
-                context,
-                Manifest.permission.ACCESS_BACKGROUND_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
+            context,
+            Manifest.permission.ACCESS_FINE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(
+                    context,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                ) == PackageManager.PERMISSION_GRANTED
     }
 
 

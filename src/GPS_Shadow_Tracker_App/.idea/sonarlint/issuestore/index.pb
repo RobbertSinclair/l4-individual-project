@@ -9,10 +9,6 @@ w
 Gapp/src/main/java/com/example/gps_shadow_tracker_app/ui/UiComponents.kt,f\4\f47db1b89216e3304576fb64d5e8abb12a975643
 w
 Gapp/src/main/java/com/example/gps_shadow_tracker_app/ui/UIGpsShadows.kt,8\2\82676264a6ba31345dc0982c3bb15a9b9cadd919
-~
-Napp/src/main/java/com/example/gps_shadow_tracker_app/ui/UILocationTextViews.kt,6\b\6bb290c119631e4660bc45ebc4a44088d0bc970f
-{
-Kapp/src/main/java/com/example/gps_shadow_tracker_app/ui/UILocationWidget.kt,8\3\836368a77888177f8274c2e1d62c29551801e21c
 x
 Happ/src/main/java/com/example/gps_shadow_tracker_app/game/PlayerTypes.kt,c\5\c5cc173a781c29d85409712af6b6f958331d9366
 w

@@ -8,28 +8,28 @@ import org.json.JSONObject
 enum class WebSocketActions {
 
     LOCATION {
-        override fun setUpOperation(player: Player, mapView: UIMapView, otherPlayers: MutableMap<String, Player>) = LocationOperation(player, mapView, null);
+        override fun setUpOperation(webSocket : LocationWebSocket, player: Player, mapView: UIMapView, otherPlayers: MutableMap<String, Player>) = LocationOperation(player, mapView, null, webSocket);
     },
     CAUGHT {
-        override fun setUpOperation(player: Player, mapView: UIMapView, otherPlayers: MutableMap<String, Player>) = CaughtOperation(player);
+        override fun setUpOperation(webSocket: LocationWebSocket, player: Player, mapView: UIMapView, otherPlayers: MutableMap<String, Player>) = CaughtOperation(player);
     },
     CONNECT {
-        override fun setUpOperation(player: Player, mapView: UIMapView, otherPlayers: MutableMap<String, Player>) = ConnectOperation(player);
+        override fun setUpOperation(webSocket: LocationWebSocket, player: Player, mapView: UIMapView, otherPlayers: MutableMap<String, Player>) = ConnectOperation(player);
     },
     NEW_TYPE {
-        override fun setUpOperation(player: Player, mapView: UIMapView, otherPlayers: MutableMap<String, Player>) = NewTypeOperation(player);
+        override fun setUpOperation(webSocket: LocationWebSocket, player: Player, mapView: UIMapView, otherPlayers: MutableMap<String, Player>) = NewTypeOperation(player);
     },
     CONNECT_MESSAGE {
-        override fun setUpOperation(player: Player, mapView: UIMapView, otherPlayers: MutableMap<String, Player>) = ConnectMessageOperation(player, otherPlayers);
+        override fun setUpOperation(webSocket: LocationWebSocket, player: Player, mapView: UIMapView, otherPlayers: MutableMap<String, Player>) = ConnectMessageOperation(player, otherPlayers);
     },
     DISCONNECT {
-        override fun setUpOperation(player: Player, mapView: UIMapView, otherPlayers: MutableMap<String, Player>) = DisconnectOperation(player);
+        override fun setUpOperation(webSocket: LocationWebSocket, player: Player, mapView: UIMapView, otherPlayers: MutableMap<String, Player>) = DisconnectOperation(player);
     };
 
-    abstract fun setUpOperation(player: Player, mapView: UIMapView, otherPlayers: MutableMap<String, Player>) : WebSocketOperation;
+    abstract fun setUpOperation(webSocket: LocationWebSocket, player: Player, mapView: UIMapView, otherPlayers: MutableMap<String, Player>) : WebSocketOperation;
 
-    fun implementAction(player: Player, jsonObject: JSONObject, mapView: UIMapView, otherPlayers: MutableMap<String, Player>) {
-        val operation : WebSocketOperation = this.setUpOperation(player, mapView, otherPlayers);
+    fun implementAction(webSocket: LocationWebSocket, player: Player, jsonObject: JSONObject, mapView: UIMapView, otherPlayers: MutableMap<String, Player>) {
+        val operation : WebSocketOperation = this.setUpOperation(webSocket, player, mapView, otherPlayers);
         operation.execute(jsonObject);
     }
 }

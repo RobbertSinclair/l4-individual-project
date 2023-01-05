@@ -40,6 +40,10 @@ open class Player {
         return this.type;
     }
 
+    fun isChaser() : Boolean {
+        return this.type == PlayerTypes.CHASER
+    }
+
     fun setPlayerType(type: PlayerTypes) {
         this.type = type;
         typeState.value = this.type;

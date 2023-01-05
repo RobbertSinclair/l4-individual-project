@@ -89,7 +89,7 @@ class LocationWebSocket : WebSocketListener {
         notificationService(message);
         Log.i("WEBSOCKET_MESSAGE", "TEXT: " + text);
         try {
-            WebSocketActions.valueOf(message.getString("type")).implementAction(player, message, mapView, otherPlayers);
+            WebSocketActions.valueOf(message.getString("type")).implementAction(this, player, message, mapView, otherPlayers);
         } catch (e: Exception) {
             Log.i("INVALID MESSAGE", "There isn't a valid type of action here")
         }
