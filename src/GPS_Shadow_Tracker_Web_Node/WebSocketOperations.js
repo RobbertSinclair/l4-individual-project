@@ -2,6 +2,7 @@
 const { SHADOW_THRESHOLD } = require("./Constants");
 const { Player } = require("./Player")
 const WebSocket = require("ws");
+const {Location} = require("./Location");
 
 class WebSocketOperations {
 
@@ -19,9 +20,6 @@ class WebSocketOperations {
         const data = JSON.parse(message);
         if (data.type === "LOCATION") {
             this.getUserLocation(data, sender);
-        }
-        if (data.type === "PLAYER_CAUGHT") {
-            this.handlePlayerCaught(data, sender);   
         }
     }
 
@@ -56,11 +54,21 @@ class WebSocketOperations {
 
     async getUserLocation(message, sender) {
         console.log(message.accuracy);
+        const newLocation = new Location(message.latitude, message.longitude, message.accuracy);
         if (message.accuracy >= SHADOW_THRESHOLD) {
             await this.mongoClient.createSingleGPSShadow(message);
         }
-        await updatePlayerLocation(sender.id, location)
+        await this.mongoClient.updatePlayerLocation(sender.id, newLocation)
         this.broadcastExceptSender(sender, JSON.stringify(message))
+        this.mongoClient.findAnyPlayersToCatch()
+            .then(async (list) => {
+                if (list.length > 0) {
+                    const newChaser = list[0];
+                    const chaser = this.mongoClient.getCurrentChaser();
+                    //TODO create a new handlePlayerCaught method tomorrow
+                    await this.handlePlayerCaught(chaser, newChaser);
+                }
+            })
     }
 
     broadcastAll(message, isBinary) {
@@ -79,10 +87,10 @@ class WebSocketOperations {
         })
     }
 
-    async handlePlayerCaught(message, sender) {
+    async handlePlayerCaught(chaser, caughtPlayer) {
         console.log("PLAYER_CAUGHT");
         console.log(message.caught_id);
-        await this.mongoClient.handleCaughtPlayer(sender, message.caught_id);
+        await this.mongoClient.handleCaughtPlayer(sender, caughtPlayer.id);
         this.server.clients.forEach((client) => {
             console.log(client.id);
             if (client.id.toString() === message.caught_id && client.readyState === WebSocket.OPEN) {

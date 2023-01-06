@@ -126,6 +126,10 @@ class GPSMongo {
         
     }
 
+    async getCurrentChaser() {
+        return await this.userCollection.findOne({chaser: true});
+    }
+
     async updatePlayerLocation(id, location) {
         try {
             const mongoCoords = location.convertToMongoCoordinates();
@@ -142,7 +146,7 @@ class GPSMongo {
 
     async findAnyPlayersToCatch() {
         
-        const chaser = await this.userCollection.findOne({chaser: true});
+        const chaser = await this.getCurrentChaser();
         const query = {
             location: {
                 $near: {
