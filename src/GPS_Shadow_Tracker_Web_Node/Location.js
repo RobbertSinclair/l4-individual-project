@@ -27,6 +27,16 @@ class Location {
         } 
     }
 
+    convertToMongoCoordinates() {
+        return {
+            "location": {
+                "type": "Point",
+                "coordinates": [this.longitude, this.latitude]
+            },
+            "accuracy": this.accuracy
+        }
+    }
+
 }
 
 module.exports = {

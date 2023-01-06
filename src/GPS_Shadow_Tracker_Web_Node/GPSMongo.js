@@ -1,4 +1,6 @@
 const { MongoClient } = require("mongodb");
+const { Location } = require("./Location");
+const { Player } = require("./Player")
 const moment = require("moment");
 
 class GPSMongo {
@@ -98,7 +100,14 @@ class GPSMongo {
     }
 
     async createPlayer(sender) {
-        const newUser = {"chaser": false};
+        const newUser = {
+            "chaser": false, 
+            "location": {
+                "type": "Point",
+                "coordinates": [0, 0]
+            },
+            "accuracy": 3.8
+        };
         const data = await this.userCollection.insertOne(newUser);
         return {"id": data.insertedId, "chaser": newUser.chaser};
     }
@@ -115,6 +124,38 @@ class GPSMongo {
             return {"type": "ERROR"}
         }
         
+    }
+
+    async updatePlayerLocation(id, location) {
+        try {
+            const mongoCoords = location.convertToMongoCoordinates();
+            await this.userCollection.updateOne({_id, id}, [
+                {
+                    $set: mongoCoords
+                }
+            ])
+
+        } catch (err) {
+            console.log(err.message);
+        }
+    }
+
+    async findAnyPlayersToCatch() {
+        
+        const chaser = await this.userCollection.findOne({chaser: true});
+        const query = {
+            location: {
+                $near: {
+                    $geometry: {
+                        type: "Point",
+                        coordinates: [Number(chaser.location.longitude), Number(chaser.location.latitude)]
+                    },
+                    $maxDistance: distance
+                },
+            },
+            accuracy: {$lte: 6}
+        }
+        return await this.userCollection.findMany(query).toArray();
     }
 
     async handleCaughtPlayer(sender, caughtId) {

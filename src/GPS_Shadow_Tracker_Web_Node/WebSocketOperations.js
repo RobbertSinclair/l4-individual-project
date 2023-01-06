@@ -5,7 +5,7 @@ const WebSocket = require("ws");
 
 class WebSocketOperations {
 
-    constructor(wss, mongoClient) {
+    constructor(wss, mongoClient, players, chaser) {
         this.server = wss;
         this.mongoClient = mongoClient;
     }
@@ -59,6 +59,7 @@ class WebSocketOperations {
         if (message.accuracy >= SHADOW_THRESHOLD) {
             await this.mongoClient.createSingleGPSShadow(message);
         }
+        await updatePlayerLocation(sender.id, location)
         this.broadcastExceptSender(sender, JSON.stringify(message))
     }
 

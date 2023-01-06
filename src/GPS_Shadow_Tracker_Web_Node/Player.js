@@ -2,9 +2,10 @@ const ws = require("ws");
 const { MONGO_CLIENT } = require("./GPSMongo");
 const { Location } = require("./Location");
 
-export default class Player {
+class Player {
 
-    constructor(id, chaser) {
+    constructor(client, id, chaser) {
+        this.client = client;
         this.id = id;
         this.chaser = chaser;
         this.location = new Location(0, 0, 3.8);

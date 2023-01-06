@@ -12,7 +12,8 @@ const { MongoClient } = require("mongodb");
 const url = `mongodb://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_HOST}:${process.env.MONGO_PORT}`;
 const { GPSMongo } = require("./GPSMongo.js");
 const { WebSocketOperations } = require("./WebSocketOperations");
-
+const players = {};
+const chaser = null;
 const gpsMongo = new GPSMongo(url);
 const app = express();
 const server = http.createServer(app);
