@@ -34,7 +34,7 @@ class LocationOperation:
                     val caughtObject = JSONObject()
                     caughtObject.put("type", "PLAYER_CAUGHT")
                     caughtObject.put("id", player.getPlayerId())
-                    caughtObject.put("caught_id", otherPlayer.getPlayerId())
+                    caughtObject.put("caught_id", otherPlayer?.getPlayerId())
 
                 }
             }
