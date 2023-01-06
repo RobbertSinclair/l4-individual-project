@@ -1,5 +1,6 @@
 
 const { SHADOW_THRESHOLD } = require("./Constants");
+const { Player } = require("./Player")
 const WebSocket = require("ws");
 
 class WebSocketOperations {

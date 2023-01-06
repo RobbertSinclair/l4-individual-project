@@ -14,6 +14,7 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "gps": "^0.6.1",
+    "great-circle-distance": "^1.0.2",
     "moment": "^2.29.4",
     "mongo": "^0.1.0",
     "mongodb": "^4.11.0",
