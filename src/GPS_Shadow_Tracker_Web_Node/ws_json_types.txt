@@ -7,6 +7,7 @@ CONNECT
 LOCATION
 {
     "type": "LOCATION",
+    "player": PLAYER_ID_HERE (String)
     "latitude": LATITUDE_HERE (Float),
     "longitude": LONGITUDE_HERE (Float),
     "accuracy": ACCURACY_HERE (Float),

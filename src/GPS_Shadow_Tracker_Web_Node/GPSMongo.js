@@ -1,7 +1,7 @@
 const { MongoClient } = require("mongodb");
 const { Location } = require("./Location");
 const { Player } = require("./Player")
-const moment = require("moment");
+const {CATCH_THRESHOLD} = require("./Constants");
 
 class GPSMongo {
 
@@ -133,13 +133,15 @@ class GPSMongo {
     async updatePlayerLocation(id, location) {
         try {
             const mongoCoords = location.convertToMongoCoordinates();
-            await this.userCollection.updateOne({_id, id}, [
+            console.log(mongoCoords);
+            await this.userCollection.updateOne({_id: id}, [
                 {
                     $set: mongoCoords
                 }
             ])
 
         } catch (err) {
+            console.log("Error in the updatePlayerLocation")
             console.log(err.message);
         }
     }
@@ -147,26 +149,33 @@ class GPSMongo {
     async findAnyPlayersToCatch() {
         
         const chaser = await this.getCurrentChaser();
+        console.log(chaser._id);
         const query = {
+            _id: {$ne: chaser._id},
             location: {
                 $near: {
                     $geometry: {
                         type: "Point",
-                        coordinates: [Number(chaser.location.longitude), Number(chaser.location.latitude)]
+                        coordinates: [Number(chaser.location.coordinates[0]), Number(chaser.location.coordinates[1])]
                     },
-                    $maxDistance: distance
+                    $maxDistance: CATCH_THRESHOLD
                 },
             },
             accuracy: {$lte: 6}
         }
-        return await this.userCollection.findMany(query).toArray();
+        console.log(query);
+        console.log(query.location.$near.$geometry);
+        const playersToCatch = await this.userCollection.find(query).toArray();
+        console.log(playersToCatch);
+        return playersToCatch;
     }
 
-    async handleCaughtPlayer(sender, caughtId) {
+    async handleCaughtPlayer(chaser, newChaser) {
         try {
-            await this.userCollection.updateOne({_id: sender.id}, [{$set: {chaser: false}}])
-            await this.userCollection.updateOne({_id: caughtId}, [{$set: {chaser: true}}])
+            await this.userCollection.updateOne({_id: chaser.id.toString()}, [{$set: {chaser: false}}])
+            await this.userCollection.updateOne({_id: newChaser.id.toString()}, [{$set: {chaser: true}}])
         } catch (err) {
+            console.log("Handle Caught Player Error");
             console.log(err.message);
         }
     }
