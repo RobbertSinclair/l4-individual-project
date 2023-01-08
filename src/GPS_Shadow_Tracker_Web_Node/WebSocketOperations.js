@@ -49,7 +49,7 @@ class WebSocketOperations {
         }
         const messageString = JSON.stringify(messageObject);
         this.broadcastAll(messageString);
-        await this.mongoClient.getNewChaserState();
+        await this.getNewChaserState();
     }
 
     async getUserLocation(message, sender) {
@@ -127,6 +127,9 @@ class WebSocketOperations {
 
     async getNewChaserState() {
         const result = await this.mongoClient.selectRandomPlayerAsChaser();
+        if (result.type === "ERROR") {
+            return;
+        }
         const id = result._id.toString();
         console.log(id);
         this.server.clients.forEach((client) => {

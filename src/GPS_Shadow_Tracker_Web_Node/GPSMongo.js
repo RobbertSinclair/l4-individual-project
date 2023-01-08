@@ -120,7 +120,6 @@ class GPSMongo {
             const results = await this.userCollection.updateOne(newChaser, [{ $set: {chaser: true}}]);
             return await this.userCollection.findOne({_id: newChaser._id});
         } catch (err) {
-            console.log(err.message);
             return {"type": "ERROR"}
         }
         
