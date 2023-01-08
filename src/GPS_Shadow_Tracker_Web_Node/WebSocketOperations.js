@@ -49,7 +49,7 @@ class WebSocketOperations {
         }
         const messageString = JSON.stringify(messageObject);
         this.broadcastAll(messageString);
-        await this.mongoClient.selectRandomPlayerAsChaser();
+        await this.mongoClient.getNewChaserState();
     }
 
     async getUserLocation(message, sender) {
@@ -59,12 +59,12 @@ class WebSocketOperations {
             await this.mongoClient.createSingleGPSShadow(message);
         }
         await this.mongoClient.updatePlayerLocation(sender.id, newLocation)
-        this.broadcastExceptSender(sender, JSON.stringify(message))
+        const chaser = await this.mongoClient.getCurrentChaser();
+        this.sendToChaser(sender, chaser, JSON.stringify(message))
         this.mongoClient.findAnyPlayersToCatch()
             .then(async (list) => {
                 if (list.length > 0) {
                     const newChaser = list[0];
-                    const chaser = await this.mongoClient.getCurrentChaser();
                     await this.handlePlayerCaught(chaser, newChaser);
                 }
             })
@@ -86,19 +86,29 @@ class WebSocketOperations {
         })
     }
 
+    sendToChaser(sender, chaser, message, isBinary) {
+        if (sender.id != chaser._id.toString()) {
+            this.server.clients.forEach((client) => {
+                if (client.id === chaser._id.toString() && client.readyState === WebSocket.OPEN) {
+                    client.send(message, {binary: isBinary});
+                }
+            })
+        }
+    }
+
     async handlePlayerCaught(chaser, newChaser) {
         console.log("PLAYER_CAUGHT");
         await this.mongoClient.handleCaughtPlayer(chaser, newChaser);
         this.server.clients.forEach((client) => {
             console.log(client.id);
-            if (client.id.toString() === newChaser.id.toString() && client.readyState === WebSocket.OPEN) {
+            if (client.id.toString() === newChaser._id.toString() && client.readyState === WebSocket.OPEN) {
                 const data = JSON.stringify({
                     "type": "NEW_TYPE",
                     "message": "You have been caught\nYou are now the chaser",
                     "chaser": true
                 });
                 client.send(data);
-            } else if (client.id.toString() === chaser.id.toString() && client.readyState === WebSocket.OPEN) {
+            } else if (client.id.toString() === chaser._id.toString() && client.readyState === WebSocket.OPEN) {
                 const data = JSON.stringify({
                     "type": "NEW_TYPE",
                     "message": "You are now a runner",

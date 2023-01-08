@@ -53,6 +53,7 @@ class LocationWebSocket : WebSocketListener {
         val accuracy : Float = locationObject.get("accuracy") as Float;
         locationObject.put("type", "LOCATION");
         locationObject.put("inShadow", accuracy >= Constants.SHADOW_THRESHOLD);
+        locationObject.put("player", player.getPlayerId())
         val locationString = locationObject.toString();
         Log.i("LOCATION_STRING", locationString);
         this.webSocket.send(locationString);

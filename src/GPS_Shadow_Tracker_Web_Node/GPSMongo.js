@@ -147,7 +147,6 @@ class GPSMongo {
     }
 
     async findAnyPlayersToCatch() {
-        
         const chaser = await this.getCurrentChaser();
         console.log(chaser._id);
         const query = {
@@ -163,17 +162,14 @@ class GPSMongo {
             },
             accuracy: {$lte: 6}
         }
-        console.log(query);
-        console.log(query.location.$near.$geometry);
         const playersToCatch = await this.userCollection.find(query).toArray();
-        console.log(playersToCatch);
         return playersToCatch;
     }
 
     async handleCaughtPlayer(chaser, newChaser) {
         try {
-            await this.userCollection.updateOne({_id: chaser.id.toString()}, [{$set: {chaser: false}}])
-            await this.userCollection.updateOne({_id: newChaser.id.toString()}, [{$set: {chaser: true}}])
+            await this.userCollection.updateOne({_id: chaser._id}, [{$set: {chaser: false}}])
+            await this.userCollection.updateOne({_id: newChaser._id}, [{$set: {chaser: true}}])
         } catch (err) {
             console.log("Handle Caught Player Error");
             console.log(err.message);
