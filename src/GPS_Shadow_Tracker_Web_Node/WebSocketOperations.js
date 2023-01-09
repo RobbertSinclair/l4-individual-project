@@ -53,21 +53,20 @@ class WebSocketOperations {
     }
 
     async getUserLocation(message, sender) {
-        console.log(message.accuracy);
         const newLocation = new Location(message.latitude, message.longitude, message.accuracy);
+        await this.mongoClient.updatePlayerLocation(sender.id, newLocation)
         if (message.accuracy >= SHADOW_THRESHOLD) {
             await this.mongoClient.createSingleGPSShadow(message);
+        } else {
+            const chaser = await this.mongoClient.getCurrentChaser();
+            this.sendToChaser(sender, chaser, JSON.stringify(message))
+            const catchList = await this.mongoClient.findAnyPlayersToCatch();
+            if (catchList.length > 0) {
+                const newChaser = catchList[0];
+                await this.handlePlayerCaught(chaser, newChaser);
+            }
         }
-        await this.mongoClient.updatePlayerLocation(sender.id, newLocation)
-        const chaser = await this.mongoClient.getCurrentChaser();
-        this.sendToChaser(sender, chaser, JSON.stringify(message))
-        this.mongoClient.findAnyPlayersToCatch()
-            .then(async (list) => {
-                if (list.length > 0) {
-                    const newChaser = list[0];
-                    await this.handlePlayerCaught(chaser, newChaser);
-                }
-            })
+
     }
 
     broadcastAll(message, isBinary) {
@@ -87,6 +86,7 @@ class WebSocketOperations {
     }
 
     sendToChaser(sender, chaser, message, isBinary) {
+        console.log(`Chaser id is ${chaser._id.toString()}`)
         if (sender.id != chaser._id.toString()) {
             this.server.clients.forEach((client) => {
                 if (client.id === chaser._id.toString() && client.readyState === WebSocket.OPEN) {
@@ -97,10 +97,8 @@ class WebSocketOperations {
     }
 
     async handlePlayerCaught(chaser, newChaser) {
-        console.log("PLAYER_CAUGHT");
         await this.mongoClient.handleCaughtPlayer(chaser, newChaser);
         this.server.clients.forEach((client) => {
-            console.log(client.id);
             if (client.id.toString() === newChaser._id.toString() && client.readyState === WebSocket.OPEN) {
                 const data = JSON.stringify({
                     "type": "NEW_TYPE",
@@ -131,7 +129,6 @@ class WebSocketOperations {
             return;
         }
         const id = result._id.toString();
-        console.log(id);
         this.server.clients.forEach((client) => {
             if (client.id.toString() === id && client.readyState === WebSocket.OPEN) {
                 const data = JSON.stringify({

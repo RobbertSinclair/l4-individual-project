@@ -15,6 +15,7 @@ const { WebSocketOperations } = require("./WebSocketOperations");
 const players = {};
 const chaser = null;
 const gpsMongo = new GPSMongo(url);
+gpsMongo.clearPlayerList();
 const app = express();
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server: server });

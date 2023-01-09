@@ -1,7 +1,8 @@
 const { MongoClient } = require("mongodb");
 const { Location } = require("./Location");
 const { Player } = require("./Player")
-const {CATCH_THRESHOLD} = require("./Constants");
+const {CATCH_THRESHOLD, SHADOW_THRESHOLD} = require("./Constants");
+const mongoose = require("mongoose")
 
 class GPSMongo {
 
@@ -21,6 +22,10 @@ class GPSMongo {
         } catch (err) {
             console.error(err, "Failed connection to MongoDB");
         }
+    }
+
+    async clearPlayerList() {
+        await this.userCollection.deleteMany({});
     }
 
     createGPSSpotDocument(data) {
@@ -55,7 +60,7 @@ class GPSMongo {
                     $maxDistance: distance
                 },
             },
-            accuracy: {$gt: 6}
+            accuracy: {$gt: SHADOW_THRESHOLD}
         }
 
         const result = await this.shadowCollection.find(query).toArray();
@@ -64,7 +69,6 @@ class GPSMongo {
 
     async calculateMedian() {
         const median = await this.shadowCollection.find({}).sort({"accuracy": 1}).skip(await this.shadowCollection.countDocuments() / 2).limit(1).toArray();
-        console.log(median[0].accuracy);
         this.median = median[0].accuracy;
     }
 
@@ -109,7 +113,8 @@ class GPSMongo {
             "accuracy": 3.8
         };
         const data = await this.userCollection.insertOne(newUser);
-        return {"id": data.insertedId, "chaser": newUser.chaser};
+        console.log(data);
+        return {"id": data.insertedId.toString(), "chaser": newUser.chaser};
     }
 
     async selectRandomPlayerAsChaser() {
@@ -133,11 +138,16 @@ class GPSMongo {
         try {
             const mongoCoords = location.convertToMongoCoordinates();
             console.log(mongoCoords);
-            await this.userCollection.updateOne({_id: id}, [
+            console.log(`Player id is ${id}`);
+            const mongoId = mongoose.Types.ObjectId(id);
+            console.log(mongoId);
+            const result = await this.userCollection.updateOne({_id: mongoId}, [
                 {
                     $set: mongoCoords
                 }
             ])
+            console.log(result);
+            console.log("Player Location changed successfully")
 
         } catch (err) {
             console.log("Error in the updatePlayerLocation")
@@ -147,7 +157,7 @@ class GPSMongo {
 
     async findAnyPlayersToCatch() {
         const chaser = await this.getCurrentChaser();
-        console.log(chaser._id);
+        console.log(`CHASER_ID = ${chaser._id}`);
         const query = {
             _id: {$ne: chaser._id},
             location: {
@@ -159,9 +169,15 @@ class GPSMongo {
                     $maxDistance: CATCH_THRESHOLD
                 },
             },
-            accuracy: {$lte: 6}
+            accuracy: {$lte: SHADOW_THRESHOLD}
         }
+        console.log(query);
         const playersToCatch = await this.userCollection.find(query).toArray();
+        console.log(`Chaser Location = ${chaser.location.coordinates.toString()}`);
+        console.log(playersToCatch);
+        playersToCatch.forEach((player) => {
+            console.log(player.location.coordinates);
+        })
         return playersToCatch;
     }
 
