@@ -192,7 +192,8 @@ class GPSMongo {
     }
 
     async removePlayer(sender) {
-        await this.userCollection.deleteOne({ "_id": sender.id});
+        const idToDelete = mongoose.Types.ObjectId(sender.id);
+        await this.userCollection.deleteOne({ "_id": idToDelete});
     }
 
 }
