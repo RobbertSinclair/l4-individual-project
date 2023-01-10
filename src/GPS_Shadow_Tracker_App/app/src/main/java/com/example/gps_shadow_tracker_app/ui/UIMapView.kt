@@ -40,6 +40,7 @@ class UIMapView : UILocationWidget {
 
 
     override fun updateLocation(location: Location) {
+        Log.i("PLAYER ID", player.getPlayerId().toString());
         val newCoords = LatLng(location.latitude, location.longitude);
         player.setLocation(location);
         if (!newCoords.equals(this.coords)) {
@@ -67,12 +68,19 @@ class UIMapView : UILocationWidget {
         state.position = newCoords;
     }
 
-    fun updatePlayer2Location(locationObject : JSONObject) {
+    fun updateOtherPlayerLocation(locationObject : JSONObject) {
         try {
+            val playerId = locationObject.getString("player");
             var currentLocation = LatLng(
                 locationObject.getDouble("latitude"),
                 locationObject.getDouble("longitude")
             )
+            if (otherPlayerMarkers.containsKey(playerId)) {
+                otherPlayerMarkers[playerId]?.let { moveMarker(it, currentLocation) };
+            } else {
+                otherPlayerMarkers[playerId] = MarkerState(position = currentLocation)
+            }
+
             val shadow = locationObject.getBoolean("inShadow");
             if (!shadow) {
                 moveMarker(player2MarkerState, currentLocation);
@@ -83,16 +91,22 @@ class UIMapView : UILocationWidget {
 
     }
 
+    fun removePlayerMarker(playerId: String) {
+        if (otherPlayerMarkers.containsKey(playerId)) {
+            otherPlayerMarkers.remove(playerId);
+        }
+    }
+
     @Composable
     fun mapView() {
-        val playerState = remember { mutableStateOf(player) }
+        val playerState = player.getTypeState();
 
         GoogleMap(
             modifier = Modifier.fillMaxSize(),
             cameraPositionState = cameraPosition
         ) {
             playerMarker()
-            if (playerState.value.getPlayerType() == PlayerTypes.RUNNER) {
+            if (playerState.value == PlayerTypes.RUNNER) {
                 Log.i("GPS_SHADOW_VIEW", "GPS Shadow View Showing")
                 gpsShadows.GpsShadows()
             } else {
@@ -100,6 +114,11 @@ class UIMapView : UILocationWidget {
                 otherPlayers()
             }
         }
+    }
+
+    @Composable
+    fun gpsShadows() {
+        gpsShadows.GpsShadows()
     }
 
     @Composable
@@ -112,11 +131,18 @@ class UIMapView : UILocationWidget {
 
     @Composable
     fun otherPlayers() {
-        Marker(
-            state = player2MarkerState,
-            title = "Player 2 Location",
 
-        )
+        for (key in otherPlayerMarkers.keys) {
+            otherPlayerMarkers[key]?.let {
+                Marker(
+                    state = it,
+                    title = "Player $key Location",
+
+                    )
+            }
+        }
+
+
     }
 
 }

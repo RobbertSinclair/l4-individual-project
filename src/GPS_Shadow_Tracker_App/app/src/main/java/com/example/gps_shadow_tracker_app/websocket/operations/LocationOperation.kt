@@ -21,28 +21,17 @@ class LocationOperation:
 
     override fun execute(jsonObject: JSONObject) {
         Log.i("NEW_LOCATION", jsonObject.toString());
-        val isChaser = player.isChaser();
         try {
             val otherLocation = Location("")
             otherLocation.latitude = jsonObject.getDouble("latitude");
             otherLocation.longitude = jsonObject.getDouble("longitude")
             otherLocation.accuracy = BigDecimal.valueOf(jsonObject.getDouble("accuracy")).toFloat();
             otherPlayer?.setLocation(otherLocation);
-            if (isChaser) {
-                val distance = player.getPlayerDistance(otherPlayer);
-                if (distance != null && distance < 5) {
-                    val caughtObject = JSONObject()
-                    caughtObject.put("type", "PLAYER_CAUGHT")
-                    caughtObject.put("id", player.getPlayerId())
-                    caughtObject.put("caught_id", otherPlayer?.getPlayerId())
-
-                }
-            }
         } catch (e : Exception) {
             Log.i("OTHER PLAYER FOUND", e.toString())
         }
 
-        mapView.updatePlayer2Location(jsonObject);
+        mapView.updateOtherPlayerLocation(jsonObject);
     }
 
 }

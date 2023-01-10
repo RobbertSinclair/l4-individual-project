@@ -72,6 +72,10 @@ open class Player {
         return this.location;
     }
 
+    fun getTypeState() : MutableState<PlayerTypes?> {
+        return this.typeState;
+    }
+
     fun checkDistance(other: Player) {
         val otherLocation = other.getLocation();
         if (otherLocation != null) {

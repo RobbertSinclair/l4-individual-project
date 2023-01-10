@@ -11,21 +11,21 @@ class Constants {
 
         val LOCATION_SHADOWS_DISTANCE_URL = LOCATION_BASE_URL + "/gps_shadows_nearby/200";
 
-        val DISTANCE_THRESHOLD = 50F
+        const val DISTANCE_THRESHOLD = 50F
 
-        val WEBSOCKET_URL = "wss://l4-individual-project-production.up.railway.app"
+        const val WEBSOCKET_URL = "wss://l4-individual-project-production.up.railway.app"
 
-        val SHADOW_CIRCLE_RADIUS: Double = 20.0;
+        const val SHADOW_CIRCLE_RADIUS: Double = 20.0;
 
-        val SHADOW_THRESHOLD: Double = 30.0;
+        const val SHADOW_THRESHOLD: Double = 30.0;
 
-        val LOCATION_DELAY: Long = 2000;
+        const val LOCATION_DELAY: Long = 2000;
 
         val IS_RUNNER : Boolean = false;
 
-        val MIN_DISTANCE: Float = 0F;
+        const val MIN_DISTANCE: Float = 0F;
 
-        val NOTIFICATION_TIME: Long = 1000;
+        const val NOTIFICATION_TIME: Long = 1000;
 
     }
 
