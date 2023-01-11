@@ -116,7 +116,7 @@ class WebSocketOperations {
             } else if (client.readyState === WebSocket.OPEN) {
                 const data = JSON.stringify({
                     "type": "NEW_CHASER",
-                    "message": `Player ${newChaser.id.toString()} is now the chaser`
+                    "message": `Player ${newChaser._id.toString()} is now the chaser`
                 });
                 client.send(data);
             }

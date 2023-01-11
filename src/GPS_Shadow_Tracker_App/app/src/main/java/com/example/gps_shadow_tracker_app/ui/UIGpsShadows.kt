@@ -55,20 +55,14 @@ class UIGpsShadows: RestInterface {
     }
 
     override fun onPostSuccess(response: JSONObject) {
-        val locationDicts : JSONArray = response.get("locations") as JSONArray;
-        val newShadows = mutableStateListOf<LatLng>();
-        for (i in 0 until locationDicts.length()) {
-            val location = locationDicts.getJSONObject(i);
-            val coords = LatLng(location.getDouble("latitude"), location.getDouble("longitude"));
-            newShadows.add(coords)
-            Log.i("NEW_SHADOW", coords.toString())
-        }
+        val locations : JSONArray = response.get("locations") as JSONArray;
         this.shadows.clear();
         // Get a sample of GPS Shadows
         while (this.shadows.size < 10) {
-            val newShadow = newShadows.get(Random.nextInt(newShadows.size));
-            if (newShadow !in this.shadows) {
-                this.shadows.add(newShadow);
+            val location = locations.getJSONObject(Random.nextInt(locations.length()));
+            val coords = LatLng(location.getDouble("latitude"), location.getDouble("longitude"));
+            if (coords !in this.shadows) {
+                this.shadows.add(coords);
             }
         }
     }
