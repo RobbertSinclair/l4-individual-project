@@ -22,23 +22,17 @@ class MainActivity : AppCompatActivity() {
     private lateinit var locationMap: UIMapView;
     private lateinit var webSocket: LocationWebSocket;
     private lateinit var mainPlayer: Player;
-    private lateinit var otherPlayers: MutableMap<String, Player>
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         this.mainPlayer = Player()
         mainPlayer.setPlayerType(PlayerTypes.CHASER);
-        otherPlayers = mutableMapOf()
         val textView = UILocationTextViews();
         locationMap = UIMapView(this, mainPlayer);
-        webSocket = LocationWebSocket(this, locationMap, mainPlayer, otherPlayers);
+        webSocket = LocationWebSocket(this, locationMap, mainPlayer);
         val widgetList = mutableListOf(textView, locationMap);
         gpsService = GPSService(this, widgetList, webSocket);
-
-        val timer = Timer()
-
-
         setContent {
             MaterialTheme {
                 locationMap.mapView()
@@ -48,7 +42,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
     }
 
 

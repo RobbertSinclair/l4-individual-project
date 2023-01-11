@@ -25,7 +25,9 @@ class Constants {
 
         const val MIN_DISTANCE: Float = 0F;
 
-        const val NOTIFICATION_TIME: Long = 1000;
+        const val SECOND: Long = 1000;
+
+        const val MINUTE : Long = 60 * SECOND;
 
     }
 

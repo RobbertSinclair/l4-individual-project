@@ -17,6 +17,7 @@ import com.google.maps.android.compose.Circle
 import com.google.android.gms.maps.model.LatLng
 import org.json.JSONArray
 import org.json.JSONObject
+import kotlin.random.Random
 
 class UIGpsShadows: RestInterface {
 
@@ -62,7 +63,14 @@ class UIGpsShadows: RestInterface {
             newShadows.add(coords)
             Log.i("NEW_SHADOW", coords.toString())
         }
-        this.shadows.addAll(newShadows);
+        this.shadows.clear();
+        // Get a sample of GPS Shadows
+        while (this.shadows.size < 10) {
+            val newShadow = newShadows.get(Random.nextInt(newShadows.size));
+            if (newShadow !in this.shadows) {
+                this.shadows.add(newShadow);
+            }
+        }
     }
 
     override fun onGetFailure() {

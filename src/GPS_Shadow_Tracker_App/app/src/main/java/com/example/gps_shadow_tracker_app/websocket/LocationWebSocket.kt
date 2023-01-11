@@ -2,18 +2,17 @@ package com.example.gps_shadow_tracker_app.websocket
 
 import android.app.Activity
 import android.content.Context
-import android.location.Location
 import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.gps_shadow_tracker_app.Constants
+import com.example.gps_shadow_tracker_app.Constants.Companion.MINUTE
+import com.example.gps_shadow_tracker_app.Constants.Companion.SECOND
 import com.example.gps_shadow_tracker_app.game.Player
 import com.example.gps_shadow_tracker_app.ui.UIMapView
 import com.example.gps_shadow_tracker_app.ui.bigText
@@ -32,11 +31,11 @@ class LocationWebSocket : WebSocketListener {
     private val mapView: UIMapView;
     private val activity: Activity;
     private val player: Player;
-    private val otherPlayers: MutableMap<String, Player>
     private var notificationShow: MutableState<Boolean>;
     private var textState: MutableState<String>;
+    private var transmitLocation: Boolean;
 
-    constructor(context: Context, mapView : UIMapView, player: Player, otherPlayers: MutableMap<String, Player>) : super() {
+    constructor(context: Context, mapView : UIMapView, player: Player) : super() {
         this.activity = context as Activity;
         this.client = OkHttpClient();
         this.request = Request.Builder().url(Constants.WEBSOCKET_URL).build();
@@ -44,9 +43,13 @@ class LocationWebSocket : WebSocketListener {
         this.client.dispatcher.executorService.shutdown();
         this.mapView = mapView;
         this.player = player;
-        this.otherPlayers = otherPlayers;
         this.notificationShow = mutableStateOf(false);
         this.textState = mutableStateOf("");
+        this.transmitLocation = true;
+    }
+
+    fun toggleLocationTransmit() {
+        this.transmitLocation = !this.transmitLocation;
     }
 
     fun sendLocation(locationObject : JSONObject) {
@@ -90,11 +93,23 @@ class LocationWebSocket : WebSocketListener {
         notificationService(message);
         Log.i("WEBSOCKET_MESSAGE", "TEXT: " + text);
         try {
-            WebSocketActions.valueOf(message.getString("type")).implementAction(this, player, message, mapView, otherPlayers);
+            WebSocketActions.valueOf(message.getString("type")).implementAction(this, player, message, mapView);
         } catch (e: Exception) {
             Log.i("INVALID MESSAGE", "There isn't a valid type of action here")
         }
         Log.i("PLAYER_2_LOCATION", "Success on this side");
+    }
+
+    fun locationTransmitService() = runBlocking {
+        jailTimeDelay();
+    }
+
+    suspend fun jailTimeDelay() = coroutineScope {
+        launch {
+            toggleLocationTransmit();
+            delay(MINUTE);
+            toggleLocationTransmit();
+        }
     }
 
     fun notificationService(locationObject: JSONObject) = runBlocking {
@@ -104,7 +119,7 @@ class LocationWebSocket : WebSocketListener {
     suspend fun displayTextNotification(locationObject: JSONObject) = coroutineScope {
         launch {
             switchOnNotification(locationObject)
-            delay(Constants.NOTIFICATION_TIME);
+            delay(SECOND);
             switchOffNotification();
         }
     }

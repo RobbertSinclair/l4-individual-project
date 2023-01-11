@@ -57,6 +57,7 @@ class UIMapView : UILocationWidget {
     }
 
     fun playerLocationCheck(location: Location) {
+        Log.i("PLAYER_TYPE", player.getPlayerType().toString())
         if (player.getPlayerType() == PlayerTypes.RUNNER) {
             this.gpsShadows.checkLocationFurtherThanDistance(location);
         } else if (player.getPlayerType() == PlayerTypes.CHASER) {
@@ -141,7 +142,6 @@ class UIMapView : UILocationWidget {
                     )
             }
         }
-
 
     }
 
