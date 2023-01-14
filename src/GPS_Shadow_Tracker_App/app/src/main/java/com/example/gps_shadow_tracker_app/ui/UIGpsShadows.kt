@@ -49,7 +49,7 @@ class UIGpsShadows: RestInterface {
         Log.i("DISTANCE", counter.toString());
         if (player.getPlayerType() == PlayerTypes.RUNNER && counter % Constants.DISTANCE_THRESHOLD == 0F) {
             location = other;
-            this.getGpsShadows();
+            //this.getGpsShadows();
         }
         this.counter++;
     }
@@ -58,7 +58,7 @@ class UIGpsShadows: RestInterface {
         val locations : JSONArray = response.get("locations") as JSONArray;
         this.shadows.clear();
         // Get a sample of GPS Shadows
-        while (this.shadows.size < 10) {
+        while (locations.length() > 10 && this.shadows.size < 10) {
             val location = locations.getJSONObject(Random.nextInt(locations.length()));
             val coords = LatLng(location.getDouble("latitude"), location.getDouble("longitude"));
             if (coords !in this.shadows) {

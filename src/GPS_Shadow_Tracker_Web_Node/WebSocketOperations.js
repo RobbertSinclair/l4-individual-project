@@ -53,6 +53,7 @@ class WebSocketOperations {
     }
 
     async getUserLocation(message, sender) {
+        const startTime = performance.now();
         const newLocation = new Location(message.latitude, message.longitude, message.accuracy);
         await this.mongoClient.updatePlayerLocation(sender.id, newLocation)
         if (message.accuracy >= SHADOW_THRESHOLD) {
@@ -66,7 +67,8 @@ class WebSocketOperations {
                 await this.handlePlayerCaught(chaser, newChaser);
             }
         }
-
+        const endTime = performance.now()
+        sender.send(`That request took ${endTime - startTime} milliseconds to process`)
     }
 
     broadcastAll(message, isBinary) {

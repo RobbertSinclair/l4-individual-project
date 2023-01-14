@@ -5,8 +5,6 @@ z
 Japp/src/main/java/com/example/gps_shadow_tracker_app/rest/RestInterface.kt,1\e\1e1222cdf627f0483e422ad22f75426b68f74bdb
 x
 Happ/src/main/java/com/example/gps_shadow_tracker_app/game/PlayerTypes.kt,c\5\c5cc173a781c29d85409712af6b6f958331d9366
-w
-Gapp/src/main/java/com/example/gps_shadow_tracker_app/rest/RestClient.kt,d\2\d244568029244f2231cdab27771c5b12499daddd
 v
 Fapp/src/main/java/com/example/gps_shadow_tracker_app/gps/GPSService.kt,9\f\9fe3c94355a3ab848326c8704b79ff52a125af1b
 {
