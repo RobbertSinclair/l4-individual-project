@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.gps_shadow_tracker_app.Constants
 import com.example.gps_shadow_tracker_app.game.Player
+import com.example.gps_shadow_tracker_app.websocket.LocationWebSocket
 import kotlinx.coroutines.delay
 
 
@@ -19,16 +20,18 @@ import kotlinx.coroutines.delay
 fun bigText(text: String) {
     Card() {
         Text(text, modifier= Modifier
-            .padding(horizontal=4.dp, vertical=4.dp)
+            .padding(horizontal = 4.dp, vertical = 4.dp)
             .align(alignment = Alignment.CenterHorizontally),
             fontSize=25.sp)
     }
 }
 
 @Composable
-fun accuracyAndPlayerMode(textView: UILocationTextViews, player: Player) {
+fun accuracyAndPlayerMode(textView: UILocationTextViews, player: Player, webSocket: LocationWebSocket) {
     Row(
-        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 16.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 16.dp),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         bigText("Time 30:00");
@@ -42,21 +45,11 @@ fun accuracyAndPlayerMode(textView: UILocationTextViews, player: Player) {
     ) {
 
         player.chaserOrRunner()
-        bigText("JAIL TIME: 01:00");
+        webSocket.jailTimeLabel()
 
     }
 
 
 }
 
-
-
-
-@Preview
-@Composable
-fun previewAccuracyAndPlayerMode() {
-    MaterialTheme {
-        accuracyAndPlayerMode(UILocationTextViews(), Player());
-    }
-}
 

@@ -16,10 +16,7 @@ import com.example.gps_shadow_tracker_app.Constants.Companion.SECOND
 import com.example.gps_shadow_tracker_app.game.Player
 import com.example.gps_shadow_tracker_app.ui.UIMapView
 import com.example.gps_shadow_tracker_app.ui.bigText
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
 import okhttp3.*
 import org.json.JSONObject
 
@@ -33,7 +30,9 @@ class LocationWebSocket : WebSocketListener {
     private val player: Player;
     private var notificationShow: MutableState<Boolean>;
     private var textState: MutableState<String>;
-    private var transmitLocation: Boolean;
+    private var jailTime: MutableState<Boolean>;
+    private val scope : CoroutineScope;
+    private var jailCounter: MutableState<Int>;
 
     constructor(context: Context, mapView : UIMapView, player: Player) : super() {
         this.activity = context as Activity;
@@ -45,21 +44,25 @@ class LocationWebSocket : WebSocketListener {
         this.player = player;
         this.notificationShow = mutableStateOf(false);
         this.textState = mutableStateOf("");
-        this.transmitLocation = true;
+        this.jailTime = mutableStateOf(false);
+        this.scope = CoroutineScope(Dispatchers.Main);
+        this.jailCounter = mutableStateOf(60);
     }
 
-    fun toggleLocationTransmit() {
-        this.transmitLocation = !this.transmitLocation;
+    fun toggleJailTime() {
+        this.jailTime.value = !this.jailTime.value;
     }
 
     fun sendLocation(locationObject : JSONObject) {
-        val accuracy : Float = locationObject.get("accuracy") as Float;
-        locationObject.put("type", "LOCATION");
-        locationObject.put("inShadow", accuracy >= Constants.SHADOW_THRESHOLD);
-        locationObject.put("player", player.getPlayerId())
-        val locationString = locationObject.toString();
-        Log.i("LOCATION_STRING", locationString);
-        this.webSocket.send(locationString);
+        if (!jailTime.value) {
+            val accuracy : Float = locationObject.get("accuracy") as Float;
+            locationObject.put("type", "LOCATION");
+            locationObject.put("inShadow", accuracy >= Constants.SHADOW_THRESHOLD);
+            locationObject.put("player", player.getPlayerId())
+            val locationString = locationObject.toString();
+            Log.i("LOCATION_STRING", locationString);
+            this.webSocket.send(locationString);
+        }
     }
 
     override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {
@@ -101,20 +104,33 @@ class LocationWebSocket : WebSocketListener {
         Log.i("PLAYER_2_LOCATION", "Success on this side");
     }
 
-    fun locationTransmitService() = runBlocking {
-        jailTimeDelay();
+    fun jailTimeService() {
+        jailCounter.value = 60;
+        this.scope.launch {
+            jailTimeDelay();
+        }
+
     }
 
     suspend fun jailTimeDelay() = coroutineScope {
         launch {
-            toggleLocationTransmit();
-            delay(MINUTE);
-            toggleLocationTransmit();
+            Log.i("COUROUTINE", this.coroutineContext.toString());
+            toggleJailTime();
+            Log.i("JAIL TIME", "Jail Time Turned On");
+            while (jailCounter.value > 0) {
+                delay(SECOND);
+                jailCounter.value--;
+            }
+            toggleJailTime();
+            Log.i("JAIL TIME", "Jail Time Turned Off")
         }
     }
 
-    fun notificationService(locationObject: JSONObject) = runBlocking {
-        displayTextNotification(locationObject);
+    fun notificationService(locationObject: JSONObject) {
+        this.scope.launch {
+            displayTextNotification(locationObject);
+        }
+
     }
 
     suspend fun displayTextNotification(locationObject: JSONObject) = coroutineScope {
@@ -147,6 +163,16 @@ class LocationWebSocket : WebSocketListener {
                 horizontalAlignment= Alignment.CenterHorizontally) {
                 bigText(text = text.value);
             }
+        }
+    }
+
+    @Composable
+    fun jailTimeLabel() {
+        var showing = remember { this.jailTime };
+        var time = remember { this.jailCounter }
+
+        if (showing.value) {
+            bigText("JAIL TIME: ${time.value}")
         }
 
     }

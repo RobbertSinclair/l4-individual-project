@@ -18,6 +18,7 @@ open class Player {
     private var id : String?;
     private var location: Location;
     private var inShadow: Boolean;
+    private var jail: Boolean;
 
     constructor() {
         this.type = PlayerTypes.RUNNER;
@@ -25,6 +26,7 @@ open class Player {
         this.id = null;
         this.location = Location(LocationManager.GPS_PROVIDER);
         this.inShadow = false;
+        this.jail = false;
     }
 
     fun getPlayerDistance(other: Player?): Float? {
@@ -74,6 +76,14 @@ open class Player {
 
     fun getTypeState() : MutableState<PlayerTypes?> {
         return this.typeState;
+    }
+
+    fun setJail(newJail: Boolean) {
+        this.jail = newJail;
+    }
+
+    fun inJail() : Boolean {
+        return jail;
     }
 
     fun checkDistance(other: Player) {

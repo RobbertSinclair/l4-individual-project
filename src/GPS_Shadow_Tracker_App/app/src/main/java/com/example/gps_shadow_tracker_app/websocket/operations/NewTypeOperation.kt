@@ -14,7 +14,8 @@ class NewTypeOperation: WebSocketOperation {
 
     override fun execute(jsonObject: JSONObject) {
         player.setPlayerType(jsonObject.getBoolean("chaser"))
-        webSocket.locationTransmitService();
+        player.setJail(true);
+        webSocket.jailTimeService();
     }
 
 }

@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
             MaterialTheme {
                 locationMap.mapView()
                 Column() {
-                    accuracyAndPlayerMode(textView, mainPlayer)
+                    accuracyAndPlayerMode(textView, mainPlayer, webSocket)
                     webSocket.notificationCenter()
                 }
             }
