@@ -1,4 +1,4 @@
-const SHADOW_THRESHOLD = 6;
+const SHADOW_THRESHOLD = 20;
 const CATCH_THRESHOLD = 5;
 
 module.exports = {

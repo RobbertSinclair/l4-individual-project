@@ -28,15 +28,25 @@ fun bigText(text: String) {
 @Composable
 fun accuracyAndPlayerMode(textView: UILocationTextViews, player: Player) {
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 16.dp),
+        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 16.dp),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
+        bigText("Time 30:00");
         textView.accuracyLabel()
-        player.chaserOrRunner()
     }
-    Spacer(modifier = Modifier.height(8.dp))
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+
+        player.chaserOrRunner()
+        bigText("JAIL TIME: 01:00");
+
+    }
+
+
 }
 
 

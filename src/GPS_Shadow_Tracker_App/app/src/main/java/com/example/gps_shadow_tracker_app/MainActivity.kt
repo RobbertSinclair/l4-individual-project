@@ -5,9 +5,15 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.layout.Arrangement
+
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import com.example.gps_shadow_tracker_app.game.Player
 import com.example.gps_shadow_tracker_app.game.PlayerTypes
 import com.example.gps_shadow_tracker_app.gps.GPSService
@@ -15,6 +21,7 @@ import com.example.gps_shadow_tracker_app.websocket.LocationWebSocket
 import com.example.gps_shadow_tracker_app.ui.UILocationTextViews
 import com.example.gps_shadow_tracker_app.ui.UIMapView
 import com.example.gps_shadow_tracker_app.ui.accuracyAndPlayerMode
+import com.example.gps_shadow_tracker_app.ui.bigText
 import java.util.*
 
 class MainActivity : AppCompatActivity() {

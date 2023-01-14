@@ -29,7 +29,7 @@ class UILocationTextViews : UILocationWidget {
     @Composable
     fun accuracyLabel() {
         val accuracy = this.accuracyState;
-        bigText("Error: ${accuracy.value} meters");
+        bigText("Error: ${accuracy.value}m");
     }
 
 

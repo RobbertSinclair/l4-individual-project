@@ -108,8 +108,8 @@ class UIMapView : UILocationWidget {
         ) {
             playerMarker()
             if (playerState.value == PlayerTypes.RUNNER) {
-                Log.i("GPS_SHADOW_VIEW", "GPS Shadow View Showing")
-                gpsShadows.GpsShadows()
+                //Log.i("GPS_SHADOW_VIEW", "GPS Shadow View Showing")
+                //gpsShadows.GpsShadows()
             } else {
                 Log.i("OTHER_PLAYERS_VIEW", "Other Players View Showing")
                 otherPlayers()
