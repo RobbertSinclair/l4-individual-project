@@ -89,10 +89,11 @@ class LocationWebSocket : WebSocketListener {
 
     override fun onMessage(webSocket: WebSocket, text: String) {
         super.onMessage(webSocket, text);
-        var message = JSONObject(text);
-        notificationService(message);
+
         Log.i("WEBSOCKET_MESSAGE", "TEXT: " + text);
         try {
+            var message = JSONObject(text);
+            notificationService(message);
             WebSocketActions.valueOf(message.getString("type")).implementAction(this, player, message, mapView);
         } catch (e: Exception) {
             Log.i("INVALID MESSAGE", "There isn't a valid type of action here")
