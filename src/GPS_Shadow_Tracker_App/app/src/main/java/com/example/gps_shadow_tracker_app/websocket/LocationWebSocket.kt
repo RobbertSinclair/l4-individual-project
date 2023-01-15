@@ -15,7 +15,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.gps_shadow_tracker_app.Constants
-import com.example.gps_shadow_tracker_app.Constants.Companion.MINUTE
 import com.example.gps_shadow_tracker_app.Constants.Companion.SECOND
 import com.example.gps_shadow_tracker_app.game.Player
 import com.example.gps_shadow_tracker_app.ui.UIMapView
@@ -55,8 +54,8 @@ class LocationWebSocket : WebSocketListener {
         this.gameStarted = mutableStateOf(false);
     }
 
-    fun toggleJailTime() {
-        this.jailTime.value = !this.jailTime.value;
+    fun setJailTime(value: Boolean) {
+        this.jailTime.value = value;
     }
 
     fun sendLocation(locationObject : JSONObject) {
@@ -132,13 +131,13 @@ class LocationWebSocket : WebSocketListener {
     suspend fun jailTimeDelay() = coroutineScope {
         launch {
             Log.i("COUROUTINE", this.coroutineContext.toString());
-            toggleJailTime();
+            setJailTime(true);
             Log.i("JAIL TIME", "Jail Time Turned On");
             while (jailCounter.value > 0) {
                 delay(SECOND);
                 jailCounter.value--;
             }
-            toggleJailTime();
+            setJailTime(false);
             Log.i("JAIL TIME", "Jail Time Turned Off")
         }
     }

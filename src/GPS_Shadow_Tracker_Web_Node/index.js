@@ -84,9 +84,7 @@ app.post("/gps_shadows_nearby/:distance", async(req, res) => {
 
 wss.on("connection", (sender) => {
     console.log("NEW CONNECTION");
-    operationClient.getId({}, sender).then(() => {
-        operationClient.getNewChaserState();
-    })
+    operationClient.getId({}, sender)
     
     
     sender.on("message", (message, isBinary) => {
