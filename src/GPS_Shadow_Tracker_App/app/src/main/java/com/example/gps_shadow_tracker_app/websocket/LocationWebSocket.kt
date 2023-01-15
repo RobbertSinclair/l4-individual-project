@@ -15,6 +15,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.gps_shadow_tracker_app.Constants
+import com.example.gps_shadow_tracker_app.Constants.Companion.JAIL_DURATION
 import com.example.gps_shadow_tracker_app.Constants.Companion.SECOND
 import com.example.gps_shadow_tracker_app.game.Player
 import com.example.gps_shadow_tracker_app.ui.UIMapView
@@ -37,6 +38,7 @@ class LocationWebSocket : WebSocketListener {
     private val scope : CoroutineScope;
     private var jailCounter: MutableState<Int>;
     private var gameStarted: MutableState<Boolean>;
+    private var gameTime: MutableState<Int>
 
     constructor(context: Context, mapView : UIMapView, player: Player) : super() {
         this.activity = context as Activity;
@@ -52,6 +54,8 @@ class LocationWebSocket : WebSocketListener {
         this.scope = CoroutineScope(Dispatchers.Main);
         this.jailCounter = mutableStateOf(60);
         this.gameStarted = mutableStateOf(false);
+        this.gameTime = mutableStateOf(900);
+        timerService();
     }
 
     fun setJailTime(value: Boolean) {
@@ -121,7 +125,7 @@ class LocationWebSocket : WebSocketListener {
     }
 
     fun jailTimeService() {
-        jailCounter.value = 60;
+        jailCounter.value = JAIL_DURATION;
         this.scope.launch {
             jailTimeDelay();
         }
@@ -142,11 +146,18 @@ class LocationWebSocket : WebSocketListener {
         }
     }
 
-    fun notificationService(locationObject: JSONObject) {
+    fun timerService() {
+        gameTime.value = 900;
         this.scope.launch {
-            displayTextNotification(locationObject);
+            while (gameTime.value > 0) {
+                delay(SECOND);
+                gameTime.value--;
+            }
         }
+    }
 
+    fun notificationService(locationObject: JSONObject) = runBlocking {
+        displayTextNotification(locationObject);
     }
 
     suspend fun displayTextNotification(locationObject: JSONObject) = coroutineScope {
@@ -217,5 +228,15 @@ class LocationWebSocket : WebSocketListener {
                 }
             }
         }
+    }
+
+    @Composable
+    fun timer() {
+        var time = remember { this.gameTime};
+        var minutes = (time.value / 60).toInt();
+        var seconds = time.value % 60;
+        var timeText = String.format("%02d:%02d", minutes, seconds);
+        bigText("Time ${timeText}")
+
     }
 }

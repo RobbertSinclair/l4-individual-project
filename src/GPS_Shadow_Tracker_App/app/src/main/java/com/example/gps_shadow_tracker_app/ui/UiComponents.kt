@@ -34,7 +34,7 @@ fun accuracyAndPlayerMode(textView: UILocationTextViews, player: Player, webSock
             .padding(horizontal = 16.dp, vertical = 16.dp),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        bigText("Time 30:00");
+        webSocket.timer()
         textView.accuracyLabel()
     }
     Row(
