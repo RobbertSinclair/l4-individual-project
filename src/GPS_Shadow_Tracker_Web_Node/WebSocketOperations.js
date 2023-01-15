@@ -21,6 +21,18 @@ class WebSocketOperations {
         if (data.type === "LOCATION") {
             this.getUserLocation(data, sender);
         }
+        if (data.type === "START_GAME") {
+            this.startGame(sender);
+        }
+    }
+
+    async startGame(sender) {
+        const message = JSON.stringify({
+            "type": "START_GAME",
+            "message": "The game has started"
+        })
+        this.broadcastExceptSender(sender, message);
+        this.getNewChaserState();
     }
 
     async getId(data, sender) {
@@ -111,7 +123,7 @@ class WebSocketOperations {
             } else if (client.id.toString() === chaser._id.toString() && client.readyState === WebSocket.OPEN) {
                 const data = JSON.stringify({
                     "type": "NEW_TYPE",
-                    "message": "You are now a runner",
+                    "message": `You have caught ${newChaser._id.toString()}\n You are now a runner`,
                     "chaser": false
                 });
                 client.send(data);

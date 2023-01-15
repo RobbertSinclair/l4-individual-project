@@ -3,13 +3,17 @@ package com.example.gps_shadow_tracker_app.websocket
 import android.app.Activity
 import android.content.Context
 import android.util.Log
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.gps_shadow_tracker_app.Constants
 import com.example.gps_shadow_tracker_app.Constants.Companion.MINUTE
 import com.example.gps_shadow_tracker_app.Constants.Companion.SECOND
@@ -33,6 +37,7 @@ class LocationWebSocket : WebSocketListener {
     private var jailTime: MutableState<Boolean>;
     private val scope : CoroutineScope;
     private var jailCounter: MutableState<Int>;
+    private var gameStarted: MutableState<Boolean>;
 
     constructor(context: Context, mapView : UIMapView, player: Player) : super() {
         this.activity = context as Activity;
@@ -47,6 +52,7 @@ class LocationWebSocket : WebSocketListener {
         this.jailTime = mutableStateOf(false);
         this.scope = CoroutineScope(Dispatchers.Main);
         this.jailCounter = mutableStateOf(60);
+        this.gameStarted = mutableStateOf(false);
     }
 
     fun toggleJailTime() {
@@ -54,7 +60,7 @@ class LocationWebSocket : WebSocketListener {
     }
 
     fun sendLocation(locationObject : JSONObject) {
-        if (!jailTime.value) {
+        if (!jailTime.value && gameStarted.value) {
             val accuracy : Float = locationObject.get("accuracy") as Float;
             locationObject.put("type", "LOCATION");
             locationObject.put("inShadow", accuracy >= Constants.SHADOW_THRESHOLD);
@@ -63,6 +69,17 @@ class LocationWebSocket : WebSocketListener {
             Log.i("LOCATION_STRING", locationString);
             this.webSocket.send(locationString);
         }
+    }
+
+    fun startGameButtonClick() {
+        startGame();
+        val gameStartJson = JSONObject();
+        gameStartJson.put("type", "START_GAME");
+        this.webSocket.send(gameStartJson.toString())
+    }
+
+    fun startGame() {
+        gameStarted.value = true;
     }
 
     override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {
@@ -177,4 +194,29 @@ class LocationWebSocket : WebSocketListener {
 
     }
 
+    @Composable
+    fun gameLobbySurface() {
+        val showing = remember { this.gameStarted }
+        if (!showing.value) {
+            Surface(
+                color = Color.Black.copy(alpha = 0.6f),
+                modifier = Modifier.fillMaxSize()
+            ) {
+                Column(
+                    modifier = Modifier.fillMaxHeight().fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    Button(
+                        onClick = {
+                            Log.i("BUTTON CLICK", "START GAME")
+                            startGameButtonClick()
+                        }
+                    ) {
+                        Text(fontSize = 22.sp, fontWeight = FontWeight.Bold, text = "Start Game")
+                    }
+                }
+            }
+        }
+    }
 }
