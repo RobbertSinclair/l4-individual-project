@@ -134,6 +134,11 @@ class GPSMongo {
         return await this.userCollection.findOne({chaser: true});
     }
 
+    async getPlayerById(id) {
+        const mongoId = mongoose.Types.ObjectId(id);
+        return await this.userCollection.find({_id: mongoId}).toArray();
+    }
+
     async updatePlayerLocation(id, location) {
         try {
             const mongoCoords = location.convertToMongoCoordinates();
