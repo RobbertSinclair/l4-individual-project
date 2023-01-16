@@ -6,6 +6,7 @@ const http = require("http");
 const WebSocket = require("ws");
 const PORT = process.env.PORT;
 const HOST = "0.0.0.0";
+const URL = require("node:url");
 const ROOT_NAME = __dirname;
 const TEMPLATE_DIR = `${ROOT_NAME}/templates`;
 const { MongoClient } = require("mongodb");
@@ -82,10 +83,33 @@ app.post("/gps_shadows_nearby/:distance", async(req, res) => {
     res.end(JSON.stringify(result));
 })
 
-wss.on("connection", (sender) => {
+function formatQueries(url) {
+    let wsURL = new URL.parse(url);
+    const urlQuery = wsURL.query;
+    let result = {};
+    try {
+        const queries = urlQuery.split("&");
+        console.log(queries);
+        queries.forEach((param) => {
+            let keyPair = param.split("=");
+
+            result[keyPair[0]] = keyPair[1];
+        })
+    } catch (e) {
+        result = {};
+    }
+    return result;
+}
+
+wss.on("connection", (sender, req) => {
     console.log("NEW CONNECTION");
-    operationClient.getId({}, sender)
-    
+    const params = formatQueries(req.url);
+    console.log(params);
+    if (Object.keys(params).length === 0 || !Object.keys(params).includes("ID")) {
+        operationClient.getId({}, sender)
+    } else {
+        operationClient.getExistingPlayerId(params["ID"], sender);
+    }
     
     sender.on("message", (message, isBinary) => {
         console.log(message);
@@ -93,7 +117,7 @@ wss.on("connection", (sender) => {
     });
 
     sender.on("close", () => {
-        operationClient.playerDisconnected(sender);
+        operationClient.waitForReconnect(sender);
     })
 
 })
