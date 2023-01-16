@@ -26,9 +26,9 @@ import org.json.JSONObject
 
 class LocationWebSocket : WebSocketListener {
 
-    private val client: OkHttpClient;
-    private val request: Request;
-    private val webSocket: WebSocket;
+    private var client: OkHttpClient;
+    private var request: Request;
+    private var webSocket: WebSocket;
     private val mapView: UIMapView;
     private val activity: Activity;
     private val player: Player;
@@ -81,6 +81,14 @@ class LocationWebSocket : WebSocketListener {
         this.webSocket.send(gameStartJson.toString())
     }
 
+    private fun reconnectWebSocket() {
+        this.client = OkHttpClient()
+        this.request = Request.Builder().url("${Constants.WEBSOCKET_URL}?ID=${player.getPlayerId()}").build();
+        this.webSocket = this.client.newWebSocket(this.request, this);
+        this.client.dispatcher.executorService.shutdown();
+    }
+
+
     fun startGame() {
         gameStarted.value = true;
     }
@@ -107,7 +115,7 @@ class LocationWebSocket : WebSocketListener {
     override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
         super.onFailure(webSocket, t, response);
         Log.i("WEBSOCKET_FAILED", "Response " + t.toString());
-        throw t;
+        reconnectWebSocket();
     }
 
     override fun onMessage(webSocket: WebSocket, text: String) {
