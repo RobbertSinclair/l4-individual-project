@@ -1,4 +1,3 @@
-
 const { SHADOW_THRESHOLD } = require("./Constants");
 const { Player } = require("./Player")
 const WebSocket = require("ws");
@@ -56,11 +55,11 @@ class WebSocketOperations {
     async getExistingPlayerId(id, sender) {
         const matchingIds = await this.mongoClient.getPlayerById(id);
         if (matchingIds.length === 1) {
-            sender.id = playerData[0]._id.toString();
+            sender.id = matchingIds[0]._id.toString();
             const connectIdObject = {
                 "type": "CONNECT",
-                "id": playerData[0]._id.toString(),
-                "chaser": playerData[0].chaser
+                "id": matchingIds[0]._id.toString(),
+                "chaser": matchingIds[0].chaser
             }
             sender.send(JSON.stringify(connectIdObject));
         } else {
@@ -77,21 +76,17 @@ class WebSocketOperations {
         let counter = 0;
         while (counter < 30 && !reconnected) {
             await this.timeDelay(1000);
-            console.log(counter);
             this.server.clients.forEach(client => {
                 if (client.id === sender.id) {
                     reconnected = true;
                 }
             });
-            console.log(reconnected);
             counter++;
         }
         if (!reconnected) {
             this.playerDisconnected(sender);
         }
     }
-
-
 
     async playerDisconnected(sender) {
         await this.mongoClient.removePlayer(sender);
@@ -202,7 +197,6 @@ class WebSocketOperations {
         })
         return;
     }
-
 }
 
 module.exports ={
