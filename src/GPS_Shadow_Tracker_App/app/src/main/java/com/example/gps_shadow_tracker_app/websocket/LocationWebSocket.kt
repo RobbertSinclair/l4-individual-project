@@ -26,40 +26,40 @@ import org.json.JSONObject
 
 class LocationWebSocket : WebSocketListener {
 
-    private var client: OkHttpClient;
-    private var request: Request;
-    private var webSocket: WebSocket;
-    private val mapView: UIMapView;
-    private val activity: Activity;
-    private val player: Player;
-    private var notificationShow: MutableState<Boolean>;
-    private var textState: MutableState<String>;
-    private var jailTime: MutableState<Boolean>;
-    private val scope : CoroutineScope;
-    private var jailCounter: MutableState<Int>;
-    private var gameStarted: MutableState<Boolean>;
+    private var client: OkHttpClient
+    private var request: Request
+    private var webSocket: WebSocket
+    private val mapView: UIMapView
+    private val activity: Activity
+    private val player: Player
+    private var notificationShow: MutableState<Boolean>
+    private var textState: MutableState<String>
+    private var jailTime: MutableState<Boolean>
+    private val scope : CoroutineScope
+    private var jailCounter: MutableState<Int>
+    private var gameStarted: MutableState<Boolean>
     private var gameTime: MutableState<Int>
 
     constructor(context: Context, mapView : UIMapView, player: Player) : super() {
-        this.activity = context as Activity;
-        this.client = OkHttpClient();
-        this.request = Request.Builder().url(Constants.WEBSOCKET_URL).build();
-        this.webSocket = this.client.newWebSocket(request, this);
-        this.client.dispatcher.executorService.shutdown();
-        this.mapView = mapView;
-        this.player = player;
-        this.notificationShow = mutableStateOf(false);
-        this.textState = mutableStateOf("");
-        this.jailTime = mutableStateOf(false);
-        this.scope = CoroutineScope(Dispatchers.Main);
-        this.jailCounter = mutableStateOf(60);
-        this.gameStarted = mutableStateOf(false);
-        this.gameTime = mutableStateOf(900);
-        timerService();
+        this.activity = context as Activity
+        this.client = OkHttpClient()
+        this.request = Request.Builder().url(Constants.WEBSOCKET_URL).build()
+        this.webSocket = this.client.newWebSocket(request, this)
+        this.client.dispatcher.executorService.shutdown()
+        this.mapView = mapView
+        this.player = player
+        this.notificationShow = mutableStateOf(false)
+        this.textState = mutableStateOf("")
+        this.jailTime = mutableStateOf(false)
+        this.scope = CoroutineScope(Dispatchers.Main)
+        this.jailCounter = mutableStateOf(60)
+        this.gameStarted = mutableStateOf(false)
+        this.gameTime = mutableStateOf(900)
+        timerService()
     }
 
     fun setJailTime(value: Boolean) {
-        this.jailTime.value = value;
+        this.jailTime.value = value
     }
 
     fun sendLocation(locationObject : JSONObject) {
@@ -103,25 +103,25 @@ class LocationWebSocket : WebSocketListener {
         val connectObject = JSONObject();
         connectObject.put("type", "CONNECT");
         this.webSocket.send(connectObject.toString());
-        Log.i("WEBSOCKET_CREATED", "Response: " + response.toString());
+        Log.i("WEBSOCKET_CREATED", "Response: $response");
 
     }
 
     override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {
         super.onClosing(webSocket, code, reason);
-        Log.i("WEBSOCKET_CLOSING", "Reason " + reason);
+        Log.i("WEBSOCKET_CLOSING", "Reason $reason");
     }
 
     override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
         super.onFailure(webSocket, t, response);
-        Log.i("WEBSOCKET_FAILED", "Response " + t.toString());
+        Log.i("WEBSOCKET_FAILED", "Response $t");
         reconnectWebSocket();
     }
 
     override fun onMessage(webSocket: WebSocket, text: String) {
         super.onMessage(webSocket, text);
 
-        Log.i("WEBSOCKET_MESSAGE", "TEXT: " + text);
+        Log.i("WEBSOCKET_MESSAGE", "TEXT: $text");
         try {
             var message = JSONObject(text);
             notificationService(message);
