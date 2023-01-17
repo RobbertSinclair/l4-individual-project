@@ -31,7 +31,5 @@ class UILocationTextViews : UILocationWidget {
         val accuracy = this.accuracyState;
         bigText("Error: ${accuracy.value}m");
     }
-
-
 }
 

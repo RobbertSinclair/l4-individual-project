@@ -273,6 +273,18 @@ How is this problem to be approached, without reference to specific implementati
 \section{Guidance}
 Design should cover the abstract design in such a way that someone else might be able to do what you did, but with a different language or library or tool.
 
+\section{Overview}
+\label{game-overview}
+The game that I will make is a simple tag game where a player can take advantage of GPS shadows in order to hide from
+the chaser. The chaser will be able to see the other users locations in real time if the runner is in an area with
+high GPS accuracy. Once a chaser tags a runner, the caught runner becomes the chaser and a 30 second Jail Time is
+triggered. During this time the catcher cannot see the runner's latest location or is able to catch a runner.
+
+The game will have a time limit with the first iteration being 15 minutes. This is so that the game can be quick and
+easy to play during a study break. I also considered the fact that the game would work well in dense urban environments
+with lots of buildings to go into like the University of Glasgow campus. Once the time limit is up, the winner will
+be calculated as the person who was the runner for the most amount of time in total.
+
 \section{Architecture}
 The game that I will create will utilise a Client-Server Architecture. The client will be a smartphone with a GPS or
 GNSS sensor. Several clients will be connected using a WebSocket. The smartphone will get the GNSS data including the
@@ -281,12 +293,19 @@ to the UI where the user's overall position will be updated. Through the websock
 to the server which will save the users location onto a geospatial database. Depending on certain conditions, the data
 will be sent to the rest of the clients.
 
-\section{Overview}
-\label{game-overview}
-The game that I will make is a simple tag game where a player can take advantage of GPS shadows in order to hide from
-the chaser. The chaser will be able to see the other users locations in real time if the runner is in an area with
-high GPS accuracy. Once a chaser tags a runner, the caught runner becomes the chaser and a 30 second Jail Time is
-triggered. During this time the catcher cannot see the runner's latest location or is able to catch a runner.
+\subsection{Client (Smartphone)}
+The smartphone app will be divided into four main components. These are the GPS Listener, the Communications area, the
+Player and the User Interface. When the client first connects to the server, it will give the user a player id and a player
+type. This information will be given to the player class which stores the id for any further communications with the server.
+Then once that is done, the GPS Listener will start to fetch the GPS coordinates every 2 seconds. This data is then sent
+to the User Interface so that the map is updated with the user's location. The GPS coordinates are then sent to the Communication
+class where they are sent to the server.
+
+\subsection{Server}
+
+
+
+\subsection{Client Server Communication}
 
 \section{Mechanics}
 In this section I go over the various mechanics that I have designed for the game
