@@ -301,6 +301,11 @@ view of the Chaser but will have the ability to "hide" from them by going into a
 GPS accuracy is low enough, they will not transmit their location to the chaser. Making them invisible to the chaser.
 The Runners will also not transmit any location data during the jail period as mentioned in section \ref{game-overview}.
 
+In previous iterations of my design the Runner would have been able to have seen all of the GPS Shadows within a 50
+meter radius. The Shadows would be small red dots on the users maps. However after implementing this feature the screen
+would freeze up leading to a poor user experience and it gave the Chaser an unfair advantage as they didn't get any
+performance issues with just the Runner locations on the screen.
+
 \subsection{Location Tracking and Catching}
 \label{catching}
 As mentioned before, both the runner and the chaser transmit data to the server. After a set interval
@@ -309,9 +314,10 @@ in the database. Once this data is collected the chaser is then able to determin
 
 The chaser will have a 5 meter "no-go zone" which will be the way to determine if a player is caught or not. If
 the GPS accuracy is high and a player has entered the Chaser's 5 meter radius, then the runner is considered to be 
-"caught".
-
-\subsection{}
+"caught". My original idea was to calculate the distance on the smartphone however I realised that the main disadvantages
+to this was that it was going to be difficult to track who the chaser was. I also thought that since the main architecture
+was a Client-Server system that going for as thin a client as possible would be the best approach due to the computational
+limitations of a smartphone.
 %==================================================================================================================================
 \chapter{Implementation}
 What did you do to implement this idea, and what technical achievements did you make?
