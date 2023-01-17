@@ -273,6 +273,45 @@ How is this problem to be approached, without reference to specific implementati
 \section{Guidance}
 Design should cover the abstract design in such a way that someone else might be able to do what you did, but with a different language or library or tool.
 
+\section{Architecture}
+The game that I will create will utilise a Client-Server Architecture. The client will be a smartphone with a GPS or
+GNSS sensor. Several clients will be connected using a WebSocket. The smartphone will get the GNSS data including the
+latitude, longitude and accuracy and then will process it and send to the server. The location data will also be sent 
+to the UI where the user's overall position will be updated. Through the websocket, the phone will send the GPS data
+to the server which will save the users location onto a geospatial database. Depending on certain conditions, the data
+will be sent to the rest of the clients.
+
+\section{Overview}
+\label{game-overview}
+The game that I will make is a simple tag game where a player can take advantage of GPS shadows in order to hide from
+the chaser. The chaser will be able to see the other users locations in real time if the runner is in an area with
+high GPS accuracy. Once a chaser tags a runner, the caught runner becomes the chaser and a 30 second Jail Time is
+triggered. During this time the catcher cannot see the runner's latest location or is able to catch a runner.
+
+\section{Mechanics}
+In this section I go over the various mechanics that I have designed for the game
+
+\subsection{Player Types}
+When the player joins the game, they will be assigned to one of two player types. These are the "Chaser" or the "Runner".
+The role of the Chaser is to catch a runner as described in section \ref{catching}. When the catcher does this they give the role of chaser to the runner. The Chaser
+will be able to see the real time locations of any runner in the game.
+
+The goal of a Runner is to avoid being caught by the Chaser as mentioned before. The Runner will not have a real time
+view of the Chaser but will have the ability to "hide" from them by going into areas with a low GPS density. If their
+GPS accuracy is low enough, they will not transmit their location to the chaser. Making them invisible to the chaser.
+The Runners will also not transmit any location data during the jail period as mentioned in section \ref{game-overview}.
+
+\subsection{Location Tracking and Catching}
+\label{catching}
+As mentioned before, both the runner and the chaser transmit data to the server. After a set interval
+the latest latitude and longitude coordinates will be sent to the server which will update the player's location
+in the database. Once this data is collected the chaser is then able to determine if they have caught a runner.
+
+The chaser will have a 5 meter "no-go zone" which will be the way to determine if a player is caught or not. If
+the GPS accuracy is high and a player has entered the Chaser's 5 meter radius, then the runner is considered to be 
+"caught".
+
+\subsection{}
 %==================================================================================================================================
 \chapter{Implementation}
 What did you do to implement this idea, and what technical achievements did you make?
