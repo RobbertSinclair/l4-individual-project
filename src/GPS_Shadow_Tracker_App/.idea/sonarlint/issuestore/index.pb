@@ -21,3 +21,15 @@ P
  app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
 t
 Dapp/src/main/java/com/example/gps_shadow_tracker_app/ui/UIMapView.kt,8\3\8393d47fa145e147f113cbc73ce0c06d1742d455
+s
+Capp/src/main/java/com/example/gps_shadow_tracker_app/game/Player.kt,d\a\dafa1063cb113d576705b1ebd3616d13e49aaceb
+v
+Fapp/src/main/java/com/example/gps_shadow_tracker_app/gps/GPSService.kt,9\f\9fe3c94355a3ab848326c8704b79ff52a125af1b
+w
+Gapp/src/main/java/com/example/gps_shadow_tracker_app/gps/GPSListener.kt,d\e\de3e43f2f98263fdf7e2b408c86a135e38f7ec3b
+å
+\app/src/main/java/com/example/gps_shadow_tracker_app/websocket/operations/CaughtOperation.kt,b\8\b87466bf0f0f0053c4a612b79cbc5ba1ce7ac606
+î
+dapp/src/main/java/com/example/gps_shadow_tracker_app/websocket/operations/ConnectMessageOperation.kt,1\b\1b903854791064a2b14dba1827a3653476db9ede
+ç
+]app/src/main/java/com/example/gps_shadow_tracker_app/websocket/operations/ConnectOperation.kt,3\3\33d3f3c282418c92938a7d0e3596a64e288903bf

@@ -6,9 +6,9 @@ const mongoose = require("mongoose")
 
 class GPSMongo {
 
-    constructor(url) {
+    constructor(mongoClient) {
         this.median = 0;
-        this.mongoClient = new MongoClient(url);
+        this.mongoClient = mongoClient;
         this.connect();
         this.shadowCollection = this.mongoClient.db("gpsGame").collection("gpsShadows");
         this.userCollection = this.mongoClient.db("gpsGame").collection("players");        
@@ -199,6 +199,10 @@ class GPSMongo {
     async removePlayer(sender) {
         const idToDelete = mongoose.Types.ObjectId(sender.id);
         await this.userCollection.deleteOne({ "_id": idToDelete});
+    }
+
+    async getAllPlayers() {
+        return await this.userCollection.find({}).toArray();
     }
 
 }

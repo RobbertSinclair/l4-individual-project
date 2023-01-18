@@ -2,12 +2,15 @@ const { SHADOW_THRESHOLD } = require("./Constants");
 const { Player } = require("./Player")
 const WebSocket = require("ws");
 const {Location} = require("./Location");
+const {GameLogMongo} = require("./GameLogMongo");
 
 class WebSocketOperations {
 
-    constructor(wss, mongoClient, players, chaser) {
+    constructor(wss, mongoClient, logClient) {
         this.server = wss;
         this.mongoClient = mongoClient;
+        this.logClient = logClient;
+        this.gameInProgress = false;
     }
     
     types = {
@@ -26,12 +29,20 @@ class WebSocketOperations {
     }
 
     async startGame(sender) {
+        this.gameInProgress = true;
+
         const message = JSON.stringify({
             "type": "START_GAME",
             "message": "The game has started"
         })
         this.broadcastExceptSender(sender, message);
         this.getNewChaserState();
+        const players = await this.mongoClient.getAllPlayers();
+        this.logClient.createGameInstance(players);
+    }
+
+    async endGame(sender) {
+        this.gameInProgress = false;
     }
 
     async getId(data, sender) {
@@ -102,7 +113,7 @@ class WebSocketOperations {
     async getUserLocation(message, sender) {
         const startTime = performance.now();
         const newLocation = new Location(message.latitude, message.longitude, message.accuracy);
-        await this.mongoClient.updatePlayerLocation(sender.id, newLocation)
+        await this.mongoClient.updatePlayerLocation(sender.id, newLocation);
         if (message.accuracy >= SHADOW_THRESHOLD) {
             await this.mongoClient.createSingleGPSShadow(message);
         } else {
@@ -114,6 +125,7 @@ class WebSocketOperations {
                 await this.handlePlayerCaught(chaser, newChaser);
             }
         }
+        this.mongoClient.getPlayerById(sender.id).then((player) => { this.logClient.addLocationDataLog(sender, newLocation, player)});
         const endTime = performance.now()
         sender.send(`That request took ${endTime - startTime} milliseconds to process`)
     }
@@ -135,13 +147,15 @@ class WebSocketOperations {
     }
 
     sendToChaser(sender, chaser, message, isBinary) {
-        console.log(`Chaser id is ${chaser._id.toString()}`)
-        if (sender.id != chaser._id.toString()) {
-            this.server.clients.forEach((client) => {
-                if (client.id === chaser._id.toString() && client.readyState === WebSocket.OPEN) {
-                    client.send(message, {binary: isBinary});
-                }
-            })
+        if (chaser != null) {
+            console.log(`Chaser id is ${chaser._id.toString()}`)
+            if (sender.id != chaser._id.toString()) {
+                this.server.clients.forEach((client) => {
+                    if (client.id === chaser._id.toString() && client.readyState === WebSocket.OPEN) {
+                        client.send(message, {binary: isBinary});
+                    }
+                })
+            }
         }
     }
 

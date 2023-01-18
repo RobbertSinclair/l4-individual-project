@@ -55,7 +55,7 @@ class LocationWebSocket : WebSocketListener {
         this.jailCounter = mutableStateOf(60)
         this.gameStarted = mutableStateOf(false)
         this.gameTime = mutableStateOf(900)
-        timerService()
+
     }
 
     fun setJailTime(value: Boolean) {
@@ -91,6 +91,7 @@ class LocationWebSocket : WebSocketListener {
 
     fun startGame() {
         gameStarted.value = true;
+        timerService()
     }
 
     override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {
