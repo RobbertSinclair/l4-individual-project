@@ -2,12 +2,15 @@ const { SHADOW_THRESHOLD } = require("./Constants");
 const { Player } = require("./Player")
 const WebSocket = require("ws");
 const {Location} = require("./Location");
+const {GameLogMongo} = require("./GameLogMongo");
 
 class WebSocketOperations {
 
-    constructor(wss, mongoClient, players, chaser) {
+    constructor(wss, mongoClient, logClient) {
         this.server = wss;
         this.mongoClient = mongoClient;
+        this.logClient = logClient;
+        this.gameInProgress = false;
     }
     
     types = {
@@ -26,12 +29,20 @@ class WebSocketOperations {
     }
 
     async startGame(sender) {
+        this.gameInProgress = true;
+
         const message = JSON.stringify({
             "type": "START_GAME",
             "message": "The game has started"
         })
         this.broadcastExceptSender(sender, message);
         this.getNewChaserState();
+        const players = await this.mongoClient.getAllPlayers();
+        this.logClient.createGameInstance(players);
+    }
+
+    async endGame(sender) {
+        this.gameInProgress = false;
     }
 
     async getId(data, sender) {
@@ -103,6 +114,7 @@ class WebSocketOperations {
         const startTime = performance.now();
         const newLocation = new Location(message.latitude, message.longitude, message.accuracy);
         await this.mongoClient.updatePlayerLocation(sender.id, newLocation)
+        this.logClient.addLocationDataLog(sender, newLocation);
         if (message.accuracy >= SHADOW_THRESHOLD) {
             await this.mongoClient.createSingleGPSShadow(message);
         } else {
