@@ -27,16 +27,21 @@ class GameLogMongo {
     }
 
     async addLocationDataLog(sender, location, player) {
-        console.log(player);
+        const currentPlayer = player[0];
         const mongoCoords = location.convertToMongoCoordinates().location;
-        const key = `players.${sender.id}.locations`;
-        console.log(key);
+        const locationsKey = `players.${sender.id}.locations`;
+        const runnerKey = `players.${sender.id}.runnerTime`;
+        const chaserKey = `players.${sender.id}.chaserTime`;
         const updateQuery = {
             "$push": {
-                [key]: mongoCoords
+                [locationsKey]: mongoCoords
             }
         }
-        console.log(`Game Id is ${this.gameId}`);
+        if (currentPlayer.chaser) {
+            updateQuery["$inc"] = {[chaserKey]: 2}
+        } else {
+            updateQuery["$inc"] = {[runnerKey]: 2}
+        }
         if (this.gameId != null) {
             this.gameCollection.updateOne({"_id": this.gameId},
                 updateQuery
