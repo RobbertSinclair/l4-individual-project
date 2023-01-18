@@ -113,8 +113,7 @@ class WebSocketOperations {
     async getUserLocation(message, sender) {
         const startTime = performance.now();
         const newLocation = new Location(message.latitude, message.longitude, message.accuracy);
-        await this.mongoClient.updatePlayerLocation(sender.id, newLocation)
-        this.logClient.addLocationDataLog(sender, newLocation);
+        await this.mongoClient.updatePlayerLocation(sender.id, newLocation);
         if (message.accuracy >= SHADOW_THRESHOLD) {
             await this.mongoClient.createSingleGPSShadow(message);
         } else {
@@ -126,6 +125,7 @@ class WebSocketOperations {
                 await this.handlePlayerCaught(chaser, newChaser);
             }
         }
+        this.mongoClient.getPlayerById(sender.id).then((player) => { this.logClient.addLocationDataLog(sender, newLocation, player)});
         const endTime = performance.now()
         sender.send(`That request took ${endTime - startTime} milliseconds to process`)
     }
@@ -147,13 +147,15 @@ class WebSocketOperations {
     }
 
     sendToChaser(sender, chaser, message, isBinary) {
-        console.log(`Chaser id is ${chaser._id.toString()}`)
-        if (sender.id != chaser._id.toString()) {
-            this.server.clients.forEach((client) => {
-                if (client.id === chaser._id.toString() && client.readyState === WebSocket.OPEN) {
-                    client.send(message, {binary: isBinary});
-                }
-            })
+        if (chaser != null) {
+            console.log(`Chaser id is ${chaser._id.toString()}`)
+            if (sender.id != chaser._id.toString()) {
+                this.server.clients.forEach((client) => {
+                    if (client.id === chaser._id.toString() && client.readyState === WebSocket.OPEN) {
+                        client.send(message, {binary: isBinary});
+                    }
+                })
+            }
         }
     }
 
