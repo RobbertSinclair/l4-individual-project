@@ -51,8 +51,7 @@ class GameLogMongo {
 
     async endGameProgress() {
         if (this.gameId != null) {
-            this.gameCollection.updateOne({_id: this.gameId}, {inProgess: false});
-            co
+            this.gameCollection.updateOne({_id: this.gameId}, {inProgress: false});
             this.gameId = null;
         }
     }

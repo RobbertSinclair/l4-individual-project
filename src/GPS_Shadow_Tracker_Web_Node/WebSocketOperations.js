@@ -26,6 +26,9 @@ class WebSocketOperations {
         if (data.type === "START_GAME") {
             this.startGame(sender);
         }
+        if (data.type === "END_GAME") {
+            this.endGame(sender);
+        }
     }
 
     async startGame(sender) {
@@ -43,6 +46,8 @@ class WebSocketOperations {
 
     async endGame(sender) {
         this.gameInProgress = false;
+        this.logClient.endGame(sender);
+        this.broadcastAll({"type": "END_GAME", "message": "The game has ended"})
     }
 
     async getId(data, sender) {
