@@ -20,7 +20,7 @@ class GameLogMongo {
                 chaserTime: 0
             }
         })
-        const data = await this.gameCollection.insertOne({ "players": playerData, "inProgress": true, catchLocation: [] });
+        const data = await this.gameCollection.insertOne({ "players": playerData, "inProgress": true, catchLocations: [] });
         this.gameId = data.insertedId;
         const location = new Location(0, 0, 0);
         console.log(data);
@@ -52,8 +52,19 @@ class GameLogMongo {
     async endGameProgress() {
         if (this.gameId != null) {
             this.gameCollection.updateOne({_id: this.gameId}, {inProgess: false});
+            co
             this.gameId = null;
         }
+    }
+
+    async sendWinner() {
+        const players = await this.gameCollection.find({}, {"players": 1}).toArray();
+        const runnerTimes = Object.keys(players).map((player) => {player: player.runnerTime});
+        console.log(runnerTimes);
+    }
+
+    async logCatchPoints(location) {
+        
     }
 
 }
