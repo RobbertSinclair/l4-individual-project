@@ -15,6 +15,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.gps_shadow_tracker_app.Constants
+import com.example.gps_shadow_tracker_app.Constants.Companion.GAME_TIME
 import com.example.gps_shadow_tracker_app.Constants.Companion.JAIL_DURATION
 import com.example.gps_shadow_tracker_app.Constants.Companion.SECOND
 import com.example.gps_shadow_tracker_app.game.Player
@@ -54,7 +55,7 @@ class LocationWebSocket : WebSocketListener {
         this.scope = CoroutineScope(Dispatchers.Main)
         this.jailCounter = mutableStateOf(60)
         this.gameStarted = mutableStateOf(false)
-        this.gameTime = mutableStateOf(900)
+        this.gameTime = mutableStateOf(GAME_TIME)
 
     }
 
@@ -92,6 +93,10 @@ class LocationWebSocket : WebSocketListener {
     fun startGame() {
         gameStarted.value = true;
         timerService()
+    }
+
+    fun endGame() {
+        gameStarted.value = false;
     }
 
     override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {
@@ -156,12 +161,16 @@ class LocationWebSocket : WebSocketListener {
     }
 
     fun timerService() {
-        gameTime.value = 900;
+        gameTime.value = GAME_TIME;
         this.scope.launch {
-            while (gameTime.value > 0) {
+            while (gameTime.value > 0 && gameStarted.value) {
                 delay(SECOND);
                 gameTime.value--;
             }
+            val endGameObject = JSONObject();
+            endGameObject.put("type", "END_GAME");
+            webSocket.send(endGameObject.toString());
+            endGame()
         }
     }
 

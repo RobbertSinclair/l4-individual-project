@@ -29,7 +29,7 @@ class Constants {
 
         const val MINUTE : Long = 60 * SECOND;
 
-        const val GAME_TIME = 15 * 60;
+        const val GAME_TIME = 900;
 
         const val JAIL_DURATION = 30;
 
