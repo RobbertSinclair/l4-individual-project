@@ -46,8 +46,8 @@ class WebSocketOperations {
 
     async endGame(sender) {
         this.gameInProgress = false;
-        this.logClient.endGame(sender);
-        this.broadcastAll({"type": "END_GAME", "message": "The game has ended"})
+        await this.logClient.endGameProgress();
+        this.broadcastAll(JSON.stringify({"type": "END_GAME", "message": "The game has ended"}))
     }
 
     async getId(data, sender) {

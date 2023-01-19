@@ -51,14 +51,19 @@ class GameLogMongo {
 
     async endGameProgress() {
         if (this.gameId != null) {
-            this.gameCollection.updateOne({_id: this.gameId}, {inProgress: false});
+            const result = await this.gameCollection.updateOne({_id: this.gameId}, {$set: {inProgress: false}});
+            console.log(result);
+            await this.getWinner();
             this.gameId = null;
         }
     }
 
-    async sendWinner() {
-        const players = await this.gameCollection.find({}, {"players": 1}).toArray();
-        const runnerTimes = Object.keys(players).map((player) => {player: player.runnerTime});
+    async getWinner() {
+        const currentGame = await this.gameCollection.findOne({_id: this.gameId});
+        const playerKeys = Object.keys(currentGame.players);
+        const runnerTimes = playerKeys.map((player) => currentGame.players[player].runnerTime);
+        const maxIndex = runnerTimes.indexOf(Math.max(runnerTimes));
+        console.log(`The winner was ${playerKeys[maxIndex]}`)
         console.log(runnerTimes);
     }
 
