@@ -6,6 +6,6 @@ const SECOND = 1000
 module.exports = {
     SHADOW_THRESHOLD,
     CATCH_THRESHOLD,
-    GAME_DURATIONm,
+    GAME_DURATION,
     SECOND
 }
