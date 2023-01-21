@@ -12,6 +12,7 @@ class WebSocketOperations {
         this.logClient = logClient;
         this.gameInProgress = false;
         this.gameTime = 0;
+        this.jailTime = false;
     }
     
     types = {
@@ -30,6 +31,13 @@ class WebSocketOperations {
         if (data.type === "END_GAME") {
             this.endGame(sender);
         }
+    }
+
+    async initiateJailTime() {
+        this.jailTime = true;
+        await this.timeDelay(30 * SECOND);
+        this.jailTime = false;
+        this.broadcastAll(JSON.stringify({"type": "END_JAIL"}));
     }
 
     async startGame(sender) {
@@ -65,8 +73,6 @@ class WebSocketOperations {
             this.broadcastAll(message);
         }, SYNC_DELAY * SECOND)
     }
-
-
 
     async endGame() {
         this.gameInProgress = false;
@@ -149,8 +155,10 @@ class WebSocketOperations {
             const chaser = await this.mongoClient.getCurrentChaser();
             this.sendToChaser(sender, chaser, JSON.stringify(message))
             const catchList = await this.mongoClient.findAnyPlayersToCatch();
-            if (catchList.length > 0) {
+            if (catchList.length > 0 && !this.jailTime) {
                 const newChaser = catchList[0];
+                this.logClient.logCatchPoint(newLocation);
+                this.initiateJailTime();
                 await this.handlePlayerCaught(chaser, newChaser);
             }
         }
@@ -238,6 +246,7 @@ class WebSocketOperations {
                 client.send(data);
             }
         })
+        this.initiateJailTime();
         return;
     }
 }

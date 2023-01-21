@@ -67,10 +67,13 @@ class GameLogMongo {
         console.log(runnerTimes);
     }
 
-    async logCatchPoints(location) {
-        
+    async logCatchPoint(location) {
+        if (this.gameId != null) {
+            const mongoCoords = location.convertToMongoCoordinates()
+            const result = await this.gameCollection.updateOne({_id: this.gameId}, {$push: {catchLocations: mongoCoords}});
+            console.log(result);
+        }
     }
-
 }
 
 module.exports = {
