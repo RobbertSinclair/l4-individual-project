@@ -160,6 +160,10 @@ class LocationWebSocket : WebSocketListener {
         }
     }
 
+    fun setTime(newTime: Int) {
+        gameTime.value = newTime;
+    }
+
     fun timerService() {
         gameTime.value = GAME_TIME;
         this.scope.launch {

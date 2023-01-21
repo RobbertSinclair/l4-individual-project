@@ -55,7 +55,7 @@ class WebSocketOperations {
                 "type": "SYNC_TIME",
                 "gameTime": this.gameTime
             });
-            if (this.gameTime <= 0) {
+            if (this.gameTime <= 0 && this.gameInProgress) {
                 this.gameTime = 0;
                 if (this.gameInProgress) {
                     this.endGame();
