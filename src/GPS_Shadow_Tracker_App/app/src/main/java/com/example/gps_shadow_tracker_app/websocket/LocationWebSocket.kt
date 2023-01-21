@@ -64,7 +64,7 @@ class LocationWebSocket : WebSocketListener {
     }
 
     fun sendLocation(locationObject : JSONObject) {
-        if (!jailTime.value && gameStarted.value) {
+        if (gameStarted.value) {
             val accuracy : Float = locationObject.get("accuracy") as Float;
             locationObject.put("type", "LOCATION");
             locationObject.put("inShadow", accuracy >= Constants.SHADOW_THRESHOLD);

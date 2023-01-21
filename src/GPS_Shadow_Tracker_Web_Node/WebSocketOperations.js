@@ -149,13 +149,15 @@ class WebSocketOperations {
             await this.mongoClient.createSingleGPSShadow(message);
         } else {
             const chaser = await this.mongoClient.getCurrentChaser();
-            this.sendToChaser(sender, chaser, JSON.stringify(message))
-            const catchList = await this.mongoClient.findAnyPlayersToCatch();
-            if (catchList.length > 0 && !this.jailTime) {
-                const newChaser = catchList[0];
-                this.logClient.logCatchPoint(newLocation);
-                this.initiateJailTime();
-                await this.handlePlayerCaught(chaser, newChaser);
+            if (!this.jailTime) {
+                this.sendToChaser(sender, chaser, JSON.stringify(message))
+                const catchList = await this.mongoClient.findAnyPlayersToCatch();
+                if (catchList.length > 0) {
+                    const newChaser = catchList[0];
+                    this.logClient.logCatchPoint(newLocation);
+                    this.initiateJailTime();
+                    await this.handlePlayerCaught(chaser, newChaser);
+                }
             }
         }
         this.mongoClient.getPlayerById(sender.id).then((player) => { this.logClient.addLocationDataLog(sender, newLocation, player)});
