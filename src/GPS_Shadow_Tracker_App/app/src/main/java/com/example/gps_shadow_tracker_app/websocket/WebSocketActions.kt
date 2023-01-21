@@ -35,7 +35,7 @@ enum class WebSocketActions {
         override fun setUpOperation(webSocket: LocationWebSocket, player: Player, mapView: UIMapView) = SyncTimeOperation(player, webSocket);
     },
     END_JAIL {
-        override fun setUpOperation(webSocket: LocationWebSocket, player: Player, mapView: UIMapView) = EndGameOperation(player, webSocket);
+        override fun setUpOperation(webSocket: LocationWebSocket, player: Player, mapView: UIMapView) = EndJailOperation(player, webSocket);
     };
 
     abstract fun setUpOperation(webSocket: LocationWebSocket, player: Player, mapView: UIMapView) : WebSocketOperation;
