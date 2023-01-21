@@ -14,14 +14,10 @@ class WebSocketOperations {
         this.gameTime = 0;
         this.jailTime = false;
     }
-    
-    types = {
-        "LOCATION": this.getUserLocation,
-        "CONNECT": this.getId
-    }
 
     handleReceivedMessage(message, sender) {
         const data = JSON.parse(message);
+        console.log(message);
         if (data.type === "LOCATION") {
             this.getUserLocation(data, sender);
         }
