@@ -1,4 +1,4 @@
-const { SHADOW_THRESHOLD, GAME_DURATION } = require("./Constants");
+const { SHADOW_THRESHOLD, GAME_DURATION, SECOND } = require("./Constants");
 const { Player } = require("./Player")
 const WebSocket = require("ws");
 const {Location} = require("./Location");
@@ -55,7 +55,7 @@ class WebSocketOperations {
                 "type": "SYNC_TIME",
                 "gameTime": this.gameTime
             });
-            if (this.gameTime <= 0 && this.gameInProgress) {
+            if (this.gameTime <= 0 && !this.gameInProgress) {
                 this.gameTime = 0;
                 if (this.gameInProgress) {
                     this.endGame();
@@ -63,7 +63,7 @@ class WebSocketOperations {
                 clearInterval(interval);
             }
             this.broadcastAll(message);
-        }, 10000)
+        }, 30 * SECOND)
     }
 
 
