@@ -1,4 +1,4 @@
-const { SHADOW_THRESHOLD, GAME_DURATION, SECOND } = require("./Constants");
+const { SHADOW_THRESHOLD, GAME_DURATION, SECOND, SYNC_DELAY } = require("./Constants");
 const { Player } = require("./Player")
 const WebSocket = require("ws");
 const {Location} = require("./Location");
@@ -50,7 +50,7 @@ class WebSocketOperations {
 
     async syncClock() {
         const interval = setInterval(() => {
-            this.gameTime = this.gameTime - 10;
+            this.gameTime = this.gameTime - SYNC_DELAY;
             const message = JSON.stringify({
                 "type": "SYNC_TIME",
                 "gameTime": this.gameTime
@@ -63,7 +63,7 @@ class WebSocketOperations {
                 clearInterval(interval);
             }
             this.broadcastAll(message);
-        }, 30 * SECOND)
+        }, SYNC_DELAY * SECOND)
     }
 
 
