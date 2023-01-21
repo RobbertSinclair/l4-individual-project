@@ -1,7 +1,9 @@
 const SHADOW_THRESHOLD = 20;
 const CATCH_THRESHOLD = 5;
+const GAME_DURATION = 900;
 
 module.exports = {
     SHADOW_THRESHOLD,
-    CATCH_THRESHOLD
+    CATCH_THRESHOLD,
+    GAME_DURATION
 }

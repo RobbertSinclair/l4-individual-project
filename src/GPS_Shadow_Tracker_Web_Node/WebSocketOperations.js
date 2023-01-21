@@ -1,4 +1,4 @@
-const { SHADOW_THRESHOLD } = require("./Constants");
+const { SHADOW_THRESHOLD, GAME_DURATION } = require("./Constants");
 const { Player } = require("./Player")
 const WebSocket = require("ws");
 const {Location} = require("./Location");
@@ -11,6 +11,7 @@ class WebSocketOperations {
         this.mongoClient = mongoClient;
         this.logClient = logClient;
         this.gameInProgress = false;
+        this.gameTime = 0;
     }
     
     types = {
@@ -33,18 +34,41 @@ class WebSocketOperations {
 
     async startGame(sender) {
         this.gameInProgress = true;
-
+        this.gameTime = GAME_DURATION;
         const message = JSON.stringify({
             "type": "START_GAME",
-            "message": "The game has started"
+            "message": "The game has started",
+            "gameTime": GAME_DURATION 
         })
         this.broadcastExceptSender(sender, message);
         this.getNewChaserState();
         const players = await this.mongoClient.getAllPlayers();
         this.logClient.createGameInstance(players);
+        this.syncClock()
     }
 
-    async endGame(sender) {
+
+    async syncClock() {
+        const interval = setInterval(() => {
+            this.gameTime = this.gameTime - 10;
+            const message = JSON.stringify({
+                "type": "SYNC_TIME",
+                "gameTime": this.gameTime
+            });
+            if (this.gameTime <= 0) {
+                this.gameTime = 0;
+                if (this.gameInProgress) {
+                    this.endGame();
+                }
+                clearInterval(interval);
+            }
+            this.broadcastAll(message);
+        }, 10000)
+    }
+
+
+
+    async endGame() {
         this.gameInProgress = false;
         await this.logClient.endGameProgress();
         this.broadcastAll(JSON.stringify({"type": "END_GAME", "message": "The game has ended"}))
