@@ -44,7 +44,7 @@ class WebSocketOperations {
             "message": "The game has started",
             "gameTime": GAME_DURATION 
         })
-        this.broadcastAll(sender, message);
+        this.broadcastAll(message);
         this.getNewChaserState();
         const players = await this.mongoClient.getAllPlayers();
         this.logClient.createGameInstance(players);
