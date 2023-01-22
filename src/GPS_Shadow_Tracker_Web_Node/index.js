@@ -29,7 +29,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 app.get("/", (req, res) => {
-    fs.readFile(`${TEMPLATE_DIR}/index.html`)
+    fs.readFile(`${TEMPLATE_DIR}/index_react.html`)
     .then(contents => {
         res.setHeader("Content-Type", "text/html");
         res.writeHead(200);
