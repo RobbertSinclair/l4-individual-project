@@ -13,6 +13,7 @@ class StartGameOperation: WebSocketOperation {
     }
 
     override fun execute(jsonObject: JSONObject) {
+        webSocket.setTime(jsonObject.getInt("gameTime"));
         webSocket.startGame();
     }
 }

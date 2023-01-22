@@ -165,7 +165,9 @@ class LocationWebSocket : WebSocketListener {
     }
 
     fun timerService() {
-        gameTime.value = GAME_TIME;
+        if (gameTime.value <= 0) {
+            gameTime.value = GAME_TIME;
+        }
         this.scope.launch {
             while (gameTime.value > 0 && gameStarted.value) {
                 delay(SECOND);
