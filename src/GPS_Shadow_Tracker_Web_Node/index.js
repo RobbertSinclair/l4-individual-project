@@ -14,6 +14,7 @@ const url = `mongodb://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@$
 const { GPSMongo } = require("./GPSMongo.js");
 const { WebSocketOperations } = require("./WebSocketOperations");
 const {GameLogMongo} = require("./GameLogMongo");
+const mongoose = require("mongoose");
 const players = {};
 const chaser = null;
 const mongoClient = new MongoClient(url);
@@ -84,6 +85,20 @@ app.post("/gps_shadows_nearby/:distance", async(req, res) => {
     res.setHeader("Content-Type", "application/json");
     res.writeHead(200);
     res.end(JSON.stringify(result));
+})
+
+app.get("/games", async (req, res) => {
+    const results = await logMongo.getGameIds();
+    res.setHeader("Content-Type", "application/json");
+    res.writeHead(200);
+    res.end(JSON.stringify(results));
+})
+app.get("/games/:id", async (req, res) => {
+    const result = await logMongo.getGameDetails(req.params.id);
+    res.setHeader("Content-Type", "application/json");
+    res.writeHead(200);
+    res.end(JSON.stringify(result));
+
 })
 
 function formatQueries(url) {
