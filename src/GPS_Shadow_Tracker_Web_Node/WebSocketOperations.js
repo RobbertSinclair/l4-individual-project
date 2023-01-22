@@ -44,7 +44,7 @@ class WebSocketOperations {
             "message": "The game has started",
             "gameTime": GAME_DURATION 
         })
-        this.broadcastExceptSender(sender, message);
+        this.broadcastAll(message);
         this.getNewChaserState();
         const players = await this.mongoClient.getAllPlayers();
         this.logClient.createGameInstance(players);
@@ -92,6 +92,14 @@ class WebSocketOperations {
         }
         sender.id = playerData.id;
         sender.send(JSON.stringify(connectIdObject));
+        if (this.gameInProgress) {
+            const gameStartMessage = JSON.stringify({
+                "type": "START_GAME",
+                "message": "The game has started",
+                "gameTime": this.gameTime
+            });
+            sender.send(gameStartMessage);
+        }
     }
 
     async getExistingPlayerId(id, sender) {

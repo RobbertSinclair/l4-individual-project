@@ -1,5 +1,6 @@
 const { MongoClient } = require("mongodb");
 const {Location} = require("./Location");
+const mongoose = require("mongoose");
 
 class GameLogMongo {
 
@@ -73,6 +74,22 @@ class GameLogMongo {
             const result = await this.gameCollection.updateOne({_id: this.gameId}, {$push: {catchLocations: mongoCoords}});
             console.log(result);
         }
+    }
+
+    async getGameIds() {
+        let ids = await this.gameCollection.distinct("_id", {});
+        ids = ids.map((id) => id.toString());
+        return ids;
+    }
+
+    async getGameDetails(id) {
+        try {
+            const objectId = mongoose.Types.ObjectId(id);
+            return await this.gameCollection.findOne({_id: objectId});
+        } catch (e) {
+            return {"message": "ERROR"};
+        }
+
     }
 }
 
