@@ -92,6 +92,14 @@ class WebSocketOperations {
         }
         sender.id = playerData.id;
         sender.send(JSON.stringify(connectIdObject));
+        if (this.gameInProgress) {
+            const gameStartMessage = JSON.stringify({
+                "type": "START_GAME",
+                "message": "The game has started",
+                "gameTime": this.gameTime
+            });
+            sender.send(gameStartMessage);
+        }
     }
 
     async getExistingPlayerId(id, sender) {
