@@ -7,7 +7,7 @@ export default class GameAnalysis extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            game: {},
+            game: {catchLocations: [], players: {}},
             loading: true
         }
     }
@@ -18,12 +18,12 @@ export default class GameAnalysis extends React.Component {
             fetch(`/games/${this.props.id}`)
             .then(res => res.json())
             .then((data) => {
-                console.log(data);
                 this.setState({
-                    game: data,
+                    game: data
+                })
+                this.setState({
                     loading: false
                 })
-                console.log(this.state.game);
             })
             
         }
@@ -31,7 +31,7 @@ export default class GameAnalysis extends React.Component {
 
     render() {
         return <div>
-            {this.state.loading ? <h1>Loading</h1> : <GameMap game={this.state.game} />}
+            {this.state.loading && this.state.game === null ? <h1>Loading</h1> : <GameMap game={this.state.game} />}
         </div>
     }
 }
