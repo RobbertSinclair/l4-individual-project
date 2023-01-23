@@ -32,18 +32,26 @@ export default class GameMap extends React.Component {
     }
 
     createCircles() {
+        this.circleAreas = [];
+        const colours = ["blue", "red", "yellow"];
         console.log(this.state.game.players);
         const keys = Object.keys(this.state.game.players);
         console.log("Player Keys are")
         console.log(keys);
+        let counter = 0;
         keys.forEach((key) => {
+            const colour = colours[counter % colours.length]
             const circles = this.state.game.players[key].locations.map(location => <Circle
                 center={[location.coordinates[1], location.coordinates[0]]}
                 radius={5}
-                pathOptions={{color: "blue"}} >
-                <Popup>key</Popup>
+                pathOptions={{color: colour}} >
+                <Popup>{key}</Popup>
             </Circle>);
-            this.circleAreas.push(circles);
+            console.log(circles);
+            this.circleAreas = this.circleAreas.concat(circles);
+            console.log("this.circleAreas");
+            console.log(this.circleAreas);
+            counter++;
         })
 
     }
