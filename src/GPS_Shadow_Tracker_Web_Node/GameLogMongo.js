@@ -20,6 +20,11 @@ class GameLogMongo {
                 runnerTime: 0,
                 chaserTime: 0
             }
+            if (player.brand && player.model, player.product) {
+                playerData[playerId]["brand"] = player.brand;
+                playerData[playerId]["model"] = player.model;
+                playerData[playerId]["product"] = player.product;
+            }
         })
         const data = await this.gameCollection.insertOne({ "players": playerData, "inProgress": true, catchLocations: [] });
         this.gameId = data.insertedId;
