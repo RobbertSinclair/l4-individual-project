@@ -18,6 +18,9 @@ class WebSocketOperations {
     handleReceivedMessage(message, sender) {
         const data = JSON.parse(message);
         console.log(message);
+        if (data.type === "CONNECT") {
+            this.getBrandAndModel(sender, data);
+        }
         if (data.type === "LOCATION") {
             this.getUserLocation(data, sender);
         }
@@ -34,6 +37,12 @@ class WebSocketOperations {
         await this.timeDelay(30 * SECOND);
         this.jailTime = false;
         this.broadcastAll(JSON.stringify({"type": "END_JAIL"}));
+    }
+
+    async getBrandAndModel(sender, message) {
+        if (message.brand && message.product && message.model) {
+            this.mongoClient.updatePlayerModel(sender, message.brand, message.product, message.model);
+        }
     }
 
     async startGame(sender) {

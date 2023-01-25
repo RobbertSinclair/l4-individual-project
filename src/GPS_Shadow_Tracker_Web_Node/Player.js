@@ -9,6 +9,7 @@ class Player {
         this.id = id;
         this.chaser = chaser;
         this.location = new Location(0, 0, 3.8);
+
     }
 
     swapChaserState() {

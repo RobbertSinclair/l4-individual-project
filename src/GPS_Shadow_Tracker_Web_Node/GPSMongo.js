@@ -28,6 +28,10 @@ class GPSMongo {
         await this.userCollection.deleteMany({});
     }
 
+    convertStringToMongoObjectId(string) {
+        return mongoose.Types.ObjectId(string);
+    }
+
     createGPSSpotDocument(data) {
         return {
             location: {
@@ -117,6 +121,11 @@ class GPSMongo {
         return {"id": data.insertedId.toString(), "chaser": newUser.chaser};
     }
 
+    async updatePlayerModel(sender, brand, model, product) {
+        const objectId = this.convertStringToMongoObjectId(sender.id);
+        await this.userCollection.updateOne({_id: objectId}, {$set: {"brand": brand, "model": model, "product": product}});
+    }
+
     async selectRandomPlayerAsChaser() {
         try {
             const otherChasers = await this.userCollection.updateOne({chaser: true}, [{$set: {chaser: false}}])
@@ -197,7 +206,7 @@ class GPSMongo {
     }
 
     async removePlayer(sender) {
-        const idToDelete = mongoose.Types.ObjectId(sender.id);
+        const idToDelete = this.convertStringToMongoObjectId(sender.id);
         await this.userCollection.deleteOne({ "_id": idToDelete});
     }
 
