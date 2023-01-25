@@ -2,6 +2,7 @@ package com.example.gps_shadow_tracker_app.websocket
 
 import android.app.Activity
 import android.content.Context
+import android.os.Build
 import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
@@ -108,6 +109,9 @@ class LocationWebSocket : WebSocketListener {
         super.onOpen(webSocket, response);
         val connectObject = JSONObject();
         connectObject.put("type", "CONNECT");
+        connectObject.put("brand", Build.BRAND);
+        connectObject.put("product", Build.PRODUCT);
+        connectObject.put("model", Build.MODEL)
         this.webSocket.send(connectObject.toString());
         Log.i("WEBSOCKET_CREATED", "Response: $response");
 
