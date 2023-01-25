@@ -29,7 +29,7 @@ class GameLogMongo {
 
     async addLocationDataLog(sender, location, player) {
         const currentPlayer = player[0];
-        const mongoCoords = location.convertToMongoCoordinates().location;
+        const mongoCoords = location.convertToMongoCoordinates();
         const locationsKey = `players.${sender.id}.locations`;
         const runnerKey = `players.${sender.id}.runnerTime`;
         const chaserKey = `players.${sender.id}.chaserTime`;
