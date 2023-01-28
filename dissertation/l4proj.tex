@@ -547,6 +547,68 @@ Avoid putting large blocks of code in the report (more than a page in one block,
 \chapter{Evaluation} 
 How good is your solution? How well did you solve the general problem, and what evidence do you have to support that?
 
+
+In this section I will go over the process and results from my two rounds of evaluations.
+
+\section{Process}
+The game was tested during the week commencing 23rd January 2023 involving volunteers with a range of Android phones. I set up multiple two player
+games that were played around the main building, the cloisters and the surrounding area. Each game lasted 15 minutes where I collected the locations
+of the players, their GPS Error and the locations where the players were caught. I also noted down the brand and the model of the phone to analyse
+how the game worked with different phones. After playing the game, I would ask my participants to fill in a survey with questions including how
+fun the game was to play, whether the connection was stable and what improvements could be made in future iterations. I plan to do two phases
+with the second phase set to be done in the week commencing the 6th February 2023.
+
+\section{Results from Phase 1}
+
+\subsection{Overview}
+For Phase 1 I managed to test the game with 8 participants with a total of 6 games played. Games were either played between me and the participant
+or between the two participants. Most of the games went well with the exception of two games where the ranges in errors were higher than my threshold
+(I will go into more detail in subsection \ref{phase1errorrange}). I was glad to see that there were no problems with overall connectivity throughout
+the duration of the game
+
+\subsection{Strategies}
+
+
+\subsection{Error Ranges}
+\label{phase1errorrange}
+One of the things that I wanted to see was whether the GNSS accuracies on different phones would be consistent or whether it would vary more.
+When I was doing my initial walks finding GNSS Shadows, I only used my personal phone (A Samsung Galaxy S21 FE) to get readings. Figure \ref{fig:galaxys21}
+shows the ranges in the Error ratings. From the graph I can see that when this phone is in a relatively open area, the error rate remains constant at around 3.8 meters. There
+are only a few peaks throughout the duration of the game. Through experience this only happens when I go into buildings or under bridges and in other areas where GPS performance
+is expected to decrease. When developing the game I thought that an error of 6 meters or more would have been the threshold for whether a player was in a GPS Shadow or not as I
+assumed that it would be constant for every phone.
+
+When running my game on different phone, I noticed that my assumption that the same range of GPS accuracies were true for all phone was incorrect. Figure \ref{fig:oppo}
+shows the Error ranges on an Oppo F19. As you can see from the graph, the range of GPS errors were significantly higher and less consistent than the Samsung phone. I also
+noticed that the error would rarely go under the 6 meter threshold. This meant that when this phone was the runner, the chaser was not able to catch or see their location
+this led to a major balancing issue. This problem was also found with the Samsung Note 9 (Figure \ref{fig:note9}), with this phone I noticed that the error rate would get
+as low as 0 but would rarely be within the 3.8 and 6 range. This would result in their marker making big jumps before becoming invisible again.
+
+From these results I can see that the wide range of android phones would lead to a wide range of GPS sensors. This could be due to many factors, from the amount of satellites
+visible to simply the cost of the GNSS sensors. I feel that my original assumption would have been better if I had created the app using iOS, since I would only be developing
+for a single phone type. The main conclusion that I decided to make is that I need to find a new way of calculating whether a player is in a shadow or not.
+The best way to do this is to consider the median value or the lowest value and then adjust my ranges based on that value.  
+
+\subsection{The Catching Mechanic}
+
+
+\subsection{Survey Results}
+
+\begin{table}[]
+    \centering
+    \resizebox{\textwidth}{!}{\begin{tabular}{|l|l|l|l|l|l|}
+    \rowcolor[HTML]{9B9B9B} 
+    \textbf{Question}                                                                  & \textbf{Strongly Agree} & \textbf{Somewhat Agree} & \textbf{Neutral} & \textbf{Somewhat Disagree} & \textbf{Strongly Disagree} \\ \hline
+    The Gameplay was an enjoyable experience                                           & 3                       & 5                       & 0                & 0                          & 0                          \\ \hline
+    The game gave me a better sense of awareness as \\to where GPS accuracy can decrease & 6                       & 2                       & 0                & 0                          & 0                         \\ \hline
+    The User Interface Displayed information clearly                                   & 2                       & 2                       & 4                & 0                          & 0                          \\ \hline
+    The game connection was stable                                                     & 4                       & 2                       & 0                & 2                          & 0                          \\ \hline
+    \end{tabular}}
+    \caption{At the start of the survey I gave my participants 4 statements and asked them whether they agreed or disagreed with it. This table shows the results of that survey}
+    \label{tab:agree}
+\end{table}
+
+
 \section{Guidance}
 \begin{itemize}
     \item
@@ -616,6 +678,26 @@ Summarise the whole project for a lazy reader who didn't read the rest (e.g. a p
 \begin{appendices}
 
 \chapter{Appendices}
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1.0\linewidth]{images/my_phone.png} 
+    \caption{The Error ranges found during a game using a Samsung Galaxy S21 FE}
+    \label{fig:galaxys21}
+\end{figure}
+\begin{figure}
+    \centering
+    \includegraphics[width=1.0\linewidth]{images/oppo.png}
+    \caption{The Error ranges found during a game using an Oppo F19}
+    \label{fig:oppo}
+\end{figure}
+\begin{figure}
+    \centering
+    \includegraphics[width=1.0\linewidth]{images/note9.png}
+    \caption{The Error ranges found during a game using an Samsung Note 9}
+    \label{fig:note9}
+\end{figure}
 
 Typical inclusions in the appendices are:
 
