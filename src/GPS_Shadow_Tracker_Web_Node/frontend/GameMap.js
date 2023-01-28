@@ -1,21 +1,22 @@
 import React from "react";
 import { MapContainer, TileLayer, Marker, Circle, Popup } from "react-leaflet";
+import PlayerData from "./PlayerData.js";
 
 export default class GameMap extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            game: {},
-            players: []
+            game: this.props.game,
+            players: this.props.game.players
         }
         this.circleAreas = []
-        this.createCircles = this.createCircles.bind(this);
     }
 
     componentDidMount() {
         this.setState({
-            game: this.props.game
+            game: this.props.game,
+            players: this.props.game.players
         })
     }
 
@@ -24,43 +25,33 @@ export default class GameMap extends React.Component {
             console.log("this.state.game");
             console.log(this.state.game);
             this.setState({
-                game: this.props.game
+                game: this.props.game,
+                players: this.props.game.players
             })
-            this.createCircles();
         }
         console.log(this.state);
     }
 
-    createCircles() {
-        this.circleAreas = [];
-        const colours = ["blue", "red", "yellow"];
-        console.log(this.state.game.players);
-        const keys = Object.keys(this.state.game.players);
-        console.log("Player Keys are")
-        console.log(keys);
-        let counter = 0;
-        keys.forEach((key) => {
-            const colour = colours[counter % colours.length]
-            const circles = this.state.game.players[key].locations.map(location => <Circle
-                center={[location.coordinates[1], location.coordinates[0]]}
-                radius={5}
-                pathOptions={{color: colour}} >
-                <Popup>{key}</Popup>
-            </Circle>);
-            console.log(circles);
-            this.circleAreas = this.circleAreas.concat(circles);
-            console.log("this.circleAreas");
-            console.log(this.circleAreas);
-            counter++;
-        })
-
-    }
-
     render() {
         let catchMarkers = [];
+        let circles = [];
+        const playerDetails = [];
+        const colours = ["blue", "red", "yellow"];
         if (this.state.game.catchLocations) {
             catchMarkers = this.state.game.catchLocations.map(location => <Marker position={[location.location.coordinates[1], location.location.coordinates[0]]} ></Marker>);
         }
+        let counter = 0;
+        Object.keys(this.state.players).forEach((key) => {
+            let player = this.state.players[key];
+            const newCircles = player.locations.map(location => <Circle
+                center={[location.location.coordinates[1], location.location.coordinates[0]]}
+                radius={location.accuracy}
+                pathOptions={{color: colours[counter % colours.length]}}
+            ></Circle>)
+            circles = circles.concat(newCircles);
+            playerDetails.push(<PlayerData player={this.state.players[key]} />)
+            counter++;
+        })
         return <div>
             <MapContainer center={[55.8724, -4.29]} zoom={14} scrollWheelZoom={true}>
                 <TileLayer
@@ -68,8 +59,11 @@ export default class GameMap extends React.Component {
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
                 {catchMarkers}
-                {this.circleAreas}
+                {circles}
             </MapContainer>
+            <div>
+                {playerDetails}
+            </div>
         </div>
     }
 
