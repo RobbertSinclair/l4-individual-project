@@ -45,7 +45,7 @@ export default class GameMap extends React.Component {
             let player = this.state.players[key];
             const newCircles = player.locations.map(location => <Circle
                 center={[location.location.coordinates[1], location.location.coordinates[0]]}
-                radius={location.accuracy}
+                radius={4}
                 pathOptions={{color: colours[counter % colours.length]}}
             ></Circle>)
             circles = circles.concat(newCircles);
