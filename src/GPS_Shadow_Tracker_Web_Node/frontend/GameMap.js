@@ -36,12 +36,14 @@ export default class GameMap extends React.Component {
         let catchMarkers = [];
         let circles = [];
         const playerDetails = [];
+        const playerSelect = [];
         const colours = ["blue", "red", "yellow"];
         if (this.state.game.catchLocations) {
             catchMarkers = this.state.game.catchLocations.map(location => <Marker position={[location.location.coordinates[1], location.location.coordinates[0]]} ></Marker>);
         }
         let counter = 0;
         Object.keys(this.state.players).forEach((key) => {
+            playerSelect.push(<div><input type="checkbox" name={key} value={key} checked={true} />{key}<br></br></div>)
             let player = this.state.players[key];
             const newCircles = player.locations.map(location => <Circle
                 center={[location.location.coordinates[1], location.location.coordinates[0]]}
@@ -53,6 +55,9 @@ export default class GameMap extends React.Component {
             counter++;
         })
         return <div>
+            <form>
+                {playerSelect}
+            </form>
             <MapContainer center={[55.8724, -4.29]} zoom={14} scrollWheelZoom={true}>
                 <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
