@@ -590,6 +590,20 @@ for a single phone type. The main conclusion that I decided to make is that I ne
 The best way to do this is to consider the median value or the lowest value and then adjust my ranges based on that value.  
 
 \subsection{The Catching Mechanic}
+Another major thing that I wanted to was see whether the catching mechanic (Please see section \ref{catching} for more details on how this works)
+was working as intended. I feel that this part of the evaluation had some mixed results. The problems mentioned in section
+\ref{phase1errorrange} caused problems to this part of the game as well. Mainly because I had implemented it so that if the
+runner was in a GPS Shadow, the catcher could not catch the player. Another thing that I noticed was that when two players
+were immediately next to each other, their GPS coordinates would be outside the 5 meter radius. This meant that with a lot of
+games there were a few lost seconds while the participants tried to move themselves in order to see if they could catch each other.
+My theory as to why this happened would have been due to the mutltipath error. This issue came up the most around the Quadrangles
+of the main building. Meanwhile the catching system worked better around the Flagpole.
+
+The problems that I found in regards to the catching mechanic tell me that I need to make two improvements in this area. For one
+thing, the catching radius needs to be increased. The 5 meter radius was too small for a catch to be registered in most cases. Therefore
+I will look into expanding the radius to 30 meters to account for any multipath problems. The second improvement that I will
+make is that I will remove the requirement for the runner to be in a high accuracy area, this is because once when I was a chaser,
+I found the runner in a shadow area and I couldn't catch them until we moved into a more open area.
 
 
 \subsection{Survey Results}
