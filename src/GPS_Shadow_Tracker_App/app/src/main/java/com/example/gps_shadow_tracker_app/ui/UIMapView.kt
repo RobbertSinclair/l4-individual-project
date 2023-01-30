@@ -11,6 +11,7 @@ import com.example.gps_shadow_tracker_app.game.Player
 import com.example.gps_shadow_tracker_app.game.PlayerTypes
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.*
+import com.google.android.gms.maps.model.BitmapDescriptorFactory.HUE_GREEN
 import com.google.maps.android.compose.*
 import org.json.JSONObject
 
@@ -132,12 +133,12 @@ class UIMapView : UILocationWidget {
 
     @Composable
     fun otherPlayers() {
-
         for (key in otherPlayerMarkers.keys) {
             otherPlayerMarkers[key]?.let {
                 Marker(
                     state = it,
                     title = "Player $key Location",
+                    icon = BitmapDescriptorFactory.defaultMarker(110F)
 
                     )
             }
