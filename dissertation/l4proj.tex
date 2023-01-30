@@ -545,10 +545,8 @@ Avoid putting large blocks of code in the report (more than a page in one block,
 
 %==================================================================================================================================
 \chapter{Evaluation} 
-How good is your solution? How well did you solve the general problem, and what evidence do you have to support that?
 
-
-In this section I will go over the process and results from my two rounds of evaluations.
+In this chapter I will go over the process and results from my two rounds of evaluations.
 
 \section{Process}
 The game was tested during the week commencing 23rd January 2023 involving volunteers with a range of Android phones. I set up multiple two player
@@ -556,7 +554,7 @@ games that were played around the main building, the cloisters and the surroundi
 of the players, their GPS Error and the locations where the players were caught. I also noted down the brand and the model of the phone to analyse
 how the game worked with different phones. After playing the game, I would ask my participants to fill in a survey with questions including how
 fun the game was to play, whether the connection was stable and what improvements could be made in future iterations. I plan to do two phases
-with the second phase set to be done in the week commencing the 6th February 2023 (Please refer to \ref{phase1survey} for more details).
+with the second phase set to be done in the week commencing the 6th February 2023.
 
 \section{Results from Phase 1}
 \label{phase1}
@@ -623,7 +621,31 @@ stating that they strongly agreed that the game educated them on GPS accuracy. H
 about the game connection and the user interface had a more mixed response. The User Interface had 4 people who had a Neutral
 opinion. This was mainly due to the fact that each player had a marker which was the same colour. The connection question
 was the only question which had people who said that they disagreed with the statement. This was mainly due to the problems discussed
-in sections \ref{phase1errorrange} and \ref{phase1catching}.
+in sections \ref{phase1errorrange} and \ref{phase1catching}. In future iterations I will have another look at the user interface
+and I will look into having multicoloured markers.
+
+At the tail end of the survey I gave each participant a list of potential features that I was thinking of implementing in phase 2.
+I asked the participants to rank the following proposed features:
+
+\begin{enumerate}
+    \item Limits for how long someone stays in a GPS Shadow
+    \item A powerup system which are earned when the player stays in high GPS accuracy areas
+    \item The Runner being able to see the Chaser all the time
+    \item Having a new winning condition. Something along the lines of a last man standing system
+\end{enumerate}
+
+From the responses that I recevied, the most popular feature was to have a limitation on how long someone can stay in a shadow with
+5 out of 8 of my participants ranking it first. Surprisingly the least popular feature was letting the Runner see the Chaser all the time.
+My guess is that the design for the runner type makes the game more tense if you don't know exactly where the chaser is going to be.
+I discussed with the players about the limits on how long someone can stay in a shadow and most people said that it was better to have
+a more punishing mechanic than a rewarding one in the form of a powerup system to ensure that the runners don't just stay in the same place.
+
+In the final part of the survey I asked the participants whether they had any further comments or feature ideas. One of the most common
+feature ideas brought up in this section was to have a different colour of marker to show who is the chaser and who is the runner. Up to this
+point I had just used the generic marker in the Google Maps Jetpack API. Another interesting thing that came up was that I should consider
+adding a manual catching mechanic as a potential solution to the problems raised in section \ref{phase1catching}. I feel that this could Be
+a good solution but increasing the catch radius would still be an easier solution and would help teach the participants how GPS errors could
+come about.
 
 \begin{table}[]
     \centering
@@ -666,20 +688,6 @@ If you visualise, follow the basic rules, as illustrated in Figure \ref{fig:boxp
 \item Minimize clutter.
 \end{itemize}
 
-See the file \texttt{guide\_to\_visualising.pdf} for further information and guidance.
-
-\begin{figure}
-    \centering
-    \includegraphics[width=1.0\linewidth]{images/boxplot_finger_distance.pdf}    
-
-    \caption{Average number of fingers detected by the touch sensor at different heights above the surface, averaged over all gestures. Dashed lines indicate
-    the true number of fingers present. The Box plots include bootstrapped uncertainty notches for the median. It is clear that the device is biased toward 
-    undercounting fingers, particularly at higher $z$ distances.
-    }
-
-    % use the notation fig:name to cross reference a figure
-    \label{fig:boxplot} 
-\end{figure}
 
 
 %==================================================================================================================================
@@ -709,7 +717,6 @@ Summarise the whole project for a lazy reader who didn't read the rest (e.g. a p
 \begin{appendices}
 
 \chapter{Appendices}
-
 
 \begin{figure}
     \centering
