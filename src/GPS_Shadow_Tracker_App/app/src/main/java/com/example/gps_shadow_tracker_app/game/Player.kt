@@ -19,6 +19,7 @@ open class Player {
     private var location: Location;
     private var inShadow: Boolean;
     private var jail: Boolean;
+    private var satelliteNoiseRatio: Float;
 
     constructor() {
         this.type = PlayerTypes.RUNNER;
@@ -27,6 +28,7 @@ open class Player {
         this.location = Location(LocationManager.GPS_PROVIDER);
         this.inShadow = false;
         this.jail = false;
+        this.satelliteNoiseRatio = 0F;
     }
 
     fun getPlayerDistance(other: Player?): Float? {
@@ -80,6 +82,14 @@ open class Player {
 
     fun setJail(newJail: Boolean) {
         this.jail = newJail;
+    }
+
+    fun setSatelliteRatio(noiseRatio: Float) {
+        this.satelliteNoiseRatio = noiseRatio;
+    }
+
+    fun getSatelliteRatio() : Float {
+        return this.satelliteNoiseRatio;
     }
 
     fun inJail() : Boolean {

@@ -21,6 +21,7 @@ class GPSService {
     private val locationManager: LocationManager;
     private var gpsListener: GPSListener;
     private val context: Context;
+    private val catchRadius: GPSCatchRadius;
 
     @RequiresApi(Build.VERSION_CODES.N)
     constructor(context: Context, uiWidgets: List<UILocationWidget>, webSocket: LocationWebSocket) {
@@ -28,6 +29,7 @@ class GPSService {
         NMEA = "";
         locationManager = this.context.getSystemService(Context.LOCATION_SERVICE) as LocationManager;
         gpsListener = GPSListener(context, uiWidgets, webSocket);
+        catchRadius = GPSCatchRadius(gpsListener);
         var permission = permissionGranted();
         startLocations();
     }
@@ -37,6 +39,7 @@ class GPSService {
         var permission = permissionGranted()
         if (permission) {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, Constants.LOCATION_DELAY, Constants.MIN_DISTANCE, gpsListener);
+            locationManager.registerGnssStatusCallback(catchRadius, null);
         } else {
             Log.i("PERMISSION DENIED", "You must get location permission")
             requestPermissions(this.context as Activity, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION,

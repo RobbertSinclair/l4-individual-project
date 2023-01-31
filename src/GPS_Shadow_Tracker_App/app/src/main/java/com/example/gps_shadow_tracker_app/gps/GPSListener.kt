@@ -17,11 +17,17 @@ class GPSListener: LocationListener {
     private val activity: Activity;
     private val locationWidgets: List<UILocationWidget>;
     private val webSocket : LocationWebSocket;
+    private var noiseRatio: Float;
 
     constructor(context: Context, locationWidgets: List<UILocationWidget>, webSocket: LocationWebSocket) {
         this.activity = context as Activity;
         this.locationWidgets = locationWidgets
         this.webSocket = webSocket;
+        this.noiseRatio = 0F;
+    }
+
+    fun setNoiseRatio(ratio: Float) {
+        this.noiseRatio = ratio;
     }
 
     fun createLocationObject(location: Location) : JSONObject {
@@ -29,6 +35,7 @@ class GPSListener: LocationListener {
         locationObject.put("latitude", location.latitude);
         locationObject.put("longitude", location.longitude);
         locationObject.put("accuracy", location.accuracy);
+        locationObject.put("noiseRatio", noiseRatio);
         return locationObject;
     }
 
