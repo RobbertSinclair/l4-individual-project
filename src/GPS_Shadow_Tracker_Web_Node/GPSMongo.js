@@ -182,8 +182,7 @@ class GPSMongo {
                     },
                     $maxDistance: CATCH_THRESHOLD
                 },
-            },
-            accuracy: {$lte: SHADOW_THRESHOLD}
+            }
         }
         console.log(query);
         const playersToCatch = await this.userCollection.find(query).toArray();

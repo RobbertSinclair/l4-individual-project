@@ -22,6 +22,7 @@ class GPSCatchRadius: GnssStatus.Callback {
             totalRatio += status.getCn0DbHz(i);
         }
         val averageRatio = (totalRatio / satellites) / 64;
+        Log.i("AVERAGE_RATIO", averageRatio.toString());
         listener.setNoiseRatio(averageRatio);
     }
 
