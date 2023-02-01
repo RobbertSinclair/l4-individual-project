@@ -144,6 +144,7 @@ class GPSMongo {
     }
 
     async getPlayerById(id) {
+        console.log(`MongoId is ${id}`);
         const mongoId = mongoose.Types.ObjectId(id);
         return await this.userCollection.find({_id: mongoId}).toArray();
     }
