@@ -17,7 +17,7 @@ class WebSocketOperations {
 
     handleReceivedMessage(message, sender) {
         const data = JSON.parse(message);
-        console.log(message);
+        console.log(data);
         if (data.type === "CONNECT") {
             this.getBrandAndModel(sender, data);
         }
