@@ -158,11 +158,19 @@ class WebSocketOperations {
         await this.getNewChaserState();
     }
 
+    inShadow(message) {
+        try {
+            return message.accuracy >= message.minAccuracy * 2;
+        } catch (e) {
+            return message.accuracy >= SHADOW_THRESHOLD;
+        }
+    }
+
     async getUserLocation(message, sender) {
         const startTime = performance.now();
         const newLocation = new Location(message.latitude, message.longitude, message.accuracy);
         await this.mongoClient.updatePlayerLocation(sender.id, newLocation);
-        if (message.accuracy >= SHADOW_THRESHOLD) {
+        if (this.inShadow(message)) {
             await this.mongoClient.createSingleGPSShadow(message);
         } else {
             const chaser = await this.mongoClient.getCurrentChaser();

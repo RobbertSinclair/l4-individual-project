@@ -114,7 +114,8 @@ class GPSMongo {
                 "type": "Point",
                 "coordinates": [0, 0]
             },
-            "accuracy": 3.8
+            "accuracy": 3.8,
+            "minAccuracy": 3.8
         };
         const data = await this.userCollection.insertOne(newUser);
         console.log(data);

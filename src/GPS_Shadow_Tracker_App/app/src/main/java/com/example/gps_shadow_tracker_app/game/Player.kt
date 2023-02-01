@@ -20,6 +20,7 @@ open class Player {
     private var inShadow: Boolean;
     private var jail: Boolean;
     private var satelliteNoiseRatio: Float;
+    private var minAccuracy: Float;
 
     constructor() {
         this.type = PlayerTypes.RUNNER;
@@ -29,6 +30,7 @@ open class Player {
         this.inShadow = false;
         this.jail = false;
         this.satelliteNoiseRatio = 0F;
+        this.minAccuracy = Float.MAX_VALUE;
     }
 
     fun getPlayerDistance(other: Player?): Float? {
@@ -47,6 +49,17 @@ open class Player {
     fun isChaser() : Boolean {
         return this.type == PlayerTypes.CHASER
     }
+
+    fun setMinAccuracy(newAccuracy: Float) {
+        if (minAccuracy > newAccuracy && newAccuracy > 0) {
+            this.minAccuracy = newAccuracy;
+        }
+    }
+
+    fun getMinAccuracy() : Float {
+        return minAccuracy;
+    }
+
 
     fun setPlayerType(type: PlayerTypes) {
         this.type = type;
