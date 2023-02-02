@@ -176,7 +176,7 @@ class WebSocketOperations {
             const chaser = await this.mongoClient.getCurrentChaser();
             if (!this.jailTime) {
                 this.sendToChaser(sender, chaser, JSON.stringify(message))
-                const catchList = await this.mongoClient.findAnyPlayersToCatch();
+                const catchList = await this.mongoClient.findAnyPlayersToCatch(chaser);
                 if (catchList.length > 0) {
                     const newChaser = catchList[0];
                     this.logClient.logCatchPoint(newLocation);

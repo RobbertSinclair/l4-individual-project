@@ -171,9 +171,15 @@ class GPSMongo {
         }
     }
 
-    async findAnyPlayersToCatch() {
-        const chaser = await this.getCurrentChaser();
+    async findAnyPlayersToCatch(chaser) {
         console.log(`CHASER_ID = ${chaser._id}`);
+        let catchRadius;
+        try {
+            catchRadius = CATCH_THRESHOLD / chaser.noiseRatio;
+        } catch (e) {
+            catchRadius = CATCH_THRESHOLD;
+        }
+        console.log(`CATCH RADIUS = ${catchRadius}`);
         const query = {
             _id: {$ne: chaser._id},
             location: {
@@ -182,7 +188,7 @@ class GPSMongo {
                         type: "Point",
                         coordinates: [Number(chaser.location.coordinates[0]), Number(chaser.location.coordinates[1])]
                     },
-                    $maxDistance: CATCH_THRESHOLD
+                    $maxDistance: catchRadius
                 },
             }
         }
