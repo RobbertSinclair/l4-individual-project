@@ -173,6 +173,7 @@ class GPSMongo {
 
     async findAnyPlayersToCatch(chaser) {
         console.log(`CHASER_ID = ${chaser._id}`);
+        console.log(`CHASER_NOISE_RATIO = ${chaser.noiseRatio}`)
         let catchRadius;
         try {
             catchRadius = CATCH_THRESHOLD / chaser.noiseRatio;
