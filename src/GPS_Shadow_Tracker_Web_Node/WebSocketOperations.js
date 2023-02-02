@@ -170,7 +170,7 @@ class WebSocketOperations {
         const startTime = performance.now();
         console.log(message);
         console.log(`message.noiseRatio = ${message.noiseRatio}\tmessage.minAccuracy=${message.minAccuracy}`)
-        const newLocation = new Location(message.latitude, message.longitude, message.accuracy, message.noiseRatio, message.minAccuracy);
+        const newLocation = new Location(message);
         await this.mongoClient.updatePlayerLocation(sender.id, newLocation);
         if (this.inShadow(message)) {
             await this.mongoClient.createSingleGPSShadow(message);

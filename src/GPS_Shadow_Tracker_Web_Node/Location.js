@@ -6,14 +6,12 @@ class Location {
         this.updateLocation(latitude, longitude, accuracy)
     }
 
-    updateLocation(latitude, longitude, accuracy, noiseRatio, minAccuracy) {
-
-        console.log(`CONSTRUCTOR PARAMETERS ARE:\nlatitude=${latitude}\nlongitude=${longitude}\nnoiseRatio=${noiseRatio}\nminAccuracy=${minAccuracy}`)
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.accuracy = accuracy;
-        this.noiseRatio = noiseRatio;
-        this.minAccuracy = minAccuracy;
+    updateLocation(locationObject) {
+        this.latitude = locationObject.latitude;
+        this.longitude = locationObject.longitude;
+        this.accuracy = locationObject.accuracy;
+        this.noiseRatio = locationObject.noiseRatio;
+        this.minAccuracy = locationObject.minAccuracy;
     }
 
     calculateDistance(otherLocation) {
