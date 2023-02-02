@@ -168,8 +168,8 @@ class WebSocketOperations {
 
     async getUserLocation(message, sender) {
         const startTime = performance.now();
-        console.log("USER LOCATION IS");
         console.log(message);
+        console.log(`message.noiseRatio = ${message.noiseRatio}\tmessage.minAccuracy=${message.minAccuracy}`)
         const newLocation = new Location(message.latitude, message.longitude, message.accuracy, message.noiseRatio, message.minAccuracy);
         await this.mongoClient.updatePlayerLocation(sender.id, newLocation);
         if (this.inShadow(message)) {

@@ -176,7 +176,7 @@ class GPSMongo {
         console.log(`CHASER_ID = ${chaser._id}`);
         console.log(`CHASER_NOISE_RATIO = ${chaser.noiseRatio}`)
         let catchRadius;
-        if (typeof chaser.noiseRatio !== "undefined") {
+        if (chaser.noiseRatio !== null) {
             catchRadius = CATCH_THRESHOLD / chaser.noiseRatio;
         } else {
             catchRadius = CATCH_THRESHOLD;
