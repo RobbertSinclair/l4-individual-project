@@ -11,7 +11,9 @@ class Location {
         this.longitude = longitude;
         this.accuracy = accuracy;
         this.noiseRatio = noiseRatio;
+        console.log(`Location Noise Ratio is ${this.noiseRatio}`)
         this.minAccuracy = minAccuracy;
+        console.log(`Min Accuracy is ${this.minAccuracy}`)
     }
 
     calculateDistance(otherLocation) {
