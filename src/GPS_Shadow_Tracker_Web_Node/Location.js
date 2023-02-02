@@ -2,14 +2,16 @@ const { greatCircleDistance } = require("great-circle-distance");
 
 class Location {
 
-    constructor(latitude, longitude, accuracy) {
+    constructor(latitude, longitude, accuracy, noiseRatio, minAccuracy) {
         this.updateLocation(latitude, longitude, accuracy)
     }
 
-    updateLocation(latitude, longitude, accuracy) {
+    updateLocation(latitude, longitude, accuracy, noiseRatio, minAccuracy) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.accuracy = accuracy;
+        this.noiseRatio = noiseRatio;
+        this.minAccuracy = minAccuracy;
     }
 
     calculateDistance(otherLocation) {
@@ -33,7 +35,9 @@ class Location {
                 "type": "Point",
                 "coordinates": [this.longitude, this.latitude]
             },
-            "accuracy": this.accuracy
+            "accuracy": this.accuracy,
+            "noiseRatio": this.noiseRatio,
+            "minAccuracy": this.minAccuracy
         }
     }
 
