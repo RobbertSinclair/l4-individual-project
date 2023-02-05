@@ -101,6 +101,13 @@ app.get("/games/:id", async (req, res) => {
 
 })
 
+app.get("/chaserLocation", async (req, res) => {
+    const result = await gpsMongo.getChaserLocation();
+    res.setHeader("Content-Type", "application/json");
+    res.writeHead(200);
+    res.end(JSON.stringify(result));
+})
+
 function formatQueries(url) {
     let wsURL = new URL.parse(url);
     const urlQuery = wsURL.query;

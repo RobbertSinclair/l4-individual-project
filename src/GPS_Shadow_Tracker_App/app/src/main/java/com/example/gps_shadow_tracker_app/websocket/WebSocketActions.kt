@@ -37,7 +37,7 @@ enum class WebSocketActions {
     END_JAIL {
         override fun setUpOperation(webSocket: LocationWebSocket, player: Player, mapView: UIMapView) = EndJailOperation(player, webSocket);
     };
-
+    
     abstract fun setUpOperation(webSocket: LocationWebSocket, player: Player, mapView: UIMapView) : WebSocketOperation;
 
     fun implementAction(webSocket: LocationWebSocket, player: Player, jsonObject: JSONObject, mapView: UIMapView) {

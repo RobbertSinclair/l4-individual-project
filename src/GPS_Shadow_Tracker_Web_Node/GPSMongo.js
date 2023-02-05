@@ -214,6 +214,16 @@ class GPSMongo {
         }
     }
 
+    async getChaserLocation() {
+        try {
+            const chaser = await this.getCurrentChaser();
+            const location = chaser.location.coordinates;
+            return {latitude: location[1], longitude: location[0]};
+        } catch (e) {
+            return {"error": "There is no chaser"}
+        }
+    }
+
     async removePlayer(sender) {
         const idToDelete = this.convertStringToMongoObjectId(sender.id);
         await this.userCollection.deleteOne({ "_id": idToDelete});
