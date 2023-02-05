@@ -58,6 +58,9 @@ class UIMapView : UILocationWidget {
 
     fun playerLocationCheck(location: Location) {
         Log.i("PLAYER_TYPE", player.getPlayerType().toString())
+        if( player.getPlayerType().toString() == "RUNNER") {
+            powerups.incrementCounter()
+        }
     }
 
     fun moveMarker(state: MarkerState, newCoords: LatLng) {
@@ -105,15 +108,17 @@ class UIMapView : UILocationWidget {
             playerMarker()
 
             if (playerState.value == PlayerTypes.RUNNER) {
-                //Log.i("GPS_SHADOW_VIEW", "GPS Shadow View Showing")
-                //gpsShadows.GpsShadows()
+                powerups.chaserLocationDisplay()
 
             } else {
                 Log.i("OTHER_PLAYERS_VIEW", "Other Players View Showing")
                 otherPlayers()
             }
         }
-        powerups.chaserButton()
+        if (playerState.value == PlayerTypes.RUNNER) {
+            powerups.chaserButton()
+        }
+
     }
 
     @Composable

@@ -13,8 +13,6 @@ Napp/src/main/java/com/example/gps_shadow_tracker_app/ui/UILocationTextViews.kt
 app/build.gradle,f\4\f4a01d6a4fcb971362ec00a83903fd3902f52164
 w
 Gapp/src/main/java/com/example/gps_shadow_tracker_app/rest/RestClient.kt,d\2\d244568029244f2231cdab27771c5b12499daddd
-w
-Gapp/src/main/java/com/example/gps_shadow_tracker_app/ui/UIGpsShadows.kt,8\2\82676264a6ba31345dc0982c3bb15a9b9cadd919
 P
  app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
 s
@@ -31,3 +29,7 @@ dapp/src/main/java/com/example/gps_shadow_tracker_app/websocket/operations/Conne
 ]app/src/main/java/com/example/gps_shadow_tracker_app/websocket/operations/ConnectOperation.kt,3\3\33d3f3c282418c92938a7d0e3596a64e288903bf
 Ç
 Rapp/src/main/java/com/example/gps_shadow_tracker_app/websocket/WebSocketActions.kt,9\5\950e1456b1fdb446083f622e2e884b8c4e0d71fd
+t
+Dapp/src/main/java/com/example/gps_shadow_tracker_app/MainActivity.kt,6\b\6b00c9a6c587d20cb344590aa6f94c2b405ab65a
+è
+_app/src/main/java/com/example/gps_shadow_tracker_app/websocket/operations/WebSocketOperation.kt,0\6\063ebfc8e822b9e3941747d8259c664d97188573
