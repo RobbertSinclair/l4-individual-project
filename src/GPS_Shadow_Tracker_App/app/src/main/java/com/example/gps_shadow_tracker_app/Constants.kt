@@ -9,9 +9,11 @@ class Constants {
 
         val LOCATION_SHADOWS_URL = LOCATION_BASE_URL + "/gps_shadows";
 
+        val CHASER_LOCATION_URL = LOCATION_BASE_URL + "/chaserLocation";
+
         val LOCATION_SHADOWS_DISTANCE_URL = LOCATION_BASE_URL + "/gps_shadows_nearby/200";
 
-        const val DISTANCE_THRESHOLD = 50F
+        const val POWERUP_THRESHOLD = 30F
 
         const val WEBSOCKET_URL = "wss://l4-individual-project-production.up.railway.app"
 

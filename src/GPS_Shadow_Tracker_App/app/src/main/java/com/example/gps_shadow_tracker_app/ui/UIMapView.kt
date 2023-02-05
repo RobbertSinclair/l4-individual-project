@@ -58,14 +58,10 @@ class UIMapView : UILocationWidget {
 
     fun playerLocationCheck(location: Location) {
         Log.i("PLAYER_TYPE", player.getPlayerType().toString())
-        if (player.getPlayerType() == PlayerTypes.RUNNER) {
-            this.powerups.incrementCounter(location);
-        } else if (player.getPlayerType() == PlayerTypes.CHASER) {
-
-        }
     }
 
     fun moveMarker(state: MarkerState, newCoords: LatLng) {
+        Log.i("MOVE_MARKER_CALLED", state.position.toString());
         state.position = newCoords;
     }
 

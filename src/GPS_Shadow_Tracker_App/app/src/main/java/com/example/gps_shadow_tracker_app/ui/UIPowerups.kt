@@ -14,12 +14,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.gps_shadow_tracker_app.Constants
+import com.example.gps_shadow_tracker_app.Constants.Companion.CHASER_LOCATION_URL
+import com.example.gps_shadow_tracker_app.Constants.Companion.SECOND
 import com.example.gps_shadow_tracker_app.game.Player
 import com.example.gps_shadow_tracker_app.game.PlayerTypes
 import com.example.gps_shadow_tracker_app.rest.RestClient
 import com.example.gps_shadow_tracker_app.rest.RestInterface
 import com.google.maps.android.compose.Circle
 import com.google.android.gms.maps.model.LatLng
+import com.google.maps.android.compose.Marker
+import com.google.maps.android.compose.MarkerState
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.json.JSONArray
 import org.json.JSONObject
 import kotlin.random.Random
@@ -30,16 +38,22 @@ class UIPowerups: RestInterface {
     private var location: Location;
     private val counter: MutableState<Int>;
     private var shadows: MutableList<LatLng>;
-    private val chaserLocation: MutableState<LatLng>;
+    private val chaserLocation: MarkerState;
     private var player: Player;
+    private val buttonEnabled: MutableState<Boolean>;
+    private val chaserShowing: MutableState<Boolean>;
+    private val scope: CoroutineScope
 
     constructor(context : Context, location: Location, player: Player) {
         this.restClient = RestClient(context, this);
         this.location = location;
         this.counter = mutableStateOf(0);
         this.shadows = mutableStateListOf();
+        this.buttonEnabled = mutableStateOf(false);
+        this.chaserShowing = mutableStateOf(false);
         this.player = player;
-        this.chaserLocation = mutableStateOf(LatLng(0.0, 0.0))
+        this.chaserLocation = MarkerState(position = LatLng(0.0, 0.0));
+        this.scope = CoroutineScope(Dispatchers.Main);
     }
 
     fun getGpsShadows() {
@@ -52,13 +66,15 @@ class UIPowerups: RestInterface {
         }
     }
 
-    fun incrementCounter(other: Location) {
-        Log.i("DISTANCE", counter.toString());
-        /*if (player.getPlayerType() == PlayerTypes.RUNNER && counter % Constants.DISTANCE_THRESHOLD == 0F) {
-            location = other;
-            //this.getGpsShadows();
-        }*/
-        this.counter.value++;
+    fun incrementCounter() {
+        val accuracy = this.player.getLocation().accuracy;
+        val minAccuracy = this.player.getMinAccuracy();
+        if (this.counter.value < Constants.POWERUP_THRESHOLD
+            && accuracy <= minAccuracy * 2) {
+            this.counter.value++;
+        } else if (this.counter.value == Constants.POWERUP_THRESHOLD.toInt()) {
+            this.buttonEnabled.value = true;
+        }
     }
 
     override fun onPostSuccess(response: JSONObject) {
@@ -83,7 +99,24 @@ class UIPowerups: RestInterface {
     }
 
     override fun onGetSuccess(response: JSONObject) {
-        TODO("Not yet implemented")
+        if (response.has("latitude")) {
+            this.scope.launch {
+                val newChaserLocation = LatLng(
+                    response.getDouble("latitude"),
+                    response.getDouble("longitude")
+                )
+                chaserLocation.position = newChaserLocation;
+                chaserShowing.value = true;
+                delay(3 * SECOND);
+                chaserShowing.value = false;
+                counter.value = 0;
+            }
+        }
+    }
+
+
+    fun chaserButtonClicked() {
+        this.restClient.get(CHASER_LOCATION_URL)
     }
 
     @Composable
@@ -91,6 +124,18 @@ class UIPowerups: RestInterface {
         val shadows = remember { this.shadows }
         shadows.forEach {
             shadow(it)
+        }
+    }
+
+    @Composable
+    fun chaserLocationDisplay() {
+        val location = remember { this.chaserLocation };
+        val locationShowing = remember { this.chaserShowing }
+        if (locationShowing.value) {
+            Marker(
+                state = chaserLocation,
+                title = "Chaser Location"
+            )
         }
     }
 
@@ -106,7 +151,8 @@ class UIPowerups: RestInterface {
 
     @Composable
     fun chaserButton() {
-        val progress = remember { this.counter };
+        val progress = remember { this.counter }
+        val enabled = remember { this.buttonEnabled }
         Column(modifier = Modifier
             .fillMaxWidth()
             .fillMaxHeight()
@@ -115,13 +161,16 @@ class UIPowerups: RestInterface {
             verticalArrangement = Arrangement.Bottom
         ) {
             Button(onClick = {
-                Log.i("SEE CHASER","Button Clicked")
+                chaserButtonClicked()
             },
-                enabled = false
+                enabled = enabled.value
             ) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Text("Powerup: See Chaser")
-                    LinearProgressIndicator(progress = progress.value / Constants.DISTANCE_THRESHOLD)
+                    if (!enabled.value) {
+                        LinearProgressIndicator(progress = progress.value / Constants.POWERUP_THRESHOLD)
+                    }
+
                 }
 
             }
