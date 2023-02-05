@@ -11,13 +11,12 @@ import com.example.gps_shadow_tracker_app.game.Player
 import com.example.gps_shadow_tracker_app.game.PlayerTypes
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.*
-import com.google.android.gms.maps.model.BitmapDescriptorFactory.HUE_GREEN
 import com.google.maps.android.compose.*
 import org.json.JSONObject
 
 class UIMapView : UILocationWidget {
 
-    private var gpsShadows : UIGpsShadows;
+    private var powerups : UIPowerups;
     private val context : Context;
     private var coords: LatLng;
     private var changedLocation: Boolean;
@@ -36,9 +35,9 @@ class UIMapView : UILocationWidget {
         this.otherPlayerMarkers = mutableStateMapOf();
         changedLocation = false;
         this.player = player;
-        this.gpsShadows = UIGpsShadows(context, Location(LocationManager.GPS_PROVIDER), player);
-    }
+        this.powerups = UIPowerups(context, Location(LocationManager.GPS_PROVIDER), player);
 
+    }
 
     override fun updateLocation(location: Location) {
         Log.i("PLAYER ID", player.getPlayerId().toString());
@@ -50,7 +49,7 @@ class UIMapView : UILocationWidget {
             moveMarker(playerMarkerState, this.coords);
             Log.i("NEW_LOCATION_MAP", this.coords.toString())
             if (!changedLocation) {
-                this.gpsShadows.getGpsShadows()
+                this.powerups.getGpsShadows()
                 cameraPosition.move(CameraUpdateFactory.newLatLng(this.coords));
                 changedLocation = true;
             }
@@ -60,7 +59,7 @@ class UIMapView : UILocationWidget {
     fun playerLocationCheck(location: Location) {
         Log.i("PLAYER_TYPE", player.getPlayerType().toString())
         if (player.getPlayerType() == PlayerTypes.RUNNER) {
-            this.gpsShadows.checkLocationFurtherThanDistance(location);
+            this.powerups.incrementCounter(location);
         } else if (player.getPlayerType() == PlayerTypes.CHASER) {
 
         }
@@ -108,19 +107,22 @@ class UIMapView : UILocationWidget {
             cameraPositionState = cameraPosition
         ) {
             playerMarker()
+
             if (playerState.value == PlayerTypes.RUNNER) {
                 //Log.i("GPS_SHADOW_VIEW", "GPS Shadow View Showing")
                 //gpsShadows.GpsShadows()
+
             } else {
                 Log.i("OTHER_PLAYERS_VIEW", "Other Players View Showing")
                 otherPlayers()
             }
         }
+        powerups.chaserButton()
     }
 
     @Composable
     fun gpsShadows() {
-        gpsShadows.GpsShadows()
+        powerups.GpsShadows()
     }
 
     @Composable
