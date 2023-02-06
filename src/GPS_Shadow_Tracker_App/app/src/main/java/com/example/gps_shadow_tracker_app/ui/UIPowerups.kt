@@ -66,10 +66,15 @@ class UIPowerups: RestInterface {
         }
     }
 
+    fun resetCounter() {
+        this.counter.value = 0;
+    }
+
     fun incrementCounter() {
         val accuracy = this.player.getLocation().accuracy;
         val minAccuracy = this.player.getMinAccuracy();
-        if (this.counter.value < Constants.POWERUP_THRESHOLD
+        if (!this.buttonEnabled.value && !this.chaserShowing.value
+            && this.counter.value < Constants.POWERUP_THRESHOLD
             && accuracy <= minAccuracy * 2) {
             this.counter.value++;
         } else if (this.counter.value == Constants.POWERUP_THRESHOLD.toInt()) {
@@ -108,8 +113,10 @@ class UIPowerups: RestInterface {
                 chaserLocation.position = newChaserLocation;
                 chaserShowing.value = true;
                 delay(3 * SECOND);
-                chaserShowing.value = false;
                 counter.value = 0;
+                chaserShowing.value = false;
+                buttonEnabled.value = false;
+
             }
         }
     }
@@ -129,7 +136,6 @@ class UIPowerups: RestInterface {
 
     @Composable
     fun chaserLocationDisplay() {
-        val location = remember { this.chaserLocation };
         val locationShowing = remember { this.chaserShowing }
         if (locationShowing.value) {
             Marker(

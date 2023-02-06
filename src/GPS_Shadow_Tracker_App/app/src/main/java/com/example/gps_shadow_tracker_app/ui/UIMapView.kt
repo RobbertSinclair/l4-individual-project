@@ -56,6 +56,10 @@ class UIMapView : UILocationWidget {
         }
     }
 
+    fun startGame() {
+        powerups.resetCounter()
+    }
+
     fun playerLocationCheck(location: Location) {
         Log.i("PLAYER_TYPE", player.getPlayerType().toString())
         if( player.getPlayerType().toString() == "RUNNER") {
@@ -130,7 +134,8 @@ class UIMapView : UILocationWidget {
     fun playerMarker() {
         Marker(
             state = playerMarkerState,
-            title = "Your Location"
+            title = "Your Location",
+            icon = BitmapDescriptorFactory.defaultMarker(110F)
         )
     }
 
@@ -140,8 +145,7 @@ class UIMapView : UILocationWidget {
             otherPlayerMarkers[key]?.let {
                 Marker(
                     state = it,
-                    title = "Player $key Location",
-                    icon = BitmapDescriptorFactory.defaultMarker(110F)
+                    title = "Player $key Location"
 
                     )
             }

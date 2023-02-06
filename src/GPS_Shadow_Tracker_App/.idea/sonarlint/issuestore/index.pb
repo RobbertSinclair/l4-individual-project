@@ -27,9 +27,11 @@ Gapp/src/main/java/com/example/gps_shadow_tracker_app/gps/GPSListener.kt,d\e\de
 dapp/src/main/java/com/example/gps_shadow_tracker_app/websocket/operations/ConnectMessageOperation.kt,1\b\1b903854791064a2b14dba1827a3653476db9ede
 ç
 ]app/src/main/java/com/example/gps_shadow_tracker_app/websocket/operations/ConnectOperation.kt,3\3\33d3f3c282418c92938a7d0e3596a64e288903bf
-Ç
-Rapp/src/main/java/com/example/gps_shadow_tracker_app/websocket/WebSocketActions.kt,9\5\950e1456b1fdb446083f622e2e884b8c4e0d71fd
 t
 Dapp/src/main/java/com/example/gps_shadow_tracker_app/MainActivity.kt,6\b\6b00c9a6c587d20cb344590aa6f94c2b405ab65a
 è
 _app/src/main/java/com/example/gps_shadow_tracker_app/websocket/operations/WebSocketOperation.kt,0\6\063ebfc8e822b9e3941747d8259c664d97188573
+É
+Sapp/src/main/java/com/example/gps_shadow_tracker_app/websocket/LocationWebSocket.kt,0\7\07474d965cd8eec364729475d13f1ca2fbe4091e
+z
+Japp/src/main/java/com/example/gps_shadow_tracker_app/gps/GPSCatchRadius.kt,c\9\c98febf0f83b262637e006c7f3608326e8218e51

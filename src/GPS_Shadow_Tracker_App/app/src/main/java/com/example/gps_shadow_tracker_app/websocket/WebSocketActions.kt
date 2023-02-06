@@ -26,7 +26,7 @@ enum class WebSocketActions {
         override fun setUpOperation(webSocket: LocationWebSocket, player: Player, mapView: UIMapView) = DisconnectOperation(player, mapView);
     },
     START_GAME {
-        override fun setUpOperation(webSocket: LocationWebSocket, player: Player, mapView: UIMapView) = StartGameOperation(player, webSocket);
+        override fun setUpOperation(webSocket: LocationWebSocket, player: Player, mapView: UIMapView) = StartGameOperation(player, webSocket, mapView);
     },
     END_GAME {
         override fun setUpOperation(webSocket: LocationWebSocket, player: Player, mapView: UIMapView) = EndGameOperation(player, webSocket);
