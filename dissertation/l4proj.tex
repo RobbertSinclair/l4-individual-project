@@ -353,6 +353,18 @@ the GPS accuracy is high and a player has entered the Chaser's 5 meter radius, t
 to this was that it was going to be difficult to track who the chaser was. I also thought that since the main architecture
 was a Client-Server system that going for as thin a client as possible would be the best approach due to the computational
 limitations of a smartphone.
+
+\subsubsection{Phase 2 Design}
+During my Phase 1 evaluation I noticed that the design mentined in section \ref{catching} was not as suitable due to 
+multipath errors(see section \ref{phase1catching} for more details). The main problem being that if the catcher tried
+to catch a player, they would have to move around before it would register. For phase 2 I will make a more dynamic design
+where the catch radius will increase or decrease depending on how likely a multipath error was able to occur. Uber found
+a way to improve their GPS accuracy by making use of the signal noise ratio of each satellite and comparing it to a 3D map.
+They found that a high ratio would mean that the sensor is in direct view of a satellite while a low satellite would mean that
+the signals were more likely to be obstructed by buildings, trees and other obstables \citep{uberGPS}. While using a 3D map
+to improve the catching mechanic is out of the scope for the project, I will take the idea of getting the average SNR. I will
+now dynamically increase and decrease the catch radius by dividing 5 from the average ratio (as a number between 0 and 1). My hope
+is that if two players are closer together, a catch will be more likely to be registered.
 %==================================================================================================================================
 \chapter{Implementation}
 What did you do to implement this idea, and what technical achievements did you make?
@@ -607,6 +619,8 @@ thing, the catching radius needs to be increased. The 5 meter radius was too sma
 I will look into expanding the radius to 30 meters to account for any multipath problems. The second improvement that I will
 make is that I will remove the requirement for the runner to be in a high accuracy area, this is because once when I was a chaser,
 I found the runner in a shadow area and I couldn't catch them until we moved into a more open area.
+
+
 
 
 \subsection{Survey Results}
