@@ -372,6 +372,7 @@ What did you do to implement this idea, and what technical achievements did you 
 \section{Technologies Used}
 
 \subsection{Server}
+\label{implementationServer}
 When designing my system, I knew early on that I needed to set up a server in order to keep track of people's location
 and to give the user updates on who is playing or not. To do this I needed a server side framework that would make real
 time communication easier and that would allow me to easily implement a WebSocket. Initially I made a Django server to
@@ -385,9 +386,15 @@ I could easily set up what I needed without worrying about all of the extra stuf
 stick to Django. It also had an easier WebSocket library \emph{ws} which allowed me to develop my communication system quickly
 and effectively. Another benefit to using Node.js was that I could use any database that I wanted meaning that I could
 choose the right one for the job. If I were to have stayed with Django I would have been limited to popular SQL databases
-such as PostGreSql, Oracle or MySQL \citep{djangoDatabases}. 
+such as PostGreSql, Oracle or MySQL \citep{djangoDatabases}. Node.js allows me to be more flexible and it's light weight
+design means that I can make the server side code as big or as small as I need it to be.
 
 \subsection{Database}
+As I mentioned in section \ref{implementationServer}, the freedom of using Node.js meant that I could really have a look
+around for suitable databases. Since the design of the catching mechanic was that the chaser had a no-go radius (see section
+\ref{catching} for more details), I decided that I wanted to use a database which had the potential to have Geospatial queries.
+Two of the most popular databases that would allow me to do that would be PostGIS which is a modified version of PostGreSql \citep{postgis, postgres} and
+MongoDB which is a popular document based database. 
 
 \subsection{Mobile App}
 
