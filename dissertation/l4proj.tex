@@ -368,6 +368,34 @@ is that if two players are closer together, a catch will be more likely to be re
 %==================================================================================================================================
 \chapter{Implementation}
 What did you do to implement this idea, and what technical achievements did you make?
+
+\section{Technologies Used}
+
+\subsection{Server}
+When designing my system, I knew early on that I needed to set up a server in order to keep track of people's location
+and to give the user updates on who is playing or not. To do this I needed a server side framework that would make real
+time communication easier and that would allow me to easily implement a WebSocket. Initially I made a Django server to
+handle the requests making use of the Django Channels library. However this proved difficult when deploying the application.
+This was because in order to use Django with a WebSocket you need to configure it with ASGI rather than the default WSGI
+to allow for asynchronous communication. This proved to be rather difficult, therefore I decided to abandon Django for this
+project.
+
+The final version of the server is written using Node.js. The main reason why I decided to migrate to this technology is that
+I could easily set up what I needed without worrying about all of the extra stuff that I would need to implement if I where to
+stick to Django. It also had an easier WebSocket library \emph{ws} which allowed me to develop my communication system quickly
+and effectively. Another benefit to using Node.js was that I could use any database that I wanted meaning that I could
+choose the right one for the job. If I were to have stayed with Django I would have been limited to popular SQL databases
+such as PostGreSql, Oracle or MySQL \citep{djangoDatabases}. 
+
+\subsection{Database}
+
+\subsection{Mobile App}
+
+\section{Process}
+
+\subsection{Version Control and Deployment}
+
+
 \section{Guidance}
 You can't talk about everything. Cover the high level first, then cover important, relevant or impressive details.
 
