@@ -394,7 +394,10 @@ As I mentioned in section \ref{implementationServer}, the freedom of using Node.
 around for suitable databases. Since the design of the catching mechanic was that the chaser had a no-go radius (see section
 \ref{catching} for more details), I decided that I wanted to use a database which had the potential to have Geospatial queries.
 Two of the most popular databases that would allow me to do that would be PostGIS which is a modified version of PostGreSql \citep{postgis, postgres} and
-MongoDB which is a popular document based database. 
+MongoDB which is a popular document based database \citep{mongodb}. In the end I decided to go with MongoDB since their API
+was easy to use and implement. With MongoDB I could use their GeoSpatial Processing with minimal setup. Also it is significantly
+faster than PostGIS in processing proximity queries \citep{Bartoszewski2019}. This was especially important considering
+that I would be querying this database every time another player broadcasts their location.  
 
 \subsection{Mobile App}
 
