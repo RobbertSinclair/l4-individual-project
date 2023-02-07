@@ -294,6 +294,7 @@ to the server which will save the users location onto a geospatial database. Dep
 will be sent to the rest of the clients.
 
 \subsection{Client (Smartphone)}
+\label{designClient}
 The smartphone app will be divided into four main components. These are the GPS Listener, the Communications area, the
 Player and the User Interface. When the client first connects to the server, it will give the user a player id and a player
 type. This information will be given to the player class which stores the id for any further communications with the server.
@@ -397,9 +398,14 @@ Two of the most popular databases that would allow me to do that would be PostGI
 MongoDB which is a popular document based database \citep{mongodb}. In the end I decided to go with MongoDB since their API
 was easy to use and implement. With MongoDB I could use their GeoSpatial Processing with minimal setup. Also it is significantly
 faster than PostGIS in processing proximity queries \citep{Bartoszewski2019}. This was especially important considering
-that I would be querying this database every time another player broadcasts their location.  
+that I would be querying this database every time another player broadcasts their location.
 
 \subsection{Mobile App}
+As mentioned in section \ref{designClient}, the client will interact with the game through a mobile app. After a lengthy
+analysis of different programming languages and frameworks that I could use, I finally settled on making a native Android
+app using the Kotlin programming language \citep{kotlin}. I chose to write my code in Koltin because it has a simple syntax
+and is now the recommended language for building android apps by Google. It also contains UI libraries such as Jetpack Compose 
+which makes UI design and implementation easy to implement.
 
 \section{Process}
 
