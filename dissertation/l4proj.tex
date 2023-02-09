@@ -243,6 +243,7 @@ explain why I had a lot of shadow areas when I walked around Kelvingrove Park, a
 \end{figure}
 
 \subsection{LocationManger API}
+\label{locationManager}
 Since the FusedLocationProvider wasn't appropriate for the project, I needed to find an API that would give me location data based purely on GPS. One of the libraries that I found
 from the Android Developers Website was the "LocationManger" API. The LocationManager API gives me more control over what kind of Geolocation I was getting on my phone. Therefore
 I was able to ensure that my geolocation was based on a full GNSS navigation system. \citep{locationManager} The other main advantage to this library is that with the use of the "requestLocationUpdates" method and
@@ -368,7 +369,9 @@ now dynamically increase and decrease the catch radius by dividing 5 from the av
 is that if two players are closer together, a catch will be more likely to be registered.
 %==================================================================================================================================
 \chapter{Implementation}
-What did you do to implement this idea, and what technical achievements did you make?
+
+\section{Process}
+\label{process}
 
 \section{Technologies Used}
 
@@ -407,10 +410,18 @@ app using the Kotlin programming language \citep{kotlin}. I chose to write my co
 and is now the recommended language for building android apps by Google. It also contains UI libraries such as Jetpack Compose 
 which makes UI design and implementation easy to implement.
 
-\section{Process}
+Another main reason why I went for Koltin is that other cross-platform mobile frameworks did not have the APIs required
+to get pure GNSS coordinates. Kotlin has the LocationManager API (See section \ref{locationManager}) which allows me
+to gain GNSS coordinates and some vital information like the signal noise ratio (SNR) of each satellite \citep{locationManager}
+which gives me a lot of further information which can be useful for creating algorithms that can determine whether a player
+is in a GPS Shadow or not.
 
-\subsection{Version Control and Deployment}
-
+\section{Deployment}
+\label{deployment}
+Having the front-end of the game as a Kotlin app brought a couple of challenges when developing. For one thing, it meant
+that I couldn't run my server locally if I wanted to test my location tracking or other features with my mobile app. Therefore
+I needed to find a hosting service that would allow me to deploy quickly and with very little effort. Railway.app \citep{railway}
+is a cloud base deployment service that auto deploys after every git commit. I mainly 
 
 \section{Guidance}
 You can't talk about everything. Cover the high level first, then cover important, relevant or impressive details.
