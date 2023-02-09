@@ -372,6 +372,9 @@ is that if two players are closer together, a catch will be more likely to be re
 
 \section{Process}
 \label{process}
+The game was developed using an iterative approach where I took the time to design some game mechanics, implement them and
+then evaluate it with other users. This has helped me when designing the core mechanics of the game and it has allowed me
+to see what other people would want in future iterations.
 
 \section{Technologies Used}
 
@@ -421,7 +424,8 @@ is in a GPS Shadow or not.
 Having the front-end of the game as a Kotlin app brought a couple of challenges when developing. For one thing, it meant
 that I couldn't run my server locally if I wanted to test my location tracking or other features with my mobile app. Therefore
 I needed to find a hosting service that would allow me to deploy quickly and with very little effort. Railway.app \citep{railway}
-is a cloud base deployment service that auto deploys after every git commit. I mainly 
+is a cloud base deployment service that auto deploys after every git commit. Since I had a GitHub repository, it meant that it was
+easy to deploy my code onto a server. Therefore I could focus more on the overall development rather than how to get it on a server.
 
 \section{Guidance}
 You can't talk about everything. Cover the high level first, then cover important, relevant or impressive details.
