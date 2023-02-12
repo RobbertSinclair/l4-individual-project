@@ -431,6 +431,7 @@ easy to deploy my code onto a server. Therefore I could focus more on the overal
 \label{implementationui}
 
 \begin{figure}
+    \label{fig:ui_imp}
     \centering
     \begin{subfigure}[b]{0.45\textwidth}
         \includegraphics[width=\textwidth]{images/ui_chaser.png}
@@ -444,7 +445,7 @@ easy to deploy my code onto a server. Therefore I could focus more on the overal
         \caption{The Runner View}
         \label{fig:ui_runner}
     \end{subfigure}
-    \label{fig:ui_imp}
+    
     \caption{These two screenshots show the runner and the chaser states that the players
     will see when playing the game. \ref{fig:ui_chaser} shows you what a chaser player would
     see while the game is in progress while \ref{fig:ui_runner} shows you what a runner would
@@ -452,8 +453,8 @@ easy to deploy my code onto a server. Therefore I could focus more on the overal
     }
 \end{figure}
 For the game to be accessible to users I needed to make a User Interface that was
-clear and simple to use for the duration of the game. Figure \ref{fig:imp_ui} gives
-you a view of the two different screens that the player would get when they start a
+clear and simple to use for the duration of the game. Figures \ref{fig:ui_chaser} and \ref{fig:ui_runner} 
+gives you a view of the two different screens that the player would get when they start a
 game. The final design takes advantage of the Google Maps SDK for Android which has
 an easy to use API for working with maps with Jetpack Compose \citep{GoogleMaps}.
 
@@ -468,7 +469,16 @@ label which only shows in the 30 seconds after a player is caught or when the ga
 started.
 
 As seen in figure \ref{fig:ui_chaser}, the Chaser view doesn't have a lot of extra features
-compared to the runner view. 
+compared to the runner view. The only main difference is that there is a marker to show the
+runners locations. In both player types, the player's current location is marked in green and
+all other players will have a red marker. This is in response to feedback from phase 1 (see section
+\ref{phase1survey} for more discussion on this) as in that phase I had markers which were the same
+colour.
+
+The Runner User Interface (Shown in figure \ref{fig:ui_runner}) has one key exclusive feature. This is the see Chaser button. If the user
+is in a high GPS location for a full minute, they will be able to press the "See the Chaser" button
+at the bottom of the screen. This will give the user a 3 second view of the chaser's location. This
+was another addition in response to feedback from the evaluation in phase 1.
 
 \section{Guidance}
 You can't talk about everything. Cover the high level first, then cover important, relevant or impressive details.
