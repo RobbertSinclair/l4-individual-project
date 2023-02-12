@@ -427,6 +427,49 @@ I needed to find a hosting service that would allow me to deploy quickly and wit
 is a cloud base deployment service that auto deploys after every git commit. Since I had a GitHub repository, it meant that it was
 easy to deploy my code onto a server. Therefore I could focus more on the overall development rather than how to get it on a server.
 
+\section{User Interface}
+\label{implementationui}
+
+\begin{figure}
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{images/ui_chaser.png}
+        \caption{The Chaser view.}
+        \label{fig:ui_chaser}
+    \end{subfigure}
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
+      %(or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{images/synthetic_2.png}
+        \caption{The Runner View}
+        \label{fig:ui_runner}
+    \end{subfigure}
+    \label{fig:ui_imp}
+    \caption{These two screenshots show the runner and the chaser states that the players
+    will see when playing the game. \ref{fig:ui_chaser} shows you what a chaser player would
+    see while the game is in progress while \ref{fig:ui_runner} shows you what a runner would
+    be able to see.
+    }
+\end{figure}
+For the game to be accessible to users I needed to make a User Interface that was
+clear and simple to use for the duration of the game. Figure \ref{fig:imp_ui} gives
+you a view of the two different screens that the player would get when they start a
+game. The final design takes advantage of the Google Maps SDK for Android which has
+an easy to use API for working with maps with Jetpack Compose \citep{GoogleMaps}.
+
+The UI features at the top of the app are the same for both player types. On the top
+left corner, the player has a view of how long they have left in the game, the timer
+counts down from 15 minutes and is synced with the server time every 30 seconds to 
+ensure that every player has the correct time. The top right of the UI gives the
+user's GNSS error to 1 decimal places. This will give the user feedback on whether
+their location is a good hiding spot or not. Finally the last row includes a label
+to tell the player what type of player. To the right of that label is the "Jail Time"
+label which only shows in the 30 seconds after a player is caught or when the game is
+started.
+
+As seen in figure \ref{fig:ui_chaser}, the Chaser view doesn't have a lot of extra features
+compared to the runner view. 
+
 \section{Guidance}
 You can't talk about everything. Cover the high level first, then cover important, relevant or impressive details.
 
