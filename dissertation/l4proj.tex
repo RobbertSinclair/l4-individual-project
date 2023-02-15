@@ -427,7 +427,9 @@ I needed to find a hosting service that would allow me to deploy quickly and wit
 is a cloud base deployment service that auto deploys after every git commit. Since I had a GitHub repository, it meant that it was
 easy to deploy my code onto a server. Therefore I could focus more on the overall development rather than how to get it on a server.
 
-\section{User Interface}
+\section{Mobile Side}
+
+\subsection{User Interface}
 \label{implementationui}
 
 \begin{figure}
@@ -479,6 +481,46 @@ The Runner User Interface (Shown in figure \ref{fig:ui_runner}) has one key excl
 is in a high GPS location for a full minute, they will be able to press the "See the Chaser" button
 at the bottom of the screen. This will give the user a 3 second view of the chaser's location. This
 was another addition in response to feedback from the evaluation in phase 1.
+
+\section{Server Side}
+\label{serverside_imp}
+
+\subsection{Overview}
+\label{serverOverview}
+The server side code of the game had to handle multiple different types of WebSocket messages and it needed
+to be able to query my MongoDB database. Figure \ref{fig:serverSideOverview} shows the general architecture
+on the server side. When the user connects to the game, the requests using the HTTP and WebSocket requests
+are handled by index.js. Most of the other configuration is handled here, for example instances of the classes
+defined in GPSMongo.js and GameLog.js are initialized here. Once the user has successfully connected to a WebSocket,
+any further messages are processed in WebSocketOperations.js. Depending on the event required the data is sent
+to GPSMongo.js or GameLog.js which then queries one of three collections (GPSShadows, players, games) in my MongoDB database. 
+
+\subsection{WebSocketOperations.js}
+As I mentioned in section \ref{serverOverview}, the WebSocketOperations.js file is the main base of operations for
+the rest of the game. Whenever a user connects to a server, the methods inside the WebSocketOperations class will take
+the user's details like their phone brand and model and then returns them with an id. This id is attached to the connection
+object that I could use to keep track of which player is sending the message.
+
+\subsection{GPSMongo.js and GameLog.js}
+
+\subsection{The MongoDB collections}
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{images/serverSideOverview.pdf}    
+
+    \caption{
+        The diagram shows the main flow of files from the server. All requests start at index.js which are
+        then processed by the WebSocketOperations.js file. This file will call methods in either the GPSMongo
+        and GameLogMongo.js files which make the queries to the MongoDB database.  
+    }
+
+    % use the notation fig:name to cross reference a figure
+    \label{fig:serverSideOverview} 
+\end{figure}
+
+
 
 \section{Guidance}
 You can't talk about everything. Cover the high level first, then cover important, relevant or impressive details.
