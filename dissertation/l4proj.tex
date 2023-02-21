@@ -397,6 +397,7 @@ such as PostGreSql, Oracle or MySQL \citep{djangoDatabases}. Node.js allows me t
 design means that I can make the server side code as big or as small as I need it to be.
 
 \subsection{Database}
+\label{implementationDatabase}
 As I mentioned in section \ref{implementationServer}, the freedom of using Node.js meant that I could really have a look
 around for suitable databases. Since the design of the catching mechanic was that the chaser had a no-go radius (see section
 \ref{catching} for more details), I decided that I wanted to use a database which had the potential to have Geospatial queries.
@@ -495,6 +496,21 @@ defined in GPSMongo.js and GameLog.js are initialized here. Once the user has su
 any further messages are processed in WebSocketOperations.js. Depending on the event required the data is sent
 to GPSMongo.js or GameLog.js which then queries one of three collections (GPSShadows, players, games) in my MongoDB database.
 
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{images/serverSideOverview.pdf}    
+
+    \caption{
+        The diagram shows the main flow of files from the server. All requests start at index.js which are
+        then processed by the WebSocketOperations.js file. This file will call methods in either the GPSMongo
+        and GameLogMongo.js files which make the queries to the MongoDB database.  
+    }
+
+    % use the notation fig:name to cross reference a figure
+    \label{fig:serverSideOverview} 
+\end{figure}
+
+
 \subsection{WebSocketOperations.js}
 As I mentioned in section \ref{serverOverview}, the WebSocketOperations.js file is the main base of operations for
 the rest of the game. Whenever a user connects to a server, the methods inside the WebSocketOperations class will take
@@ -520,24 +536,54 @@ a function within this file that executes whenever a phone sends a location obje
 use it to ensure that locations would always go to the logging database, but will only go to the chaser player if a certain
 condition was met.
 
-\subsection{GPSMongo.js and GameLog.js}
+\subsection{GPSMongo.js, GameLogMongo.js and the database}
+Most of the operations offered in the WebSocketOperations.js file goes to either the GPSMongo.js and the GameLog.js
+files. These contain the classes that actually query the MongoDB databases. The database is hosted on a seperate
+server on my Railway.app setup. The main benefit of this is that I can directly access my database using a Python
+script. However, to reduce the chances of unauthroized users accessing my server, I ensured that all of the credentials
+were stored in environment variables and were not exposed in neither the code nor in any server logging system. The
+next paragraph will go over the various "collections" that I created to implement this project.
 
-\subsection{The MongoDB collections}
+As I mentioned in section \ref{implementationDatabase}, what would be a table in SQL based databases are known as collections in MongoDB.
+In my project, I made use of three main collections. These were "players", "gpsShadows" and "games". When a game is being played, the most
+important collection is the "players" collection. When a player is connected, a query is sent to this collection which gives back a player id.
+We then add the id to the sender's "client" object. This means we can query the right player in the database, I also store the players state,
+current location and phone manufacturer (the last one is mainly for logging purposes). If a player was to disconnect, the server will give
+them 30 seconds to reconnect before the data is deleted. I put this failsafe in because I would get errors from my phone app saying
+that it disconnected from the WebSocket after 5 minutes.
+
+The players collection was also useful for implementing the catching mechanic (see section \ref{catching} for the design). Originally I had planned to put this on the mobile side
+as the chaser was able to see the real time locations of the other players, however I found that constantly querying the distance function
+on the LocationManager API was affecting the performance of the game. Thankfully, MongoDB offers geospatial queries which allowed me to
+easily get data points within a certain radius. Listing \ref{lst:catching} shows the query that I used to check if a player had entered
+the catch radius. 
+
+\begin{lstlisting}[language=javascript, float, caption={The Geospatial query used to implement the catching mechanic. The \$ne key is the way to make a not equals query.}, label=lst:catching]
+    const query = {
+            _id: {$ne: chaser._id},
+            location: {
+                $near: {
+                    $geometry: {
+                        type: "Point",
+                        coordinates: [chaser.longitude, chaser.latitude]
+                    },
+                    $maxDistance: catchRadius
+                },
+            }
+        }
+    console.log(query);
+    const playersToCatch = await this.userCollection.find(query).toArray();
+
+\end{lstlisting}
+
+GPSMongo.js is mainly responsible for the functions that keep track of the player's current location during the game. It also puts and reads all of the found
+"GPS Shadows" during every game.
+
+GameLogMongo.js.
 
 
-\begin{figure}
-    \centering
-    \includegraphics[width=\linewidth]{images/serverSideOverview.pdf}    
 
-    \caption{
-        The diagram shows the main flow of files from the server. All requests start at index.js which are
-        then processed by the WebSocketOperations.js file. This file will call methods in either the GPSMongo
-        and GameLogMongo.js files which make the queries to the MongoDB database.  
-    }
 
-    % use the notation fig:name to cross reference a figure
-    \label{fig:serverSideOverview} 
-\end{figure}
 
 
 
