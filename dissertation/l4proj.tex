@@ -224,6 +224,7 @@ I started by doing some research into creating an Android app using Kotlin. The 
 In order to get this up and running quickly, I tested two main GeoLocation APIs, the FusedLocationProvider API and the LocationManger which can be found in the Android Documentation.
 
 \subsection{FusedLocationProvider API}
+\label{fusedProvider}
 The first API I tried was the FusedLocationProvider API as this was the first one that I found. The FusedLocationProvider API combines both GPS and WiFi geolocation
 techniques to try and create an optimal location \citep{fused}. This API allowed me to create a basic location app quickly so that I could start finding GPS locations
 within my local area. As figure \ref{fig:fusedhist} shows, the location data that I gathered was skewed towards values with an accuracy of less than 50. While a lot of
@@ -557,7 +558,7 @@ as the chaser was able to see the real time locations of the other players, howe
 on the LocationManager API was affecting the performance of the game. Thankfully, MongoDB offers geospatial queries which allowed me to
 easily get data points within a certain radius. To check whether a runner player was in the catch radius, I used the query shown in
 listing \ref{lst:catching} to get a list of players within the radius. I then created an array with the results. If the array length is greater
-than 0 then we send a message to the WebSocketOperations.js file to turn the captured user into a Chaser. 
+than 0 then we send a message to the WebSocketOperations.js file to turn the captured user into a Chaser.
 
 \begin{lstlisting}[language=javascript, float, caption={The Geospatial query used to implement the catching mechanic. The \$ne key is the way to make a not equals query.}, label=lst:catching]
     const query = {
@@ -576,6 +577,15 @@ than 0 then we send a message to the WebSocketOperations.js file to turn the cap
     const playersToCatch = await this.userCollection.find(query).toArray();
 
 \end{lstlisting}
+
+Another collection that I created was the "gpsShadows" collection. While this wasn't as useful a collection in the final product, 
+it was very useful for my initial analysis section. As the name suggests, it stores previously recorded GNSS shadows in both previous
+games and during my initial analysis as discussed in Chapter 3. The criteria for a location to be put into this collection was for
+a error reading to be at 6 meters or higher. During the development of phase 1, I was hoping to use this collection to give the runner
+a view of some shadows that were found in previous games using a query like listing \ref{lst:catching}. However, like having the catching
+on the mobile phone, there were performance issues which made the game unplayable and would have given a runner player a bad experience.
+
+
 
 GPSMongo.js is mainly responsible for the functions that keep track of the player's current location during the game. It also puts and reads all of the found
 "GPS Shadows" during every game.
