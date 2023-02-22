@@ -537,7 +537,7 @@ a function within this file that executes whenever a phone sends a location obje
 use it to ensure that locations would always go to the logging database, but will only go to the chaser player if a certain
 condition was met.
 
-\subsection{GPSMongo.js, GameLogMongo.js and the database}
+\subsection{The MongoDB collections}
 Most of the operations offered in the WebSocketOperations.js file goes to either the GPSMongo.js and the GameLog.js
 files. These contain the classes that actually query the MongoDB databases. The database is hosted on a seperate
 server on my Railway.app setup. The main benefit of this is that I can directly access my database using a Python
@@ -575,7 +575,6 @@ than 0 then we send a message to the WebSocketOperations.js file to turn the cap
         }
     console.log(query);
     const playersToCatch = await this.userCollection.find(query).toArray();
-
 \end{lstlisting}
 
 Another collection that I created was the "gpsShadows" collection. While this wasn't as useful a collection in the final product, 
@@ -585,17 +584,18 @@ a error reading to be at 6 meters or higher. During the development of phase 1, 
 a view of some shadows that were found in previous games using a query like listing \ref{lst:catching}. However, like having the catching
 on the mobile phone, there were performance issues which made the game unplayable and would have given a runner player a bad experience.
 
+The final collection that I created was the "games" collection. This collection's purpose is to store the game logs within a game. For example
+it stores the time that a user was the runner, how long the user was a chaser or runner, where the players went and the locations of where the
+players were caught. I also logged some data like the brand name and model of the phones that people were using. While this data doesn't affect
+how the game is played, it gives me a lot of data which can help aid my overall evaluation. Whenever a game is started, a brand new game object
+is added. It then creates an array of objects for each player. Each location has the latitude, longitude, accuracy, noise Ratio and the minimum
+accuracy over time. A lot of the quantitative data discussed in chaper 6 was sourced from this collection.
 
-
-GPSMongo.js is mainly responsible for the functions that keep track of the player's current location during the game. It also puts and reads all of the found
-"GPS Shadows" during every game.
-
-GameLogMongo.js.
-
-
-
-
-
+In order to gain access to the database, I needed to connect it to my server. To do this I created two main JavaScript classes to handle the
+communication between the database and the rest of the server side files. I use the GPSMongo.js file to query the "players" and "gpsShadows"
+collection and I used the GameLogMongo.js file to query the games collection. These files contain the main methods which carry out the queries
+that the WebSocketOperations.js file needs. I did this to ensure that the WebSocketOperations file wouldn't become too big and to ensure that
+it's responsibility was mainly focused on processing the WebSocket Messages, therefore satisfying the Single Responsiblity in SOLID.
 
 
 \section{Guidance}
@@ -786,7 +786,8 @@ Avoid putting large blocks of code in the report (more than a page in one block,
 \end{lstlisting}
 
 %==================================================================================================================================
-\chapter{Evaluation} 
+\chapter{Evaluation}
+\label{Evaluation} 
 
 In this chapter I will go over the process and results from my two rounds of evaluations.
 
