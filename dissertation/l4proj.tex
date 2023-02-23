@@ -492,9 +492,36 @@ One of the big examples of this is the notification component. Whenever the serv
 always be a "message" key which will store a string to display to the user. When the LocationWebSocket class receives a message, it 
 will start by getting the message and then it will display the message to the screen for 2 seconds.
 
-Another example of a UI component that is controlled by the timer.
+As the name suggests, the LocationWebSocket is also responsible in ensuring that the mobile app has a consistent connection to the
+WebSocket. When developing my first true iteration of the game, I would notice that after 5 minutes of game time, 
+the app would disconnect giving me a "Failed" error (Please see section \ref{mongocollections} for more details on how I solved this problem on the server side). 
+Luckily the library that I used to handle WebSockets, the OkHttp client \citep{okhttp} has a useful
+interface which would allow me to implement an "onFailure" method. This meant that I could easily write some code that would automatically
+reconnect the user, should their connection fail for whatever reason. Since I also had a class for storing the player's
+details, I would be able to send to the server my player id so that the server would treat the new connection as if it was
+the same player.
 
+Overall the LocationWebSocket class gives the Mobile app all of the methods required to ensure that it is connected to the game
+server and to ensure that the apps react to WebSocket messages effectively. While the two examples may have been useful. The most
+important method, the "onMessage" function deserves its own section. In section \ref{websocketactions}, I will go over the mechanism
+that I had in place to handle the different types of message that the server will give the Application.
 \subsection{WebSocketActions}
+\label{websocketactions}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{images/LocationActionsEnumDiagram.pdf}    
+
+    \caption{
+        This diagram shows the main architecture for the WebSocketActions enumeration. When a
+        Websocket message is received by the application, the LocationWebSocket class will then
+        read the type from the message JSON object. This will then create an instance of a specific
+        operation class which all have an execute method.   
+    }
+
+    % use the notation fig:name to cross reference a figure
+    \label{fig:locationActions} 
+\end{figure}
 
 \subsection{The GPS Package}
 
@@ -552,6 +579,7 @@ use it to ensure that locations would always go to the logging database, but wil
 condition was met.
 
 \subsection{The MongoDB collections}
+\label{mongocollections}
 Most of the operations offered in the WebSocketOperations.js file goes to either the GPSMongo.js and the GameLog.js
 files. These contain the classes that actually query the MongoDB databases. The database is hosted on a seperate
 server on my Railway.app setup. The main benefit of this is that I can directly access my database using a Python
