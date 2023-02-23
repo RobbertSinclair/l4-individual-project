@@ -505,6 +505,7 @@ Overall the LocationWebSocket class gives the Mobile app all of the methods requ
 server and to ensure that the apps react to WebSocket messages effectively. While the two examples may have been useful. The most
 important method, the "onMessage" function deserves its own section. In section \ref{websocketactions}, I will go over the mechanism
 that I had in place to handle the different types of message that the server will give the Application.
+
 \subsection{WebSocketActions}
 \label{websocketactions}
 
@@ -522,6 +523,23 @@ that I had in place to handle the different types of message that the server wil
     % use the notation fig:name to cross reference a figure
     \label{fig:locationActions} 
 \end{figure}
+
+The "onMessage" method of the LocationWebSocket class is probably one of the most important parts of the game.
+One of the big challenges with both my design and development was working out how I was going to handle the multiple
+different types of messages received from the server. Initially I had a conditional statement when I was first
+testing out a connection to a WebSocket. However, I soon noticed that as the amount of operations increased, it
+was going to get a lot harder to maintain my code if I kept going down that route. Therefore I decided to create
+a new enumeration class called "WebSocketActions".
+
+The WebSocketActions enumeration class acts as a bridge between the LocationWebSocket class and several similarly
+structured classes that inherit features from a WebSocketOperation class. As figure \ref{fig:locationActions} shows, 
+whenever there is a message from the server, the type of the message is used to tell the actions class which operation
+class to build. Once the class has been found, we can then run an "execute" method to execute the operation that had
+to be done on each message.
+
+
+
+
 
 \subsection{The GPS Package}
 
