@@ -484,6 +484,20 @@ is in a high GPS location for a full minute, they will be able to press the "See
 at the bottom of the screen. This will give the user a 3 second view of the chaser's location. This
 was another addition in response to feedback from the evaluation in phase 1.
 
+\subsection{LocationWebSocket}
+During the course of my development, I had to create many different Kotlin classes in order for my front end to work properly.
+One of the most important classes that I used was the LocationWebSocket class. The main purpose of this class is to set up a
+real time connection with the Server and to control the different UI components that directly rely on server-side communication.
+One of the big examples of this is the notification component. Whenever the server sends a message to the user, there will almost
+always be a "message" key which will store a string to display to the user. When the LocationWebSocket class receives a message, it 
+will start by getting the message and then it will display the message to the screen for 2 seconds.
+
+Another example of a UI component that is controlled by the timer.
+
+\subsection{WebSocketActions}
+
+\subsection{The GPS Package}
+
 \section{Server Side}
 \label{serverside_imp}
 
