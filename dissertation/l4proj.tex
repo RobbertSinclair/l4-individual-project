@@ -358,6 +358,7 @@ was a Client-Server system that going for as thin a client as possible would be 
 limitations of a smartphone.
 
 \subsubsection{Phase 2 Design}
+\label{phase2catching}
 During my Phase 1 evaluation I noticed that the design mentined in section \ref{catching} was not as suitable due to 
 multipath errors(see section \ref{phase1catching} for more details). The main problem being that if the catcher tried
 to catch a player, they would have to move around before it would register. For phase 2 I will make a more dynamic design
@@ -687,6 +688,18 @@ communication between the database and the rest of the server side files. I use 
 collection and I used the GameLogMongo.js file to query the games collection. These files contain the main methods which carry out the queries
 that the WebSocketOperations.js file needs. I did this to ensure that the WebSocketOperations file wouldn't become too big and to ensure that
 it's responsibility was mainly focused on processing the WebSocket Messages, therefore satisfying the Single Responsiblity in SOLID.
+
+\section{New additions in Phase 2}
+In response to the evaluations discussed in section \ref{phase1}, I knew that I needed to make some changes to my app
+to improve the game based on the user's feedback. This section goes over the four changes that I made during this
+iteration of development. 
+
+\subsection{Catching Mechanic}
+Based on the design discussed in section \ref{phase2catching}.
+
+\subsection{Shadow Threshold}
+
+\subsection{Powerup System}
 
 
 %==================================================================================================================================
