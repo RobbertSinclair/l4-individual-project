@@ -9,7 +9,7 @@ plt.xlabel("Accuracy in meters")
 plt.ylabel("Probability Density")
 
 fused_data = pd.read_csv("./fusedLocationData.csv")
-plt.hist(fused_data["accuracy"], 100, density=True)
+plt.hist(fused_data["accuracy"], log=True)
 
 plt.savefig("./fused_histogram.png")
 
@@ -18,7 +18,7 @@ python_anywhere_data = pd.read_csv("./pythonAnywhere.csv")
 plt.title("PythonAnywhere Locations Accuracy Distributions")
 plt.xlabel("Accuracy in meters")
 plt.ylabel("Probability Density")
-plt.hist(python_anywhere_data["accuracy"], 100, density=True)
+plt.hist(python_anywhere_data["accuracy"], log=True)
 
 plt.savefig("./python_anywhere_histogram.png")
 
@@ -33,6 +33,6 @@ plt.figure(3)
 plt.title("Location Accuracy Distribution on Current MongoDB server")
 plt.xlabel("Accuracy in meters")
 plt.ylabel("Probability Density")
-plt.hist(pd_df["accuracy"], 50, density=True)
+plt.hist(pd_df["accuracy"], log=True)
 
 plt.savefig("./mongo_db_histogram.png")

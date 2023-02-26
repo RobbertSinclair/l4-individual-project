@@ -26,6 +26,4 @@ class GPSCatchRadius: GnssStatus.Callback {
         listener.setNoiseRatio(averageRatio);
     }
 
-
-
 }

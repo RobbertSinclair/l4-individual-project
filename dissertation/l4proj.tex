@@ -826,6 +826,44 @@ come about.
     \label{tab:agree}
 \end{table}
 
+\section{Results from Phase 1}
+Two weeks after the first phase of evaluations, I made improvements to the overall design (See section \ref{phase2}) for an overview
+of what changed. The format of the evaluation was similar to the first, with the same participants. For this evaluation I especially
+wanted to test if my improvements had fixed the problems raised in the first phase. These being the ranges in accuracy between different
+phones and the catching mechanic being affected by multipath errors. Another feature that I was testing out was the brand new powerup
+system that I created. The next few subsections will examine whether the improvements succeeded or not.
+
+\subsection{Error Ranges}
+This time, the game worked on a dynamic basis rather than the static version of before. Instead of the shadow threshold being
+6 meters, it would now be twice the current recorded minimum accuracy. For example if the minimum score was 3.8, it would now
+only be in a shadow if the GPS area was 7.6 meters in error. My hope was that this would end the inbalance in the game were
+phones with a higher average accuracy would get an unfair advantage over other players.
+
+To see if this was a success, I looked at the amount of time that a player would be in a shadow vs when they were out in the
+open. The assumption was made that the player was a runner throughout the duration of the game, this was because I did not have
+information on whether the player was a chaser or not in the logging system. I used the data based on the three phones that I 
+analysed in the last evaluation of the error ranges (See section \ref{phase1errorrange} for more detail). This was because I wanted
+to see how it worked on an accurate phone (Samsung Galaxy S21 FE) and the phones where I noticed the most variance in error range (The Samsung Note 9 and the Oppo F19).
+My hypothesis was that there would be a reduction in amount of time in shadow for all of the phones meaning that there would be
+more times were a player with every phone would be more visible during the game and would only not be visible in the event of
+them being in shadow area.
+
+Figures \ref{fig:shadownote9}, \ref{fig:shadowoppo} and \ref{fig:shadows21} show the shadow results for the Samsung Note 9,
+the Oppo F19 and the Samsung Galaxy F21 respectively. I feel that the results are quite mixed, where I would say that the
+Samsung Note 9 (\ref{fig:shadownote9}) is the only one that had an improvement overall where there was an increase from
+44.8\% in phase 1 to 60\% in phase 2. This means that overall the player is not considered to be in shadow for the majority
+of the game. However the Oppo F19 (\ref{fig:shadowoppo}) told a different different story. I actually saw that the amount
+of time in "high GPS" areas decreased overall from 59.6\% to 31.7\% in phase 2. This means that they would have been more
+invisible than in Phase 1 meaning that they would have an even greater advantage. The same problem but in reverse happened
+to the Samsung Galaxy S21 FE where the in open time increased to 100\%. Esentially meaning that the player would be visible
+for the whole game.
+
+These mixed results suggest to me that either the problem of someone being invisible was not as great as I perceived it in
+the phase 1 results suggested. Another thing that it has suggested to me is that this approach also has some flaws. While
+it has somewhat improved the error ranges there are times where it has been worse. This leads me to the conclusion that it might
+have been better to constantly check the mean or take the standard deviation rather than just a flat rate for all error ranges.
+If I have more time to implement a new system, I would look into making a new variance based system.
+
 
 \section{Guidance}
 \begin{itemize}
@@ -881,7 +919,7 @@ Summarise the whole project for a lazy reader who didn't read the rest (e.g. a p
 
 \begin{appendices}
 
-\chapter{Appendices}
+\chapter{Phase 1 Graphs}
 
 \begin{figure}
     \centering
@@ -898,29 +936,30 @@ Summarise the whole project for a lazy reader who didn't read the rest (e.g. a p
 \begin{figure}
     \centering
     \includegraphics[width=1.0\linewidth]{images/note9.png}
-    \caption{The Error ranges found during a game using an Samsung Note 9}
+    \caption{The Error ranges found during a game using a Samsung Note 9}
     \label{fig:note9}
 \end{figure}
 
-Typical inclusions in the appendices are:
+\chapter{Phase 2 Graphs}
+\begin{figure}
+    \centering
+    \includegraphics[width=1.0\linewidth]{images/SM-N960F_piechart.pdf}
+    \caption{The times in a shadow and in the open during a game using a Samsung Note 9}
+    \label{fig:shadownote9}
+\end{figure}
+\begin{figure}
+    \centering
+    \includegraphics[width=1.0\linewidth]{images/CPH2219_piechart.pdf}
+    \caption{The times in a shadow and in the open during a game using an Oppo F19}
+    \label{fig:shadowoppo}
+\end{figure}
+\begin{figure}
+    \centering
+    \includegraphics[width=1.0\linewidth]{images/SM-G990B_piechart.pdf}
+    \caption{The times in a shadow and in the open during a game using a Samsung Galaxy S21 FE 5G}
+    \label{fig:shadows21}
+\end{figure}
 
-\begin{itemize}
-\item
-  Copies of ethics approvals (required if obtained)
-\item
-  Copies of questionnaires etc. used to gather data from subjects.
-\item
-  Extensive tables or figures that are too bulky to fit in the main body of
-  the report, particularly ones that are repetitive and summarised in the body.
-
-\item Outline of the source code (e.g. directory structure), or other architecture documentation like class diagrams.
-
-\item User manuals, and any guides to starting/running the software.
-
-\end{itemize}
-
-\textbf{Don't include your source code in the appendices}. It will be
-submitted separately.
 
 \end{appendices}
 
