@@ -537,7 +537,18 @@ whenever there is a message from the server, the type of the message is used to 
 class to build. Once the class has been found, we can then run an "execute" method to execute the operation that had
 to be done on each message.
 
+One of the most notable and important action that I have implemented is the LocationOperator. This is run when the player
+is the current chaser on the map. If the server registers that it is under the shadow threshold, it sends over the
+players location. When this message happens, an instance of LocationOperation is created and when it executes, it
+takes the coordinates of the other player and creates a Google Maps class which allows me to place a marker on the
+screen. Since this message is sent often, the chaser is able to see an almost real time view of where the other players
+are if they are in a high signal area.
 
+Another important operation in the WebSocketActions enum is the NewTypeOperation, this happens when the player has received
+a NEW_TYPE operaiton. This typically happens when the player is caught by the chaser or if the current chaser disconnects.
+When this operation is executed, the player is informed of what new player type has been created. Then it starts the 30
+second "Jail Time" to ensure that the catching mechanic is disabled for the next 30 seconds. This is to ensure that the
+chaser isn't able to instantly catch the runner again.
 
 
 
