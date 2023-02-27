@@ -58,7 +58,6 @@ for document in phase2_games:
             catch_radius = [CATCH_RADIUS / location["noiseRatio"] for location in player_dict["locations"]]
             print(catch_radius)
             plt.figure(counter)
-            plt.subplot(1, 2, 1)
             try:
                 plt.title(f"Catch Radius for Player {player} with Phone\nBrand={player_dict['brand']}, model={player_dict['model']}, product={player_dict['product']}")
             except KeyError as e:
@@ -69,11 +68,10 @@ for document in phase2_games:
             plt.xlabel("Time")
             plt.ylabel("Catch Radius in meters")
             
-            #plt.savefig(f"{ratio_path}/{player_dict['brand']}-{player_dict['model']}-{counter}-radius.pdf")
+            plt.savefig(f"{ratio_path}/{player_dict['brand']}-{player_dict['model']}-{counter}-radius.pdf")
             counter += 1
             ratios = [location["noiseRatio"] for location in player_dict["locations"]]
-            #plt.figure(counter)
-            plt.subplot(1, 2, 2)
+            plt.figure(counter)
             try:
                 plt.title(f"Noise Ratio for Player {player} with Phone\nBrand={player_dict['brand']}, model={player_dict['model']}, product={player_dict['product']}")
             except KeyError as e:
