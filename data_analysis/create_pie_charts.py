@@ -68,8 +68,7 @@ for key in phase1_players.keys():
     plt.pie(phase2_model_pies[key], labels=labels, autopct='%1.1f%%')
     plt.savefig(f"../dissertation/images/{key}_piechart.pdf")
     
-print(phase1_model_pies)
-print(phase2_model_pies)
+
 
 
 

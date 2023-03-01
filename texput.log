@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.6) (preloaded format=pdflatex 2021.9.27)  26 FEB 2023 20:49
+=======
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.10) (preloaded format=pdflatex 2023.1.29)  27 FEB 2023 16:24
+>>>>>>> ee38efb7bed249767bda13c8b9b1b071b9615075
 entering extended mode
 **l4proj.tex
 
@@ -15,5 +19,9 @@ Here is how much of TeX's memory you used:
  18032 multiletter control sequences out of 15000+600000
  403430 words of font info for 27 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
+<<<<<<< HEAD
  0i,0n,0p,1b,6s stack positions out of 5000i,500n,10000p,200000b,80000s
+=======
+ 0i,0n,0p,13b,6s stack positions out of 10000i,1000n,20000p,200000b,80000s
+>>>>>>> ee38efb7bed249767bda13c8b9b1b071b9615075
 !  ==> Fatal error occurred, no output PDF file produced!
