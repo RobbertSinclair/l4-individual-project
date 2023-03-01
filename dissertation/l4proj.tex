@@ -852,7 +852,7 @@ Figures \ref{fig:shadownote9}, \ref{fig:shadowoppo} and \ref{fig:shadows21} show
 the Oppo F19 and the Samsung Galaxy F21 respectively. I feel that the results are quite mixed, where I would say that the
 Samsung Note 9 (\ref{fig:shadownote9}) is the only one that had an improvement overall where there was an increase from
 44.8\% in phase 1 to 60\% in phase 2. This means that overall the player is not considered to be in shadow for the majority
-of the game. However the Oppo F19 (\ref{fig:shadowoppo}) told a different different story. I actually saw that the amount
+of the game. However the Oppo F19 (\ref{fig:shadowoppo}) told a different story. I actually saw that the amount
 of time in "high GPS" areas decreased overall from 59.6\% to 31.7\% in phase 2. This means that they would have been more
 invisible than in Phase 1 meaning that they would have an even greater advantage. The same problem but in reverse happened
 to the Samsung Galaxy S21 FE where the in open time increased to 100\%. Esentially meaning that the player would be visible
@@ -863,6 +863,11 @@ the phase 1 results suggested. Another thing that it has suggested to me is that
 it has somewhat improved the error ranges there are times where it has been worse. This leads me to the conclusion that it might
 have been better to constantly check the mean or take the standard deviation rather than just a flat rate for all error ranges.
 If I have more time to implement a new system, I would look into making a new variance based system.
+
+\subsection{Catching Feature}
+Another major improvement that I implemented was a new catching system where the catch radius can increase or decrease based
+on the satellite noise ratio. For this evaluation I was hoping that the catching mechanic would be more helpful to play when
+accounting for multipath errors.
 
 
 \section{Guidance}
