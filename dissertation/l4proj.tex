@@ -827,6 +827,7 @@ come about.
 \end{table}
 
 \section{Results from Phase 2}
+\subsection{Overview}
 Two weeks after the first phase of evaluations, I made improvements to the overall design (See section \ref{phase2}) for an overview
 of what changed. The format of the evaluation was similar to the first, with the same participants. For this evaluation I especially
 wanted to test if my improvements had fixed the problems raised in the first phase. These being the ranges in accuracy between different
@@ -866,8 +867,37 @@ If I have more time to implement a new system, I would look into making a new va
 
 \subsection{Catching Feature}
 Another major improvement that I implemented was a new catching system where the catch radius can increase or decrease based
-on the satellite noise ratio. For this evaluation I was hoping that the catching mechanic would be more helpful to play when
+on the satellite noise ratio based on the method described by \cite{uberGPS}. For this evaluation I was hoping that the catching mechanic would be more helpful to play when
 accounting for multipath errors.
+
+In order to put this feature to the test, I took some Qualitative and Quantitative methods into account. Firstly I made sure to log both
+the noise ratio and the size of the catch radius over the course of each game. To see whether this behaviour is the same over every phone
+I made a seperate graph for each of the three phone types that I have used in both phase 1 and 2 to see how the noise ratio is affected
+with different phone. During the game I will observe what happens when a participant catches another player. I will use this to see if
+this new approach works in practice.
+
+Figures \ref{fig:opponoiseandcatch}, \ref{fig:note9noiseandcatch} and \ref{fig:s21noiseandcatch} show a side by side comparision of the
+noise ratio compared with the catch radius for the Oppo F19, Samsung Note 9 and the Samsung Galaxy S21 respectively. Like the Error rates in
+phase 1 (see \ref{phase1errorrange}), the ranges of noise ratio vary based on the kind of phone, leading to the same observation happening in
+the size of the catch radius. For example the Oppo F19 seen in figure \ref{fig:opponoiseandcatch} shows that there is a big range between a ratio
+of roughly 0.35 and under 0.1. Around 100 seconds in to the game, the phone experienced a massive decrease in the ratio, leading to the catch radius
+to be larger than 60 meters. This gave the player a larger radius in order to catch players. During this game, one player who was using the Samsung
+Galaxy Note 9 was caught in the cloisters while the person playing with the Oppo was in the Gift Shop. This lead to some rather interesting ideas
+of how stealthy other players can be in order to gain an upper hand in the game.
+
+The Samsung phones seemed to be more consistent in their noise ratio and catch ratio. For example the Samsung Note 9 (\ref{fig:note9noiseandcatch})
+shows that the highest catch radius was 16 meters while the Samsung Galaxy S21 (\ref{fig:s21noiseandcatch}) had a maximum of 15 meters. Both phones
+also recorded the smallest catch radius of around 9 meters. The fact that these results were so close was surprising considering that the Note 9
+had a significantly low range of accuracy compared to the Samsung Galaxy S21. While there is a chance that the person with the Oppo F19 had a different
+strategy, it could also be due to the difference of GNSS sensor that is causing the problems. The main reason I think this is that the highest
+value of signal noise ratio in the Oppo F19 was around 0.35 wheras with the Samsung phones 0.35 wass the lowest value. Therefore as with the accuracies
+in phase 1, there is a variance between the different phones.
+
+While these ranges may be seen as a problem if a seamless approach was made when designing the game, it can also be seen as a benefit. For
+example, a mechanic could be that phones with a higher chance of having low noise ratios could be seen as more threatening since their catch
+radius could become large if they are in the right positions. This could add new stakes to the game where people with better and more accurate
+GNSS sensors have to be quick and aim to get as close to the player as possible while a runner would have to ensure that they get as far away
+as possible from a chaser with a phone with a larger catch radius. 
 
 
 \section{Guidance}
@@ -965,7 +995,7 @@ Summarise the whole project for a lazy reader who didn't read the rest (e.g. a p
     \label{fig:shadows21}
 \end{figure}
 \begin{figure}
-    \label{fig:ui_imp}
+    
     \centering
     \begin{subfigure}[b]{0.48\textwidth}
         \includegraphics[width=\textwidth]{images/OPPO-CPH2219EEA-122-radius.pdf}
@@ -982,9 +1012,10 @@ Summarise the whole project for a lazy reader who didn't read the rest (e.g. a p
     
     \caption{This figure shows the catch radius and the noise ratio features using an Oppo F19 phone.
     }
+    \label{fig:opponoiseandcatch}
 \end{figure}
 \begin{figure}
-    \label{fig:ui_imp}
+    
     \centering
     \begin{subfigure}[b]{0.48\textwidth}
         \includegraphics[width=\textwidth]{images/samsung-crownltexx-radius.pdf}
@@ -1001,9 +1032,10 @@ Summarise the whole project for a lazy reader who didn't read the rest (e.g. a p
     
     \caption{This figure shows the catch radius and the noise ratio features using an Samsung Note 9.
     }
+    \label{fig:note9noiseandcatch}
 \end{figure}
 \begin{figure}
-    \label{fig:ui_imp}
+    
     \centering
     \begin{subfigure}[b]{0.48\textwidth}
         \includegraphics[width=\textwidth]{images/samsung-r9qxeea-radius.pdf}
@@ -1020,6 +1052,7 @@ Summarise the whole project for a lazy reader who didn't read the rest (e.g. a p
     
     \caption{This figure shows the catch radius and the noise ratio features using an Samsung Galaxy S21 FE 5G.
     }
+    \label{fig:s21noiseandcatch}
 \end{figure}
 
 
