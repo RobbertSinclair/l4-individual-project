@@ -229,16 +229,27 @@ increases or decreases over time.
 With most systems there will be potential seams which can cause unintended results to the user. One way to solve this would be to think seamlessly which is where you
 try and fix every flaw so that your system is more robust. In the context of GPS, it is usually important to think seamlessly
 so that people are able to easily to get to your destination. For example \cite{uberGPS} designed a system to improve their
-GPS coordinates using 3D mapping and SNR noise ratio to ensure that Uber drivers were more likely to reach their customers. In
-the example of a game, seamless design is useful when there are significant balance issues. For example making sure to fix
+GPS coordinates using 3D mapping and SNR noise ratio to ensure that Uber drivers were more likely to reach their customers. In this
+case it was important to work seamlessly as Uber's business model relies on people getting from one place to the other, therefore it
+is crucial for drivers to know that they are in the right place. In game design, seamless design is useful when there are significant balance issues. For example making sure to fix
 glitches in order to prevent cheating. 
 
 While trying to close every seam may be appropriate in some areas, it can sometimes be futile to try and close every seam.
 Seamful design is the idea of embracing the seams in the system. In the context of GPS this usually means to try and embrace
 the idea that GPS accuracy can vary based on the type of phone, the area you are in or the GPS clock error. For example 
-\emph{Can you see me now?} a game made by Blast Theory noted that while they were getting significant error radiuses they
-were also finding that eventually the players were able to exploit the drops in GPS accuracy in order to catch other players \citep{canyouseeme}. 
+\emph{Can you see me now?} a Mixed Reality game made by Blast Theory noted that while they were getting significant error radiuses they
+were also finding that eventually the players were able to exploit the drops in GPS accuracy in order to catch other players. \citep{canyouseeme}
 
+\section{Previous Games}
+
+\subsection{Treasure}
+Treasure was a location based game created by \cite{Barkhuus2005}. This was another GPS game which involved
+collecting coins in a specific in a more open game area to ensure high GPS accuracy. The objective of the
+game was to collect as many coins as possible, while also being able to "pickpocket" other players to steal their
+coins. The pickpocketing worked by having a button that they pressed as they got close to another person. \cite{Barkhuus2005}
+found that one of the big tactics that people would have is that they would take advantage of the lag in GPS coordinates
+in order to pickpocket people from further away or to be able to get away from their victim quickly so they couldn't be
+pickpocketed themselves.
 
 
 \section{Guidance}
@@ -312,9 +323,6 @@ Make it clear how you derived the constrained form of your problem via a clear a
 
 %==================================================================================================================================
 \chapter{Design}
-How is this problem to be approached, without reference to specific implementation details? 
-\section{Guidance}
-Design should cover the abstract design in such a way that someone else might be able to do what you did, but with a different language or library or tool.
 
 \section{Overview}
 \label{game-overview}
