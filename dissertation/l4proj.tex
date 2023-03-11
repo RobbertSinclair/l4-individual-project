@@ -936,11 +936,26 @@ runner or not. I feel that this will make the game more fair and would be a way 
 relying entirely on the map when locating the runner.
 
 \subsection{Implementation}
-
+Implementing this design was trivial with only a few further considerations. One of the main one was that I
+needed to ensure that the minimum error rate calculation was done every time that a new location was recorded.
+I had to do this in case the player was starting the game in a shadow rather than in open terrain. Another
+small consideration that I implemented was a check to ensure that the minimum error radius could not be zero.
+This was because the person with a Samsung Note 9 stated that their phone had briefley reported an error of 0 
+and figure \ref{fig:note9} also shows such an abnormal error rate. Therefore I decided to add that failsafe to
+ensure that a player could not be invisible all the time.  
 
 \section{Powerup System}
 
 \subsection{Design}
+While I felt it was important to fix some problems that were raised in the first evaluation, I also
+wanted to implement one of the proposed features at the end of the survey. Upon looking at the feedback
+I decided that I wanted to implement a basic powerup system. For this phase I designed one power up for
+the runner, this was to simply be able to see the chaser's location for a few seconds. I feel that although
+the old design gave a lot of suspense to the game, I was interested to see how the player's strategies
+would change with this new feature. Since some people in phase 1 would mainly focus on staying in shadowy
+areas, I decided to make this powerup unlock after a fulll minute of being in more open areas. I felt that
+this would add a level of risk to the game as the runners would have to go out in the open to get further
+information on where the chaser was.
 
 \subsection{Implementation}
 
