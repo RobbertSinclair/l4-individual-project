@@ -903,7 +903,7 @@ is that if two players are closer together, a catch will be more likely to be re
 \subsection{Implementation}
 For this I implemented the phase 2 design that I had discussed in section \ref{phase2catching}. To implement this design
 I decided to create a new class in the GPS package called GPSCatchRadius. Using the LocationManager API in the standard
-android library, I was able to get the current satellites visible from the phone as an array. From then it was trivial
+android library, I was able to get an array of the visible satellites. From then it was trivial
 get the noise ratio by using the getCn0DbHz method provided by the LocationManger API \citep{locationManager}. With all
 the noise ratios, I took the mean and then normalized it so that it was on a scale between 0 and 1. Once that was done,
 I divided 5 by the mean ratio. Then through the LocationWebSocket class, I was able to send the noise ratio.
@@ -917,8 +917,26 @@ in future phases.
 \section{Shadow Threshold}
 
 \subsection{Design}
+As mentioned in section \ref{phase1errorrange}, I noticed that there were differences in the GPS error rates
+in various versions of android phones. This meant that some players were invisible for long periods of the game.
+In order to solve this problem, I decided that there needed to be a dynamic approach to calculating whether a
+phone is in a shadow or not. The two ideas that I considered was either to take the mean error and multiply that by 2
+or to take the minimum error and multiply it by 2. In the end I decided to go for the latter as I remembered when 
+I was walking around finding GPS error rates, I found that the mean error rating would have skewed towards larger
+error rates. While there can be problems with having the minimum error rate, I felt that it was the best baseline
+as you would expect that the minimum GPS error rates to be in more open areas. I also felt that it followed if the
+recorded error rates were twice the baseline then that would be a significant enough range to safely say that
+the sensor is in a Shadow.
+
+On the chaser side, I noticed that because I had also linked the ability to catch a runner to their error rate, it
+meant that the runner would be able to evade capture by just staying in shadow areas. There were some occasions
+were the participants physically caught the runner, but it wasn't registering on their phone as they were above the
+error threshold. Therefore I decided that the shadow threshold would no longer affect whether a chaser can catch the
+runner or not. I feel that this will make the game more fair and would be a way of rewarding the chaser for not
+relying entirely on the map when locating the runner.
 
 \subsection{Implementation}
+
 
 \section{Powerup System}
 
