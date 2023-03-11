@@ -339,7 +339,7 @@ found in the Fused Location API. Therefore the game can be used to teach people 
 Make it clear how you derived the constrained form of your problem via a clear and logical process. 
 
 %==================================================================================================================================
-\chapter{Design}
+\chapter{Phase 1 Design}
 
 \section{Overview}
 \label{game-overview}
@@ -423,20 +423,9 @@ to this was that it was going to be difficult to track who the chaser was. I als
 was a Client-Server system that going for as thin a client as possible would be the best approach due to the computational
 limitations of a smartphone.
 
-\subsubsection{Phase 2 Design}
-\label{phase2catching}
-During my Phase 1 evaluation I noticed that the design mentined in section \ref{catching} was not as suitable due to 
-multipath errors(see section \ref{phase1catching} for more details). The main problem being that if the catcher tried
-to catch a player, they would have to move around before it would register. For phase 2 I will make a more dynamic design
-where the catch radius will increase or decrease depending on how likely a multipath error was able to occur. Uber found
-a way to improve their GPS accuracy by making use of the signal noise ratio of each satellite and comparing it to a 3D map.
-They found that a high ratio would mean that the sensor is in direct view of a satellite while a low satellite would mean that
-the signals were more likely to be obstructed by buildings, trees and other obstables \citep{uberGPS}. While using a 3D map
-to improve the catching mechanic is out of the scope for the project, I will take the idea of getting the average SNR. I will
-now dynamically increase and decrease the catch radius by dividing 5 from the average ratio (as a number between 0 and 1). My hope
-is that if two players are closer together, a catch will be more likely to be registered.
+
 %==================================================================================================================================
-\chapter{Implementation}
+\chapter{Phase 1 Implementation}
 
 \section{Process}
 \label{process}
@@ -727,7 +716,7 @@ than 0 then we send a message to the WebSocketOperations.js file to turn the cap
                         type: "Point",
                         coordinates: [chaser.longitude, chaser.latitude]
                     },
-                    $maxDistance: catchRadius
+                    $maxDistance: 5
                 },
             }
         }
@@ -755,21 +744,9 @@ collection and I used the GameLogMongo.js file to query the games collection. Th
 that the WebSocketOperations.js file needs. I did this to ensure that the WebSocketOperations file wouldn't become too big and to ensure that
 it's responsibility was mainly focused on processing the WebSocket Messages, therefore satisfying the Single Responsiblity in SOLID.
 
-\section{New additions in Phase 2}
-In response to the evaluations discussed in section \ref{phase1}, I knew that I needed to make some changes to my app
-to improve the game based on the user's feedback. This section goes over the four changes that I made during this
-iteration of development. 
-
-\subsection{Catching Mechanic}
-For this I implemented the phase 2 design that I had discussed in section \ref{phase2catching}
-
-\subsection{Shadow Threshold}
-
-\subsection{Powerup System}
-
 
 %==================================================================================================================================
-\chapter{Evaluation}
+\chapter{Phase 1 Evaluation}
 \label{Evaluation} 
 
 In this chapter I will go over the process and results from my two rounds of evaluations.
@@ -782,7 +759,7 @@ how the game worked with different phones. After playing the game, I would ask m
 fun the game was to play, whether the connection was stable and what improvements could be made in future iterations. I plan to do two phases
 with the second phase set to be done in the week commencing the 6th February 2023.
 
-\section{Results from Phase 1}
+\section{Results}
 \label{phase1}
 
 \subsection{Overview}
@@ -892,7 +869,66 @@ come about.
     \label{tab:agree}
 \end{table}
 
-\section{Results from Phase 2}
+\chapter{Phase 2 Design and Implementation}
+
+\section{Introduction}
+In response to the evaluations discussed in section \ref{phase1}, I knew that I needed to make some changes to my app
+to improve the game based on the user's feedback. As a lot of the issues raised in the phase 1 evaluation showed that
+there were problems that affected the player's enjoyment of the game, I felt that it was important to take a seamless
+approach. Some of the seams that I found in phase 1 caused more frustration in my players and they didn't lead to more
+interesting ways of interacting with the game.This chapter goes over the four changes that I made during this
+iteration of development.
+
+\section{New Player Markers}
+The smallest change this phase was in response to feedback raised in the survey of the first evaluation. This was mainly
+due to the fact that in the first phase of development, I used the default marker icon from the Google Maps SDK. This
+made the game rather confusing for the players. Therefore I decided that I would change the colour of the player marker
+to green and I left the marker colour to red for any other players. 
+
+\section{Catching}
+
+\subsection{Design}
+\label{phase2catchingdesign}
+During my Phase 1 evaluation I noticed that the design mentined in section \ref{catching} was not as suitable due to 
+multipath errors(see section \ref{phase1catching} for more details). The main problem being that if the catcher tried
+to catch a player, they would have to move around before it would register. For phase 2 I will make a more dynamic design
+where the catch radius will increase or decrease depending on how likely a multipath error was able to occur. Uber found
+a way to improve their GPS accuracy by making use of the signal noise ratio of each satellite and comparing it to a 3D map.
+They found that a high ratio would mean that the sensor is in direct view of a satellite while a low satellite would mean that
+the signals were more likely to be obstructed by buildings, trees and other obstables \citep{uberGPS}. While using a 3D map
+to improve the catching mechanic is out of the scope for the project, I will take the idea of getting the average SNR. I will
+now dynamically increase and decrease the catch radius by dividing 5 from the average ratio (as a number between 0 and 1). My hope
+is that if two players are closer together, a catch will be more likely to be registered.
+
+\subsection{Implementation}
+For this I implemented the phase 2 design that I had discussed in section \ref{phase2catching}. To implement this design
+I decided to create a new class in the GPS package called GPSCatchRadius. Using the LocationManager API in the standard
+android library, I was able to get the current satellites visible from the phone as an array. From then it was trivial
+get the noise ratio by using the getCn0DbHz method provided by the LocationManger API \citep{locationManager}. With all
+the noise ratios, I took the mean and then normalized it so that it was on a scale between 0 and 1. Once that was done,
+I divided 5 by the mean ratio. Then through the LocationWebSocket class, I was able to send the noise ratio.
+
+On the server side, not much needed to change in order to get this feature to work. The only main thing that I needed to
+do was change the MongoDB query in listing \ref{lst:catching} to have the maxDistance as the adjusted catch radius. The
+only other thing that needed to be done was to update the Logging database to collect the noise ratio. This was mainly
+so that I could analyse any trends in the noise ratio data in order to inform me of other features and improvements
+in future phases.
+
+\section{Shadow Threshold}
+
+\subsection{Design}
+
+\subsection{Implementation}
+
+\section{Powerup System}
+
+\subsection{Design}
+
+\subsection{Implementation}
+
+\chapter{Phase 2 Evaluation}
+
+\section{Results}
 \subsection{Overview}
 Two weeks after the first phase of evaluations, I made improvements to the overall design (See section \ref{phase2}) for an overview
 of what changed. The format of the evaluation was similar to the first, with the same participants. For this evaluation I especially
