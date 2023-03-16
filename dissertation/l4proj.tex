@@ -353,12 +353,21 @@ with lots of buildings to go into like the University of Glasgow campus. Once th
 be calculated as the person who was the runner for the most amount of time in total.
 
 \section{Architecture}
+\label{phase1architecture}
 The game that I will create will utilise a Client-Server Architecture. The client will be a smartphone with a GPS or
-GNSS sensor. Several clients will be connected using a WebSocket. The smartphone will get the GNSS data including the
+GNSS sensor. Several clients will be connected using a WebSocket. The smartphone will get the GPS data including the
 latitude, longitude and accuracy and then will process it and send to the server. The location data will also be sent 
 to the UI where the user's overall position will be updated. Through the websocket, the phone will send the GPS data
 to the server which will save the users location onto a geospatial database. Depending on certain conditions, the data
 will be sent to the rest of the clients.
+
+Since the clients of the game will be smartphones. I decided that the game will take a thin-client design with the
+server handling most of the game logic. This is due to the range of computational abilities of different phones. 
+I feel that a server will be able to handle lots more computations over time compared to the average smartphone.
+It also means that it is easier to keep track of who is the chaser, who has been caught and where they are on the map.
+There will still be some features that will be implemented on the client, this includes a timer and the calculation of
+jail time. However to ensure that no player has an unfair disadvantage, I will keep track of the game time on the
+server as well. This is so that we can keep the game in sync with other players.
 
 \subsection{Client (Smartphone)}
 \label{designClient}
@@ -368,9 +377,6 @@ type. This information will be given to the player class which stores the id for
 Then once that is done, the GPS Listener will start to fetch the GPS coordinates every 2 seconds. This data is then sent
 to the User Interface so that the map is updated with the user's location. The GPS coordinates are then sent to the Communication
 class where they are sent to the server.
-
-\subsection{Server}
-
 
 \subsection{Client Server Communication}
 \label{communication}
@@ -405,7 +411,7 @@ GPS accuracy is low enough, they will not transmit their location to the chaser.
 The Runners will also not transmit any location data during the jail period as mentioned in section \ref{game-overview}.
 
 In previous iterations of my design the Runner would have been able to have seen all of the GPS Shadows within a 50
-meter radius. The Shadows would be small red dots on the users maps. However after implementing this feature the screen
+metre radius. The Shadows would be small red dots on the users maps. However after implementing this feature the screen
 would freeze up leading to a poor user experience and it gave the Chaser an unfair advantage as they didn't get any
 performance issues with just the Runner locations on the screen.
 
@@ -417,10 +423,16 @@ in the database. Once this data is collected the chaser is then able to determin
 
 The chaser will have a 5 meter "no-go zone" which will be the way to determine if a player is caught or not. If
 the GPS accuracy is high and a player has entered the Chaser's 5 meter radius, then the runner is considered to be 
-"caught". My original idea was to calculate the distance on the smartphone however I realised that the main disadvantages
-to this was that it was going to be difficult to track who the chaser was. I also thought that since the main architecture
-was a Client-Server system that going for as thin a client as possible would be the best approach due to the computational
-limitations of a smartphone.
+"caught". In order to encourage players to look for shadow areas, for this phase a catcher will not be able to catch
+a runner if they are beyond the 6 meter catching radius. Overall I felt that using a 5 metres was a good radius to 
+start with. This is because 5 meters should be enough to account for multipath errors and that it would be close enough
+for a runner to recognise that they are caught.
+
+When a runner is caught, as the new chaser they will be put in Jail Time for 30 seconds. The main reason for this is
+to give the new runners a head start to get out of the area. During this time, the chaser will still be able to move
+around, but they won't have a view of the runners location nor can they catch them. The runner will also get a message
+that the chaser is in jail time. I decided on 30 seconds because it would be enough time for the runner to get away
+from the chaser and depending on where 
 
 
 %==================================================================================================================================
