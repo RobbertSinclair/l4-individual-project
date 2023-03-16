@@ -340,6 +340,16 @@ Make it clear how you derived the constrained form of your problem via a clear a
 %==================================================================================================================================
 \chapter{Phase 1 Design}
 
+\section{Process}
+\label{phase1designprocess}
+Once I got a rough understanding of how GPS works, I then decided to have a think about what kind of games I could make
+with the information I had considered. I started by having a general brainstorm of what kinds of games I could adapt.
+These ideas ranged from simple games like Tag games such as \emph{Manhunt} or \emph{Stuck in the Mud} to several wide
+games that I played in primary school. One notable idea was a game where people with a GPS sensor have to travel to a
+destination without being visible on the map. If they are visible, a watcher would be able to tap on their marker. If
+that happens the GPS players would have to go back to the start. I found that this idea didn't work after making the
+move to the LocationManager API (See section \ref{locationManager} for more details).
+
 \section{Overview}
 \label{game-overview}
 The game that I will make is a simple tag game where a player can take advantage of GPS shadows in order to hide from
@@ -1129,7 +1139,22 @@ further look into what conditions a player would need to win and also how they w
 
 \begin{appendices}
 
-\chapter{Phase 1 Graphs}
+\chapter{Phase 1 Design Ideas}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{images/idea1.pdf} 
+    \caption{My rough paper draft of idea 1}
+    \label{fig:idea1}
+\end{figure}
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{images/idea2.pdf} 
+    \caption{My rough paper draft of idea 2}
+    \label{fig:idea2}
+\end{figure}
+
+\chapter{Phase 1 Evaluation Graphs}
 
 \begin{figure}
     \centering
@@ -1150,7 +1175,7 @@ further look into what conditions a player would need to win and also how they w
     \label{fig:note9}
 \end{figure}
 
-\chapter{Phase 2 Graphs}
+\chapter{Phase 2 Evaluation Graphs}
 \begin{figure}
     \centering
     \includegraphics[width=0.8\linewidth]{images/SM-N960F_piechart.pdf}
