@@ -159,13 +159,13 @@ In this chapter I will go over some of the foundational concepts required to und
 
 \section{Introduction to the Global Positioning System (GPS)}
 
-The Global Positioning System also known as GPS is one of the worlds most famous Global Navigation Satellite Systems (GNSS). It allows people to determine their
+The Global Positioning System, also known as GPS, is one of the world's most famous Global Navigation Satellite Systems (GNSS). It allows people to determine their
 location from anywhere around the world at any time. GPS has three main phases, the space phase, the control phase and the user phase.
 In the space phase, the earth is split up into 24 "slots" which should be filled up by an operational satellite \citep{spsStandard}. Therefore
 the GPS constellation is made up of at least 24 opterational satellites. In an ideal situation a user should have access to at least 4 of the satellites
 at any one time \citep{Rabbany2006}. 
 
-Each GPS satellite consistently sends down radio signals down to the Earth's surface. As of 2020 there are three main frequencies
+Each GPS satellite consistently sends down radio signals down to the Earth's surface. As of 2020 there are three main frequencies,
 these are L1 which emits at 1575.42 MHz, L2 which emits radio waves at 1227.6 MHz and L5 with 1176.45 MHz \citep{spsStandard}. This project
 will most likely be using L2 and L1 as L5 is used mainly for aviation safety \citep{Xu2016} A GPS receiver will pick up this data and can use the clock signals to calculate the distance from each satellite. Once a 
 satellite distance is calculated we can create a radius of equidistant points. We can then add the signals from several other
@@ -181,7 +181,7 @@ system that smartphones use. Multiple countries have launched their own satellit
 system, the European Union has the GALILEO system, China has the Beidou system. Most modern smartphones make use
 of some or all of these systems. For example my personal phone and the phone that I am testing this project on, the Samsung 
 Galaxy S21 FE makes use of all of the above mentioned GNSS systems \citep{samsungs21specs}. This means that in reality
-a phone will be in sight of roughly 15 to 16 satellites in reality rather than the usual 4. This means that phones can
+a phone will be in sight of roughly 15 to 16 satellites rather than the usual 4. This means that phones can
 have a lot more accuracy than in the past as the increase in satellites means that there is less chance of there being big
 errors.
 
@@ -203,7 +203,7 @@ can't really control when a clock error is to happen.
 \subsection{GPS Signal Reception}
 GPS signals are in the form of radio waves which can be blocked by obstacles on the way to a GPS sensor. When signals hit a specific obstable
 the signals decrese in quality during a process known as attenuation \citep{Indoor2010}. Some examples of such obstacles include
-building walls, soil and water. \citep{Kleusberg1990}. Eventually the GNSS receiver will receive more noise
+building walls, soil and water. \citep{Kleusberg1990}. Eventually the GPS receiver will receive more noise
 than the original signal which leads to an inaccurate signal. A good signal is received when the receiver has a good signal from at least 4
 satellites. Therefore in urban areas with high rise buildings, one or more satellites could be obstructed. If a game was to be made
 using this concept then the game would be best played in dense urban areas.
@@ -219,12 +219,11 @@ Some ways to mitigate a multipath error is to go into a more open area or to hav
 of antenna \citep{Kos2010}. This means that if I were to make a multiplayer game, I may find that some phones are
 more prone to having multipath problems than others. Another way to mitigate a multipath error is to use the 
 satellite noise ratio to see how weak the signal is. When a GNSS sensor receives a signal, it is able to calculate 
-the noise ratio to see how strong the singal is. You can then go over each satellite in turn in order to see how
+the noise ratio to see how strong the signal is. You can then go over each satellite in turn in order to see how
 good or bad the signal is. When the ratio is closer to 0 then you can say that it is likely that a satellite is blocked
 while a ratio 1 would suggest that the satellite has a direct line of sight of the sensor \citep{uberGPS}. If I were
 to make a game based on multipath I could give the user a label showing them the noise ratio and then see how the ratio
 increases or decreases over time.
-
 
 \section{Seamless and Seamful Design}
 With most systems there will be potential seams which can cause unintended results to the user. One way to solve this would be to think seamlessly which is where you
@@ -296,8 +295,8 @@ In order to get this up and running quickly, I tested two main GeoLocation APIs,
 \label{fusedProvider}
 The first API I tried was the FusedLocationProvider API as this was the first one that I found. The FusedLocationProvider API combines both GPS and WiFi geolocation
 techniques to try and create an optimal location \citep{fused}. This API allowed me to create a basic location app quickly so that I could start finding GPS locations
-within my local area. As figure \ref{fig:fusedhist} shows, the location data that I gathered was skewed towards values with an accuracy of less than 50. While a lot of
-points were under the 20 meters area. However as you can see, there was a decent amount of values above 50 meters meaning that the API picked up a lot of shadows.
+within my local area. As figure \ref{fig:fusedhist} shows, the location data that I gathered was skewed towards values with an accuracy of less than 50 metres. While a lot of
+points were under the 20 metres area. However as you can see, there was a decent amount of values above 50 meters meaning that the API picked up a lot of shadows.
 This API would have been a good one to use for my game as I would have had a lot of shadow areas for a player to hide. However the main flaw was that
 it was giving me a combination of both Wifi and GPS coordinates. Thies meant that I was more likely to find shadows in areas with low WiFi. This would
 explain why I had a lot of shadow areas when I walked around Kelvingrove Park, an area which I thought would have a very accurate signal due to the lack of buildings.
@@ -312,15 +311,15 @@ explain why I had a lot of shadow areas when I walked around Kelvingrove Park, a
     \label{fig:fusedhist} 
 \end{figure}
 
-\subsection{LocationManger API}
+\subsection{LocationManager API}
 \label{locationManager}
 Since the FusedLocationProvider wasn't appropriate for the project, I needed to find an API that would give me location data based purely on GPS. One of the libraries that I found
-from the Android Developers Website was the "LocationManger" API. The LocationManager API gives me more control over what kind of Geolocation I was getting on my phone. Therefore
+from the Android Developers Website was the "LocationManager" API. The LocationManager API gives me more control over what kind of Geolocation I was getting on my phone. Therefore
 I was able to ensure that my geolocation was based on a full GNSS navigation system. \citep{locationManager} The other main advantage to this library is that with the use of the "requestLocationUpdates" method and
 the "LocationListener" interface, I can easily control what my app does when it receives a new location.
 
 While there are some advantages to using the LocationManager API, it does come with some disadvantages as well. For one thing, there are significantly less shadow areas when using
-pure GNSS coordinates. The only real areas where there are major shadows are within buildins, under bridges or in enclosed areas. This is because on my phone, it can track up to 
+pure GNSS coordinates. The only real areas where there are major shadows are within buildings, under bridges or in enclosed areas. This is because on my phone, it can track up to 
 15 satellites when getting my location. In comparison to figure \ref{fig:fusedhist}, figure \ref{fig:mongohist} shows that there is one big peak in the overall accuracy of all the spots.
 When walking around with my app I noticed that for most of the time, my accuracy was 3.795 meters of accuracy. However while at first glance this may be a disadvantage the main advantage for creating a
 game is that compared to the Fused Location API. It is better overall for an overall game design because the areas where shadows can be found will be more consistent than the ones
@@ -460,7 +459,7 @@ around for suitable databases. Since the design of the catching mechanic was tha
 \ref{catching} for more details), I decided that I wanted to use a database which had the potential to have Geospatial queries.
 Two of the most popular databases that would allow me to do that would be PostGIS which is a modified version of PostGreSql \citep{postgis, postgres} and
 MongoDB which is a popular document based database \citep{mongodb}. In the end I decided to go with MongoDB since their API
-was easy to use and implement. With MongoDB I could use their GeoSpatial Processing with minimal setup. Also it is significantly
+was easy to use and integrate into my server design. With MongoDB I could use their GeoSpatial Processing with minimal setup. Also it is significantly
 faster than PostGIS in processing proximity queries \citep{Bartoszewski2019}. This was especially important considering
 that I would be querying this database every time another player broadcasts their location.
 
@@ -685,7 +684,7 @@ condition was met.
 
 \subsection{The MongoDB collections}
 \label{mongocollections}
-Most of the operations offered in the WebSocketOperations.js file goes to either the GPSMongo.js and the GameLog.js
+Most of the operations offered in the WebSocketOperations.js file are handled in either the GPSMongo.js or the GameLog.js
 files. These contain the classes that actually query the MongoDB databases. The database is hosted on a seperate
 server on my Railway.app setup. The main benefit of this is that I can directly access my database using a Python
 script. However, to reduce the chances of unauthroized users accessing my server, I ensured that all of the credentials
@@ -870,6 +869,7 @@ come about.
 \end{table}
 
 \chapter{Phase 2 Design and Implementation}
+\label{phase2design}
 
 \section{Introduction}
 In response to the evaluations discussed in section \ref{phase1}, I knew that I needed to make some changes to my app
@@ -971,14 +971,12 @@ updates their location every 2 seconds and the powerup would only show the chase
 a point in setting up another action in the WebSocketActions class. Therefore I just created the "/chaserLocation"
 endpoint where I simply get the location from the database and send the latitude and longitude in a JSON object.
 
-
-
 \chapter{Phase 2 Evaluation}
 
 \section{Results}
 \subsection{Overview}
-Two weeks after the first phase of evaluations, I made improvements to the overall design (See section \ref{phase2}) for an overview
-of what changed. The format of the evaluation was similar to the first, with the same participants. For this evaluation I especially
+Two weeks after the first phase of evaluations, I made improvements to the overall design (See chapter \ref{phase2design} for an overview
+of what has changed). The format of the evaluation was similar to the first, with the same participants. For this evaluation I especially
 wanted to test if my improvements had fixed the problems raised in the first phase. These being the ranges in accuracy between different
 phones and the catching mechanic being affected by multipath errors. Another feature that I was testing out was the brand new powerup
 system that I created. The next few subsections will examine whether the improvements succeeded or not.
@@ -994,9 +992,8 @@ open. The assumption was made that the player was a runner throughout the durati
 information on whether the player was a chaser or not in the logging system. I used the data based on the three phones that I 
 analysed in the last evaluation of the error ranges (See section \ref{phase1errorrange} for more detail). This was because I wanted
 to see how it worked on an accurate phone (Samsung Galaxy S21 FE) and the phones where I noticed the most variance in error range (The Samsung Note 9 and the Oppo F19).
-My hypothesis was that there would be a reduction in amount of time in shadow for all of the phones meaning that there would be
-more times were a player with every phone would be more visible during the game and would only not be visible in the event of
-them being in shadow area.
+My hypothesis was that there would be a reduction in the amount of time in shadow for each type of phone. This means that there would be
+more times where a player would be more visible during the game and would only be invisible when they are in a shadow area.
 
 Figures \ref{fig:shadownote9}, \ref{fig:shadowoppo} and \ref{fig:shadows21} show the shadow results for the Samsung Note 9,
 the Oppo F19 and the Samsung Galaxy F21 respectively. I feel that the results are quite mixed, where I would say that the
