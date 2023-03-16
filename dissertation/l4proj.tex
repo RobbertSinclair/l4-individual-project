@@ -953,11 +953,25 @@ I decided that I wanted to implement a basic powerup system. For this phase I de
 the runner, this was to simply be able to see the chaser's location for a few seconds. I feel that although
 the old design gave a lot of suspense to the game, I was interested to see how the player's strategies
 would change with this new feature. Since some people in phase 1 would mainly focus on staying in shadowy
-areas, I decided to make this powerup unlock after a fulll minute of being in more open areas. I felt that
+areas, I decided to make this powerup unlock after a full minute of being in more open areas. I felt that
 this would add a level of risk to the game as the runners would have to go out in the open to get further
 information on where the chaser was.
 
 \subsection{Implementation}
+In order to implement this feature, I started by creating a button element at the bottom of the runner view.
+I did this by creating a simple button element with the words "See Chaser" with a progress bar at the bottom.
+The progress bar would increase whenever the runner updated their location and they were below their shadow
+threshold. When the runner has had 30 location updates in high signal areas, the button will become clickable.
+When the user clicks on the button, they will be able to see the Chaser's location on the map for 3 seconds before
+the powerup button resets the progress bar.
+
+On the server side I decided that this powerup would be implemented by a simple HTTP request rather than through
+the WebSocket system for all other client communications. My main reasoning for this was that since the client
+updates their location every 2 seconds and the powerup would only show the chaser for 3, there wouldn't have been
+a point in setting up another action in the WebSocketActions class. Therefore I just created the "/chaserLocation"
+endpoint where I simply get the location from the database and send the latitude and longitude in a JSON object.
+
+
 
 \chapter{Phase 2 Evaluation}
 
