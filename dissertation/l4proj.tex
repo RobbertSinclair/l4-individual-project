@@ -1070,15 +1070,14 @@ endpoint where I simply get the location from the database and send the latitude
 
 \chapter{Phase 2 Evaluation}
 
-\section{Results}
-\subsection{Overview}
+\section{Overview}
 Two weeks after the first phase of evaluations, I made improvements to the overall design (See chapter \ref{phase2design} for an overview
 of what has changed). The format of the evaluation was similar to the first, with the same participants. For this evaluation I especially
 wanted to test if my improvements had fixed the problems raised in the first phase. These being the ranges in accuracy between different
 phones and the catching mechanic being affected by multipath errors. Another feature that I was testing out was the brand new powerup
 system that I created. The next few subsections will examine whether the improvements succeeded or not.
 
-\subsection{Error Ranges}
+\section{Error Ranges}
 This time, the game worked on a dynamic basis rather than the static version of before. Instead of the shadow threshold being
 6 meters, it would now be twice the current recorded minimum accuracy. For example if the minimum score was 3.8, it would now
 only be in a shadow if the GPS area was 7.6 meters in error. My hope was that this would end the inbalance in the game were
@@ -1108,7 +1107,7 @@ it has somewhat improved the error ranges there are times where it has been wors
 have been better to constantly check the mean or take the standard deviation rather than just a flat rate for all error ranges.
 If I have more time to implement a new system, I would look into making a new variance based system.
 
-\subsection{Catching Feature}
+\section{Catching Feature}
 Another major improvement that I implemented was a new catching system where the catch radius can increase or decrease based
 on the satellite noise ratio based on the method described by \cite{uberGPS}. For this evaluation I was hoping that the catching mechanic would be more helpful to play when
 accounting for multipath errors.
