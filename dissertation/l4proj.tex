@@ -612,10 +612,13 @@ all other players will have a red marker. This is in response to feedback from p
 \ref{phase1survey} for more discussion on this) as in that phase I had markers which were the same
 colour.
 
-The Runner User Interface (Shown in figure \ref{fig:phase1_ui_runner}) has one key exclusive feature. This is the see Chaser button. If the user
-is in a high GPS location for a full minute, they will be able to press the "See the Chaser" button
-at the bottom of the screen. This will give the user a 3 second view of the chaser's location. This
-was another addition in response to feedback from the evaluation in phase 1.
+The phase 1 version of the user interface has some differences when compared to the design in figure \ref{fig:phase1uidesign}.
+The main difference being that there are no shadow markers on the runner map. While it was trivial to get some GPS shadows on
+the server side, I found that when I tried to implement it on the mobile app, the amount of markers made the UI freeze up which
+would have given the chaser an unfair disadvantage. The other differences was that I didn't implement the "in shadow" label,
+I thought that since I moved my error label to the top of the screen, the player would be able to tell whether they were
+in a shadow area by looking at the differences in their error radius as they move around. I felt that this would be better in
+getting the player to understand where they would be able to find GPS shadow spots.
 
 \subsection{LocationWebSocket}
 During the course of my development, I had to create many different Kotlin classes in order for my front end to work properly.
@@ -928,7 +931,7 @@ a more punishing mechanic than a rewarding one in the form of a powerup system t
 In the final part of the survey I asked the participants whether they had any further comments or feature ideas. One of the most common
 feature ideas brought up in this section was to have a different colour of marker to show who is the chaser and who is the runner. Up to this
 point I had just used the generic marker in the Google Maps Jetpack API. Another interesting thing that came up was that I should consider
-adding a manual catching mechanic as a potential solution to the problems raised in section \ref{phase1catching}. I feel that this could Be
+adding a manual catching mechanic as a potential solution to the problems raised in section \ref{phase1catching}. I feel that this could be
 a good solution but increasing the catch radius would still be an easier solution and would help teach the participants how GPS errors could
 come about.
 
@@ -948,6 +951,27 @@ come about.
 
 \chapter{Phase 2 Design and Implementation}
 \label{phase2design}
+
+\begin{figure}
+    \label{fig:phase2_ui}
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{images/phase2_ui_chaser.png}
+        \caption{The Chaser view.}
+        \label{fig:phase2_ui_chaser}
+    \end{subfigure}
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
+      %(or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{images/phase2_ui_runner.png}
+        \caption{The Runner View}
+        \label{fig:phase2_ui_runner}
+    \end{subfigure}
+    
+    \caption{These two screenshots show the User Interface as it was at the end of phase 2. The main
+    differences being the new marker for the current player's location.
+    }
+\end{figure}
 
 \section{Introduction}
 In response to the evaluations discussed in section \ref{phase1}, I knew that I needed to make some changes to my app
