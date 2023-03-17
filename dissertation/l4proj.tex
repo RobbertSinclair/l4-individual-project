@@ -410,22 +410,17 @@ class where they are sent to the server.
 \subsection{Client Server Communication}
 \label{communication}
 Since a lot of the game will have a lot of multiplayer features, it was important that the network side of the game
-was robust to ensure that no player would have an unfair advantage when playing the game. Table \ref{tab:webSocketComms}
-sets out the different communication types that are required to make this game.
+was robust to ensure that no player would have an unfair advantage when playing the game. Some examples of messages that the server
+could give the user includes:
 
-\begin{table}[]
-    \caption{The different communication types to the server  }\label{tab:webSocketComms}
-    \resizebox{\textwidth}{!}{\begin{tabular}{|l|l|}
-    \hline
-    \rowcolor[HTML]{9B9B9B} 
-    \multicolumn{1}{|c|}{\textbf{Communication Type}} & \multicolumn{1}{c|}{\textbf{Method and Purpose}}                                             \\ \hline
-    CONNECT               & Gives the user their id and their initial player type                                                                \\ \hline
-    NEW\_TYPE             & This is triggered if either a new user connects to the server or if a user is caught. This will change the users type \\ \hline
-                          &                                                                                                                      \\ \hline
-    \end{tabular}}
-    
-    \end{table}
+\subsubsection{CONNECT}
+This message connects the user to the server. The server will then send over a user id.
 
+\subsubsection{NEW\_TYPE}
+This is triggered if either a new user connects to the server or if a user is caught. The server will keep track of what
+type of player the person .
+
+\subsubsection{PLAYER\_CAUGHT}
 \section{Mechanics}
 In this section I go over the various mechanics that I have designed for the game
 
