@@ -302,13 +302,24 @@ it was giving me a combination of both Wifi and GPS coordinates. Thies meant tha
 explain why I had a lot of shadow areas when I walked around Kelvingrove Park, an area which I thought would have a very accurate signal due to the lack of buildings.
 
 \begin{figure}
+    \label{fig:phase2_ui}
     \centering
-    \includegraphics[width=0.6\linewidth]{images/fused_histogram.pdf}    
-
-    \caption{Histogram showing the ranges of accuracy (in meters) of location points picked up by the FusedLocationProvider API}
-
-    % use the notation fig:name to cross reference a figure
-    \label{fig:fusedhist} 
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{images/fused_histogram.png}
+        \caption{Fused Location API}
+        \label{fig:fusedhist}
+    \end{subfigure}
+    ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
+      %(or a blank line to force the subfigure onto a new line)
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{images/mongo_db_histogram.png}
+        \caption{Location Manager}
+        \label{fig:mongohist}
+    \end{subfigure}
+    
+    \caption{These histograms show the ranges in accuracy between the Fused Location API and the
+    Location Manager API
+    }
 \end{figure}
 
 \subsection{LocationManager API}
@@ -324,15 +335,6 @@ pure GNSS coordinates. The only real areas where there are major shadows are wit
 When walking around with my app I noticed that for most of the time, my accuracy was 3.795 meters of accuracy. However while at first glance this may be a disadvantage the main advantage for creating a
 game is that compared to the Fused Location API. It is better overall for an overall game design because the areas where shadows can be found will be more consistent than the ones
 found in the Fused Location API. Therefore the game can be used to teach people where GPS can decrease in quality.
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.6\linewidth]{images/mongo_db_histogram.png}
-
-    \caption{Histogram showing the ranges of accuracy (in meters) of location points picked up by the LocaitonManager API}
-
-    \label{fig:mongohist}
-\end{figure}
 
 \section{Guidance}
 Make it clear how you derived the constrained form of your problem via a clear and logical process. 
