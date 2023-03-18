@@ -14,19 +14,22 @@
 %% METADATA
 \title{A Seamful Game Based on GPS Shadows}
 \author{Robbert Malcolm Sinclair}
-\date{14 October 2022}
+\date{24 March 2023}
 
 \maketitle
 
 %==============================================================================
 %% ABSTRACT
 \begin{abstract}
-    Every abstract follows a similar pattern. Motivate; set aims; describe work; explain results.
-    \vskip 0.5em
-    ``XYZ is bad. This project investigated ABC to determine if it was better. 
-    ABC used XXX and YYY to implement ZZZ. This is particularly interesting as XXX and YYY have
-    never been used together. It was found that  
-    ABC was 20\% better than XYZ, though it caused rabies in half of subjects.''
+    The Global Positioning System, also known as GPS has revolutionised the way
+    that we travel and position ourselves. While ideally we would want our GPS
+    coordinates to be accurate, being around urban areas can obstruct the signals
+    that allow for precise positioning. This project utilised the ideas of Seamful
+    design to create a game which takes advantage of inaccuracies in GPS. The Gameplay
+    was a simple game of tag in which players could use GPS shadow areas to hide
+    from a chaser. After two user evaluations, I found that the reception of the game
+    was positive although there were challenges due to the differences in devices in
+    terms of GPS quality.  
 \end{abstract}
 
 %==============================================================================
@@ -41,7 +44,7 @@
 % this declaration, but doing so would help future students.
 %
 \def\consentname {Robbert Malcolm Sinclair} % your full name
-\def\consentdate {14 October 2022} % the date you agree
+\def\consentdate {24 March 2023} % the date you agree
 %
 \educationalconsent
 
@@ -268,25 +271,23 @@ it had increased the stakes of the game. \citep{canyouseeme}. We also saw that i
 advantage in the lag between location updates to get away from their victims. When you expose seams to people, there can
 be interesting ways that people exploit those seams to gain an advantage.
 
-\section{Guidance}
-\begin{itemize}    
-    \item
-      Don't give a laundry list of references.
-    \item
-      Tie everything you say to your problem.
-    \item
-      Present an argument.
-    \item Think critically; weigh up the contribution of the background and put it in context.    
-    \item
-      \textbf{Don't write a tutorial}; provide background and cite
-      references for further information.
-\end{itemize}
-
 %==================================================================================================================================
 \chapter{Analysis/Requirements}
 In this section I go over the main process that I used to come up with a design for the game
 
-\section{Creating an app to get GPS locations}
+\section{Initial GPS Experiments}
+I started my analysis by learning the basics of learning app development by creating an app that would keep track
+of GPS accuracy. The app started off as just a screen with my latitude and longitude coordinates and my error rates.
+Once I had this app up and running, I walked around various locations around the University of Glasgow campus and
+also briefley within the city centre. Some particular areas that I tried included more open areas like the Botanical
+Gardens and Kelvingrove park and the area surrounding the main building including the cloisters. I also wanted to test
+out the effect of standing next to tall buildings. To do this I tried standing really close to the Boyd Orr building
+the tower of the main building to see if there were any significant decreases in accuracy.
+
+During the experiment, I made a basic web server where I could send my coordinates and accuracy data to. From
+there I put the locations on a map. To give me an overall idea of where the shadows were, I created colour-coded
+spots that would be bigger or smaller depending on how much of a shadow it was.  
+
 Since I didn't have much knowledge of mobile app development. I gathered that the best place to start was to make an app that gets a location. 
 I started by doing some research into creating an Android app using Kotlin. The main aim of this app was to get me the latitude and longitude coordinates every second and most importantly, give me the accuracy for the GPS locations. 
 In order to get this up and running quickly, I tested two main GeoLocation APIs, the FusedLocationProvider API and the LocationManger which can be found in the Android Documentation.
@@ -336,8 +337,6 @@ When walking around with my app I noticed that for most of the time, my accuracy
 game is that compared to the Fused Location API. It is better overall for an overall game design because the areas where shadows can be found will be more consistent than the ones
 found in the Fused Location API. Therefore the game can be used to teach people where GPS can decrease in quality.
 
-\section{Guidance}
-Make it clear how you derived the constrained form of your problem via a clear and logical process. 
 
 %==================================================================================================================================
 \chapter{Phase 1 Design}
