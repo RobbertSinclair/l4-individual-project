@@ -272,10 +272,16 @@ advantage in the lag between location updates to get away from their victims. Wh
 be interesting ways that people exploit those seams to gain an advantage.
 
 %==================================================================================================================================
-\chapter{Analysis/Requirements}
+\chapter{Analysis}
 In this section I go over the main process that I used to come up with a design for the game
 
 \section{Initial GPS Experiments}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\linewidth]{images/original_web.png}
+    \caption{A screenshot of the original web application containing GPS shadow areas}
+    \label{fig:analysismap}
+\end{figure}
 I started my analysis by learning the basics of learning app development by creating an app that would keep track
 of GPS accuracy. The app started off as just a screen with my latitude and longitude coordinates and my error rates.
 Once I had this app up and running, I walked around various locations around the University of Glasgow campus and
@@ -285,12 +291,16 @@ out the effect of standing next to tall buildings. To do this I tried standing r
 the tower of the main building to see if there were any significant decreases in accuracy.
 
 During the experiment, I made a basic web server where I could send my coordinates and accuracy data to. From
-there I put the locations on a map. To give me an overall idea of where the shadows were, I created colour-coded
-spots that would be bigger or smaller depending on how much of a shadow it was.  
+there I put the locations on a map, a screenshot of which is shown in figure \ref{fig:analysismap}. I mapped
+out the locations by sending data to the server whenever a new location was recorded. I then increased the spots
+on the maps based on their error radius. The bigger the error radius, the bigger the circle on the map. This was
+really helpful in understanding where GPS signals were most likely to decrease or increase in accuracy.
 
-Since I didn't have much knowledge of mobile app development. I gathered that the best place to start was to make an app that gets a location. 
-I started by doing some research into creating an Android app using Kotlin. The main aim of this app was to get me the latitude and longitude coordinates every second and most importantly, give me the accuracy for the GPS locations. 
-In order to get this up and running quickly, I tested two main GeoLocation APIs, the FusedLocationProvider API and the LocationManger which can be found in the Android Documentation.
+\section{Testing GPS APIs}
+One of the other reasons for carrying out these experiments was to test out two Geolocation APIs. These
+were the \emph{FusedLocationProvider} API and the \emph{LocationManager} API. In order to put these two
+APIs to the test, I decided to take repeat the experiment with each API to look at the various ranges in
+accuracy.
 
 \subsection{FusedLocationProvider API}
 \label{fusedProvider}
@@ -325,10 +335,11 @@ explain why I had a lot of shadow areas when I walked around Kelvingrove Park, a
 
 \subsection{LocationManager API}
 \label{locationManager}
-Since the FusedLocationProvider wasn't appropriate for the project, I needed to find an API that would give me location data based purely on GPS. One of the libraries that I found
-from the Android Developers Website was the "LocationManager" API. The LocationManager API gives me more control over what kind of Geolocation I was getting on my phone. Therefore
+The second API that I tested was the \emph{LocationManager} API. This API gives me more control over what kind of Geolocation I was getting on my phone. Therefore
 I was able to ensure that my geolocation was based on a full GNSS navigation system. \citep{locationManager} The other main advantage to this library is that with the use of the "requestLocationUpdates" method and
-the "LocationListener" interface, I can easily control what my app does when it receives a new location.
+the "LocationListener" interface, I can easily control what my app does when it receives a new location. This API also allowed me to control the delay between location updates and the minimum
+distance that a user will need to move before the location updates. This will be especially useful if I were to have features which were
+more computationally demanding.
 
 While there are some advantages to using the LocationManager API, it does come with some disadvantages as well. For one thing, there are significantly less shadow areas when using
 pure GNSS coordinates. The only real areas where there are major shadows are within buildings, under bridges or in enclosed areas. This is because on my phone, it can track up to 
@@ -337,6 +348,24 @@ When walking around with my app I noticed that for most of the time, my accuracy
 game is that compared to the Fused Location API. It is better overall for an overall game design because the areas where shadows can be found will be more consistent than the ones
 found in the Fused Location API. Therefore the game can be used to teach people where GPS can decrease in quality.
 
+\section{Conclusions from the location experiment}
+After reviewing the data from both the \emph{FusedLocationProvider} API and the \emph{LocationManger} API,
+I decided that I would use the LocationManager API for Geolocation. While it had less shadow areas than
+the Fused API, the purely satellite based positioning meant that the shadow areas were more consistent overall.
+With the LocationManager API the shadow areas were in more obvious areas that an ordinary person would think
+about when trying to decrease their signal quality. The \emph{FusedLocationProvider} on the other hand
+would have shadow areas where there wasn't good WiFi signal despite there being good satellite signal.
+This led to the discrepencies in accuracy within Kelvingrove park for example.
+
+While my primary objective was to find the best Geolocation API for creating a game, I also wanted to 
+know where I could set a game that would have a balance between shadowy areas and more open areas. From
+the data that I have I knew that the game would have to be played in a built up area. While I expected
+fields in a park to have high GPS accuracy, I was surprised that going into a forested area didn't affect
+the accuracy much either. I found that the best results for decreasing your GPS accuracy was to stand
+under bridges or to go inside buildings. Using this information, I decided to pick the main building
+of Glasgow University. The main reason for this was that I found lots of shadows in that area. I figured
+that players had a lot of places to hide like the cloisters or the University chapel. I also felt that
+the area was small enough to keep the game exciting for shorter games.
 
 %==================================================================================================================================
 \chapter{Phase 1 Design}
