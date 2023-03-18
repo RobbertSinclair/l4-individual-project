@@ -363,7 +363,7 @@ use and to start experimenting with them.
 
 \begin{figure}
     \centering
-    \includegraphics[width=\linewidth]{images/idea1.pdf} 
+    \includegraphics[width=0.5\linewidth]{images/idea1.pdf} 
     \caption{My rough paper draft of idea 1}
     \label{fig:idea1}
 \end{figure}
@@ -473,6 +473,15 @@ game. Therefore I decided to keep things simple by saying that the winning playe
 time as a runner player. I felt that since the core mechanic of this game is to keep out of sight from the chaser, if you
 lasted a long time without being caught, then there is a chance that you found a good way of keeping hidden.
 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\linewidth]{images/phase1UIDesign.png}
+    \caption{One of the figma wireframes that I created during my UI design. The first wireframe shows the overall view that a runner
+    player will see, the second frame being what the runner sees when they are in a GPS shadow and the final frame being the view when
+    the player is caught.}
+    \label{fig:phase1uidesign}
+\end{figure}
+
 \section{User Interface}
 \label{phase1uidesign}
 Once I had designed the main mechanics of the game, I wanted to make a design of the User Interface. To do this I created a wireframe
@@ -486,14 +495,7 @@ The second and third frames in \ref{fig:phase1uidesign} show what happens when t
 caught. The plan would be that in the third frame, it will include several differnt messages like whether a player has joined or left the
 game, to inform the player that the game has ended or to inform the player on what player type they are. 
 
-\begin{figure}
-    \centering
-    \includegraphics[width=0.8\linewidth]{images/phase1UIDesign.png}
-    \caption{One of the figma wireframes that I created during my UI design. The first wireframe shows the overall view that a runner
-    player will see, the second frame being what the runner sees when they are in a GPS shadow and the final frame being the view when
-    the player is caught.}
-    \label{fig:phase1uidesign}
-\end{figure}
+
 
 
 %==================================================================================================================================
@@ -1140,9 +1142,6 @@ example, a mechanic could be that phones with a higher chance of having low nois
 radius could become large if they are in the right positions. This could add new stakes to the game where people with better and more accurate
 GNSS sensors have to be quick and aim to get as close to the player as possible while a runner would have to ensure that they get as far away
 as possible from a chaser with a phone with a larger catch radius.
-
-\section{Survey Results and the Powerup System}
-
 \begin{table}[]
     \centering
     \resizebox{\textwidth}{!}{\begin{tabular}{|l|l|l|l|l|l|}
@@ -1160,6 +1159,28 @@ as possible from a chaser with a phone with a larger catch radius.
     }
     \label{tab:agreephase2}
 \end{table}
+
+\section{Survey Results and the Powerup System}
+Just like at the end of my Phase 1 evaluation, I wanted to gauge how interesting and informative the game was.
+This time round I had a lower cohort of people with only 4 people responding. I mostly evaluated my game with
+the same people as the first phase of evaluations. Overall, most people said that the new features improved the
+game. This section will go over the quantitative and qualitative data that I found when carrying out my survey.
+
+I started my survey by asking the participants to rate their opinions on the same 4 statements as in the previous
+evaluation. Table \ref{tab:agreephase2} shows the results of this survey. Of the people that responded, all of the participants stated that they agreed that the game was an
+enjoyable experience, with there being a more 50/50 split when compared to the previous phase. The same ratio
+of people said that they strongly or somewhat agreed with the idea that the game taught them more about the accuracy
+of GPS. 3 out of 4 stated that they strongly agreed with the statement. One of the best improved statements was
+'The User Inferface Displayed information clearly' where all participants said that they agreed with the statement.
+This was especially good since in the last evaluation, 50 percent of participants gave a neutral response. Finally
+I got a full 100\% of participants stating that they somewhat agreed with the fact that their connection was stable
+throughout the course of the game.
+
+After that, I gave the participants two new statements which focused on the Catching Mechanic and the new powerup
+system. Looking at the last two statements of table \ref{tab:agreephase2}, I found that 3 out of 4 of the
+participants said that they somewhat agreed with the fact that the catching mechanic had improved with one
+person stating that they strongly agreed with the statement. The final question I asked was whether or not
+they agreed with the 
 
 %==================================================================================================================================
 \chapter{Conclusion}
@@ -1235,6 +1256,8 @@ further look into what conditions a player would need to win and also how they w
     \caption{The Error ranges found during a game using a Samsung Note 9}
     \label{fig:note9}
 \end{figure}
+
+
 
 \chapter{Phase 2 Evaluation Graphs}
 \begin{figure}
