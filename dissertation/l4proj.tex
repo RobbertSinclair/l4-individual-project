@@ -1231,7 +1231,7 @@ section \ref{phase2generalfeedback}) were that the users wanted to see their cat
 Other comments stated that the powerup feature was really useful with one participant saying that
 they "found the powerup useful as a runner". Other participants told me that the powerup feature
 was really useful in informing their decisions. Over the course of the games I observed that people
-had altered their strategy because of this feature.
+had altered their strategy because of this feature. Chapter 
 
 
 
@@ -1256,7 +1256,18 @@ buidling on ideas that were feasible and would work within the time frame requir
 tag game where a "chaser" would have a real time location of a "runner" unless they were in areas with a high
 error rate. In chapter \ref{phase1implementation}, I went over the technologies that I used to implement the
 game. I also went over the alterations that I had to make from the design to ensure that the game was an enjoyable
-experience.  
+experience. In chapter \ref{Evaluation} I tested out my implementation by getting multiple participants to play
+a game around the University campus. While the game was received well, I noticed that the assumptions in my 
+design and implementation were wrong when I noticed that different phones had different ranges in error rates.
+
+For Phase 2, I decided to take a seamless approach. This was mainly due to the lessons learned from the previous
+evaluation. For this phase I made several improvements, the most important of these were having a dynamic shadow
+threshold based on the minimum error radius and a new catching mechanic based on the satellite noise ratio. I
+also did some User Interface improvements like changing the colour of the player marker. Another major improvement
+was a powerup system where a runner player will be able to see the chaser after being in an open area for long enough.
+I did another set of user evaluations which led to mixed results. For example the improved shadow thresholds made some
+phones more invisible than before, to having some phones being visible during the entire course of the game. I however
+found that the users thought that the new iteration was an overall improvement to the previous version.
 
 \section{Future Work}
 Due to the limited time that I had to complete the project, there were still some things that I would want to do
@@ -1270,21 +1281,6 @@ decide who won, I have no way of telling the winner if they won or not. If I wer
 further look into what conditions a player would need to win and also how they would get feedback for how they would win.
 
 \section{Reflection}
-
-\section{Guidance}
-\begin{itemize}
-    \item
-        Summarise briefly and fairly.
-    \item
-        You should be addressing the general problem you introduced in the
-        Introduction.        
-    \item
-        Include summary of concrete results (``the new compiler ran 2x
-        faster'')
-    \item
-        Indicate what future work could be done, but remember: \textbf{you
-        won't get credit for things you haven't done}.
-\end{itemize}
 
 
 %==================================================================================================================================
