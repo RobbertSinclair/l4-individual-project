@@ -371,6 +371,16 @@ about when trying to decrease their signal quality. The \emph{FusedLocationProvi
 would have shadow areas where there wasn't good WiFi signal despite there being good satellite signal.
 This led to the discrepencies in accuracy within Kelvingrove park for example.
 
+After making the decision to use the LocationManager API, I decided to go to areas outside of the University
+campus to get a better idea of what kind of places would be suitable to make a good game. These places were
+Buchanan Street in Glasgow city center and Duchess Wood in Helensburgh. I chose Duchess Wood because I wanted
+to see how accurate GPS was in forested areas. From these further tests, I found that forested areas made no
+difference in GPS accuracy with the error rate being constant at 3.75 metres. However in Buchanan street, I
+found a lot of GPS shadows areas. Especially within buildings such as the Buchanan Gallaries shopping area
+and the Argyll Arcade. My visit to the city center made me think that it would be a good idea to allow
+participants to enter buildings and to stage the game in areas where there were buildings with multiple
+exits. This could make the games more fun as it can reward thinking out of the box when finding GPS locations.   
+
 While my primary objective was to find the best Geolocation API for creating a game, I also wanted to 
 know where I could set a game that would have a balance between shadowy areas and more open areas. From
 the data that I have I knew that the game would have to be played in a built up area. While I expected
@@ -879,8 +889,7 @@ The game was tested during the week commencing 23rd January 2023 involving volun
 games that were played around the main building, the cloisters and the surrounding area. Each game lasted 15 minutes where I collected the locations
 of the players, their GPS Error and the locations where the players were caught. I also noted down the brand and the model of the phone to analyse
 how the game worked with different phones. After playing the game, I would ask my participants to fill in a survey with questions including how
-fun the game was to play, whether the connection was stable and what improvements could be made in future iterations. I plan to do two phases
-with the second phase set to be done in the week commencing the 6th February 2023.
+fun the game was to play, whether the connection was stable and what improvements could be made in future iterations.
 
 \section{Results}
 \label{phase1}
@@ -933,9 +942,6 @@ thing, the catching radius needs to be increased. The 5 meter radius was too sma
 I will look into expanding the radius to 30 meters to account for any multipath problems. The second improvement that I will
 make is that I will remove the requirement for the runner to be in a high accuracy area, this is because once when I was a chaser,
 I found the runner in a shadow area and I couldn't catch them until we moved into a more open area.
-
-
-
 
 \subsection{Survey Results}
 \label{phase1survey}
