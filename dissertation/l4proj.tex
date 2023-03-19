@@ -1272,13 +1272,28 @@ found that the users thought that the new iteration was an overall improvement t
 \section{Future Work}
 Due to the limited time that I had to complete the project, there were still some things that I would want to do
 to ensure that the game was a better experience. Over the next few paragraphs I will go over some of the ideas
-that I have to improve the game in the future.
+that I have to improve the game if I were to carry out a phase 3 for the project.
 
 Throughout my development, I mainly considered the core mechanics of the game rather than how the players would win.
 Initially I had put in my design that the winning condition was that the person who was a runner for the longest time
 would win. I however, hadn't managed to get my implementation to work fully. While I have the logging capabilities to
 decide who won, I have no way of telling the winner if they won or not. If I were to have further time, I would have a
 further look into what conditions a player would need to win and also how they would get feedback for how they would win.
+
+From my findings in section \ref{phase2catcheval}, I noticed that the noise ratios differed based on different phones.
+This felt a lot like my findings with shadow thresholds in phase 1. However I feel that there are a lot of opportunities
+to be seamful with this discovery. For example, I could implement a character based system with specific abilities like the
+popular video game \emph{Overwatch} \citep{overwatch}. A feature that could take this idea is that each phone will have
+a class based on how big their catch radius can get. This could mean that a player with a larger noise ratio could be more
+threatening to a runner than one with a small catch radius. I feel that this could lead to more interesting strategies if
+this were to be implemented correctly.
+
+Another lesson that I learned from phase 2 is that while the new shadow threshold did allow weaker phones to
+be seen from the chaser, it came at the expense of some of the more stronger phones. While I could integrate
+that into a character ability game, I might look into other ways to improve the shadow threshold system. One
+idea that I have is to use the median and standard deviation to decide the threshold rather than the minimum
+accuracy times 2.
+
 
 \section{Reflection}
 
