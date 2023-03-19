@@ -157,6 +157,7 @@ If you are unsure about how to cite online sources, please see this guide: \url{
 
 %==================================================================================================================================
 \chapter{Background}
+\label{background}
 
 In this chapter I will go over some of the foundational concepts required to understnad the background of the project
 
@@ -1237,6 +1238,22 @@ had altered their strategy because of this feature.
 %==================================================================================================================================
 \chapter{Conclusion}
 \section{Summary}
+Throughout the course of this project and this dissertation, we have explored the concept of seamful design.
+This is where we take the limitations of a system and exploit them to make them a core feature. In this
+case we have gone over the limitations of both GPS and other GNSS systems. In chapter \ref{background},
+we gained an understanding of some of the factors that affect the accuracy and error rate. Once we knew the theory
+behind how GPS works, we did some experiments where we tested these concepts by going to multiple environments to
+see the differences in accuracy. We used this experiment to determine whether to use pure satellite systems
+or the usual GPS and WiFi locations found on most smartphones. Through this experiment, I found that using
+pure satellite navigation would make for a more interesting game as it was more consistent as to where shadows
+could be found. I also concluded that the game would have to be played in a more urban area where signals from
+satellites were more likely to be obstructed.
+
+Once I had done my analysis on where GPS signals can decrease, I started an iterative design and development
+aproach to creating a game. During phase 1 I started by brainstorming ideas for a game and then progressively
+buidling on ideas that were feasible and would work within the time frame required. I decided on creating a
+tag game where a "chaser" would have a real time location of a "runner" unless they were in areas with a high
+error rate. 
 
 \section{Future Work}
 Due to the limited time that I had to complete the project, there were still some things that I would want to do
@@ -1248,6 +1265,8 @@ Initially I had put in my design that the winning condition was that the person 
 would win. I however, hadn't managed to get my implementation to work fully. While I have the logging capabilities to
 decide who won, I have no way of telling the winner if they won or not. If I were to have further time, I would have a
 further look into what conditions a player would need to win and also how they would get feedback for how they would win.
+
+\section{Reflection}
 
 \section{Guidance}
 \begin{itemize}
