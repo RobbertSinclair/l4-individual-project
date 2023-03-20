@@ -22,7 +22,7 @@
 %% ABSTRACT
 \begin{abstract}
     The Global Positioning System, also known as GPS has revolutionised the way
-    that we travel and position ourselves. While ideally we would want our GPS
+    that we travel and position ourselves. While ideally, we would want our GPS
     coordinates to be accurate, being around urban areas can obstruct the signals
     that allow for precise positioning. This project utilised the ideas of Seamful
     design to create a game which takes advantage of inaccuracies in GPS. The Gameplay
@@ -87,12 +87,12 @@
 \section{Motivation}
 GPS and other positioning systems have become an integral part of our lives. It
 allows us to position ourselves anywhere in the world almost instantly. Most of
-the time in open areas, we can expect a user error of around 4 metres. However GPS
+the time in open areas, we can expect a user error of around 4 metres. However, GPS
 accuracy can decrease in urban areas. This is because obstacles such as buildings
 can disrupt a GPS signal, leading to a device's position being recorded in the wrong place.
 
 While these limitations of GPS can be seen as a source of frustration, it also leads to
-opportunities to exploit this limitations to gain the upper hand in a GPS based game. One
+opportunities to exploit these limitations to gain the upper hand in a GPS-based game. One
 of the first instances of this was recorded by \cite{canyouseeme} when people started to 
 take advantage of drops in accuracy to evade capture during their Mixed Reality Game,
 \emph{Can you see me now?}. Building on top of that idea, several other games were 
@@ -103,26 +103,26 @@ created by \cite{Barkhuus2005} took inspiration from \emph{Can you see me now?} 
 to create a game that exposed differences in WiFi to alter the difficulty of collecting coins.
 
 The ideas of seamful design allow us to play with limitations that we would usually want to fix
-and hide. It further gives us the opportunity to push positioning technologies to the limits. It
+and hide. It further allows us to push positioning technologies to the limits. It
 can lead players to think outside the box, leading to more interesting strategies that can make a
 game more fun to play.
 
 \section{Aims}
 One of the main aims of the project is to help teach players about how GPS can decrease in quality. A major
 part of the game design will encourage users to find shadows where their GPS signal will be either weak or
-non-existant. My hope is that over the course of playing this game, they will learn what places they should
+non-existant. I hope that over the course of playing this game, they will learn what places they should
 go if they want to have more precise positioning but also what areas they shouldn't get to.
 
 Another aim of the project is to see how GPS accuracy changes with different phones. I developed the game
-for android phones which has a significant range of phones with different specifications. I wanted to 
-see if the differences in specifciatoins would lead to different results of accuracy. To test this I 
+for android phones which have a significant range of phones with different specifications. I wanted to 
+see if the differences in specifications would lead to different results of accuracy. To test this I 
 asked for the user's phones before starting my user tests and logged both their accuracy and their noise
-ratio. This led to the aim of optimizing the game to adjust for different ranges in accuracies.
+ratio. This led to the aim of optimizing the game to adjust for different ranges in accuracy.
 
 As well as the other two aims. The most important aim was to simply see how GPS and the range of
 error rates could be used to design a fun multiplayer game in a range of locations. I wanted to use
 my newly acquired knowledge of how GPS worked to understand what real-life locations I could use
-to make a game that people would want to play. I wanted to ensure that there was enough features
+to make a game that people would want to play. I wanted to ensure that there were enough features
 to make the game simple to play but hard to master.
 
 \section{Dissertation Outline}
@@ -136,24 +136,24 @@ main idea behind the game.
     \item In chapter \ref{analysis}, I go over the initial experiments that I made to understand where GPS shadows could appear
     \item Chapters \ref{phase1design}, \ref{phase1implementation} and \ref{Evaluation} go over the design, implementation and evaluation of phase 1 respectivley. These chapters include my overall process for gathering game ideas, how I picked my technologies and the results of my initial user evaluation.
     \item Chapters \ref{phase2design} and \ref{phase2evaluation} cover the improvements and the lessons learned from phase 1. They also cover the design and implementation of the features in phase 2. In chapter \ref{phase2evaluation} I go over the results and process in the second round of evaluations.
-    \item Chapter \ref{conclusion} summarises the project and goes over the future work and reflection.
+    \item Chapter \ref{conclusion} summarises the project and goes over future work and reflection.
 \end{itemize}
 
 %==================================================================================================================================
 \chapter{Background}
 \label{background}
 
-In this chapter I will go over some of the foundational concepts required to understnad the background of the project
+In this chapter, I will go over some of the foundational concepts required to understand the background of the project
 
 \section{Introduction to the Global Positioning System (GPS)}
 
 The Global Positioning System, also known as GPS, is one of the world's most famous Global Navigation Satellite Systems (GNSS). It allows people to determine their
 location from anywhere around the world at any time. GPS has three main phases, the space phase, the control phase and the user phase.
 In the space phase, the earth is split up into 24 "slots" which should be filled up by an operational satellite \citep{spsStandard}. Therefore
-the GPS constellation is made up of at least 24 opterational satellites. In an ideal situation a user should have access to at least 4 of the satellites
+the GPS constellation is made up of at least 24 operational satellites. In an ideal situation, a user should have access to at least 4 of the satellites
 at any one time \citep{Rabbany2006}. 
 
-Each GPS satellite consistently sends down radio signals down to the Earth's surface. As of 2020 there are three main frequencies,
+Each GPS satellite consistently sends radio signals down to the Earth's surface. As of 2020, there are three main frequencies,
 these are L1 which emits at 1575.42 MHz, L2 which emits radio waves at 1227.6 MHz and L5 with 1176.45 MHz \citep{spsStandard}. This project
 will most likely be using L2 and L1 as L5 is used mainly for aviation safety \citep{Xu2016} A GPS receiver will pick up this data and can use the clock signals to calculate the distance from each satellite. Once a 
 satellite distance is calculated we can create a radius of equidistant points. We can then add the signals from several other
@@ -164,24 +164,24 @@ satellites to find the intersection points. We usually need 3 to 4 satellites to
 %TODO - Add a source and paragraph about how GPS is calculated
 
 \subsection{GPS in smartphones}
-These days most smartphones are fitted with a GPS sensor to allow for precise navigation. However GPS is not the only GNSS
-system that smartphones use. Multiple countries have launched their own satellite systems. For example Russia has the GLONASS
-system, the European Union has the GALILEO system, China has the Beidou system. Most modern smartphones make use
-of some or all of these systems. For example my personal phone and the phone that I am testing this project on, the Samsung 
-Galaxy S21 FE makes use of all of the above mentioned GNSS systems \citep{samsungs21specs}. This means that in reality
+These days most smartphones are fitted with a GPS sensor to allow for precise navigation. However, GPS is not the only GNSS
+system that smartphones use. Multiple countries have launched their own satellite systems. For example, Russia has the GLONASS
+system, the European Union has the GALILEO system and China has the Beidou system. Most modern smartphones make use
+of some or all of these systems. For example my phone and the phone that I am testing this project on, the Samsung 
+Galaxy S21 FE makes use of all of the above-mentioned GNSS systems \citep{samsungs21specs}. This means that in reality
 a phone will be in sight of roughly 15 to 16 satellites rather than the usual 4. This means that phones can
 have a lot more accuracy than in the past as the increase in satellites means that there is less chance of there being big
 errors.
 
 For most modern smartphones, GPS is not the only way that they can get their location data.
-For instance both Apple and Google state in the privacy terms that they source their location from sources such as WiFi and mobile networks on
+For instance both Apple and Google state in their privacy terms that they source their location from sources such as WiFi and mobile networks on
 top of GNSS systems. \citep{appleLocation, googleLocation}. This is mainly to help improve accuracy when in hard to reach areas
-such as being indoors which can be useful for tracking location history. Another main reason is that sourcing your location entirely from GNSS systems can drain battery life due
+such as indoor areas which can be useful for tracking location history. Another main reason is that sourcing your location entirely from GNSS systems can drain battery life due
 to the calculations needed to find the device's position \citep{brouwers2011detecting}. 
 
 \section{What causes Inaccuracies in GPS Systems}
-In this project we will be looking at making a game based on GPS shadows which are areas where the GPS signal is not as accurate. In this section I will look
-at the various factors that could effect our accuracy.
+In this project, we will be looking at making a game based on GPS shadows which are areas where the GPS signal is not as accurate. In this section I will look
+at the various factors that could affect our accuracy.
 
 \subsection{GPS Clock Errors}
 % ROUGH DRAFT - Rewrite this with proper sources when you've found them
@@ -190,46 +190,46 @@ The first form of GPS error is a clock error. Each satellite sends signals down 
 slight delay. This delay will be small (a few nanoseconds long) but will accumulate over time. One of the main reasons why this can lead to
 a decrease in accuracy is that the receiver may get a time on the clock which is off the actual time on the satellites clock. This can lead to
 a slight change of position. This form of error is common with most GPS signals. A typical GPS Receiver can also be a cause for this problem as it 
-has a crystal clock which is not as precise than the cesium atomic clocks on the satellites \citep{Rabbany2006, Kleusberg1990}. While this
-form of error is a common cause of problem with GPS accuracy, there aren't a lot of game opportunities due to the fact that the player
-can't really control when a clock error is to happen.
+has a crystal clock which is not as precise as the caesium atomic clocks on the satellites \citep{Rabbany2006, Kleusberg1990}. While this
+form of error is a common cause of problems with GPS accuracy, there aren't a lot of game opportunities due to the fact that the player
+can't control when a clock error is to happen.
 
 \subsection{GPS Signal Reception}
 GPS signals are in the form of radio waves which can be blocked by obstacles on the way to a GPS sensor. When signals hit a specific obstable
-the signals decrese in quality during a process known as attenuation \citep{Indoor2010}. Some examples of such obstacles include
-building walls, soil and water. \citep{Kleusberg1990}. Eventually the GPS receiver will receive more noise
+the signals decrease in quality during a process known as attenuation \citep{Indoor2010}. Some examples of such obstacles include
+building walls, soil and water. \citep{Kleusberg1990}. Eventually, the GPS receiver will receive more noise
 than the original signal which leads to an inaccurate signal. A good signal is received when the receiver has a good signal from at least 4
-satellites. Therefore in urban areas with high rise buildings, one or more satellites could be obstructed. If a game was to be made
+satellites. Therefore in urban areas with high-rise buildings, one or more satellites could be obstructed. If a game was to be made
 using this concept then the game would be best played in dense urban areas.
 
 \subsection{Multipath Error}
-Another factor which may affect the accuracy of a GPS error signal is a type of error called Multipath. This kind of error is particularily
-common in urban areas. When a satellite signal goes towards a building, the signal will bounce of it and go into a different route to the
+Another factor which may affect the accuracy of a GPS error signal is a type of error called Multipath. This kind of error is particularly
+common in urban areas. When a satellite signal goes towards a building, the signal will bounce off it and go into a different route to the
 sensor rather than going in a direct route. As a result, the GPS coordinates may be considered to be further away than initially thought.
 This is because the signal will take longer to find the sensor which means that the sensor will think that the true location is further than
 initially thought.
 
-Some ways to mitigate a multipath error is to go into a more open area or to have a different and improved design
+Some ways to mitigate a multipath error are to go into a more open area or to have a different and improved design
 of antenna \citep{Kos2010}. This means that if I were to make a multiplayer game, I may find that some phones are
 more prone to having multipath problems than others. Another way to mitigate a multipath error is to use the 
-satellite noise ratio to see how weak the signal is. When a GNSS sensor receives a signal, it is able to calculate 
-the noise ratio to see how strong the signal is. You can then go over each satellite in turn in order to see how
+satellite noise ratio to see how weak the signal is. When a GNSS sensor receives a signal, it can calculate 
+the noise ratio to see how strong the signal is. You can then go over each satellite in turn, to see how
 good or bad the signal is. When the ratio is closer to 0 then you can say that it is likely that a satellite is blocked
-while a ratio 1 would suggest that the satellite has a direct line of sight of the sensor \citep{uberGPS}. If I were
+while a ratio of 1 would suggest that the satellite has a direct line of sight of the sensor \citep{uberGPS}. If I were
 to make a game based on multipath I could give the user a label showing them the noise ratio and then see how the ratio
 increases or decreases over time.
 
 \section{Seamless and Seamful Design}
-With most systems there will be potential seams which can cause unintended results to the user. One way to solve this would be to think seamlessly which is where you
+With most systems, there will be potential seams which can cause unintended results to the user. One way to solve this would be to think seamlessly which is where you
 try and fix every flaw so that your system is more robust. In the context of GPS, it is usually important to think seamlessly
-so that people are able to easily to get to your destination. For example \cite{uberGPS} designed a system to improve their
+so that people can easily get to your destination. For example, \cite{uberGPS} designed a system to improve their
 GPS coordinates using 3D mapping and SNR noise ratio to ensure that Uber drivers were more likely to reach their customers. In this
-case it was important to work seamlessly as Uber's business model relies on people getting from one place to the other, therefore it
+case, it was important to work seamlessly as Uber's business model relies on people getting from one place to the other, therefore it
 is crucial for drivers to know that they are in the right place. In game design, seamless design is useful when there are significant balance issues. For example making sure to fix
-glitches in order to prevent cheating. 
+glitches to prevent cheating. 
 
 While trying to close every seam may be appropriate in some areas, it can sometimes be futile to try and close every seam.
-Seamful design is the idea of embracing the seams in the system. In the context of GPS this usually means to try and embrace
+Seamful design is the idea of embracing the seams in the system. In the context of GPS, this usually means to try and embrace
 the idea that GPS accuracy can vary based on the type of phone, the area you are in or the GPS clock error. For example 
 \emph{Treasure}, a game made by the University of Glasgow, had a coin collection mechanic where the difficulty of collecting
 a coin varied on how strong their WiFi signal was. \citep{Barkhuus2005}
@@ -237,14 +237,14 @@ a coin varied on how strong their WiFi signal was. \citep{Barkhuus2005}
 \section{Related Products}
 \label{relatedproducts}
 
-Over the years there has been several games that utilise GPS coordinates as a fundamental part of the game. In this section I go over various
+Over the years there have been several games that utilise GPS coordinates as a fundamental part of the game. In this section, I go over various
 games that used GPS as a core mechanic of the game.
 
 One of the first location games was \emph{Can you see me now? (CYSMN)} which was a mixed reality made by blast theory. \citep{canyouseeme} The
-game was played over a two day. There were three runners that would run around the streets of Sheffield
-and Rotterdam. The goal of the runners were to catch players who were moving around in a virtual map. During the analysis of tactics displayed in the game,
+game was played over two days. Three runners would run around the streets of Sheffield
+and Rotterdam. The goal of the runners was to catch players who were moving around in a virtual map. During the analysis of tactics displayed in the game,
 \cite{canyouseeme} mentioned that the runners would have large ranges in GPS error which meant that some of the online players would get
-caught without being able to see anything. Eventually the runners were able to take advantage of low GPS areas and were able to hide in shadow
+caught without being able to see anything. Eventually, the runners were able to take advantage of low GPS areas and were able to hide in shadow
 areas.
 
 \emph{Treasure} was a location based game created by \cite{Barkhuus2005} from the University of Glasgow. This was another GPS game which involved
@@ -252,19 +252,19 @@ collecting coins in a specific in a more open game area to ensure high GPS accur
 game was to collect as many coins as possible, while also being able to "pickpocket" other players to steal their
 coins. The pickpocketing worked by having a button that they pressed as they got close to another person. \cite{Barkhuus2005}
 found that one of the big tactics that people would have is that they would take advantage of the lag in GPS coordinates
-in order to pickpocket people from further away or to be able to get away from their victim quickly so they couldn't be
+to pickpocket people from further away or to be able to get away from their victim quickly so they couldn't be
 pickpocketed themselves.
 
 Both \emph{Can you see me now?} and \emph{Treasure} found seams in their game design. In the case of CYSMN it was the accuracy
 of the GPS coordinates, and in \emph{Treasure} it was the lag in GPS coordinates. While initially in both games they were seen
-to be a flaw but as they got used to the mechanics, they were able to take advantage of them. For example there were several participants in 
-CYSMN that stated that it was a "shame" that they were caught by a runner without seeing them. However when the runners embraced the inaccuracies,
-it had increased the stakes of the game. \citep{canyouseeme}. We also saw that in \emph{Treasure} where the players took 
-advantage in the lag between location updates to get away from their victims. When you expose seams to people, there can
+to be a flaw but as they got used to the mechanics, they were able to take advantage of them. For example, several participants in 
+CYSMN stated that it was a "shame" that they were caught by a runner without seeing them. However, when the runners embraced the inaccuracies,
+it increased the stakes of the game. \citep{canyouseeme}. We also saw that in \emph{Treasure} where the players took 
+advantage of the lag between location updates to get away from their victims. When you expose seams to people, there can
 be interesting ways that people exploit those seams to gain an advantage.
 
 Over the years, other creators have used GPS technology to create interesting game ideas. The third season of the popular
-web game show \emph{Jet Lag: The Game} is a prime example of this. The game portrayed in this series was a 72 hour game of
+web game show \emph{Jet Lag: The Game} is a prime example of this. The game portrayed in this series was a 72-hour game of
 tag played over the continent of Europe. The players had to get as far as they can towards a set destination. The person
 who came closest wins. One player would try to travel to their destination while being chased by the others using their
 GPS location. \citep{Chase2022}
@@ -273,7 +273,7 @@ GPS location. \citep{Chase2022}
 \chapter{Analysis}
 \label{analysis}
 
-In this section I go over the main process that I used to come up with a design for the game
+In this section, I go over the main process that I used to come up with a design for the game
 
 \section{Initial GPS Experiments}
 \begin{figure}
@@ -285,12 +285,12 @@ In this section I go over the main process that I used to come up with a design 
 I started my analysis by learning the basics of learning app development by creating an app that would keep track
 of GPS accuracy. The app started off as just a screen with my latitude and longitude coordinates and my error rates.
 Once I had this app up and running, I walked around various locations around the University of Glasgow campus and
-also briefley within the city centre. Some particular areas that I tried included more open areas like the Botanical
+also briefly within the city centre. Some particular areas that I tried included more open areas like the Botanical
 Gardens and Kelvingrove park and the area surrounding the main building including the cloisters. I also wanted to test
 out the effect of standing next to tall buildings. To do this I tried standing really close to the Boyd Orr building
 the tower of the main building to see if there were any significant decreases in accuracy.
 
-During the experiment, I made a basic web server where I could send my coordinates and accuracy data to. From
+During the experiment, I made a basic web server which could send my coordinates and accuracy data to. From
 there I put the locations on a map, a screenshot of which is shown in figure \ref{fig:analysismap}. I mapped
 out the locations by sending data to the server whenever a new location was recorded. I then increased the spots
 on the maps based on their error radius. The bigger the error radius, the bigger the circle on the map. This was
@@ -307,9 +307,9 @@ accuracy.
 The first API I tried was the FusedLocationProvider API as this was the first one that I found. The FusedLocationProvider API combines both GPS and WiFi geolocation
 techniques to try and create an optimal location \citep{fused}. This API allowed me to create a basic location app quickly so that I could start finding GPS locations
 within my local area. As figure \ref{fig:fusedhist} shows, the location data that I gathered was skewed towards values with an accuracy of less than 50 metres. While a lot of
-points were under the 20 metres area. However as you can see, there was a decent amount of values above 50 meters meaning that the API picked up a lot of shadows.
+points were under the 20 metres area. However, as you can see, there was a decent amount of values above 50 meters meaning that the API picked up a lot of shadows.
 This API would have been a good one to use for my game as I would have had a lot of shadow areas for a player to hide. However the main flaw was that
-it was giving me a combination of both Wifi and GPS coordinates. Thies meant that I was more likely to find shadows in areas with low WiFi. This would
+it was giving me a combination of both Wifi and GPS coordinates. This meant that I was more likely to find shadows in areas with low WiFi. This would
 explain why I had a lot of shadow areas when I walked around Kelvingrove Park, an area which I thought would have a very accurate signal due to the lack of buildings.
 
 \begin{figure}
@@ -341,37 +341,37 @@ the "LocationListener" interface, I can easily control what my app does when it 
 distance that a user will need to move before the location updates. This will be especially useful if I were to have features which were
 more computationally demanding.
 
-While there are some advantages to using the LocationManager API, it does come with some disadvantages as well. For one thing, there are significantly less shadow areas when using
+While there are some advantages to using the LocationManager API, it does come with some disadvantages as well. For one thing, there are significantly fewer shadow areas when using
 pure GNSS coordinates. The only real areas where there are major shadows are within buildings, under bridges or in enclosed areas. This is because on my phone, it can track up to 
 15 satellites when getting my location. In comparison to figure \ref{fig:fusedhist}, figure \ref{fig:mongohist} shows that there is one big peak in the overall accuracy of all the spots.
-When walking around with my app I noticed that for most of the time, my accuracy was 3.795 meters of accuracy. However while at first glance this may be a disadvantage the main advantage for creating a
+When walking around with my app I noticed that most of the time, my accuracy was 3.795 meters of accuracy. However while at first glance this may be a disadvantage the main advantage for creating a
 game is that compared to the Fused Location API. It is better overall for an overall game design because the areas where shadows can be found will be more consistent than the ones
 found in the Fused Location API. Therefore the game can be used to teach people where GPS can decrease in quality.
 
 \section{Conclusions from the location experiment}
 After reviewing the data from both the \emph{FusedLocationProvider} API and the \emph{LocationManger} API,
-I decided that I would use the LocationManager API for Geolocation. While it had less shadow areas than
-the Fused API, the purely satellite based positioning meant that the shadow areas were more consistent overall.
-With the LocationManager API the shadow areas were in more obvious areas that an ordinary person would think
+I decided that I would use the LocationManager API for Geolocation. While it had fewer shadow areas than
+the Fused API, the purely satellite-based positioning meant that the shadow areas were more consistent overall.
+With the LocationManager API, the shadow areas were in more obvious areas that an ordinary person would think
 about when trying to decrease their signal quality. The \emph{FusedLocationProvider} on the other hand
-would have shadow areas where there wasn't good WiFi signal despite there being good satellite signal.
-This led to the discrepencies in accuracy within Kelvingrove park for example.
+would have shadow areas where there wasn't a good WiFi signal despite there being a good GPS signal.
+This led to discrepancies in accuracy within Kelvingrove park for example.
 
-After making the decision to use the LocationManager API, I decided to go to areas outside of the University
+After deciding to use the LocationManager API, I decided to go to areas outside of the University
 campus to get a better idea of what kind of places would be suitable to make a good game. These places were
-Buchanan Street in Glasgow city center and Duchess Wood in Helensburgh. I chose Duchess Wood because I wanted
+Buchanan Street in Glasgow city centre and Duchess Wood in Helensburgh. I chose Duchess Wood because I wanted
 to see how accurate GPS was in forested areas. From these further tests, I found that forested areas made no
-difference in GPS accuracy with the error rate being constant at 3.75 metres. However in Buchanan street, I
-found a lot of GPS shadows areas. Especially within buildings such as the Buchanan Gallaries shopping area
-and the Argyll Arcade. My visit to the city center made me think that it would be a good idea to allow
+difference in GPS accuracy with the error rate being constant at 3.75 metres. However, in Buchanan street, I
+found a lot of GPS shadow areas. Especially within buildings such as the Buchanan Galleries shopping area
+and the Argyll Arcade. My visit to the city centre made me think that it would be a good idea to allow
 participants to enter buildings and to stage the game in areas where there were buildings with multiple
 exits. This could make the games more fun as it can reward thinking out of the box when finding GPS locations.   
 
 While my primary objective was to find the best Geolocation API for creating a game, I also wanted to 
 know where I could set a game that would have a balance between shadowy areas and more open areas. From
-the data that I have I knew that the game would have to be played in a built up area. While I expected
+the data that I have, I knew that the game would have to be played in a built-up area. While I expected
 fields in a park to have high GPS accuracy, I was surprised that going into a forested area didn't affect
-the accuracy much either. I found that the best results for decreasing your GPS accuracy was to stand
+the accuracy much either. I found that the best result for decreasing your GPS accuracy was to stand
 under bridges or to go inside buildings. Using this information, I decided to pick the main building
 of Glasgow University. The main reason for this was that I found lots of shadows in that area. I figured
 that players had a lot of places to hide like the cloisters or the University chapel. I also felt that
@@ -383,17 +383,17 @@ the area was small enough to keep the game exciting for shorter games.
 
 \section{Process}
 \label{phase1designprocess}
-Once I got a rough understanding of how GPS works, I then decided to have a think about what kind of games I could make
+Once I got a rough understanding of how GPS works, I then decided to think about what kind of games I could make
 with the information I had considered. I started by having a general brainstorm of what kinds of games I could adapt.
 These ideas ranged from simple games like Tag games such as \emph{Manhunt} or \emph{Stuck in the Mud} to several wide
 games that I played in primary school. One notable idea was a game where people with a GPS sensor have to travel to a
 destination without being visible on the map. If they are visible, a watcher would be able to tap on their marker. If
 that happens the GPS players would have to go back to the start. I found that this idea didn't work after making the
-move to the LocationManager API (See section \ref{locationManager} for more details) since the amount of high accuracy
+move to the LocationManager API (See section \ref{locationManager} for more details) since the number of high-accuracy
 areas greatly outnumbered the shadow areas.
 
-Once I had completed my brainstorm, I took the ideas that would be feasible to do and started to expand on the ideas a
-bit more. To do this I took a piece of A4 paper, and filled it with ideas of particular Game Mechanics. This allowed me
+Once I had completed my brainstorming, I took the ideas that would be feasible to do and started to expand on the ideas a
+bit more. To do this I took a piece of A4 paper and filled it with ideas of particular Game Mechanics. This allowed me
 to form ideas of what kinds of games would be fun to play. Figure \ref{fig:idea1} shows an example of one of these sheets.
 As you can see they are rather rough but this exercise let me formulate the mechanics, the aims and the winning conditions.
 Also by drawing diagrams, I got better ideas of what the user interface would look like.
@@ -412,10 +412,10 @@ use and to start experimenting with them.
 \section{Overview}
 \label{game-overview}
 After going through all of the steps described in section \ref{phase1designprocess}, the game idea that I settled On
-was a simple tag game where a player can take advantage of GPS shadows in order to hide from
-a "chaser" player. The chaser will be able to see the other users locations in real time if the runner is in an area with
-high GPS accuracy. Once a chaser tags a runner, the caught runner becomes the chaser and a 30 second Jail Time is
-triggered. During this time the catcher cannot see the runner's latest location or is able to catch a runner. I used
+was a simple tag game where a player can take advantage of GPS shadows to hide from
+a "chaser" player. The chaser will be able to see the other users' locations in real time if the runner is in an area with
+high GPS accuracy. Once a chaser tags a runner, the caught runner becomes the chaser and a 30-second Jail Time is
+triggered. During this time the catcher cannot see the runner's latest location or can catch a runner. I used
 the game portrayed in \emph{Jet Lag: The Game} and the other games described in section \ref{relatedgames} as inspiration \citep{Chase2022}.
 
 The game will have a time limit with the first iteration being 15 minutes. This is so that the game can be quick and
@@ -427,9 +427,9 @@ be calculated as the person who was the runner for the most amount of time in to
 \label{phase1architecture}
 The game that I will create will utilise a Client-Server Architecture. The client will be a smartphone with a GPS or
 GNSS sensor. Several clients will be connected using a WebSocket. The smartphone will get the GPS data including the
-latitude, longitude and accuracy and then will process it and send to the server. The location data will also be sent 
-to the UI where the user's overall position will be updated. Through the websocket, the phone will send the GPS data
-to the server which will save the users location onto a geospatial database. Depending on certain conditions, the data
+latitude, longitude and accuracy and then will process it and send it to the server. The location data will also be sent 
+to the UI where the user's overall position will be updated. Through the WebSocket, the phone will send the GPS data
+to the server which will save the user's location onto a geospatial database. Depending on certain conditions, the data
 will be sent to the rest of the clients.
 
 Since the clients of the game will be smartphones. I decided that the game will take a thin-client design with the
@@ -437,7 +437,7 @@ server handling most of the game logic. This is due to the range of computationa
 I feel that a server will be able to handle lots more computations over time compared to the average smartphone.
 It also means that it is easier to keep track of who is the chaser, who has been caught and where they are on the map.
 There will still be some features that will be implemented on the client, this includes a timer and the calculation of
-jail time. However to ensure that no player has an unfair disadvantage, I will keep track of the game time on the
+jail time. However, to ensure that no player has an unfair disadvantage, I will keep track of the game time on the
 server as well. This is so that we can keep the game in sync with other players.
 
 \subsection{Client (Smartphone)}
@@ -453,31 +453,31 @@ class where they are sent to the server.
 \label{communication}
 Since a lot of the game will have a lot of multiplayer features, it was important that the network side of the game
 was robust to ensure that no player would have an unfair advantage when playing the game. Some examples of messages that the server
-could give the user includes:
+could give the user include:
 
 \subsubsection{CONNECT}
 This message connects the user to the server. The server will then send over a user id.
 
 \subsubsection{NEW\_TYPE}
-This is triggered if either a new user connects to the server or if a user is caught. The server will keep track of what
-type of player the person .
+This is triggered if either a new user connects to the server or if a user is caught. The server will keep track of whether a player is
+a runner or a chaser.
 
 \subsubsection{PLAYER\_CAUGHT}
 \section{Mechanics}
-In this section I go over the various mechanics that I have designed for the game
+In this section, I go over the various mechanics that I have designed for the game
 
 \subsection{Player Types}
 When the player joins the game, they will be assigned to one of two player types. These are the "Chaser" or the "Runner".
 The role of the Chaser is to catch a runner as described in section \ref{catching}. When the catcher does this they give the role of chaser to the runner. The Chaser
-will be able to see the real time locations of any runner in the game.
+will be able to see the real-time locations of any runner in the game.
 
-The goal of a Runner is to avoid being caught by the Chaser as mentioned before. The Runner will not have a real time
+The goal of a Runner is to avoid being caught by the Chaser as mentioned before. The Runner will not have a real-time
 view of the Chaser but will have the ability to "hide" from them by going into areas with a low GPS density. If their
 GPS accuracy is low enough, they will not transmit their location to the chaser. Making them invisible to the chaser.
 The Runners will also not transmit any location data during the jail period as mentioned in section \ref{game-overview}.
 
-In previous iterations of my design the Runner would have been able to have seen all of the GPS Shadows within a 50
-metre radius. The Shadows would be small red dots on the users maps. However after implementing this feature the screen
+In previous iterations of my design, the Runner would have been able to have seen all of the GPS Shadows within a 50
+metre radius. The Shadows would be small red dots on the user's maps. However, after implementing this feature the screen
 would freeze up leading to a poor user experience and it gave the Chaser an unfair advantage as they didn't get any
 performance issues with just the Runner locations on the screen.
 
@@ -487,27 +487,27 @@ As mentioned before, both the runner and the chaser transmit data to the server.
 the latest latitude and longitude coordinates will be sent to the server which will update the player's location
 in the database. Once this data is collected the chaser is then able to determine if they have caught a runner.
 
-The chaser will have a 5 meter "no-go zone" which will be the way to determine if a player is caught or not. If
-the GPS accuracy is high and a player has entered the Chaser's 5 meter radius, then the runner is considered to be 
-"caught". In order to encourage players to look for shadow areas, for this phase a catcher will not be able to catch
-a runner if they are beyond the 6 meter catching radius. Overall I felt that using a 5 metres was a good radius to 
-start with. This is because 5 meters should be enough to account for multipath errors and that it would be close enough
+The chaser will have a 5-meter "no-go zone" which will be the way to determine if a player is caught or not. If
+the GPS accuracy is high and a player has entered the Chaser's 5-meter radius, then the runner is considered to be 
+"caught". To encourage players to look for shadow areas, for this phase a catcher will not be able to catch
+a runner if they are beyond the 6-meter catching radius. Overall I felt that 5 metres were a good radius to 
+start with. This is because 5 meters should be enough to account for multipath errors and it would be close enough
 for a runner to recognise that they are caught.
 
 \subsection{Jail Time}
 When a runner is caught, as the new chaser they will be put in Jail Time for 30 seconds. The main reason for this is
 to give the new runners a head start to get out of the area. During this time, the chaser will still be able to move
-around, but they won't have a view of the runners location nor can they catch them. The runner will also get a message
-that the chaser is in jail time. I decided on 30 seconds because in most urban areas, it is enough time to get out of
+around, but they won't have a view of the runner's location nor can they catch them. The runner will also get a message
+that the chaser is in jail time. I decided on 30 seconds because, in most urban areas, it is enough time to get out of
 eyesight from the chaser. I also knew that I needed to strike a balance between giving the runners enough time to get
 away but at the same time not being so much time that there is not enough time for the chaser to catch the runner. 
 
 \subsection{Time Limit and Winning Condition}
-From the start I felt that I needed to consider how long a game should last. I wanted the game to be fast and fun to
+From the start, I felt that I needed to consider how long a game should last. I wanted the game to be fast and fun to
 play in a short amount of time since I was aiming at university students. Therefore for this phase of design, I decided
-on 15 minutes. The main reasons why I picked this time is because it would be too long to go a really long distance.
-This means that both the chaser and the runner will be within a very small area. My hope is that this will lead to
-a greater frequency of catches during the course of the game.
+on 15 minutes. The main reason why I picked this time is that it would be too long to go a long distance.
+This means that both the chaser and the runner will be within a very small area. The idea is that this will lead to
+a greater frequency of catches during the game.
 
 For this phase of development, I wanted to keep the winning condition simple. Since I wanted to focus on defining the
 main mechanics of the game, I didn't have a lot of time to think about the condition in which a player could win the
@@ -518,7 +518,7 @@ lasted a long time without being caught, then there is a chance that you found a
 \begin{figure}
     \centering
     \includegraphics[width=0.7\linewidth]{images/phase1UIDesign.png}
-    \caption{One of the figma wireframes that I created during my UI design. The first wireframe shows the overall view that a runner
+    \caption{One of the Figma wireframes that I created during my UI design. The first wireframe shows the overall view that a runner
     player will see, the second frame being what the runner sees when they are in a GPS shadow and the final frame being the view when
     the player is caught.}
     \label{fig:phase1uidesign}
@@ -526,16 +526,16 @@ lasted a long time without being caught, then there is a chance that you found a
 
 \section{User Interface}
 \label{phase1uidesign}
-Once I had designed the main mechanics of the game, I wanted to make a design of the User Interface. To do this I created a wireframe
+Once I had designed the main mechanics of the game, I wanted to make the design for the User Interface. To do this I created a wireframe
 on Figma to generate an overall wireframe. Figure \ref{fig:phase1uidesign} shows my initial designs for this phase of the game. Since
-this is going to be a location based game, I knew that it would be important to have a map in the centre of the screen. In the first
-wireframe, I show the overall view that a runner player would be able to see. In this case the blue dot shows you the runners location while
-the red dots show the locations of the various shadow areas that I found during my analysis phase. My hope is that this would give the
+this is going to be a location-based game, I knew that it would be important to have a map in the centre of the screen. In the first
+wireframe, I show the overall view that a runner player would be able to see. In this case, the blue dot shows you the runners location while
+the red dots show the locations of the various shadow areas that I found during my analysis phase. The idea was that this would give the
 users an idea of what areas would be good to hide in.
 
 The second and third frames in \ref{fig:phase1uidesign} show what happens when the runner is in a shadow and whenever the runner has been
-caught. The plan would be that in the third frame, it will include several differnt messages like whether a player has joined or left the
-game, to inform the player that the game has ended or to inform the player on what player type they are. 
+caught. The plan would be that the third frame will include several different messages like whether a player has joined or left the
+game, to inform the player that the game has ended or to inform the player of what player type they are. 
 
 
 
@@ -547,18 +547,17 @@ game, to inform the player that the game has ended or to inform the player on wh
 \section{Process}
 \label{process}
 The game was developed using an iterative approach where I took the time to design some game mechanics, implement them and
-then evaluate it with other users. This has helped me when designing the core mechanics of the game and it has allowed me
+then evaluate the game with other users. This has helped me when designing the core mechanics of the game and it has allowed me
 to see what other people would want in future iterations.
 
 \section{Technologies Used}
 
 \subsection{Server}
 \label{implementationServer}
-When designing my system, I knew early on that I needed to set up a server in order to keep track of people's location
-and to give the user updates on who is playing or not. To do this I needed a server side framework that would make real
-time communication easier and that would allow me to easily implement a WebSocket. Initially I made a Django server to
-handle the requests making use of the Django Channels library. However this proved difficult when deploying the application.
-This was because in order to use Django with a WebSocket you need to configure it with ASGI rather than the default WSGI
+When designing my system, I knew early on that I needed to set up a server to keep track of people's location
+and to give the user updates on who is playing or not. To do this I needed a server-side framework that would make real-time communication easier and that would allow me to easily implement a WebSocket. Initially, I made a Django server to
+handle the requests making use of the Django Channels library. However, this proved difficult when deploying the application.
+This was because to use Django with a WebSocket you need to configure it with ASGI rather than the default WSGI
 to allow for asynchronous communication. This proved to be rather difficult, therefore I decided to abandon Django for this
 project.
 
@@ -567,17 +566,17 @@ I could easily set up what I needed without worrying about all of the extra stuf
 stick to Django. It also had an easier WebSocket library \emph{ws} which allowed me to develop my communication system quickly
 and effectively. Another benefit to using Node.js was that I could use any database that I wanted meaning that I could
 choose the right one for the job. If I were to have stayed with Django I would have been limited to popular SQL databases
-such as PostGreSql, Oracle or MySQL \citep{djangoDatabases}. Node.js allows me to be more flexible and it's light weight
-design means that I can make the server side code as big or as small as I need it to be.
+such as PostgreSQL, Oracle or MySQL \citep{djangoDatabases}. Node.js allows me to be more flexible and its light-weight
+design means that I can make the server-side code as big or as small as I need it to be.
 
 \subsection{Database}
 \label{implementationDatabase}
-As I mentioned in section \ref{implementationServer}, the freedom of using Node.js meant that I could really have a look
+As I mentioned in section \ref{implementationServer}, the freedom of using Node.js meant that I could look
 around for suitable databases. Since the design of the catching mechanic was that the chaser had a no-go radius (see section
 \ref{catching} for more details), I decided that I wanted to use a database which had the potential to have Geospatial queries.
-Two of the most popular databases that would allow me to do that would be PostGIS which is a modified version of PostGreSql \citep{postgis, postgres} and
-MongoDB which is a popular document based database \citep{mongodb}. In the end I decided to go with MongoDB since their API
-was easy to use and integrate into my server design. With MongoDB I could use their GeoSpatial Processing with minimal setup. Also it is significantly
+Two of the most popular databases that would allow me to do that would be PostGIS which is a modified version of PostGreSQl \citep{postgis, postgres} and
+MongoDB which is a popular document-based database \citep{mongodb}. In the end, I decided to go with MongoDB since their API
+was easy to use and integrate into my server design. With MongoDB, I could use their GeoSpatial Processing with minimal setup. Also, it is significantly
 faster than PostGIS in processing proximity queries \citep{Bartoszewski2019}. This was especially important considering
 that I would be querying this database every time another player broadcasts their location.
 
@@ -596,10 +595,10 @@ is in a GPS Shadow or not.
 
 \subsection{Deployment}
 \label{deployment}
-Having the front-end of the game as a Kotlin app brought a couple of challenges when developing. For one thing, it meant
+Having the front end of the game as a Kotlin app brought a couple of challenges when developing. For one thing, it meant
 that I couldn't run my server locally if I wanted to test my location tracking or other features with my mobile app. Therefore
 I needed to find a hosting service that would allow me to deploy quickly and with very little effort. Railway.app \citep{railway}
-is a cloud base deployment service that auto deploys after every git commit. Since I had a GitHub repository, it meant that it was
+is a cloud base deployment service that auto-deploys after every git commit. Since I had a GitHub repository, it meant that it was
 easy to deploy my code onto a server. Therefore I could focus more on the overall development rather than how to get it on a server.
 
 \section{Mobile Side}
@@ -633,54 +632,54 @@ For the game to be accessible to users I needed to make a User Interface that wa
 clear and simple to use for the duration of the game. Figures \ref{fig:phase1_ui_chaser} and \ref{fig:phase1_ui_runner} 
 gives you a view of the two different screens that the player would get when they start a
 game. The final design takes advantage of the Google Maps SDK for Android which has
-an easy to use API for working with maps with Jetpack Compose \citep{GoogleMaps}.
+an easy-to-use API for working with maps with Jetpack Compose \citep{GoogleMaps}.
 
 The UI features at the top of the app are the same for both player types. On the top
 left corner, the player has a view of how long they have left in the game, the timer
 counts down from 15 minutes and is synced with the server time every 30 seconds to 
 ensure that every player has the correct time. The top right of the UI gives the
-user's GNSS error to 1 decimal places. This will give the user feedback on whether
-their location is a good hiding spot or not. Finally the last row includes a label
+user's GNSS error to 1 decimal place. This will give the user feedback on whether
+their location is a good hiding spot or not. Finally, the last row includes a label
 to tell the player what type of player. To the right of that label is the "Jail Time"
 label which only shows in the 30 seconds after a player is caught or when the game is
 started.
 
 As seen in figure \ref{fig:phase1_ui_chaser}, the Chaser view doesn't have a lot of extra features
 compared to the runner view. The only main difference is that there is a marker to show the
-runners locations. In both player types, the player's current location is marked in green and
+runner's locations. In both player types, the player's current location is marked in green and
 all other players will have a red marker. This is in response to feedback from phase 1 (see section
 \ref{phase1survey} for more discussion on this) as in that phase I had markers which were the same
 colour.
 
 The phase 1 version of the user interface has some differences when compared to the design in figure \ref{fig:phase1uidesign}.
-The main difference being that there are no shadow markers on the runner map. While it was trivial to get some GPS shadows on
-the server side, I found that when I tried to implement it on the mobile app, the amount of markers made the UI freeze up which
-would have given the chaser an unfair disadvantage. The other differences was that I didn't implement the "in shadow" label,
+The main difference is that there are no shadow markers on the runner map. While it was trivial to get some GPS shadows on
+the server side, I found that when I tried to implement it on the mobile app, the number of markers made the UI freeze up which
+would have given the chaser an unfair disadvantage. The other difference was that I didn't implement the "in shadow" label,
 I thought that since I moved my error label to the top of the screen, the player would be able to tell whether they were
 in a shadow area by looking at the differences in their error radius as they move around. I felt that this would be better in
 getting the player to understand where they would be able to find GPS shadow spots.
 
 \subsection{LocationWebSocket}
-During the course of my development, I had to create many different Kotlin classes in order for my front end to work properly.
+During my development, I had to create many different Kotlin classes for my front end to work properly.
 One of the most important classes that I used was the LocationWebSocket class. The main purpose of this class is to set up a
-real time connection with the Server and to control the different UI components that directly rely on server-side communication.
+real-time connection with the Server and to control the different UI components that directly rely on server-side communication.
 One of the big examples of this is the notification component. Whenever the server sends a message to the user, there will almost
 always be a "message" key which will store a string to display to the user. When the LocationWebSocket class receives a message, it 
-will start by getting the message and then it will display the message to the screen for 2 seconds.
+will start by getting the message and then it will display the message on the screen for 2 seconds.
 
 As the name suggests, the LocationWebSocket is also responsible in ensuring that the mobile app has a consistent connection to the
 WebSocket. When developing my first true iteration of the game, I would notice that after 5 minutes of game time, 
 the app would disconnect giving me a "Failed" error (Please see section \ref{mongocollections} for more details on how I solved this problem on the server side). 
-Luckily the library that I used to handle WebSockets, the OkHttp client \citep{okhttp} has a useful
+Luckily the library that I used to handle WebSockets, the OkHttp client \citep{okhttp} has an
 interface which would allow me to implement an "onFailure" method. This meant that I could easily write some code that would automatically
 reconnect the user, should their connection fail for whatever reason. Since I also had a class for storing the player's
-details, I would be able to send to the server my player id so that the server would treat the new connection as if it was
+details, I would be able to send the server my player id so that the server would treat the new connection as if it was
 the same player.
 
 Overall the LocationWebSocket class gives the Mobile app all of the methods required to ensure that it is connected to the game
 server and to ensure that the apps react to WebSocket messages effectively. While the two examples may have been useful. The most
 important method, the "onMessage" function deserves its own section. In section \ref{websocketactions}, I will go over the mechanism
-that I had in place to handle the different types of message that the server will give the Application.
+that I had in place to handle the different types of messages that the server will give the Application.
 
 \subsection{WebSocketActions}
 \label{websocketactions}
@@ -691,7 +690,7 @@ that I had in place to handle the different types of message that the server wil
 
     \caption{
         This diagram shows the main architecture for the WebSocketActions enumeration. When a
-        Websocket message is received by the application, the LocationWebSocket class will then
+        WebSocket message is received by the application, the LocationWebSocket class will then
         read the type from the message JSON object. This will then create an instance of a specific
         operation class which all have an execute method.   
     }
@@ -702,8 +701,8 @@ that I had in place to handle the different types of message that the server wil
 
 The "onMessage" method of the LocationWebSocket class is probably one of the most important parts of the game.
 One of the big challenges with both my design and development was working out how I was going to handle the multiple
-different types of messages received from the server. Initially I had a conditional statement when I was first
-testing out a connection to a WebSocket. However, I soon noticed that as the amount of operations increased, it
+different types of messages received from the server. Initially, I had a conditional statement when I was first
+testing out a connection to a WebSocket. However, I soon noticed that as the number of operations increased, it
 was going to get a lot harder to maintain my code if I kept going down that route. Therefore I decided to create
 a new enumeration class called "WebSocketActions".
 
@@ -713,15 +712,15 @@ whenever there is a message from the server, the type of the message is used to 
 class to build. Once the class has been found, we can then run an "execute" method to execute the operation that had
 to be done on each message.
 
-One of the most notable and important action that I have implemented is the LocationOperator. This is run when the player
+One of the most notable and important actions that I have implemented is the LocationOperator. This is run when the player
 is the current chaser on the map. If the server registers that it is under the shadow threshold, it sends over the
 players location. When this message happens, an instance of LocationOperation is created and when it executes, it
 takes the coordinates of the other player and creates a Google Maps class which allows me to place a marker on the
-screen. Since this message is sent often, the chaser is able to see an almost real time view of where the other players
+screen. Since this message is sent often, the chaser can see an almost real-time view of where the other players
 are if they are in a high signal area.
 
 Another important operation in the WebSocketActions enum is the NewTypeOperation, this happens when the player has received
-a NEW\_TYPE operaiton. This typically happens when the player is caught by the chaser or if the current chaser disconnects.
+a NEW\_TYPE operation. This typically happens when the player is caught by the chaser or if the current chaser disconnects.
 When this operation is executed, the player is informed of what new player type has been created. Then it starts the "Jail Time" to ensure that the catching mechanic is disabled for the next 30 seconds. This is to ensure that the
 chaser isn't able to instantly catch the runner again.
 
@@ -729,16 +728,16 @@ chaser isn't able to instantly catch the runner again.
 
 \subsection{The GPS Package}
 As part of my development, I ensured that any classes which had similar responsibilities would be in the same
-package. The other important pacakage along with the websocket package is the GPS package. As the name suggests,
+package. The other important package along with the WebSocket package is the GPS package. As the name suggests,
 these classes are responsible for getting the GPS data from the LocationManager API. The most important classes
 in this package are the GPSListener class and the GPSService class with the GPSCatchRadius class introduced in
 phase 2.
 
-In order to start receiving GPS coordinates, I need to ensure that the user has given the right positions to
+To start receiving GPS coordinates, I needed to ensure that the user has been given the right positions to
 allow the app to access them. While the app asks for permission in the MainActivity file, the GPSListener class
 is mainly responsible for launching an interval for when locations are received. It does this by calling the
 requestLocationUpdates method provided by the LocationManager API. This allows me to set a time interval until
-the next location can be recevied. At the current moment, the interval is set at 2 seconds. This is mainly because
+the next location can be received. At the current moment, the interval is set at 2 seconds. This is mainly because
 I will send location data to the server whenever there is an update. This would mean more data to the database, and
 it could overload the server if too many people are playing at once. It still felt that 2 seconds wouldn't bring
 too much disruption to the gameplay as a player wouldn't be able to travel as far in that time.
@@ -755,10 +754,10 @@ I included the accuracy was so that the server could determine whether I was in 
 
 \subsection{Overview}
 \label{serverOverview}
-The server side code of the game had to handle multiple different types of WebSocket messages and it needed
+The server-side code of the game had to handle multiple different types of WebSocket messages and it needed
 to be able to query my MongoDB database. Figure \ref{fig:serverSideOverview} shows the general architecture
 on the server side. When the user connects to the game, the requests using the HTTP and WebSocket requests
-are handled by index.js. Most of the other configuration is handled here, for example instances of the classes
+are handled by index.js. Most of the other configuration is handled here, for example, instances of the classes
 defined in GPSMongo.js and GameLog.js are initialized here. Once the user has successfully connected to a WebSocket,
 any further messages are processed in WebSocketOperations.js. Depending on the event required the data is sent
 to GPSMongo.js or GameLog.js which then queries one of three collections (GPSShadows, players, games) in my MongoDB database.
@@ -770,7 +769,7 @@ to GPSMongo.js or GameLog.js which then queries one of three collections (GPSSha
     \caption{
         The diagram shows the main flow of files from the server. All requests start at index.js which are
         then processed by the WebSocketOperations.js file. This file will call methods in either the GPSMongo
-        and GameLogMongo.js files which make the queries to the MongoDB database.  
+        or GameLogMongo.js files which make the queries to the MongoDB database.  
     }
 
     % use the notation fig:name to cross reference a figure
@@ -790,7 +789,7 @@ While the game is running, the WebSocketOperations class will also do some backg
 player would have an unfair disadvantage while playing the game. The most important task is to have time sync for
 the overall game time and when a player ends their jail time. This works by having a background asynchronous method
 that counts out 30 seconds. When that time is up, the server will broadcast the current time to all of the players.
-I thought that this was necessary due to the fact that while I had a working timer on the User Interface, I would
+I thought that this was necessary because while I had a working timer on the User Interface, I would
 notice that the times would get out of sync with the other players. I also wanted to ensure that both the jail time
 and the game as a whole would end for both players at the same time to avoid any problems or glitches that could happen
 if one player was still in the game and another was outside the game. The server allowed me to address any syncing
@@ -806,13 +805,13 @@ condition was met.
 \subsection{The MongoDB collections}
 \label{mongocollections}
 Most of the operations offered in the WebSocketOperations.js file are handled in either the GPSMongo.js or the GameLog.js
-files. These contain the classes that actually query the MongoDB databases. The database is hosted on a seperate
+files. These contain the classes that query the MongoDB databases. The database is hosted on a separate
 server on my Railway.app setup. The main benefit of this is that I can directly access my database using a Python
-script. However, to reduce the chances of unauthroized users accessing my server, I ensured that all of the credentials
-were stored in environment variables and were not exposed in neither the code nor in any server logging system. The
+script. However, to reduce the chances of unauthorized users accessing my server, I ensured that all of the credentials
+were stored in environment variables and were exposed in neither the code nor in any server logging system. The
 next paragraph will go over the various "collections" that I created to implement this project.
 
-As I mentioned in section \ref{implementationDatabase}, what would be a table in SQL based databases are known as collections in MongoDB.
+As I mentioned in section \ref{implementationDatabase}, what would be a table in SQL-based databases are known as collections in MongoDB.
 In my project, I made use of three main collections. These were "players", "gpsShadows" and "games". When a game is being played, the most
 important collection is the "players" collection. When a player is connected, a query is sent to this collection which gives back a player id.
 We then add the id to the sender's "client" object. This means we can query the right player in the database, I also store the players state,
@@ -820,8 +819,8 @@ current location and phone manufacturer (the last one is mainly for logging purp
 them 30 seconds to reconnect before the data is deleted. I put this failsafe in because I would get errors from my phone app saying
 that it disconnected from the WebSocket after 5 minutes.
 
-The players collection was also useful for implementing the catching mechanic (see section \ref{catching} for the design). Originally I had planned to put this on the mobile side
-as the chaser was able to see the real time locations of the other players, however I found that constantly querying the distance function
+The player's collection was also useful for implementing the catching mechanic (see section \ref{catching} for the design). Originally I had planned to put this on the mobile side
+as the chaser was able to see the real-time locations of the other players. However, I found that constantly querying the distance function
 on the LocationManager API was affecting the performance of the game. Thankfully, MongoDB offers geospatial queries which allowed me to
 easily get data points within a certain radius. To check whether a runner player was in the catch radius, I used the query shown in
 listing \ref{lst:catching} to get a list of players within the radius. I then created an array with the results. If the array length is greater
@@ -847,7 +846,7 @@ than 0 then we send a message to the WebSocketOperations.js file to turn the cap
 Another collection that I created was the "gpsShadows" collection. While this wasn't as useful a collection in the final product, 
 it was very useful for my initial analysis section. As the name suggests, it stores previously recorded GNSS shadows in both previous
 games and during my initial analysis as discussed in Chapter 3. The criteria for a location to be put into this collection was for
-a error reading to be at 6 meters or higher. During the development of phase 1, I was hoping to use this collection to give the runner
+an error reading to be at 6 meters or higher. During the development of phase 1, I was hoping to use this collection to give the runner
 a view of some shadows that were found in previous games using a query like listing \ref{lst:catching}. However, like having the catching
 on the mobile phone, there were performance issues which made the game unplayable and would have given a runner player a bad experience.
 
@@ -855,26 +854,26 @@ The final collection that I created was the "games" collection. This collection'
 it stores the time that a user was the runner, how long the user was a chaser or runner, where the players went and the locations of where the
 players were caught. I also logged some data like the brand name and model of the phones that people were using. While this data doesn't affect
 how the game is played, it gives me a lot of data which can help aid my overall evaluation. Whenever a game is started, a brand new game object
-is added. It then creates an array of objects for each player. Each location has the latitude, longitude, accuracy, noise Ratio and the minimum
-accuracy over time. A lot of the quantitative data discussed in chaper 6 was sourced from this collection.
+is added. It then creates an array of objects for each player. Each location has a latitude and longitude coordinate, accuracy, noise Ratio and minimum
+accuracy over time. A lot of the quantitative data discussed in chapter 6 was sourced from this collection.
 
-In order to gain access to the database, I needed to connect it to my server. To do this I created two main JavaScript classes to handle the
-communication between the database and the rest of the server side files. I use the GPSMongo.js file to query the "players" and "gpsShadows"
+To gain access to the database, I needed to connect it to my server. To do this I created two main JavaScript classes to handle the
+communication between the database and the rest of the server-side files. I use the GPSMongo.js file to query the "players" and "gpsShadows"
 collection and I used the GameLogMongo.js file to query the games collection. These files contain the main methods which carry out the queries
 that the WebSocketOperations.js file needs. I did this to ensure that the WebSocketOperations file wouldn't become too big and to ensure that
-it's responsibility was mainly focused on processing the WebSocket Messages, therefore satisfying the Single Responsiblity in SOLID.
+its responsibility was mainly focused on processing the WebSocket Messages, therefore satisfying the Single Responsiblity in SOLID.
 
 
 %==================================================================================================================================
 \chapter{Phase 1 Evaluation}
 \label{Evaluation} 
 
-In this chapter I will go over the process and results from my two rounds of evaluations.
+In this chapter, I will go over the process and results of my first round of evaluations.
 
 \section{Process}
 The game was tested during the week commencing 23rd January 2023 involving volunteers with a range of Android phones. I set up multiple two player
 games that were played around the main building, the cloisters and the surrounding area. Each game lasted 15 minutes where I collected the locations
-of the players, their GPS Error and the locations where the players were caught. I also noted down the brand and the model of the phone to analyse
+of the players, their GPS Errors and the locations where the players were caught. I also noted down the brand and the model of the phone to analyse
 how the game worked with different phones. After playing the game, I would ask my participants to fill in a survey with questions including how
 fun the game was to play, whether the connection was stable and what improvements could be made in future iterations.
 
@@ -883,90 +882,90 @@ fun the game was to play, whether the connection was stable and what improvement
 
 \subsection{Overview}
 For Phase 1 I managed to test the game with 8 participants with a total of 6 games played. Games were either played between me and the participant
-or between the two participants. Most of the games went well with the exception of two games where the ranges in errors were higher than my threshold
+or between the two participants. Most of the games went well except for two games where the ranges in errors were higher than my threshold
 (I will go into more detail in subsection \ref{phase1errorrange}). I was glad to see that there were no problems with overall connectivity throughout
-the duration of the game and that the play tests had an overall positive reception.
+the game and that the play tests had an overall positive reception.
 
 \subsection{Strategies}
 An interesting thing that came out of this evaluation is the different strategies that some participants made while playing the game. At the beginning
-of every game I explained to the participants where some of the best locations to find a GPS shadow would be. With this knowledge most participants
+of every game, I explained to the participants where some of the best locations to find a GPS shadow would be. With this knowledge most participants
 went under the cloisters however one person had a better strategy. They managed to find a route through the University Chapel to the opposite
 quadrangle without being detected.
 
 \subsection{Error Ranges}
 \label{phase1errorrange}
-One of the things that I wanted to see was whether the GNSS accuracies on different phones would be consistent or whether it would vary more.
-When I was doing my initial walks finding GNSS Shadows, I only used my personal phone (A Samsung Galaxy S21 FE) to get readings. Figure \ref{fig:galaxys21}
-shows the ranges in the Error ratings. From the graph I can see that when this phone is in a relatively open area, the error rate remains constant at around 3.8 meters. There
-are only a few peaks throughout the duration of the game. Through experience this only happens when I go into buildings or under bridges and in other areas where GPS performance
-is expected to decrease. When developing the game I thought that an error of 6 meters or more would have been the threshold for whether a player was in a GPS Shadow or not as I
+One of the things that I wanted to see was whether the GNSS accuracies on different phones would be consistent or whether they would vary more.
+When I was doing my initial walks finding GNSS Shadows, I only used my phone (A Samsung Galaxy S21 FE) to get readings. Figure \ref{fig:galaxys21}
+shows the ranges in the Error ratings. From the graph, I can see that when this phone is in a relatively open area, the error rate remains constant at around 3.8 meters. There
+are only a few peaks throughout the game. Through experience, this only happens when I go into buildings, under bridges or in standing near high-rise buildings. 
+When developing the game I thought that an error of 6 meters or more would have been the threshold for whether a player was in a GPS Shadow or not as I
 assumed that it would be constant for every phone.
 
-When running my game on different phone, I noticed that my assumption that the same range of GPS accuracies were true for all phone was incorrect. Figure \ref{fig:oppo}
-shows the Error ranges on an Oppo F19. As you can see from the graph, the range of GPS errors were significantly higher and less consistent than the Samsung phone. I also
-noticed that the error would rarely go under the 6 meter threshold. This meant that when this phone was the runner, the chaser was not able to catch or see their location
-this led to a major balancing issue. This problem was also found with the Samsung Note 9 (Figure \ref{fig:note9}), with this phone I noticed that the error rate would get
+When running my game on a different phone, I noticed that my assumption that the same range of GPS accuracies was true for all phones was incorrect. Figure \ref{fig:oppo}
+shows the Error ranges on an Oppo F19. As you can see from the graph, the range of GPS errors was significantly higher and less consistent than the Samsung phone. I also
+noticed that the error would rarely go under the 6-metre threshold. This meant that when this phone was the runner, the chaser was not able to catch or see their location
+which led to a major balancing issue. This problem was also found with the Samsung Note 9 (Figure \ref{fig:note9}), with this phone I noticed that the error rate would get
 as low as 0 but would rarely be within the 3.8 and 6 range. This would result in their marker making big jumps before becoming invisible again.
 
-From these results I can see that the wide range of android phones would lead to a wide range of GPS sensors. This could be due to many factors, from the amount of satellites
+From these results, I can see that the wide range of android phones would lead to a wide range of GPS sensors. This could be due to many factors, from the number of satellites
 visible to simply the cost of the GNSS sensors. I feel that my original assumption would have been better if I had created the app using iOS, since I would only be developing
 for a single phone type. The main conclusion that I decided to make is that I need to find a new way of calculating whether a player is in a shadow or not.
 The best way to do this is to consider the median value or the lowest value and then adjust my ranges based on that value.  
 
 \subsection{The Catching Mechanic}
 \label{phase1catching}
-Another major thing that I wanted to was see whether the catching mechanic (Please see section \ref{catching} for more details on how this works)
+Another major thing that I wanted to was to see whether the catching mechanic (Please see section \ref{catching} for more details on how this works)
 was working as intended. I feel that this part of the evaluation had some mixed results. The problems mentioned in section
-\ref{phase1errorrange} caused problems to this part of the game as well. Mainly because I had implemented it so that if the
+\ref{phase1errorrange} caused problems in this part of the game as well. Mainly because I had implemented it so that if the
 runner was in a GPS Shadow, the catcher could not catch the player. Another thing that I noticed was that when two players
-were immediately next to each other, their GPS coordinates would be outside the 5 meter radius. This meant that with a lot of
-games there were a few lost seconds while the participants tried to move themselves in order to see if they could catch each other.
-My theory as to why this happened would have been due to the mutltipath error. This issue came up the most around the Quadrangles
-of the main building. Meanwhile the catching system worked better around the Flagpole.
+were immediately next to each other, their GPS coordinates would be outside the 5-metre radius. This meant that with a lot of
+games, there were a few lost seconds while the participants tried to move themselves to see if they could catch each other.
+My theory as to why this happened would have been due to the multipath error. This issue came up the most around the Quadrangles
+of the main building. Meanwhile, the catching system worked better around the Flagpole.
 
-The problems that I found in regards to the catching mechanic tell me that I need to make two improvements in this area. For one
-thing, the catching radius needs to be increased. The 5 meter radius was too small for a catch to be registered in most cases. Therefore
-I will look into expanding the radius to 30 meters to account for any multipath problems. The second improvement that I will
-make is that I will remove the requirement for the runner to be in a high accuracy area, this is because once when I was a chaser,
+The problems that I found regarding the catching mechanic tell me that I need to make two improvements in this area. For one
+thing, the catching radius needs to be increased. The 5-metre radius was too small for a catch to be registered in most cases. Therefore
+I will look into expanding the radius to 30 metres to account for any multipath problems. The second improvement that I will
+make is I will remove the requirement for the runner to be in a high accuracy area, this is because once when I was a chaser,
 I found the runner in a shadow area and I couldn't catch them until we moved into a more open area.
 
 \subsection{Survey Results}
 \label{phase1survey}
-The main aim for the survey at the end of the evaluation was to get a more opinionated view of how the participants
+The main aim of the survey at the end of the evaluation was to get a more opinionated view of how the participants
 thought the game went and what improvements they would make. I started by giving them a set of statements and asked
 them if they agreed or disagreed with the statements. Table \ref{tab:agree} shows the breakdown of the participents'
 responses.
 
-Table \ref{tab:agree} suggests that the overall reaction to the game was positive. For example all 8 participants started
+Table \ref{tab:agree} suggests that the overall reaction to the game was positive. For example, all 8 participants stated
 that they enjoyed the game with 3 out of 8 people saying that they really enjoyed it. The survey suggested that the experience
-playing the game helped them get a better understanding about how the accuracy of their GPS coordinates can change due to different
-factors such as hiding in buildings and under bridges. This had an even stronger response with three quarters of the participants
+of playing the game helped them get a better understanding of where the accuracy of their GPS coordinates can change due to different
+factors such as hiding in buildings and under bridges. This had an even stronger response with three-quarters of the participants
 stating that they strongly agreed that the game educated them on GPS accuracy. However, the last two questions which were
 about the game connection and the user interface had a more mixed response. The User Interface had 4 people who had a Neutral
 opinion. This was mainly due to the fact that each player had a marker which was the same colour. The connection question
 was the only question which had people who said that they disagreed with the statement. This was mainly due to the problems discussed
-in sections \ref{phase1errorrange} and \ref{phase1catching}. In future iterations I will have another look at the user interface
+in sections \ref{phase1errorrange} and \ref{phase1catching}. In future iterations, I will have another look at the user interface
 and I will look into having multicoloured markers.
 
-At the tail end of the survey I gave each participant a list of potential features that I was thinking of implementing in phase 2.
+At the tail end of the survey, I gave each participant a list of potential features that I was thinking of implementing in phase 2.
 I asked the participants to rank the following proposed features:
 
 \begin{enumerate}
     \item Limits for how long someone stays in a GPS Shadow
     \item A powerup system which are earned when the player stays in high GPS accuracy areas
     \item The Runner being able to see the Chaser all the time
-    \item Having a new winning condition. Something along the lines of a last man standing system
+    \item Having a new winning condition. Something along the lines of a last-man-standing system
 \end{enumerate}
 
-From the responses that I recevied, the most popular feature was to have a limitation on how long someone can stay in a shadow with
-5 out of 8 of my participants ranking it first. Surprisingly the least popular feature was letting the Runner see the Chaser all the time.
-My guess is that the design for the runner type makes the game more tense if you don't know exactly where the chaser is going to be.
-I discussed with the players about the limits on how long someone can stay in a shadow and most people said that it was better to have
+From the responses that I received, the most popular feature was to have a limitation on how long someone can stay in a shadow with
+5 out of 8 of my participants ranking it first out of all the options. Surprisingly the least popular feature was letting the Runner see the Chaser all the time.
+My guess is that the design for the runner type makes the game tenser if you don't know exactly where the chaser is going to be.
+I discussed with the players the limits on how long someone can stay in a shadow and most people said that it was better to have
 a more punishing mechanic than a rewarding one in the form of a powerup system to ensure that the runners don't just stay in the same place.
 
-In the final part of the survey I asked the participants whether they had any further comments or feature ideas. One of the most common
-feature ideas brought up in this section was to have a different colour of marker to show who is the chaser and who is the runner. Up to this
-point I had just used the generic marker in the Google Maps Jetpack API. Another interesting thing that came up was that I should consider
+In the final part of the survey, I asked the participants whether they had any further comments or feature ideas. One of the most common
+feature ideas brought up in this section was to have a different colour marker to show who is the chaser and who is the runner. Up to this
+point, I had just used the generic marker in the Google Maps Jetpack API. Another interesting thing that came up was that I should consider
 adding a manual catching mechanic as a potential solution to the problems raised in section \ref{phase1catching}. I feel that this could be
 a good solution but increasing the catch radius would still be an easier solution and would help teach the participants how GPS errors could
 come about.
@@ -1014,42 +1013,42 @@ In response to the evaluations discussed in section \ref{phase1}, I knew that I 
 to improve the game based on the user's feedback. As a lot of the issues raised in the phase 1 evaluation showed that
 there were problems that affected the player's enjoyment of the game, I felt that it was important to take a seamless
 approach. Some of the seams that I found in phase 1 caused more frustration in my players and they didn't lead to more
-interesting ways of interacting with the game.This chapter goes over the four changes that I made during this
+interesting ways of interacting with the game. This chapter goes over the four changes that I made during this
 iteration of development.
 
 \section{New Player Markers}
-The smallest change this phase was in response to feedback raised in the survey of the first evaluation. This was mainly
-due to the fact that in the first phase of development, I used the default marker icon from the Google Maps SDK. This
+The smallest change in this phase was in response to feedback raised in the survey of the first evaluation. This was mainly
+because, in the first phase of development, I used the default marker icon from the Google Maps SDK. This
 made the game rather confusing for the players. Therefore I decided that I would change the colour of the player marker
-to green and I left the marker colour to red for any other players. 
+to green and I left the marker colour red for any other players. 
 
 \section{Catching}
 
 \subsection{Design}
 \label{phase2catchingdesign}
-During my Phase 1 evaluation I noticed that the design mentined in section \ref{catching} was not as suitable due to 
-multipath errors(see section \ref{phase1catching} for more details). The main problem being that if the catcher tried
+During my Phase 1 evaluation I noticed that the design mentioned in section \ref{catching} was not as suitable due to 
+multipath errors(see section \ref{phase1catching} for more details). The main problem was that if the catcher tried
 to catch a player, they would have to move around before it would register. For phase 2 I will make a more dynamic design
 where the catch radius will increase or decrease depending on how likely a multipath error was able to occur. Uber found
-a way to improve their GPS accuracy by making use of the signal noise ratio of each satellite and comparing it to a 3D map.
+a way to improve their GPS accuracy by making use of the signal-noise ratio of each satellite and comparing it to a 3D map.
 They found that a high ratio would mean that the sensor is in direct view of a satellite while a low satellite would mean that
-the signals were more likely to be obstructed by buildings, trees and other obstables \citep{uberGPS}. While using a 3D map
-to improve the catching mechanic is out of the scope for the project, I will take the idea of getting the average SNR. I will
-now dynamically increase and decrease the catch radius by dividing 5 from the average ratio (as a number between 0 and 1). My hope
-is that if two players are closer together, a catch will be more likely to be registered.
+the signals were more likely to be obstructed by buildings, trees and other obstacles \citep{uberGPS}. While using a 3D map
+to improve the catching mechanic is out of the scope of the project, I will take the idea of getting the average SNR. I will
+now dynamically increase and decrease the catch radius by dividing 5 from the average ratio (as a number between 0 and 1). The idea
+was that if two players are closer together, a catch will be more likely to be registered.
 
 \subsection{Implementation}
-For this I implemented the phase 2 design that I had discussed in section \ref{phase2catching}. To implement this design
+To implement this feature, I implemented the phase 2 design that I had discussed in section \ref{phase2catching}. To implement this design
 I decided to create a new class in the GPS package called GPSCatchRadius. Using the LocationManager API in the standard
-android library, I was able to get an array of the visible satellites. From then it was trivial
+android library, I was able to get an array of visible satellites. From then it was trivial to
 get the noise ratio by using the getCn0DbHz method provided by the LocationManger API \citep{locationManager}. With all
 the noise ratios, I took the mean and then normalized it so that it was on a scale between 0 and 1. Once that was done,
 I divided 5 by the mean ratio. Then through the LocationWebSocket class, I was able to send the noise ratio.
 
-On the server side, not much needed to change in order to get this feature to work. The only main thing that I needed to
-do was change the MongoDB query in listing \ref{lst:catching} to have the maxDistance as the adjusted catch radius. The
+On the server side, not much needed to change to get this feature to work. The only main thing that I needed to
+do was change the MongoDB query in listing \ref{lst:catching} to have the maxDistance variable as the adjusted catch radius. The
 only other thing that needed to be done was to update the Logging database to collect the noise ratio. This was mainly
-so that I could analyse any trends in the noise ratio data in order to inform me of other features and improvements
+so that I could analyse any trends in the noise ratio data to inform me of other features and improvements
 in future phases.
 
 \section{Shadow Threshold}
@@ -1057,28 +1056,28 @@ in future phases.
 \subsection{Design}
 As mentioned in section \ref{phase1errorrange}, I noticed that there were differences in the GPS error rates
 in various versions of android phones. This meant that some players were invisible for long periods of the game.
-In order to solve this problem, I decided that there needed to be a dynamic approach to calculating whether a
-phone is in a shadow or not. The two ideas that I considered was either to take the mean error and multiply that by 2
-or to take the minimum error and multiply it by 2. In the end I decided to go for the latter as I remembered when 
+To solve this problem, I decided that there needed to be a dynamic approach to calculating whether a
+phone is in a shadow or not. The two ideas that I considered were either to take the mean error and multiply that by 2
+or to take the minimum error and multiply it by 2. In the end, I decided to go for the latter as I remembered when 
 I was walking around finding GPS error rates, I found that the mean error rating would have skewed towards larger
 error rates. While there can be problems with having the minimum error rate, I felt that it was the best baseline
-as you would expect that the minimum GPS error rates to be in more open areas. I also felt that it followed if the
+as you would expect the minimum GPS error rates to be in more open areas. I also felt that it followed if the
 recorded error rates were twice the baseline then that would be a significant enough range to safely say that
 the sensor is in a Shadow.
 
 On the chaser side, I noticed that because I had also linked the ability to catch a runner to their error rate, it
 meant that the runner would be able to evade capture by just staying in shadow areas. There were some occasions
-were the participants physically caught the runner, but it wasn't registering on their phone as they were above the
+where the participants physically caught the runner, but it wasn't registering on their phone as they were above the
 error threshold. Therefore I decided that the shadow threshold would no longer affect whether a chaser can catch the
-runner or not. I feel that this will make the game more fair and would be a way of rewarding the chaser for not
+runner or not. I feel that this will make the game fairer and would be a way of rewarding the chaser for not
 relying entirely on the map when locating the runner.
 
 \subsection{Implementation}
-Implementing this design was trivial with only a few further considerations. One of the main one was that I
-needed to ensure that the minimum error rate calculation was done every time that a new location was recorded.
+Implementing this design was trivial with only a few further considerations. One of the main ones was that I
+needed to ensure that the minimum error rate calculation was done every time a new location was recorded.
 I had to do this in case the player was starting the game in a shadow rather than in open terrain. Another
 small consideration that I implemented was a check to ensure that the minimum error radius could not be zero.
-This was because the person with a Samsung Note 9 stated that their phone had briefley reported an error of 0 
+This was because the person with a Samsung Note 9 stated that their phone had briefly reported an error of 0 
 and figure \ref{fig:note9} also shows such an abnormal error rate. Therefore I decided to add that failsafe to
 ensure that a player could not be invisible all the time.  
 
@@ -1087,7 +1086,7 @@ ensure that a player could not be invisible all the time.
 \subsection{Design}
 While I felt it was important to fix some problems that were raised in the first evaluation, I also
 wanted to implement one of the proposed features at the end of the survey. Upon looking at the feedback
-I decided that I wanted to implement a basic powerup system. For this phase I designed one power up for
+I decided that I wanted to implement a basic power-up system. For this phase I designed one power-up for
 the runner, this was to simply be able to see the chaser's location for a few seconds. I feel that although
 the old design gave a lot of suspense to the game, I was interested to see how the player's strategies
 would change with this new feature. Since some people in phase 1 would mainly focus on staying in shadowy
@@ -1096,14 +1095,14 @@ this would add a level of risk to the game as the runners would have to go out i
 information on where the chaser was.
 
 \subsection{Implementation}
-In order to implement this feature, I started by creating a button element at the bottom of the runner view.
+To implement this feature, I started by creating a button element at the bottom of the runner view.
 I did this by creating a simple button element with the words "See Chaser" with a progress bar at the bottom.
 The progress bar would increase whenever the runner updated their location and they were below their shadow
 threshold. When the runner has had 30 location updates in high signal areas, the button will become clickable.
 When the user clicks on the button, they will be able to see the Chaser's location on the map for 3 seconds before
 the powerup button resets the progress bar.
 
-On the server side I decided that this powerup would be implemented by a simple HTTP request rather than through
+On the server side, I decided that this power-up would be implemented by a simple HTTP request rather than through
 the WebSocket system for all other client communications. My main reasoning for this was that since the client
 updates their location every 2 seconds and the powerup would only show the chaser for 3, there wouldn't have been
 a point in setting up another action in the WebSocketActions class. Therefore I just created the "/chaserLocation"
@@ -1115,67 +1114,67 @@ endpoint where I simply get the location from the database and send the latitude
 \section{Overview}
 Two weeks after the first phase of evaluations, I made improvements to the overall design (See chapter \ref{phase2design} for an overview
 of what has changed). The format of the evaluation was similar to the first, with the same participants. For this evaluation I especially
-wanted to test if my improvements had fixed the problems raised in the first phase. These being the ranges in accuracy between different
+wanted to test if my improvements had fixed the problems raised in the first phase. These are the ranges in accuracy between different
 phones and the catching mechanic being affected by multipath errors. Another feature that I was testing out was the brand new powerup
 system that I created. The next few subsections will examine whether the improvements succeeded or not.
 
 \section{Error Ranges}
-This time, the game worked on a dynamic basis rather than the static version of before. Instead of the shadow threshold being
-6 meters, it would now be twice the current recorded minimum accuracy. For example if the minimum score was 3.8, it would now
-only be in a shadow if the GPS area was 7.6 meters in error. My hope was that this would end the inbalance in the game were
+This time, the game worked on a dynamic basis rather than the static version before. Instead of the shadow threshold being
+6 meters, it would now be twice the current recorded minimum accuracy. For example, if the minimum score was 3.8, it would now
+only be in a shadow if the GPS area was 7.6 meters in error. The idea was that this would end the imbalance in the game were
 phones with a higher average accuracy would get an unfair advantage over other players.
 
 To see if this was a success, I looked at the amount of time that a player would be in a shadow vs when they were out in the
-open. The assumption was made that the player was a runner throughout the duration of the game, this was because I did not have
+open. The assumption was made that the player was a runner throughout the game, this was because I did not have
 information on whether the player was a chaser or not in the logging system. I used the data based on the three phones that I 
 analysed in the last evaluation of the error ranges (See section \ref{phase1errorrange} for more detail). This was because I wanted
 to see how it worked on an accurate phone (Samsung Galaxy S21 FE) and the phones where I noticed the most variance in error range (The Samsung Note 9 and the Oppo F19).
-My hypothesis was that there would be a reduction in the amount of time in shadow for each type of phone. This means that there would be
+I hypothesised that there would be a reduction in the amount of time in shadow for each type of phone. This means that there would be
 more times where a player would be more visible during the game and would only be invisible when they are in a shadow area.
 
 Figures \ref{fig:shadownote9}, \ref{fig:shadowoppo} and \ref{fig:shadows21} show the shadow results for the Samsung Note 9,
-the Oppo F19 and the Samsung Galaxy F21 respectively. I feel that the results are quite mixed, where I would say that the
+the Oppo F19 and the Samsung Galaxy F21 respectively. I feel that the results are quite mixed, and I would say that the
 Samsung Note 9 (\ref{fig:shadownote9}) is the only one that had an improvement overall where there was an increase from
 44.8\% in phase 1 to 60\% in phase 2. This means that overall the player is not considered to be in shadow for the majority
-of the game. However the Oppo F19 (\ref{fig:shadowoppo}) told a different story. I actually saw that the amount
+of the game. However, the Oppo F19 (\ref{fig:shadowoppo}) told a different story. I saw that the amount
 of time in "high GPS" areas decreased overall from 59.6\% to 31.7\% in phase 2. This means that they would have been more
 invisible than in Phase 1 meaning that they would have an even greater advantage. The same problem but in reverse happened
-to the Samsung Galaxy S21 FE where the in open time increased to 100\%. Esentially meaning that the player would be visible
+to the Samsung Galaxy S21 FE where the open time increased to 100\%. Essentially meaning that the player would be visible
 for the whole game.
 
 These mixed results suggest to me that either the problem of someone being invisible was not as great as I perceived it in
 the phase 1 results suggested. Another thing that it has suggested to me is that this approach also has some flaws. While
-it has somewhat improved the error ranges there are times where it has been worse. This leads me to the conclusion that it might
+it has somewhat improved the error ranges there are times when it has been worse. This leads me to the conclusion that it might
 have been better to constantly check the mean or take the standard deviation rather than just a flat rate for all error ranges.
-If I have more time to implement a new system, I would look into making a new variance based system.
+If I have more time to implement a new system, I would look into making a new variance-based system.
 
 \section{Catching Feature}
 \label{phase2catcheval}
 Another major improvement that I implemented was a new catching system where the catch radius can increase or decrease based
-on the satellite noise ratio based on the method described by \cite{uberGPS}. For this evaluation I was hoping that the catching mechanic would be more helpful to play when
+on the satellite noise ratio based on the method described by \cite{uberGPS}. For this evaluation, I was hoping that the catching mechanic would be more helpful to play when
 accounting for multipath errors.
 
-In order to put this feature to the test, I took some Qualitative and Quantitative methods into account. Firstly I made sure to log both
-the noise ratio and the size of the catch radius over the course of each game. To see whether this behaviour is the same over every phone
-I made a seperate graph for each of the three phone types that I have used in both phase 1 and 2 to see how the noise ratio is affected
-with different phone. During the game I will observe what happens when a participant catches another player. I will use this to see if
+To put this feature to the test, I took some Qualitative and Quantitative methods into account. Firstly I made sure to log both
+the noise ratio and the size of the catch radius throughout each game. To see whether this behaviour is the same over every phone
+I made a separate graph for each of the three phone types that I have used in both phases 1 and 2 to see how the noise ratio is affected
+with a different phone. During the game, I observed what happened when a participant catches another player. I will use this to see if
 this new approach works in practice.
 
-Figures \ref{fig:opponoiseandcatch}, \ref{fig:note9noiseandcatch} and \ref{fig:s21noiseandcatch} show a side by side comparision of the
+Figures \ref{fig:opponoiseandcatch}, \ref{fig:note9noiseandcatch} and \ref{fig:s21noiseandcatch} show a side-by-side comparison of the
 noise ratio compared with the catch radius for the Oppo F19, Samsung Note 9 and the Samsung Galaxy S21 respectively. Like the Error rates in
 phase 1 (see \ref{phase1errorrange}), the ranges of noise ratio vary based on the kind of phone, leading to the same observation happening in
-the size of the catch radius. For example the Oppo F19 seen in figure \ref{fig:opponoiseandcatch} shows that there is a big range between a ratio
-of roughly 0.35 and under 0.1. Around 100 seconds in to the game, the phone experienced a massive decrease in the ratio, leading to the catch radius
-to be larger than 60 meters. This gave the player a larger radius in order to catch players. During this game, one player who was using the Samsung
-Galaxy Note 9 was caught in the cloisters while the person playing with the Oppo was in the Gift Shop. This lead to some rather interesting ideas
-of how stealthy other players can be in order to gain an upper hand in the game.
+the size of the catch radius. For example, the Oppo F19 seen in figure \ref{fig:opponoiseandcatch} shows that there is a big range between a ratio
+of roughly 0.35 and under 0.1. Around 100 seconds into the game, the phone experienced a massive decrease in the ratio, leading to the catch radius
+being larger than 60 meters. This gave the player a larger radius to catch players. During this game, one player who was using the Samsung
+Galaxy Note 9 was caught in the cloisters while the person playing with the Oppo was in the Gift Shop. This led to some rather interesting ideas
+of how stealthy other players can be to gain an upper hand in the game.
 
 The Samsung phones seemed to be more consistent in their noise ratio and catch ratio. For example the Samsung Note 9 (\ref{fig:note9noiseandcatch})
 shows that the highest catch radius was 16 meters while the Samsung Galaxy S21 (\ref{fig:s21noiseandcatch}) had a maximum of 15 meters. Both phones
 also recorded the smallest catch radius of around 9 meters. The fact that these results were so close was surprising considering that the Note 9
 had a significantly low range of accuracy compared to the Samsung Galaxy S21. While there is a chance that the person with the Oppo F19 had a different
-strategy, it could also be due to the difference of GNSS sensor that is causing the problems. The main reason I think this is that the highest
-value of signal noise ratio in the Oppo F19 was around 0.35 wheras with the Samsung phones 0.35 wass the lowest value. Therefore as with the accuracies
+strategy, it could also be due to the difference in GNSS sensors that is causing the problems. The main reason I think this is that the highest
+value of the signal-noise ratio in the Oppo F19 was around 0.35 whereas, with the Samsung phones, 0.35 was the lowest value. Therefore as with the accuracies
 in phase 1, there is a variance between the different phones.
 
 While these ranges may be seen as a problem if a seamless approach was made when designing the game, it can also be seen as a benefit. For
@@ -1204,30 +1203,30 @@ as possible from a chaser with a phone with a larger catch radius.
 \section{Survey Results and the Powerup System}
 Just like at the end of my Phase 1 evaluation, I wanted to gauge how interesting and informative the game was.
 This time round I had a lower cohort of people with only 4 people responding. I mostly evaluated my game with
-the same people as the first phase of evaluations. Overall, most people said that the new features improved the
+the same people as in the first phase of evaluations. Overall, most people said that the new features improved the
 game. This section will go over the quantitative and qualitative data that I found when carrying out my survey.
 
 I started my survey by asking the participants to rate their opinions on the same 4 statements as in the previous
 evaluation. Table \ref{tab:agreephase2} shows the results of this survey. Of the people that responded, all of the participants stated that they agreed that the game was an
-enjoyable experience, with there being a more 50/50 split when compared to the previous phase. The same ratio
+enjoyable experience, with there being a 50/50 split when compared to the previous phase. The same ratio
 of people said that they strongly or somewhat agreed with the idea that the game taught them more about the accuracy
-of GPS. 3 out of 4 stated that they strongly agreed with the statement. One of the best improved statements was
-'The User Inferface Displayed information clearly' where all participants said that they agreed with the statement.
-This was especially good since in the last evaluation, 50 percent of participants gave a neutral response. Finally
+of GPS. 3 out of 4 stated that they strongly agreed with the statement. One of the best-improved statements was
+'The User Interface Displayed information clearly' where all participants said that they agreed with the statement.
+This was especially good since, in the last evaluation, 50 per cent of participants gave a neutral response. Finally
 I got a full 100\% of participants stating that they somewhat agreed with the fact that their connection was stable
-throughout the course of the game.
+throughout the game.
 
 After that, I gave the participants two new statements which focused on the Catching Mechanic and the new powerup
 system. Looking at the last two statements of table \ref{tab:agreephase2}, I found that 3 out of 4 of the
 participants said that they somewhat agreed with the fact that the catching mechanic had improved with one
 person stating that they strongly agreed with the statement. The final question I asked was whether or not
-they agreed that the "see chaser" button improved the game. The responses were positived with 3 out of 4
+they agreed that the "see chaser" button improved the game. The responses were positive with 3 out of 4
 saying they strongly agreed with only one person saying that they had no real opinion on the statement.
 
-At the end of the survey I asked my participants some Qualitative questions to get some more details about
+At the end of the survey, I asked my participants some Qualitative questions to get some more details about
 their experience. Like the first phase, I asked whether there were any balancing issues when playing the game.
 Out of the quotes recorded in section \ref{phase2balance}, the main issues were to do with the catch radius,
-for example one person said that the catch radius was "too big" and another said that "the chaser was able to catch
+for example, one person said that the catch radius was "too big" and another said that "the chaser was able to catch
 me from far away". This ties into the issues that I reported in section \ref{phase2catcheval} where the catch
 radiuses would become really big over time. While the participants say that it might affect the balance of the
 game, I still feel that there could be potential for a fun game mechanic where different phones will be able
@@ -1238,7 +1237,7 @@ and the things that I could do to improve. Some things that came up in this ques
 section \ref{phase2generalfeedback}) were that the users wanted to see their catch radius on the map.
 Other comments stated that the powerup feature was really useful with one participant saying that
 they "found the powerup useful as a runner". Other participants told me that the powerup feature
-was really useful in informing their decisions. Over the course of the games I observed that people
+was really useful in informing their decisions. Throughout each of the games, I observed that people
 had altered their strategy because of this feature. Chapter 
 
 
@@ -1249,9 +1248,9 @@ had altered their strategy because of this feature. Chapter
 \label{conclusion}
 
 \section{Summary}
-Throughout the course of this project and this dissertation, we have explored the concept of seamful design.
+Throughout this project and this dissertation, we have explored the concept of seamful design.
 This is where we take the limitations of a system and exploit them to make them a core feature. In this
-case we have gone over the limitations of both GPS and other GNSS systems. In chapter \ref{background},
+case, we have gone over the limitations of both GPS and other GNSS systems. In chapter \ref{background},
 we gained an understanding of some of the factors that affect the accuracy and error rate. Once we knew the theory
 behind how GPS works, we did some experiments where we tested these concepts by going to multiple environments to
 see the differences in accuracy. We used this experiment to determine whether to use pure satellite systems
@@ -1261,11 +1260,11 @@ could be found. I also concluded that the game would have to be played in a more
 satellites were more likely to be obstructed.
 
 Once I had done my analysis on where GPS signals can decrease, I started an iterative design and development
-aproach to creating a game. During phase 1 I started by brainstorming ideas for a game and then progressively
-buidling on ideas that were feasible and would work within the time frame required. I decided on creating a
-tag game where a "chaser" would have a real time location of a "runner" unless they were in areas with a high
+approach to creating a game. During phase 1 I started by brainstorming ideas for a game and then progressively
+building on ideas that were feasible and would work within the time frame required. I decided on creating a
+tag game where a "chaser" would have a real-time location of a "runner" unless they were in areas with a high
 error rate. In chapter \ref{phase1implementation}, I went over the technologies that I used to implement the
-game. I also went over the alterations that I had to make from the design to ensure that the game was an enjoyable
+game. I also went over the alterations that I had to make to the design to ensure that the game was an enjoyable
 experience. In chapter \ref{Evaluation} I tested out my implementation by getting multiple participants to play
 a game around the University campus. While the game was received well, I noticed that the assumptions in my 
 design and implementation were wrong when I noticed that different phones had different ranges in error rates.
@@ -1274,40 +1273,40 @@ For Phase 2, I decided to take a seamless approach. This was mainly due to the l
 evaluation. For this phase I made several improvements, the most important of these were having a dynamic shadow
 threshold based on the minimum error radius and a new catching mechanic based on the satellite noise ratio. I
 also did some User Interface improvements like changing the colour of the player marker. Another major improvement
-was a powerup system where a runner player will be able to see the chaser after being in an open area for long enough.
-I did another set of user evaluations which led to mixed results. For example the improved shadow thresholds made some
+was a power-up system where a runner player will be able to see the chaser after being in an open area for long enough.
+I did another set of user evaluations which led to mixed results. For example, the improved shadow thresholds made some
 phones more invisible than before, to having some phones being visible during the entire course of the game. I however
 found that the users thought that the new iteration was an overall improvement to the previous version.
 
 \section{Future Work}
 Due to the limited time that I had to complete the project, there were still some things that I would want to do
-to ensure that the game was a better experience. Over the next few paragraphs I will go over some of the ideas
-that I have to improve the game if I were to carry out a phase 3 for the project.
+to ensure that the game was a better experience. In this section, I will go over some of the ideas
+that I have to improve the game if I were to carry out a third phase of development.
 
 Throughout my development, I mainly considered the core mechanics of the game rather than how the players would win.
-Initially I had put in my design that the winning condition was that the person who was a runner for the longest time
+Initially, I had put in my design that the winning condition was that the person who was a runner for the longest time
 would win. I however, hadn't managed to get my implementation to work fully. While I have the logging capabilities to
 decide who won, I have no way of telling the winner if they won or not. If I were to have further time, I would have a
 further look into what conditions a player would need to win and also how they would get feedback for how they would win.
 
 From my findings in section \ref{phase2catcheval}, I noticed that the noise ratios differed based on different phones.
-This felt a lot like my findings with shadow thresholds in phase 1. However I feel that there are a lot of opportunities
-to be seamful with this discovery. For example, I could implement a character based system with specific abilities like the
+This felt a lot like my findings with shadow thresholds in phase 1. However, I feel that there are a lot of opportunities
+to be seamful with this discovery. For example, I could implement a character-based system with specific abilities like the
 popular video game \emph{Overwatch} \citep{overwatch}. A feature that could take this idea is that each phone will have
-a class based on how big their catch radius can get. This could mean that a player with a larger noise ratio could be more
+a class based on how big its catch radius can get. This could mean that a player with a larger noise ratio could be more
 threatening to a runner than one with a small catch radius. I feel that this could lead to more interesting strategies if
 this were to be implemented correctly.
 
 Another lesson that I learned from phase 2 is that while the new shadow threshold did allow weaker phones to
-be seen from the chaser, it came at the expense of some of the more stronger phones. While I could integrate
+be seen from the chaser, it came at the expense of some of the stronger phones. While I could integrate
 that into a character ability game, I might look into other ways to improve the shadow threshold system. One
 idea that I have is to use the median and standard deviation to decide the threshold rather than the minimum
 accuracy times 2.
 
 One final piece of future work that I will consider is by optimizing the game to have more than 2 players. While
-my server does not have any limits in the number of players, my design has only really had 2 players in mind.
-Some ideas of making the game support more players is to turn the game into a last man standing game where
-the number of chasers increase as the game goes on. This would make the game more tense as the runners would 
+my server does not have any limits on the number of players, my design has only really had 2 players in mind.
+One idea for making the game support more players is to turn the game into a last-man-standing game where
+the number of chasers increases as the game goes on. This would make the game tenser as the runners would 
 be in more danger of being caught as time goes on.
 
 \section{Reflection}
