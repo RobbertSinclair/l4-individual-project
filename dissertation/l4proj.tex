@@ -108,9 +108,10 @@ can lead players to think outside the box, leading to more interesting strategie
 game more fun to play.
 
 \section{Aims}
+\label{aims}
 One of the main aims of the project is to help teach players about how GPS can decrease in quality. A major
 part of the game design will encourage users to find shadows where their GPS signal will be either weak or
-non-existant. I hope that over the course of playing this game, they will learn what places they should
+non-existent. I hope that by playing this game, they will learn what places they should
 go if they want to have more precise positioning but also what areas they shouldn't get to.
 
 Another aim of the project is to see how GPS accuracy changes with different phones. I developed the game
@@ -212,8 +213,7 @@ This is because the signal will take longer to find the sensor which means that 
 initially thought.
 
 Some ways to mitigate a multipath error are to go into a more open area or to have a different and improved design
-of antenna \citep{Kos2010}. This means that if I were to make a multiplayer game, I may find that some phones are
-more prone to having multipath problems than others. Another way to mitigate a multipath error is to use the 
+of antenna \citep{Kos2010}. Another way to mitigate a multipath error is to use the 
 satellite noise ratio to see how weak the signal is. When a GNSS sensor receives a signal, it can calculate 
 the noise ratio to see how strong the signal is. You can then go over each satellite in turn, to see how
 good or bad the signal is. When the ratio is closer to 0 then you can say that it is likely that a satellite is blocked
@@ -1340,7 +1340,20 @@ the number of chasers increases as the game goes on. This would make the game te
 be in more danger of being caught as time goes on.
 
 \section{Reflection}
+In reflection, I feel that the product that I made was of good quality judging from both phases of evaluation. While
+there are still areas in which I could improve the game in further phases, I feel confident that I achieved all of the
+aims set out in section \ref{aims}. Overall, I felt that developing the game was an enjoyable exploration of both GPS
+and seamful design. I feel that the main lesson that I learnt over the whole project was that what might be seen as a
+problem at first, might end up being the path to a new and more interesting feature. For example at the very start of
+the project when I started using the LocationManager API. In the beginning, I thought that it was a problem that very
+few shadows were turning up. But it made the game more interesting and easier to understand as the GPS signal would only
+go down in areas with specific characteristics.
 
+I also felt that it was a really good technical challenge. I had never dealt with mobile development before
+this project and it helped me learn the basics of the Kotlin programming language. It also gave me the chance to 
+learn NoSQL database formats like MongoDB and it exposed me to Geospatial queries which became the backbone of the
+catching mechanic. It also taught me valuable networking protocols such as WebSockets which allowed me to give game
+updates and track a player's location in real-time.
 
 %==================================================================================================================================
 %
