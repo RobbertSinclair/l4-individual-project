@@ -84,8 +84,40 @@
 % reset page numbering. Don't remove this!
 \pagenumbering{arabic} 
 
+\section{Motivation}
+GPS and other positioning systems have become an integral part of our lives. It
+allows us to position ourselves anywhere in the world almost instantly. Most of
+the time in open areas, we can expect a user error of around 4 metres. However GPS
+accuracy can decrease in urban areas. This is because obstacles such as buildings
+can disrupt a GPS signal, leading to a device's position being recorded in the wrong place.
 
-Why should the reader care about what are you doing and what are you actually doing?
+While these limitations of GPS can be seen as a source of frustration, it also leads to
+opportunities to exploit this limitations to gain the upper hand in a GPS based game. One
+of the first instances of this was recorded by \cite{canyouseeme} when people started to 
+take advantage of drops in accuracy to evade capture during their Mixed Reality Game,
+\emph{Can you see me now?}. Building on top of that idea, several other games were 
+created using the idea of Seamful design, a concept first thought of by Mark Weiser in
+1994. In his talk, \cite{weiser1994} stated that instead of hiding most limitations in 
+a system, we should design systems to be open about them and even exploit them. \emph{Treasure},
+created by \cite{Barkhuus2005} took inspiration from \emph{Can you see me now?} and \cite{weiser1994}
+to create a game that exposed differences in WiFi to alter the difficulty of collecting coins.
+
+
+\section{Aims}
+
+\section{Dissertation Outline}
+Through the course of this paper, I will explore the ideas of seamful design,
+game design and GPS accuracy to create a game. This dissertation will go over the 
+main process, implementation and evaluation of a tag game with GPS shadows as the
+main idea behind the game.
+
+\begin{itemize}
+    \item In chapter \ref{background}, I look at the general theory of GPS positioning and the ideas of seamful design. I also go over some previous examples of GPS games
+    \item In chapter \ref{analysis}, I go over the initial experiments that I made to understand where GPS shadows could appear
+    \item Chapters \ref{phase1design}, \ref{phase1implementation} and \ref{Evaluation} go over the design, implementation and evaluation of phase 1 respectivley. These chapters include my overall process for gathering game ideas, how I picked my technologies and the results of my initial user evaluation.
+    \item Chapters \ref{phase2design} and \ref{phase2evaluation} cover the improvements and the lessons learned from phase 1. They also cover the design and implementation of the features in phase 2. In chapter \ref{phase2evaluation} I go over the results and process in the second round of evaluations.
+    \item Chapter \ref{conclusion} summarises the project and goes over the future work and reflection.
+\end{itemize}
 \section{Guidance}
 
 \textbf{Motivate} first, then state the general problem clearly. 
@@ -287,6 +319,8 @@ GPS location. \citep{Chase2022}
 
 %==================================================================================================================================
 \chapter{Analysis}
+\label{analysis}
+
 In this section I go over the main process that I used to come up with a design for the game
 
 \section{Initial GPS Experiments}
@@ -393,6 +427,7 @@ the area was small enough to keep the game exciting for shorter games.
 
 %==================================================================================================================================
 \chapter{Phase 1 Design}
+\label{phase1design}
 
 \section{Process}
 \label{phase1designprocess}
@@ -892,7 +927,7 @@ how the game worked with different phones. After playing the game, I would ask m
 fun the game was to play, whether the connection was stable and what improvements could be made in future iterations.
 
 \section{Results}
-\label{phase1}
+\label{phase1results}
 
 \subsection{Overview}
 For Phase 1 I managed to test the game with 8 participants with a total of 6 games played. Games were either played between me and the participant
@@ -1123,6 +1158,7 @@ a point in setting up another action in the WebSocketActions class. Therefore I 
 endpoint where I simply get the location from the database and send the latitude and longitude in a JSON object.
 
 \chapter{Phase 2 Evaluation}
+\label{phase2evaluation}
 
 \section{Overview}
 Two weeks after the first phase of evaluations, I made improvements to the overall design (See chapter \ref{phase2design} for an overview
@@ -1258,6 +1294,8 @@ had altered their strategy because of this feature. Chapter
 
 %==================================================================================================================================
 \chapter{Conclusion}
+\label{conclusion}
+
 \section{Summary}
 Throughout the course of this project and this dissertation, we have explored the concept of seamful design.
 This is where we take the limitations of a system and exploit them to make them a core feature. In this
