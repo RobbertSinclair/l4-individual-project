@@ -179,7 +179,9 @@ top of GNSS systems. \citep{appleLocation, googleLocation}. This is mainly to he
 such as indoor areas which can be useful for tracking location history. Another main reason is that sourcing your location entirely from GNSS systems can drain battery life due
 to the calculations needed to find the device's position \citep{brouwers2011detecting}. 
 
-\section{What causes Inaccuracies in GPS Systems}
+\section{Inaccuracy in GPS}
+\label{gpsInaccuracy}
+
 In this project, we will be looking at making a game based on GPS shadows which are areas where the GPS signal is not as accurate. In this section I will look
 at the various factors that could affect our accuracy.
 
@@ -220,17 +222,25 @@ to make a game based on multipath I could give the user a label showing them the
 increases or decreases over time.
 
 \section{Seamless and Seamful Design}
-With most systems, there will be potential seams which can cause unintended results to the user. One way to solve this would be to think seamlessly which is where you
-try and fix every flaw so that your system is more robust. In the context of GPS, it is usually important to think seamlessly
+With most systems, there will be potential seams which can cause unintended results to the user. We can think of
+seams as a limitation in the way a system works. For example, a mobile phone is limited by its battery life or the phone
+signal when making calls \citep{chalmers2003seamful}. With GPS we can be limited by the various forms of errors described in section \ref{gpsInaccuracy}
+such as the lag between the signal leaving the satellite and reaching the sensor. When encountering seams in your system, there are two main
+approaches. These are known as \textbf{Seamless} or \textbf{Seamful} design.
+
+In seamless design, the way to deal with seams is to try and fix every flaw so that your system is more robust. In the context of GPS, it is usually important to think seamlessly
 so that people can easily get to your destination. For example, \cite{uberGPS} designed a system to improve their
 GPS coordinates using 3D mapping and SNR noise ratio to ensure that Uber drivers were more likely to reach their customers. In this
 case, it was important to work seamlessly as Uber's business model relies on people getting from one place to the other, therefore it
 is crucial for drivers to know that they are in the right place. In game design, seamless design is useful when there are significant balance issues. For example making sure to fix
 glitches to prevent cheating. 
 
-While trying to close every seam may be appropriate in some areas, it can sometimes be futile to try and close every seam.
-Seamful design is the idea of embracing the seams in the system. In the context of GPS, this usually means to try and embrace
-the idea that GPS accuracy can vary based on the type of phone, the area you are in or the GPS clock error. For example 
+While trying to close every seam may be appropriate in some areas, it can sometimes be futile to try and close every seam. The idea of
+seamful design was coined by Mark Weiser in his talk \emph{Creating the invisible interface}. \citep{weiser1994} argued
+that we should find "Beautiful seams" which will let every system be "itself". Sometimes it is important for a user
+to be aware of the limitations of their device, for example, the estimated battery life on a phone or laptop screen. If we were
+to take a seamless approach by deciding not to show the battery life, we wouldn't know when to charge our phone. In the context of GPS, this usually means 
+to try and embrace the idea that GPS accuracy can vary based on the type of phone, the area you are in or the GPS clock error. For example 
 \emph{Treasure}, a game made by the University of Glasgow, had a coin collection mechanic where the difficulty of collecting
 a coin varied on how strong their WiFi signal was. \citep{Barkhuus2005}
 
@@ -283,7 +293,7 @@ In this section, I go over the main process that I used to come up with a design
     \label{fig:analysismap}
 \end{figure}
 I started my analysis by learning the basics of learning app development by creating an app that would keep track
-of GPS accuracy. The app started off as just a screen with my latitude and longitude coordinates and my error rates.
+of GPS accuracy. The app started as just a screen with my latitude and longitude coordinates and my error rates.
 Once I had this app up and running, I walked around various locations around the University of Glasgow campus and
 also briefly within the city centre. Some particular areas that I tried included more open areas like the Botanical
 Gardens and Kelvingrove park and the area surrounding the main building including the cloisters. I also wanted to test
@@ -890,7 +900,9 @@ the game and that the play tests had an overall positive reception.
 An interesting thing that came out of this evaluation is the different strategies that some participants made while playing the game. At the beginning
 of every game, I explained to the participants where some of the best locations to find a GPS shadow would be. With this knowledge most participants
 went under the cloisters however one person had a better strategy. They managed to find a route through the University Chapel to the opposite
-quadrangle without being detected.
+quadrangle without being detected. Most participants found that the area under the cloisters or the corridor leading to the University Gift Shop were good places to hide. As a result, most of
+the confrontations happened around the quadrangles. This was because a lot of the chasers would also stay around the quadrangles as it was easy to intercept
+a runner before they entered the cloisters.
 
 \subsection{Error Ranges}
 \label{phase1errorrange}
@@ -942,7 +954,7 @@ of playing the game helped them get a better understanding of where the accuracy
 factors such as hiding in buildings and under bridges. This had an even stronger response with three-quarters of the participants
 stating that they strongly agreed that the game educated them on GPS accuracy. However, the last two questions which were
 about the game connection and the user interface had a more mixed response. The User Interface had 4 people who had a Neutral
-opinion. This was mainly due to the fact that each player had a marker which was the same colour. The connection question
+opinion. This was mainly because each player had a marker which was the same colour. The connection question
 was the only question which had people who said that they disagreed with the statement. This was mainly due to the problems discussed
 in sections \ref{phase1errorrange} and \ref{phase1catching}. In future iterations, I will have another look at the user interface
 and I will look into having multicoloured markers.
@@ -959,13 +971,21 @@ I asked the participants to rank the following proposed features:
 
 From the responses that I received, the most popular feature was to have a limitation on how long someone can stay in a shadow with
 5 out of 8 of my participants ranking it first out of all the options. Surprisingly the least popular feature was letting the Runner see the Chaser all the time.
-My guess is that the design for the runner type makes the game tenser if you don't know exactly where the chaser is going to be.
+I thought that the design for the runner type makes the game tenser if you don't know exactly where the chaser is going to be.
 I discussed with the players the limits on how long someone can stay in a shadow and most people said that it was better to have
 a more punishing mechanic than a rewarding one in the form of a powerup system to ensure that the runners don't just stay in the same place.
 
+The penultimate question in the survey asked the participants if there were any balancing issues in the game. The responses collected
+in section \ref{phase1balance} showed that there was one main issue raised in this question. That being the different ranges in GPS error rates.
+Some users stated that they felt that the game was "very balanced". One person mentioned that it was 'very hard to catch players due to poor GPS error'.
+As I mentioned in section \ref{phase1catching}, addressing the problems raised by the range of errors in different phones will be a priority
+during my second phase of development. Another comment that came up with this question was that the chaser should be temporarily visible at some
+points of the game. One participant said that "the chaser should be visible to the runner ... every 20 seconds". In phase 2, I could create
+a power-up system where the chaser is visible once the runner has met a requirement.
+
 In the final part of the survey, I asked the participants whether they had any further comments or feature ideas. One of the most common
 feature ideas brought up in this section was to have a different colour marker to show who is the chaser and who is the runner. Up to this
-point, I had just used the generic marker in the Google Maps Jetpack API. Another interesting thing that came up was that I should consider
+point, I had just used the generic marker in the Google Maps Jetpack Compose API. Another interesting thing that came up was that I should consider
 adding a manual catching mechanic as a potential solution to the problems raised in section \ref{phase1catching}. I feel that this could be
 a good solution but increasing the catch radius would still be an easier solution and would help teach the participants how GPS errors could
 come about.
@@ -984,6 +1004,15 @@ come about.
     \label{tab:agree}
 \end{table}
 
+\section{Conclusion and Lessons learnt}
+In conclusion, the main lesson learnt from Phase 1 was that my assumption that I could have the same
+shadow threshold was wrong. I also found that my assumption that 5 metres for a catch radius was 
+also wrong. These assumptions were a result of only using one phone when developing and designing
+the game. Unlike \emph{Can you see me now?} which gave every GPS player the same device \citep{canyouseeme},
+I made my participants use their own phones. This meant that the GPS errors could be affected by the
+range of quality in sensors and antennas within the phone. 
+
+%========================================================================================================================
 \chapter{Phase 2 Design and Implementation}
 \label{phase2design}
 
@@ -1108,12 +1137,13 @@ updates their location every 2 seconds and the powerup would only show the chase
 a point in setting up another action in the WebSocketActions class. Therefore I just created the "/chaserLocation"
 endpoint where I simply get the location from the database and send the latitude and longitude in a JSON object.
 
+%======================================================================================================================================
 \chapter{Phase 2 Evaluation}
 \label{phase2evaluation}
 
 \section{Overview}
 Two weeks after the first phase of evaluations, I made improvements to the overall design (See chapter \ref{phase2design} for an overview
-of what has changed). The format of the evaluation was similar to the first, with the same participants. For this evaluation I especially
+of what has changed). The format of the evaluation was similar to the first, with the same participants. For this evaluation, I especially
 wanted to test if my improvements had fixed the problems raised in the first phase. These are the ranges in accuracy between different
 phones and the catching mechanic being affected by multipath errors. Another feature that I was testing out was the brand new powerup
 system that I created. The next few subsections will examine whether the improvements succeeded or not.
@@ -1359,6 +1389,7 @@ be in more danger of being caught as time goes on.
 \chapter{Phase 1 Qualitative Data}
 
 \section{Do you feel that there were any balance issues in the game?}
+\label{phase1balance}
 
 \begin{itemize}
     \item Only balancing issue I think was the duration of the jail time and the difference between the GPS accuracy in the phones.
@@ -1371,6 +1402,7 @@ be in more danger of being caught as time goes on.
 \end{itemize}
 
 \section{Do you have any other comments, feature ideas or feedback?}
+\label{phase1comments}
 
 \begin{itemize}
     \item Do you have any other comments, feature ideas or feedback?
