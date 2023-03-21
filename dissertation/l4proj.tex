@@ -206,11 +206,18 @@ satellites. Therefore in urban areas with high-rise buildings, one or more satel
 using this concept then the game would be best played in dense urban areas.
 
 \subsection{Multipath Error}
+\begin{figure}
+    \centering
+    \includegraphics[width=1.00\linewidth]{images/multipath.pdf}
+    \caption{A diagram showing the multipath error. A GPS satellite sends a signal down to the earth's surface. However in urban areas, obstacles such as buildings
+    can reflect these signals. This leads to an inaccurate distance calculation which leads to a significant error when calculating coordinates.}
+    \label{fig:multipath}
+\end{figure}
 Another factor which may affect the accuracy of a GPS error signal is a type of error called Multipath. This kind of error is particularly
 common in urban areas. When a satellite signal goes towards a building, the signal will bounce off it and go into a different route to the
 sensor rather than going in a direct route. As a result, the GPS coordinates may be considered to be further away than initially thought.
 This is because the signal will take longer to find the sensor which means that the sensor will think that the true location is further than
-initially thought.
+initially thought. The diagram on figure \ref{fig:multipath} gives a visual view of how a multipath error can occur.
 
 Some ways to mitigate a multipath error are to go into a more open area or to have a different and improved design
 of antenna \citep{Kos2010}. Another way to mitigate a multipath error is to use the 
@@ -465,14 +472,13 @@ Since a lot of the game will have a lot of multiplayer features, it was importan
 was robust to ensure that no player would have an unfair advantage when playing the game. Some examples of messages that the server
 could give the user include:
 
-\subsubsection{CONNECT}
-This message connects the user to the server. The server will then send over a user id.
+\begin{itemize}
+    \item \textbf{CONNECT} This message connects the user to the server. The server will then send over a user id.
+    \item \textbf{NEW\_TYPE} This is triggered if either a new user connects to the server or if a user is caught. The server will keep track of whether a player is a runner or a chaser.
+    \item \textbf{PLAYER\_CAUGHT} As the name suggests, this will be triggered when the runner has been caught. The server will then move the
+\end{itemize}
 
-\subsubsection{NEW\_TYPE}
-This is triggered if either a new user connects to the server or if a user is caught. The server will keep track of whether a player is
-a runner or a chaser.
 
-\subsubsection{PLAYER\_CAUGHT}
 \section{Mechanics}
 In this section, I go over the various mechanics that I have designed for the game
 
