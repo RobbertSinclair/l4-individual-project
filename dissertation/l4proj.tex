@@ -577,7 +577,18 @@ The second and third frames in \ref{fig:phase1uidesign} show what happens when t
 caught. The plan would be that the third frame will include several different messages like whether a player has joined or left the
 game, to inform the player that the game has ended or to inform the player of what player type they are. 
 
+\section{Summary}
+To summarise, in this chapter I set out the main mechanics of my game. In this phase, I utilised the idea of seamful design
+by having the GPS error rate at the forefront of the user interface. I made sure that the design of the game rewarded the player
+by making them invisible whenever their error reading was above 6 metres. The thin-layered client architecture ensured that the
+mobile app could send location data more often, allowing the user to get constant feedback on their signal in different locations.
+Also, my design of the chaser screen means that the chaser will always get an idea of a runner's location, but when the error radius
+increases, the marker will stay stationary. This further rewards runner players for finding a location where their GPS accuracy
+has decreased.
 
+Since this is the first phase of design, I mainly focused on the core mechanics of the game. In further phases of development I
+built more features based on the user feedback I received during my evaluation. For the design of further mechanics and improvements,
+please read chapter \ref{phase2design} where I go over my design and implementation during phase 2.
 
 
 %==================================================================================================================================
