@@ -394,6 +394,21 @@ of Glasgow University. The main reason for this was that I found lots of shadows
 that players had a lot of places to hide like the cloisters or the University chapel. I also felt that
 the area was small enough to keep the game exciting for shorter games.
 
+\section{Requirements}
+Since this project is a game about exploring the ranges in GPS accuracies, I felt
+that it wasn't appropriate to use the traditional requirements model. Instead, I planned to take an
+iterative approach to designing, implementing and evaluating my product. As a consequence of this,
+my requirements for the game changed over time based on user feedback and other observations over
+the course of the project. I felt that it was better to expose my project to multiple people and
+let them have some ideas on where they think the game should go in terms of mechanics. While I didn't
+make any formal requirements at this stage, some constraints that I added for my initial game design were:
+
+\begin{enumerate}
+    \item The game should be played over a short period of time. This is because I planned to evaluate the game with students who will have busy schedules.
+    \item The game should be played between two or more players. I felt that a single-player game would not have been as fun as one played with friends.
+    \item A player had to have some element of visibility based on their GPS accuracy. 
+\end{enumerate}
+
 %==================================================================================================================================
 \chapter{Phase 1 Design}
 \label{phase1design}
@@ -1087,11 +1102,11 @@ They found that a high ratio would mean that the sensor is in direct view of a s
 the signals were more likely to be obstructed by buildings, trees and other obstacles \citep{uberGPS}. While using a 3D map
 to improve the catching mechanic is out of the scope of the project, I will take the idea of getting the average SNR. I will
 now dynamically increase and decrease the catch radius by dividing 5 from the average ratio (as a number between 0 and 1). The idea
-was that if two players are closer together, a catch will be more likely to be registered.
+was that if two players are closer together, a catch will be more likely to be registered. Figure \ref{fig:snrcatching} gives a
+visualisation of this design and also goes into further detail on the calculations.
 
 \subsection{Implementation}
-To implement this feature, I implemented the phase 2 design that I had discussed in section \ref{phase2catching}. To implement this design
-I decided to create a new class in the GPS package called GPSCatchRadius. Using the LocationManager API in the standard
+To implement this design, I decided to create a new class in the GPS package called GPSCatchRadius. Using the LocationManager API in the standard
 android library, I was able to get an array of visible satellites. From then it was trivial to
 get the noise ratio by using the getCn0DbHz method provided by the LocationManger API \citep{locationManager}. With all
 the noise ratios, I took the mean and then normalized it so that it was on a scale between 0 and 1. Once that was done,
@@ -1159,6 +1174,7 @@ the WebSocket system for all other client communications. My main reasoning for 
 updates their location every 2 seconds and the powerup would only show the chaser for 3, there wouldn't have been
 a point in setting up another action in the WebSocketActions class. Therefore I just created the "/chaserLocation"
 endpoint where I simply get the location from the database and send the latitude and longitude in a JSON object.
+Upon receiving the JSON data, the app displays the marker on the map.
 
 %======================================================================================================================================
 \chapter{Phase 2 Evaluation}
