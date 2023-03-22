@@ -466,7 +466,7 @@ Then once that is done, the GPS Listener will start to fetch the GPS coordinates
 to the User Interface so that the map is updated with the user's location. The GPS coordinates are then sent to the Communication
 class where they are sent to the server.
 
-\subsection{Client Server Communication}
+\subsection{Communication between the client and the server}
 \label{communication}
 Since a lot of the game will have a lot of multiplayer features, it was important that the network side of the game
 was robust to ensure that no player would have an unfair advantage when playing the game. Some examples of messages that the server
@@ -474,11 +474,20 @@ could give the user include:
 
 \begin{itemize}
     \item \textbf{CONNECT} This message connects the user to the server. The server will then send over a user id.
-    \item \textbf{NEW\_TYPE} This is triggered if either a new user connects to the server or if a user is caught. The server will keep track of whether a player is a runner or a chaser.
-    \item \textbf{PLAYER\_CAUGHT} As the name suggests, this will be triggered when the runner has been caught. The server will then move the
+    \item \textbf{DISCONNECT} This will broadcast to every other user when a player disconnects from the server. The server will still keep their data for another minute before deleting it.
+    \item \textbf{NEW\_TYPE} This is triggered if either a new user connects to the server or if a user is caught. The server will keep track of whether a player is a runner or a chaser. This message is also sent
+    to the runner and the chaser in the event of capture.
+    \item \textbf{SYNC\_TIME} Sometimes a phone's timer might be out of sync. This can lead to an unfair disadvantage. The server will therefore have it's own tracker of the game time and will send a message to sync it's time with the other phones.
 \end{itemize}
 
+All of these messages will be sent using a standard data format. One key in this data format that will always be present is the
+'message' key. This will store the message that we can use to notify the user about any changes in the game. For example, a 
+\textbf{NEW\_TYPE} operation will store a 'You have been caught' message which can be displayed on the User Interface.
 
+Since I wanted to make a multiplayer game, It was crucial that I had a good system for communicating between the client and the server
+in real-time. If I were to have a standard request-based system, the server may not handle the amount of traffic. Therefore for my implementation,
+I need to ensure that my server and client can maintain a constant connection. This allows the server to send more data within a short amount of
+time due to a decrease of unnecessary traffic.
 \section{Mechanics}
 In this section, I go over the various mechanics that I have designed for the game
 
@@ -1058,7 +1067,15 @@ made the game rather confusing for the players. Therefore I decided that I would
 to green and I left the marker colour red for any other players. 
 
 \section{Catching}
-
+\begin{figure}
+    \centering
+    \includegraphics[width=1.00\linewidth]{images/snr_adjustment.pdf}
+    \caption{A diagram showing the main design of the new catching mechanic. When a GPS sensor receives a signal from the satellite,
+    it calculates a satellite noise ratio or (SNR). Since a low noise ratio is an indicator that a satellite's signal is not direct, 
+    we can use the mean SNR to increase or decrease our catch radius. In this example, we have three satellites with noise ratios.
+    We get a mean of 0.5 from these three satellites. We then divide 5 by our mean to get an adjusted catch radius of 10 metres. }
+    \label{fig:snrcatching}
+\end{figure}
 \subsection{Design}
 \label{phase2catchingdesign}
 During my Phase 1 evaluation I noticed that the design mentioned in section \ref{catching} was not as suitable due to 
