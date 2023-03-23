@@ -481,6 +481,11 @@ Then once that is done, the GPS Listener will start to fetch the GPS coordinates
 to the User Interface so that the map is updated with the user's location. The GPS coordinates are then sent to the Communication
 class where they are sent to the server.
 
+\subsection{Server and Database Design}
+As I mentioned in an earlier section, the game will have a thin-client design. As a result, a lot of the game logic and
+management will be held on the server and my database. During the course of the game, I will only need two schemas. These
+are the \textit{GPSShadows} schema and the \textit{players} schema. 
+
 \subsection{Communication between the client and the server}
 \label{communication}
 Since a lot of the game will have a lot of multiplayer features, it was important that the network side of the game
@@ -490,9 +495,18 @@ could give the user include:
 \begin{itemize}
     \item \textbf{CONNECT} This message connects the user to the server. The server will then send over a user id.
     \item \textbf{DISCONNECT} This will broadcast to every other user when a player disconnects from the server. The server will still keep their data for another minute before deleting it.
+    \item \textbf{START\_GAME} When a user opens up the app, they will be greeted by a 'Start Game' Button. As the name sugggests,
+    this message will start the game for all clients. It will also initialise the logging system which is vital for my evaluations.
+    \item \textbf{END\_GAME} As the name suggests, this operation is triggered when either one client runs out of time or the server
+    does. It resets the client screen so that the 'Start Game' button is shown on the phone screen. It also disables the logging system
+    for that particular game.
     \item \textbf{NEW\_TYPE} This is triggered if either a new user connects to the server or if a user is caught. The server will keep track of whether a player is a runner or a chaser. This message is also sent
     to the runner and the chaser in the event of capture.
-    \item \textbf{SYNC\_TIME} Sometimes a phone's timer might be out of sync. This can lead to an unfair disadvantage. The server will therefore have it's own tracker of the game time and will send a message to sync it's time with the other phones.
+    \item \textbf{END\_JAIL} As well as the overall game time, the server will have it's own tracker on the 'Jail Time' Tracker. Therefore once either a player's Jail time runs out or the server runs
+    out of time, this message is sent out to end the Jail time for every player.
+    \item \textbf{SYNC\_TIME} Sometimes a phone's timer might be out of sync. This can lead to an unfair disadvantage. The server will therefore have it's own tracker of the game time and will send a message to sync its time with the other phones.
+    \item \textbf{LOCATION} This is the most important communication that is sent by the client. This message 
+    includes the latitude and longitude coordinates and also the size of the error size. To ensure that the server knows what player is sending the message, the client will send the id it received from the \textbf{CONNECT} message. 
 \end{itemize}
 
 All of these messages will be sent using a standard data format. One key in this data format that will always be present is the
