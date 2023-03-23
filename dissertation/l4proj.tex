@@ -459,7 +459,7 @@ be calculated as the person who was the runner for the most amount of time in to
 \section{Architecture}
 \label{phase1architecture}
 The game utilised a Client-Server Architecture with the client being a smartphone with a GPS or
-GNSS sensor. Several clients will be connected using a WebSocket. The smartphone will get the GPS data including the
+GNSS sensor. The smartphone acquired the GPS data including the
 latitude, longitude and error rating before sending it to the server. The location data will also be sent 
 to the UI where the user's overall position will be updated. Through the WebSocket, the phone will send the GPS data
 to the server which will save the user's location onto a geospatial database. Depending on certain conditions, the data
@@ -484,7 +484,7 @@ to the User Interface so that the map is updated with the user's location before
 \subsection{Server and Database Design}
 \label{databaseDesign}
 As I mentioned in an earlier section, the game will have a thin-client design. As a result, a lot of the game logic and
-management were held on the server and my database. During the course of the game, I will only need two schemas. These
+management was held on the server and my database. During the course of the game, I will only need two schemas. These
 are the \textit{GPSShadows} schema and the \textit{players} schema. The \textit{GPSShadows} schema will store the latitude
 and longitude coordinates of all of the GPS shadows that I found during my analysis in chapter \ref{analysis}. The 
 \textit{players} schema will store the player's id, their GPS coordinates, their GPS accuracy and their player type which is
@@ -504,8 +504,8 @@ function and so it was not necessary to overcomplicate the design.
 
 \subsection{Communication between the client and the server}
 \label{communication}
-Since a lot of the game will have a lot of multiplayer features, it was important that the network side of the game
-was robust to ensure that no player would have an unfair advantage when playing the game. Since I will be using a
+Since the game had a lot of multiplayer features, it was important that the network side of the game
+was robust enough to ensure that no player would have an unfair advantage when playing the game. Since I will be using a
 real-time communication system, I needed to design labels for various operations that I will need for the game. These operations are:
 
 \begin{itemize}
@@ -539,7 +539,7 @@ In this section, I go over the various mechanics that I have designed for the ga
 \subsection{Player Types}
 \label{playertypes}
 When the player joins the game, they will be assigned to one of two player types. These are the "Chaser" or the "Runner".
-The role of the Chaser is to catch a runner as described in section \ref{catching}. When the catcher does this they give the role of chaser to the runner. The Chaser
+The role of the Chaser is to catch a runner as described in section \ref{catching}. When the catcher does this they swap roles. The Chaser
 will be able to see the real-time locations of any runner in the game.
 
 The goal of a Runner is to avoid being caught by the Chaser as mentioned before. The Runner will not have a real-time
