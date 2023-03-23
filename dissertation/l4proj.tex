@@ -828,9 +828,9 @@ too much disruption to the gameplay as a player wouldn't be able to travel as fa
 
 The other main class is the GPSListener, this class implements the LocationListener interface from the LocationManager
 API. This allows me to define what this class does whenever a location updates. My implementation of the listener was
-to get the latitude, longitude and accuracy from the location reading. I then put it into a JSON object with the type
-of LOCATION. Once that JSON object is created, I then send the location through the WebSocket class. The main reason why
-I included the accuracy was so that the server could determine whether I was in a shadow or not.
+to get the latitude, longitude and accuracy from the location reading. I then put it into a JSON object which triggers a
+\textbf{LOCATION} operation. Once that JSON object is created, I then send the location through the WebSocket class. The main reason why
+I included the accuracy was that the server could determine whether I was in a shadow or not.
 
 
 \section{Server Side}
@@ -898,7 +898,7 @@ next paragraph will go over the various "collections" that I created to implemen
 As I mentioned in section \ref{implementationDatabase}, what would be a table in SQL-based databases are known as collections in MongoDB.
 In my project, I made use of three main collections. These were "players", "gpsShadows" and "games". When a game is being played, the most
 important collection is the "players" collection. When a player is connected, a query is sent to this collection which gives back a player id.
-We then add the id to the sender's "client" object. This means we can query the right player in the database, I also store the players state,
+We then add the id to the sender's "client" object. This means we can query the right player in the database, I also store the player's state,
 current location and phone manufacturer (the last one is mainly for logging purposes). If a player was to disconnect, the server will give
 them 30 seconds to reconnect before the data is deleted. I put this failsafe in because I would get errors from my phone app saying
 that it disconnected from the WebSocket after 5 minutes.
@@ -982,7 +982,7 @@ a runner before they entered the cloisters.
 \label{phase1errorrange}
 One of the things that I wanted to see was whether the GNSS accuracies on different phones would be consistent or whether they would vary more.
 When I was doing my initial walks finding GNSS Shadows, I only used my phone (A Samsung Galaxy S21 FE) to get readings. Figure \ref{fig:galaxys21}
-shows the ranges in the Error ratings. From the graph, I can see that when this phone is in a relatively open area, the error rate remains constant at around 3.8 meters. There
+shows the ranges in the Error ratings for the galaxy S21. From the graph, I can see that when this phone is in a relatively open area, the error rate remains constant at around 3.8 meters. There
 are only a few peaks throughout the game. Through experience, this only happens when I go into buildings, under bridges or in standing near high-rise buildings. 
 When developing the game I thought that an error of 6 meters or more would have been the threshold for whether a player was in a GPS Shadow or not as I
 assumed that it would be constant for every phone.
@@ -1003,17 +1003,16 @@ The best way to do this is to consider the median value or the lowest value and 
 Another major thing that I wanted to was to see whether the catching mechanic (Please see section \ref{catching} for more details on how this works)
 was working as intended. I feel that this part of the evaluation had some mixed results. The problems mentioned in section
 \ref{phase1errorrange} caused problems in this part of the game as well. Mainly because I had implemented it so that if the
-runner was in a GPS Shadow, the catcher could not catch the player. Another thing that I noticed was that when two players
+runner was in a GPS Shadow, they would be protected from being caught. Another thing that I noticed was that when two players
 were immediately next to each other, their GPS coordinates would be outside the 5-metre radius. This meant that with a lot of
 games, there were a few lost seconds while the participants tried to move themselves to see if they could catch each other.
 My theory as to why this happened would have been due to the multipath error. This issue came up the most around the Quadrangles
 of the main building. Meanwhile, the catching system worked better around the Flagpole.
 
 The problems that I found regarding the catching mechanic tell me that I need to make two improvements in this area. For one
-thing, the catching radius needs to be increased. The 5-metre radius was too small for a catch to be registered in most cases. Therefore
-I will look into expanding the radius to 30 metres to account for any multipath problems. The second improvement that I will
-make is I will remove the requirement for the runner to be in a high accuracy area, this is because once when I was a chaser,
-I found the runner in a shadow area and I couldn't catch them until we moved into a more open area.
+thing, the catching radius needs to be increased. The 5-metre radius was too small for a catch to be registered in most cases. This led
+me to prioritise creating a dynamic sizing radius in phase 2. Another improvement that I considered was to remove the requirement for the runner to be in a high-accuracy area to be caught. 
+This is because once when I was a chaser, I found the runner in a shadow area and I couldn't catch them until we moved into a more open area.
 
 \subsection{Survey Results}
 \label{phase1survey}
@@ -1123,7 +1122,8 @@ iteration of development.
 The smallest change in this phase was in response to feedback raised in the survey of the first evaluation. This was mainly
 because, in the first phase of development, I used the default marker icon from the Google Maps SDK. This
 made the game rather confusing for the players. Therefore I decided that I would change the colour of the player marker
-to green and I left the marker colour red for any other players. 
+to green and I left the marker colour red for any other players. Figures \ref{fig:phase2_ui_chaser} and \ref{fig:phase2_ui_runner}
+show the new UI design with the new player markers.
 
 \section{Catching}
 \begin{figure}
@@ -1138,7 +1138,7 @@ to green and I left the marker colour red for any other players.
 \subsection{Design}
 \label{phase2catchingdesign}
 During my Phase 1 evaluation I noticed that the design mentioned in section \ref{catching} was not as suitable due to 
-multipath errors(see section \ref{phase1catching} for more details). The main problem was that if the catcher tried
+multipath errors (see section \ref{phase1catching} for more details). The main problem was that if the catcher tried
 to catch a player, they would have to move around before it would register. For phase 2 I will make a more dynamic design
 where the catch radius will increase or decrease depending on how likely a multipath error was able to occur. Uber found
 a way to improve their GPS accuracy by making use of the signal-noise ratio of each satellite and comparing it to a 3D map.
@@ -1445,21 +1445,6 @@ updates and track a player's location in real-time.
 %  APPENDICES  
 
 \begin{appendices}
-
-\chapter{Phase 1 Design Ideas}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=\linewidth]{images/idea1.pdf} 
-    \caption{My rough paper draft of idea 1}
-    \label{fig:idea1}
-\end{figure}
-\begin{figure}
-    \centering
-    \includegraphics[width=\linewidth]{images/idea2.pdf} 
-    \caption{My rough paper draft of idea 2}
-    \label{fig:idea2}
-\end{figure}
 
 \chapter{Phase 1 Evaluation Graphs}
 
