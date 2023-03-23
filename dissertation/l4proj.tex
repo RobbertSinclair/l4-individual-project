@@ -805,7 +805,7 @@ screen. Since this message is sent often, the chaser can see an almost real-time
 are if they are in a high signal area.
 
 Another important operation in the WebSocketActions enum is the NewTypeOperation, this happens when the player has received
-a NEW\_TYPE operation. This typically happens when the player is caught by the chaser or if the current chaser disconnects.
+a \textbf{NEW\_TYPE} operation. This typically happens when the player is caught by the chaser or if the current chaser disconnects.
 When this operation is executed, the player is informed of what new player type has been created. Then it starts the "Jail Time" to ensure that the catching mechanic is disabled for the next 30 seconds. This is to ensure that the
 chaser isn't able to instantly catch the runner again.
 
@@ -815,8 +815,7 @@ chaser isn't able to instantly catch the runner again.
 As part of my development, I ensured that any classes which had similar responsibilities would be in the same
 package. The other important package along with the WebSocket package is the GPS package. As the name suggests,
 these classes are responsible for getting the GPS data from the LocationManager API. The most important classes
-in this package are the GPSListener class and the GPSService class with the GPSCatchRadius class introduced in
-phase 2.
+in this package are the GPSListener class and the GPSService class.
 
 To start receiving GPS coordinates, I needed to ensure that the user has been given the right positions to
 allow the app to access them. While the app asks for permission in the MainActivity file, the GPSListener class
