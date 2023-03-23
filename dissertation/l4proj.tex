@@ -257,9 +257,9 @@ task that they could only do if they had a WiFi connection in their location. \c
 Over the years there have been several games that utilise GPS coordinates as a fundamental part of the game. In this section, I go over various
 games that used GPS as a core mechanic of the game.
 
-One of the first location games was \emph{Can you see me now? (CYSMN)} which was a mixed reality game made by blast theory. \citep{canyouseeme} The
+One of the first location games was \emph{Can you see me now? (CYSMN)} which was a mixed reality game made by Blast Theory. \citep{canyouseeme} The
 game was played over two days. Three runners would run around the streets of Sheffield
-and Rotterdam. The goal of the runners was to catch players who were moving around on a virtual map. During the analysis of tactics displayed in the game,
+and Rotterdam to catch online players on a map. During the analysis of tactics displayed in the game,
 \cite{canyouseeme} mentioned that the runners would have large ranges in GPS error which meant that some of the online players would get
 caught without being able to see anything. Eventually, the runners were able to take advantage of low GPS areas and were able to hide in shadow
 areas. Once that happened, the online players had to improve their tactics to ensure that they weren't caught.
@@ -301,7 +301,7 @@ In this section, I go over the main process that I used to come up with a design
     \label{fig:analysismap}
 \end{figure}
 I started my analysis by learning the basics of learning app development by creating an app that would keep track
-of GPS accuracy. The app started as just a screen with my latitude and longitude coordinates and my error rates.
+of GPS accuracy. The app started off as just a screen with my latitude and longitude coordinates and my error rates.
 Once I had this app up and running, I walked around various locations around the University of Glasgow campus and
 also briefly within the city centre. Some particular areas that I tried included more open areas like the Botanical
 Gardens and Kelvingrove park and the area surrounding the main building including the cloisters. I also wanted to test
@@ -322,7 +322,7 @@ accuracy.
 
 \subsection{FusedLocationProvider API}
 \label{fusedProvider}
-The first API I tried was the FusedLocationProvider API as this was the first one that I found. The FusedLocationProvider API combines both GPS and WiFi geolocation
+The first API I tried was the FusedLocationProvider API. The FusedLocationProvider API combines both GPS and WiFi geolocation
 techniques to try and create an optimal location \citep{fused}. This API allowed me to create a basic location app quickly so that I could start finding GPS locations
 within my local area. As figure \ref{fig:fusedhist} shows, the location data that I gathered was skewed towards values with an accuracy of less than 50 metres. While a lot of
 points were under the 20 metres area. However, as you can see, there was a decent amount of values above 50 meters meaning that the API picked up a lot of shadows.
@@ -393,7 +393,7 @@ the accuracy much either. I found that the best result for decreasing your GPS a
 under bridges or to go inside buildings. Using this information, I decided to pick the main building
 of Glasgow University. The main reason for this was that I found lots of shadows in that area. I figured
 that players had a lot of places to hide like the cloisters or the University chapel. I also felt that
-the area was small enough to keep the game exciting for shorter games.
+the area was small enough to keep the game exciting for shorter time periods.
 
 \section{Requirements}
 Since this project is a game about exploring the ranges in GPS accuracies, I felt
