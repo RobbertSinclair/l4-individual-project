@@ -484,7 +484,17 @@ class where they are sent to the server.
 \subsection{Server and Database Design}
 As I mentioned in an earlier section, the game will have a thin-client design. As a result, a lot of the game logic and
 management will be held on the server and my database. During the course of the game, I will only need two schemas. These
-are the \textit{GPSShadows} schema and the \textit{players} schema. 
+are the \textit{GPSShadows} schema and the \textit{players} schema. The \textit{GPSShadows} schema will store the latitude
+and longitude coordinates of all of the GPS shadows that I found during my analysis in chapter \ref{analysis}. The 
+\textit{players} schema will store the player's id, their GPS coordinates, their GPS accuracy and their player type which is
+stored as a boolean value. Any record stored in the \textit{Players} schema is stored temporarily, they will only exist while
+a game is in progress. If a player disconnects from the game and doesn't attempt to reconnect within a minute, their record gets
+deleted. This will also happen when the game ends. With both of these schemas, I needed to execute
+geospatial queries. Therefore my GPS coordinates will follow the correct geolocation standards for the database I have chosen.
+(Please refer to \ref{mongocollections} for further details on the topic of Geospatial queries)
+
+The other major job of the server will be to set up a logging system. This will keep track of the player's location, the accuracies
+over time and the time when they were a chaser and a runner.  
 
 \subsection{Communication between the client and the server}
 \label{communication}
