@@ -525,17 +525,18 @@ real-time communication system, I needed to design labels for various operations
 \end{itemize}
 
 All of these messages will be sent using a standard data format. One key in this data format that will always be present is the
-'message' key. This will store the message that we can use to notify the user about any changes in the game. For example, a 
+'message' key. This stores any user notifications to announce changes in the game. For example, a 
 \textbf{NEW\_TYPE} operation will store a 'You have been caught' message which can be displayed on the User Interface.
 
 Since I wanted to make a multiplayer game, It was crucial that I had a good system for communicating between the client and the server
 in real-time. If I were to have a standard request-based system, the server may not handle the amount of traffic. Therefore for my implementation,
-I need to ensure that my server and client can maintain a constant connection. This allows the server to send more data within a short amount of
-time due to a decrease of unnecessary traffic.
+I needed to ensure that my server and client can maintain a constant connection. This allows the server to send more data within a short amount of
+time because of a decrease in unnecessary traffic.
 \section{Mechanics}
 In this section, I go over the various mechanics that I have designed for the game
 
 \subsection{Player Types}
+\label{playertypes}
 When the player joins the game, they will be assigned to one of two player types. These are the "Chaser" or the "Runner".
 The role of the Chaser is to catch a runner as described in section \ref{catching}. When the catcher does this they give the role of chaser to the runner. The Chaser
 will be able to see the real-time locations of any runner in the game.
@@ -569,14 +570,13 @@ to give the new runners a head start to get out of the area. During this time, t
 around, but they won't have a view of the runner's location nor can they catch them. The runner will also get a message
 that the chaser is in jail time. I decided on 30 seconds because, in most urban areas, it is enough time to get out of
 eyesight from the chaser. I also knew that I needed to strike a balance between giving the runners enough time to get
-away but at the same time not being so much time that there is not enough time for the chaser to catch the runner. 
+away, but also short enough so that the chaser can have a fair chance of catching. 
 
 \subsection{Time Limit and Winning Condition}
 From the start, I felt that I needed to consider how long a game should last. I wanted the game to be fast and fun to
 play in a short amount of time since I was aiming at university students. Therefore for this phase of design, I decided
-on 15 minutes. The main reason why I picked this time is that it would be too long to go a long distance.
-This means that both the chaser and the runner will be within a very small area. The idea is that this will lead to
-a greater frequency of catches during the game.
+on 15 minutes. I picked that time length because it confines the game to a smaller area leading to more opportunities for
+confrontation. The idea was that this will lead to a greater frequency of catches during the game.
 
 For this phase of development, I wanted to keep the winning condition simple. Since I wanted to focus on defining the
 main mechanics of the game, I didn't have a lot of time to think about the condition in which a player could win the
@@ -602,9 +602,10 @@ wireframe, I show the overall view that a runner player would be able to see. In
 the red dots show the locations of the various shadow areas that I found during my analysis phase. The idea was that this would give the
 users an idea of what areas would be good to hide in.
 
-The second and third frames in \ref{fig:phase1uidesign} show what happens when the runner is in a shadow and whenever the runner has been
+The second and third frames in figure \ref{fig:phase1uidesign} show what happens when the runner is in a shadow and whenever the runner has been
 caught. The plan would be that the third frame will include several different messages like whether a player has joined or left the
-game, to inform the player that the game has ended or to inform the player of what player type they are. 
+game, to inform the player that the game has ended or to inform the player of what player type they are. These messages are sourced
+from the "message" key in the operations discussed in section \ref{communication}.
 
 \section{Summary}
 To summarise, in this chapter I set out the main mechanics of my game. In this phase, I utilised the idea of seamful design
@@ -612,7 +613,7 @@ by having the GPS error rate at the forefront of the user interface. I made sure
 by making them invisible whenever their error reading was above 6 metres. The thin-layered client architecture ensured that the
 mobile app could send location data more often, allowing the user to get constant feedback on their signal in different locations.
 Also, my design of the chaser screen means that the chaser will always get an idea of a runner's location, but when the error radius
-increases, the marker will stay stationary. This further rewards runner players for finding a location where their GPS accuracy
+increases, the marker will stay stationary. This further rewards the runner players for finding a location where their GPS accuracy
 has decreased.
 
 Since this is the first phase of design, I mainly focused on the core mechanics of the game. In further phases of development I
