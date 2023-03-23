@@ -483,7 +483,7 @@ class where they are sent to the server.
 
 \subsection{Server and Database Design}
 As I mentioned in an earlier section, the game will have a thin-client design. As a result, a lot of the game logic and
-management will be held on the server and my database. During the course of the game, I will only need two schemas. These
+management was held on the server and my database. During the course of the game, I will only need two schemas. These
 are the \textit{GPSShadows} schema and the \textit{players} schema. The \textit{GPSShadows} schema will store the latitude
 and longitude coordinates of all of the GPS shadows that I found during my analysis in chapter \ref{analysis}. The 
 \textit{players} schema will store the player's id, their GPS coordinates, their GPS accuracy and their player type which is
@@ -493,8 +493,13 @@ deleted. This will also happen when the game ends. With both of these schemas, I
 geospatial queries. Therefore my GPS coordinates will follow the correct geolocation standards for the database I have chosen.
 (Please refer to \ref{mongocollections} for further details on the topic of Geospatial queries)
 
-The other major job of the server will be to set up a logging system. This will keep track of the player's location, the accuracies
-over time and the time when they were a chaser and a runner.  
+The other major job of the server was to set up a logging system. This keeps track of the player's location, the accuracies
+over time and the amount of time that they were either a runner or a chaser. This allowed me to look at vital quantitative data
+which helped me figure out further designs that I could include in further iterations of the game. As part of my design for this
+phase of development, the server will only be able to handle one game running at a time. Therefore my logging system will only
+have to log the locations of the other players logged into the system. Consequently, my database does not have a relational
+design. This is because as well as there only being one game playing at a time, the schemas do not depend on each other to
+function and so it was not necessary to overcomplicate the design. 
 
 \subsection{Communication between the client and the server}
 \label{communication}
