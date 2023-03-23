@@ -99,8 +99,9 @@ take advantage of drops in accuracy to evade capture during their Mixed Reality 
 created using the idea of Seamful design, a concept first thought of by Mark Weiser in
 1994. In his talk, \cite{weiser1994} stated that instead of hiding most limitations in 
 a system, we should design systems to be open about them and even exploit them. \emph{Treasure},
-created by \cite{Barkhuus2005} took inspiration from \emph{Can you see me now?} and \cite{weiser1994}
-to create a game that exposed differences in WiFi to alter the difficulty of collecting coins.
+created by \cite{Barkhuus2005} took inspiration from \emph{Can you see me now?} and \cite{weiser1994}.
+Creating a game that intentially exposed limitations in both WiFi and GPS coordinates to create
+a competitive game where two teams collected coins or stole them from other players.
 
 The ideas of seamful design allow us to play with limitations that we would usually want to fix
 and hide. It further allows us to push positioning technologies to the limits. It
@@ -159,8 +160,6 @@ these are L1 which emits at 1575.42 MHz, L2 which emits radio waves at 1227.6 MH
 will most likely be using L2 and L1 as L5 is used mainly for aviation safety \citep{Xu2016} A GPS receiver will pick up this data and can use the clock signals to calculate the distance from each satellite. Once a 
 satellite distance is calculated we can create a radius of equidistant points. We can then add the signals from several other
 satellites to find the intersection points. We usually need 3 to 4 satellites to be able to pinpoint the GPS receiver on the map. \citep{Rabbany2006}
-
-
 
 %TODO - Add a source and paragraph about how GPS is calculated
 
@@ -248,8 +247,9 @@ that we should find "Beautiful seams" which will let every system be "itself". S
 to be aware of the limitations of their device, for example, the estimated battery life on a phone or laptop screen. If we were
 to take a seamless approach by deciding not to show the battery life, we wouldn't know when to charge our phone. In the context of GPS, this usually means 
 to try and embrace the idea that GPS accuracy can vary based on the type of phone, the area you are in or the GPS clock error. For example 
-\emph{Treasure}, a game made by the University of Glasgow, had a coin collection mechanic where the difficulty of collecting
-a coin varied on how strong their WiFi signal was. \citep{Barkhuus2005}
+\emph{Treasure}, a game made by the University of Glasgow, had a coin collection mechanic where a player could pickup coins using their GPS 
+coordinates. However in order to keep their coins safe, they had to 'upload' their coin to a treasure chest. A
+task that they could only do if they had a WiFi connection in their location. \citep{Barkhuus2005}
 
 \section{Related Products}
 \label{relatedproducts}
